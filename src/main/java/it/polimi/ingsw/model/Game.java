@@ -57,11 +57,6 @@ public class Game {
 
     }
 
-    public static void main(String[] args) {
-        Game game = Game.getInstance();
-        System.out.println(game.bag.get(StudColor.RED));
-
-    }
 }
 
 
