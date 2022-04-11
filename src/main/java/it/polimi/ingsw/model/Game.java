@@ -21,7 +21,7 @@ public class Game {
          * initialize bag and random order of player. round starts from 1
          */
         this.bag = buildBag();
-        this.currentOrder = startPlayersandOrder(); //give a starting random playerOrder to the game
+
         this.round = 1;
 
 
@@ -33,16 +33,6 @@ public class Game {
         }
         return game;
 
-    }
-
-    private static List<Player> startPlayersandOrder(){
-        /**
-         * for as many as numplayers,
-         * ask to the players their name and initialize the players.
-         * then will make the game.playerorder randomly and return it
-         */
-
-        return null;
     }
 
     private static HashMap<StudColor, Integer> buildBag(){
@@ -57,6 +47,16 @@ public class Game {
 
     }
 
+
+
+
+    //BELOW THIS ALL GETTER AND SETTERS
+    public void setCurrentOrder(List<Player> currentOrder) {
+        this.currentOrder = currentOrder;
+    }
+    public List<Player> getCurrentOrder() {
+        return currentOrder;
+    }
 }
 
 
