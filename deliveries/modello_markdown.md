@@ -46,7 +46,7 @@ Valutazione del diagramma UML delle classi del gruppo 53.
   - Method: mergeIslands(index1: int, index2: int): void
   - Using a list of Island is better? (mergeIslands(List<Island>))
 - We don’t think towers are managed properly:
-  - Can you make an array of enums? We thought an enum has only a specified number of instances
+  - Can you make an array of enums? We thought an enum has only a specified speed of instances
   - Would be best to only store a int in the School and TOWER as attribute in the Player
 - Suggestion
   - Bag can be in GameState class

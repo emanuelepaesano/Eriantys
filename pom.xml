@@ -4,7 +4,7 @@
 
   <!-- The groupId must be the same for everybody -->
   <groupId>it.polimi.ingsw</groupId>
-  <!-- Change the artifactId depending on your group number
+  <!-- Change the artifactId depending on your group speed
            (example: group 99 will have artifactId PSP99 -->
   <artifactId>PSP54</artifactId>
 
