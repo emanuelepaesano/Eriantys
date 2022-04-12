@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.TowerColor;
 import java.util.*;
 
 public class GameController {
-
+    private Game game;
     /**
      * In the constructor we can put the methods to inizialize the game.
      * Our main will call the constructor of this class to start the game
@@ -15,12 +15,12 @@ public class GameController {
     public GameController() {
         int numplayers = AskForPN();
         Game game = Game.getInstance(numplayers); //initializes the game, because it's the first call
+        this.game = Game.getInstance(numplayers);
         // TODO: 12/04/2022 might consider moving some of these to a PlayerController,
         //  since we need to initialize also a diningroom and entrance for every player
-        List<Player> startingOrder = startPlayersandOrder(numplayers); //give a starting random playerOrder to the game
+        List<Player> startingOrder = startPlayersandOrder(numplayers, game); //give a starting random playerOrder to the game
         game.setCurrentOrder(startingOrder);
         //we also need a random table_order to determine what going "clockwise" means
-
         askAllForTC(game);
         askAllForWiz(game);
 
@@ -50,16 +50,18 @@ public class GameController {
      * This one may be moved to a playerController, or maybe from this we make the playercontroller
      * instead
      */
-    private static List<Player> startPlayersandOrder(Integer numplayers){
+    private static List<Player> startPlayersandOrder(Integer numplayers, Game game){
         ArrayList<Player> startingOrder = new ArrayList<>();
         for (int i=0; i<numplayers; i++){
-            Player player = new Player(i+1);
-            player.setTowers(numplayers==3 ? 6 : 8);
-            startingOrder.add(player);
+            PlayerController pc = new PlayerController(i+1, game);
+            pc.player.setTowers(numplayers==3 ? 6 : 8);
+            startingOrder.add(pc.player);
         }
         Collections.shuffle(startingOrder);
         return startingOrder;
     }
+
+
 
     /**
      * Cycles through players and asks them a color.
@@ -87,7 +89,11 @@ public class GameController {
 
     public static void main(String[] args) {
         // Test for the game controller
-        new GameController();
+        GameController gc = new GameController();
+        for (Player p : gc.game.getCurrentOrder()){
+            System.out.println(p.getPlayerName() +" has this in the entrance:" + p.getEntrance().toString()
+            + ";\n these in the tables:" + p.getDiningRoom().getTables());
+        }
 
 
     }

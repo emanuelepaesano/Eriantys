@@ -3,20 +3,21 @@ package it.polimi.ingsw.model;
 import java.util.*;
 
 public class Player {
-    private int id ;
-    private String playerName;
+    private final int id ;
+    private final String playerName;
     private TowerColor towerColor;
     private Integer wizard;
     private DiningRoom diningRoom;
+    private Entrance entrance;
     private Integer towers;
     private Map<Assistant, Boolean> assistants;
 
-    public Player(int id) {
+    public Player(int id, DiningRoom diningRoom, Entrance entrance) {
         this.id = id;
         this.playerName = askPlayerName();
         this.assistants = buildDeck();
-        this.diningRoom = new DiningRoom();
-        this.towers = null; //only initialization, the game controller will change it immediately
+        this.diningRoom = diningRoom;
+        this.entrance = entrance;
     }
 
     private TreeMap<Assistant, Boolean> buildDeck(){
@@ -116,5 +117,17 @@ public class Player {
     }
     public Integer getTowers() {
         return towers;
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public DiningRoom getDiningRoom() {
+        return diningRoom;
+    }
+
+    public Entrance getEntrance() {
+        return entrance;
     }
 }

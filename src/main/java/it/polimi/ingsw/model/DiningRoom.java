@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DiningRoom {
-    // TODO: 12/04/2022 reference to player 
+    // TODO: 12/04/2022 reference to player
+    //  we may not need it for now
     /**
      * la scuola deve avere un ingresso e una sala. la sala ha 5 tavoli,
      * uno per ogni colore. possono essere solo una map.
@@ -43,5 +44,9 @@ public class DiningRoom {
             professors.put(sc,false);
         }
         return professors;
+    }
+
+    public Map<StudColor, Integer> getTables() {
+        return tables;
     }
 }
