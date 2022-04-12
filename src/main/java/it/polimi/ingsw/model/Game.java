@@ -8,7 +8,7 @@ import java.util.*;
  */
 public class Game {
     private static Game game = null;
-    private Integer numPlayers;
+    private int numPlayers;
 //    private List<Island> islandMap; //questa forse meglio con classe arcipelago
     private Player currentPlayer;
     private List<Player> tableOrder;
@@ -19,15 +19,17 @@ public class Game {
     /**
      * initialize bag and random order of player. round starts from 1
      */
-    private Game() {
+    private Game(int numPlayers) {
         this.bag = buildBag();
         this.round = 1;
+        this.numPlayers = numPlayers;
+
         // TODO: 11/04/2022 islands initialization
 
     }
-    public static Game getInstance(){
+    public static Game getInstance(int numplayers){
         if (game == null) {
-            game = new Game();
+            game = new Game(numplayers);
         }
         return game;
 
@@ -54,6 +56,9 @@ public class Game {
     }
     public List<Player> getCurrentOrder() {
         return currentOrder;
+    }
+    public Integer getNumPlayers() {
+        return numPlayers;
     }
 }
 

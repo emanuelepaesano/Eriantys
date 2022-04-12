@@ -14,18 +14,17 @@ public enum Assistant {
 
 
 
-    private final int speed;
+    private final int priority;
     private final int moves;
-    Assistant(int speed) {
-
-        this.speed = speed;
-        this.moves = (speed+1)/2;
+    Assistant(int priority) {
+        this.priority = priority;
+        this.moves = (priority+1)/2;
     }
 
 
     public static void main(String[] args) {
         for (Assistant a : Assistant.values())
-            System.out.printf("Your assistant %s can move with a speed of %d and move mother Nature %d steps \n",
-                    a, a.speed, a.moves);
+            System.out.printf("Your assistant %s can move with a priority of %d and move mother Nature %d steps \n",
+                    a, a.priority, a.moves);
     }
 }

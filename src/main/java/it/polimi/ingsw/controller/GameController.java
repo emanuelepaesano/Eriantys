@@ -13,8 +13,10 @@ public class GameController {
      * Our main will call the constructor of this class to start the game
      */
     public GameController() {
-        Integer numplayers = AskForPN();
-        Game game = Game.getInstance(); //initializes the game, because it's the first call
+        int numplayers = AskForPN();
+        Game game = Game.getInstance(numplayers); //initializes the game, because it's the first call
+        // TODO: 12/04/2022 might consider moving some of these to a PlayerController,
+        //  since we need to initialize also a diningroom and entrance for every player
         List<Player> startingOrder = startPlayersandOrder(numplayers); //give a starting random playerOrder to the game
         game.setCurrentOrder(startingOrder);
         //we also need a random table_order to determine what going "clockwise" means
@@ -43,13 +45,16 @@ public class GameController {
 
     /**
      *
-     * @param numplayers player number given
-     * @return initializes the players and returns a random starting order
+     * @param numplayers player number from askForPN
+     * @return initializes the players (and their tower number), returns a random starting order.
+     * This one may be moved to a playerController, or maybe from this we make the playercontroller
+     * instead
      */
     private static List<Player> startPlayersandOrder(Integer numplayers){
         ArrayList<Player> startingOrder = new ArrayList<>();
         for (int i=0; i<numplayers; i++){
             Player player = new Player(i+1);
+            player.setTowers(numplayers==3 ? 6 : 8);
             startingOrder.add(player);
         }
         Collections.shuffle(startingOrder);

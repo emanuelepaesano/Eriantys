@@ -7,7 +7,7 @@ public class Player {
     private String playerName;
     private TowerColor towerColor;
     private Integer wizard;
-    private School school;
+    private DiningRoom diningRoom;
     private Integer towers;
     private Map<Assistant, Boolean> assistants;
 
@@ -15,8 +15,8 @@ public class Player {
         this.id = id;
         this.playerName = askPlayerName();
         this.assistants = buildDeck();
-        // TODO: 11/04/2022  this.school = new School();
-       // this.towers = 6 or 8 depending on playernumber
+        this.diningRoom = new DiningRoom();
+        this.towers = null; //only initialization, the game controller will change it immediately
     }
 
     private TreeMap<Assistant, Boolean> buildDeck(){
@@ -111,4 +111,10 @@ public class Player {
         return wizard;
     }
 
+    public void setTowers(Integer towers) {
+        this.towers = towers;
+    }
+    public Integer getTowers() {
+        return towers;
+    }
 }
