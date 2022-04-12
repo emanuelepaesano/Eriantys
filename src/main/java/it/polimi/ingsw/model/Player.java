@@ -3,64 +3,100 @@ package it.polimi.ingsw.model;
 import java.util.*;
 
 public class Player {
-    private Integer id ;
+    private int id ;
     private String playerName;
     private TowerColor towerColor;
     private Integer wizard;
     private School school;
     private Integer towers;
-    private List<Assistant> assistants;
+    private Map<Assistant, Boolean> assistants;
 
-    public Player() {
+    public Player(int id) {
+        this.id = id;
         this.playerName = askPlayerName();
-        //this.towerColor = askTowerColor(ArrayList<>);
+        this.assistants = buildDeck();
         // TODO: 11/04/2022  this.school = new School();
        // this.towers = 6 or 8 depending on playernumber
     }
 
-    public int askWizard(ArrayList remainingWizards) {
-        System.out.println(this.playerName + ", please choose your wizard number among these: " + remainingWizards);
+    private TreeMap<Assistant, Boolean> buildDeck(){
+        TreeMap<Assistant,Boolean> tm = new TreeMap<>();
+        for (Assistant as : Assistant.values()) {
+            tm.put(as, true);
+        }
+        return tm;
+    }
+
+
+    //we have to show this only to one player at a time
+    private String askPlayerName() {
+        System.out.println("Player " + this.id + ", enter your nickname:");
+        return (new Scanner(System.in).nextLine());
+        //create an anonymous scanner from keyboard,
+        //ask the user for input and return.
+    }
+
+
+
+    public int askWizard(ArrayList<Integer> remainingWizards) {
+        System.out.println(this.playerName + ", choose your wizard number among these: " + remainingWizards);
         while (true) {
             int input = Integer.parseInt(new Scanner(System.in).nextLine());
             if (remainingWizards.contains(input)){
-                Object wiz = remainingWizards.get(remainingWizards.indexOf(input));
-                this.wizard = (Integer) wiz;
-                return (Integer) wiz;
+                Integer wiz = remainingWizards.get(remainingWizards.indexOf(input));
+                this.wizard = wiz;
+                return wiz;
             }
 
         }
     }
 
-    private String askPlayerName() {
-        System.out.println("enter your player name:");
-        return (new Scanner(System.in).nextLine());
-        //create an anonymous scanner from keyboard,
-        //ask the user for input and return
-    }
 
     /**
-     * @param remainingColors
+     * @param remainingColors the remaining colors, by the game controller
      * @return the TowerColor chosen by the player among the remaining ones
      */
     public TowerColor askTowerColor(ArrayList<TowerColor> remainingColors) {
-        System.out.println(this.playerName + ", please choose your tower color among the available ones: " + remainingColors.toString());
-        ArrayList<String> remColsString = new ArrayList<>();
-        for (TowerColor tc : remainingColors ){
-             remColsString.add(tc.asString());
-        }
+        System.out.println(this.playerName + ", please choose your tower color among the available ones: " + remainingColors);
         while (true) {
-            String input = new Scanner(System.in).nextLine();
-            String word = input.toUpperCase();
-            if (remColsString.contains(word)){
-                TowerColor c = remainingColors.get(remColsString.indexOf(word));
-                this.towerColor = c;
-                return c;
-            }
-            else{
-                System.out.println("Not an acceptable color, available colors are: "+ remainingColors.toString());
-            }
+            try {            String input = new Scanner(System.in).nextLine();
+                TowerColor choice = TowerColor.valueOf(input.toUpperCase());
+                if (remainingColors.contains(choice)){
+                    this.towerColor = choice;
+                    return choice;
+                }
+            } catch (IllegalArgumentException ignored) {}
+
+            System.out.println("Not an acceptable color, available colors are: "+ remainingColors.toString());
         }
     }
+
+
+    /**
+     * asks an assistant as input from those remaining, turns it to false in the map and returns it.
+     * This way the GameController will then join all the played assistants and choose the new playerOrder
+     */
+    public Assistant playAssistant(){
+        ArrayList<Assistant> remass = new ArrayList<>(); //list of remaining assistants
+        for (Assistant key: this.assistants.keySet()){
+            if (this.assistants.get(key)){
+                remass.add(key);
+            }
+        }
+        while (true) {
+            System.out.println(this.playerName + ", play one of your remaining assistants (speed value): " + remass);
+            String input = new Scanner(System.in).nextLine();
+            try {
+                Assistant choice = Assistant.valueOf(input.toUpperCase());
+                if (remass.contains(choice)){
+                    this.assistants.replace (choice, true, false);
+                    return choice;
+            }
+            } catch (IllegalArgumentException ignored) {} //cosi è eccellente, devo farlo anche nelle altre
+            System.out.println("Not a valid assistant, take one from the list: " + remass);
+            }
+        }
+
 
 
 
@@ -74,4 +110,5 @@ public class Player {
     public Integer getWizard() {
         return wizard;
     }
+
 }

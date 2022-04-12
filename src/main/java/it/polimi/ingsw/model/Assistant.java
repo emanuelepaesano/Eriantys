@@ -1,16 +1,31 @@
 package it.polimi.ingsw.model;
 
-//I think this can be an enum, with the 1...10 assistants and that's it.
-//the player can then have a map <assistant,bool> to show the asssistants
+public enum Assistant {
+    ONE (1),
+    TWO (2),
+    THREE(3),
+    FOUR(4),
+    FIVE(5),
+    SIX(6),
+    SEVEN(7),
+    EIGHT(8),
+    NINE(9),
+    TEN(10);
 
-public class Assistant {
-    Integer speed;
-    Integer movements;
 
-    public Assistant(Integer speed) {
+
+    private final int speed;
+    private final int moves;
+    Assistant(int speed) {
+
         this.speed = speed;
-        this.movements = (speed+1)/2;
+        this.moves = (speed+1)/2;
     }
 
 
+    public static void main(String[] args) {
+        for (Assistant a : Assistant.values())
+            System.out.printf("Your assistant %s can move with a speed of %d and move mother Nature %d steps \n",
+                    a, a.speed, a.moves);
+    }
 }
