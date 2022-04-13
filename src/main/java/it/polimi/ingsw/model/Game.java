@@ -20,14 +20,16 @@ public class Game {
      * initialize bag and random order of player. round starts from 1
      */
     private Game(int numPlayers) {
-        this.bag = buildBag();
-        this.round = 1;
+        bag = buildBag();
+        round = 1;
         this.numPlayers = numPlayers;
 
-        // TODO: 11/04/2022 islands initialization
+        // TODO: 11/04/2022 islands initialization (or archipelago)
 
     }
     public static Game getInstance(int numplayers){
+        //i don't like it as it is now,
+        //you need to know the numplayers to access an already made game
         if (game == null) {
             game = new Game(numplayers);
         }
@@ -37,11 +39,11 @@ public class Game {
 
     private static HashMap<StudColor,Integer> buildBag(){
         HashMap<StudColor,Integer> bag = new HashMap<>();
-        bag.put(StudColor.BLUE, 26);
-        bag.put(StudColor.YELLOW, 26);
-        bag.put(StudColor.RED, 26);
-        bag.put(StudColor.GREEN, 26);
-        bag.put(StudColor.PINK, 26);
+        bag.put(StudColor.BLUE, 24);
+        bag.put(StudColor.YELLOW, 24);
+        bag.put(StudColor.RED, 24);
+        bag.put(StudColor.GREEN, 24);
+        bag.put(StudColor.PINK, 24);
         return bag;
 
     }

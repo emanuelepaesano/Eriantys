@@ -9,7 +9,7 @@ public class Player {
     private Integer wizard;
     private DiningRoom diningRoom;
     private Entrance entrance;
-    private Integer towers;
+    private Integer numTowers;
     private Map<Assistant, Boolean> assistants;
 
     public Player(int id, DiningRoom diningRoom, Entrance entrance) {
@@ -112,11 +112,11 @@ public class Player {
         return wizard;
     }
 
-    public void setTowers(Integer towers) {
-        this.towers = towers;
+    public void setNumTowers(Integer numTowers) {
+        this.numTowers = numTowers;
     }
-    public Integer getTowers() {
-        return towers;
+    public Integer getNumTowers() {
+        return numTowers;
     }
 
     public String getPlayerName() {

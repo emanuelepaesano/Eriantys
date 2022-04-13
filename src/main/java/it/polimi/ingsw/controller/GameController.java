@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.TowerColor;
 import java.util.*;
 
 public class GameController {
-    private Game game;
+    private Game game;//remove, only test
     /**
      * In the constructor we can put the methods to inizialize the game.
      * Our main will call the constructor of this class to start the game
@@ -15,10 +15,10 @@ public class GameController {
     public GameController() {
         int numplayers = AskForPN();
         Game game = Game.getInstance(numplayers); //initializes the game, because it's the first call
-        this.game = Game.getInstance(numplayers);
+        this.game = Game.getInstance(numplayers); //only for test, remove
         // TODO: 12/04/2022 might consider moving some of these to a PlayerController,
         //  since we need to initialize also a diningroom and entrance for every player
-        List<Player> startingOrder = startPlayersandOrder(numplayers, game); //give a starting random playerOrder to the game
+        List<Player> startingOrder = startPlayersandOrder(game); //give a starting random playerOrder to the game
         game.setCurrentOrder(startingOrder);
         //we also need a random table_order to determine what going "clockwise" means
         askAllForTC(game);
@@ -44,17 +44,15 @@ public class GameController {
     }
 
     /**
-     *
-     * @param numplayers player number from askForPN
      * @return initializes the players (and their tower number), returns a random starting order.
      * This one may be moved to a playerController, or maybe from this we make the playercontroller
      * instead
      */
-    private static List<Player> startPlayersandOrder(Integer numplayers, Game game){
+    private static List<Player> startPlayersandOrder(Game game){
         ArrayList<Player> startingOrder = new ArrayList<>();
-        for (int i=0; i<numplayers; i++){
+        for (int i=0; i< game.getNumPlayers(); i++){
             PlayerController pc = new PlayerController(i+1, game);
-            pc.player.setTowers(numplayers==3 ? 6 : 8);
+            pc.player.setNumTowers(game.getNumPlayers()==3 ? 6 : 8);
             startingOrder.add(pc.player);
         }
         Collections.shuffle(startingOrder);
@@ -68,7 +66,14 @@ public class GameController {
      * It will be stored as an attribute of the player
      */
     private static void askAllForTC(Game game){
-        ArrayList<TowerColor> remainingColors = new ArrayList<>(Arrays.asList(TowerColor.values()));
+        int n = game.getNumPlayers();
+        ArrayList<TowerColor> remainingColors;
+        if (n==3) {
+            remainingColors = new ArrayList<>(Arrays.asList(TowerColor.values()));
+        }
+        else{
+            remainingColors = new ArrayList<>(Arrays.asList(TowerColor.WHITE,TowerColor.BLACK));
+        }
         for (Player player : game.getCurrentOrder()){
             TowerColor c = player.askTowerColor(remainingColors);
             remainingColors.remove(c);
@@ -91,8 +96,9 @@ public class GameController {
         // Test for the game controller
         GameController gc = new GameController();
         for (Player p : gc.game.getCurrentOrder()){
-            System.out.println(p.getPlayerName() +" has this in the entrance:" + p.getEntrance().toString()
+            System.out.println(p.getPlayerName() +" has this in the entrance:" + p.getEntrance()
             + ";\n these in the tables:" + p.getDiningRoom().getTables());
+            System.out.println(p.getNumTowers());
         }
 
 
