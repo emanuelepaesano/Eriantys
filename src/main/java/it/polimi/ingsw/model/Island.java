@@ -19,6 +19,10 @@ public class Island {
     }
 
 
+    /**
+     *
+     * @return Map of all studColors to 0
+     */
     private Map<StudColor,Integer> makeStudents(){
         students = new HashMap<>();
         for (StudColor sc : StudColor.values()){
