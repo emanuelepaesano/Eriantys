@@ -1,41 +1,31 @@
 package it.polimi.ingsw.model;
 import java.util.*;
 
-/**
- * This is a singleton class.
- * As such the constructor is private and the only instance
- * is built with the getInstance method
- */
+
 public class Game {
     private static Game game = null;
     private int numPlayers;
-//    private List<Island> islandMap; //questa forse meglio con classe arcipelago
     private Player currentPlayer;
-    private List<Player> tableOrder;
+    private final List<Player> tableOrder;
     private List<Player> currentOrder;
     private Integer round;
     private Map<StudColor, Integer> bag;
+    private GameMap gameMap;
 
     /**
      * initialize bag and random order of player. round starts from 1
      */
-    private Game(int numPlayers) {
+    public Game(int numPlayers, List<Player> startingOrder) {
         bag = buildBag();
         round = 1;
         this.numPlayers = numPlayers;
+        currentOrder= startingOrder;
+        tableOrder = startingOrder;
+        gameMap = new GameMap(); //this will start the islands, motherNature, initial students
 
-        // TODO: 11/04/2022 islands initialization (or archipelago)
-
-    }
-    public static Game getInstance(int numplayers){
-        //i don't like it as it is now,
-        //you need to know the numplayers to access an already made game
-        if (game == null) {
-            game = new Game(numplayers);
-        }
-        return game;
 
     }
+
 
     private static HashMap<StudColor,Integer> buildBag(){
         HashMap<StudColor,Integer> bag = new HashMap<>();
@@ -56,11 +46,17 @@ public class Game {
     public void setCurrentOrder(List<Player> currentOrder) {
         this.currentOrder = currentOrder;
     }
+
+
     public List<Player> getCurrentOrder() {
         return currentOrder;
     }
     public Integer getNumPlayers() {
         return numPlayers;
+    }
+
+    public List<Player> getTableOrder() {
+        return tableOrder;
     }
 }
 

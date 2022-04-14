@@ -11,13 +11,15 @@ public class Entrance {
     private final int size;
     private DiningRoom diningRoom;
 
-    public Entrance(Game game, DiningRoom diningRoom){
-        size = (game.getNumPlayers() == 3 ? 9:7);
+    public Entrance(int numplayers, DiningRoom diningRoom){
+        size = (numplayers == 3 ? 9:7);
         this.diningRoom = diningRoom;
 
         //fixed size list, entries initialized to null
         students = Arrays.asList(new StudColor[size]);
     }
+
+    private void moveToDiningRoom(){}
 
 
     @Override

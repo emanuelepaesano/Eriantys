@@ -63,6 +63,7 @@ public class GameMap {
 
         }
     }
+    // TODO: 14/04/2022 A string representation to show the gameMap in the CLI
 
     public static void main(String[] args) {
         GameMap gm = new GameMap();

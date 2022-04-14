@@ -93,14 +93,18 @@ public class Player {
                     this.assistants.replace (choice, true, false);
                     return choice;
             }
-            } catch (IllegalArgumentException ignored) {} //cosi è eccellente, devo farlo anche nelle altre
+            } catch (IllegalArgumentException ignored) {}
             System.out.println("Not a valid assistant, take one from the list: " + remass);
             }
-        }
+    }
 
-
-
-
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id=" + id +
+                ", playerName='" + playerName + '\'' +
+                '}';
+    }
 
     //GETTERS SETTERS
 
@@ -129,5 +133,9 @@ public class Player {
 
     public Entrance getEntrance() {
         return entrance;
+    }
+
+    public Map<Assistant, Boolean> getAssistants() {
+        return assistants;
     }
 }
