@@ -102,7 +102,7 @@ public class GameController {
         for (int i = initialind; i<initialind+g.getNumPlayers();i++) {
             Player p = g.getTableOrder().get(i%g.getNumPlayers());
             //this print should not really be here as it must be shown to each player
-            System.out.println("The other players played " + playedAssistants.keySet() + ", please choose a different assistant.");
+            System.out.println("The other players played " + playedAssistants.keySet() + ", please choose a new assistant.");
             Assistant choice = p.playAssistant();
 
             //if 2 players try to play the same assistant, we restart this loop iteration
@@ -122,7 +122,7 @@ public class GameController {
             Player first = playedAssistants.remove(Collections.min(playedAssistants.keySet()));
             newOrder.add(first);
         }
-        System.out.println(newOrder);
+        System.out.println("Player order for this turn:" + newOrder);
         g.setCurrentOrder(newOrder);
     }
 

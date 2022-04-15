@@ -15,7 +15,7 @@ public class PlayerController {
         this.id = id;
         DiningRoom d = new DiningRoom();
         Entrance e = new Entrance(numplayers, d);
-        player = new Player(id,d,e);
+        player = new Player(id,d,e,numplayers);
         //it's important to make the dining room first
     }
 

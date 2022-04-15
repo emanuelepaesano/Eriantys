@@ -11,13 +11,17 @@ public class Player {
     private Entrance entrance;
     private Integer numTowers;
     private Map<Assistant, Boolean> assistants;
+    private int availableMoves;
 
-    public Player(int id, DiningRoom diningRoom, Entrance entrance) {
+    public Player(int id, DiningRoom diningRoom, Entrance entrance, int numPlayers) {
         this.id = id;
-        this.playerName = askPlayerName();
-        this.assistants = buildDeck();
         this.diningRoom = diningRoom;
         this.entrance = entrance;
+        playerName = askPlayerName();
+        assistants = buildDeck();
+        availableMoves = (numPlayers == 3 ? 4:3);
+
+
     }
 
     private TreeMap<Assistant, Boolean> buildDeck(){
@@ -84,8 +88,8 @@ public class Player {
                 remass.add(key);
             }
         }
+        System.out.println(this.playerName + ", play one of your remaining assistants (speed value): " + remass);
         while (true) {
-            System.out.println(this.playerName + ", play one of your remaining assistants (speed value): " + remass);
             String input = new Scanner(System.in).nextLine();
             try {
                 Assistant choice = Assistant.valueOf(input.toUpperCase());
@@ -97,6 +101,25 @@ public class Player {
             System.out.println("Not a valid assistant, take one from the list: " + remass);
             }
     }
+
+    // TODO: 14/04/2022 this is now here, but we can do an ActionPhaseController for every player + turn
+    public void doActions(){
+        //this will be an actionlistener linked to 2 buttons. depending on the button pressed
+        //(movetoentrance or movetoisland) the controller calls a different method, then updates model
+        //int usedmoves = 0
+        //while usedmoves < availableMoves:
+        //  askWhichAction(); //this will come from the view, so it must be in a controller
+        //  if actionperformed == 'diningroom':
+        //      usedmoves += entrance.movetoDiningRoom(availableMoves)
+        //  else:
+        //      usedmoves += entrance.movetoIsland(availableMoves)
+
+        //These methods need to know the availableMoves so that player can move more than
+        //1 student at once and then we can subtract all the moves from the available.
+        //They can return the number of moves used, so we can do this.
+        // They also need to give an option to go back if player changes his mind (how to do this??)
+    }
+
 
     @Override
     public String toString() {
@@ -138,4 +161,6 @@ public class Player {
     public Map<Assistant, Boolean> getAssistants() {
         return assistants;
     }
+
+
 }
