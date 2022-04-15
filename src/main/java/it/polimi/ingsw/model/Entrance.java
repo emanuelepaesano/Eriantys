@@ -40,8 +40,8 @@ public class Entrance {
             }
             if (students.contains(stud)){
                 students.remove(stud);
-                int old = diningRoom.getTables().get(stud);
-                this.diningRoom.getTables().replace(stud,old,old+1);
+                int oldnum = diningRoom.getTables().get(stud);
+                this.diningRoom.getTables().replace(stud,oldnum,oldnum+1);
             }
             else{
                 System.out.println("You don't have this student in your entrance");
@@ -50,11 +50,45 @@ public class Entrance {
         }
     }
 
-    public void moveToIsland(int availablemoves){
+    public void moveToIsland(GameMap gm, int availablemoves){
         //here we do the same thing but with choosing an island index
         //in the second part. Let's not duplicate code, we need to make a separate method
         //for the first part.
         //Probably also for asking which student to move we need an independent method(done).
+
+        //First part is the same.
+        int nstud = askHowMany(availablemoves);
+        Scanner scanner = new Scanner(System.in);
+        StudColor stud;
+        for (int i = 0;i<nstud;i++){
+            try{stud = askWhich(i);}
+            catch (IllegalArgumentException ex) {
+                System.out.println("Not a valid student color, try again");
+                i-= 1;
+                continue;
+            }
+            if (students.contains(stud)){
+                students.remove(stud);
+                //qui adesso lo mandiamo in un isola
+                System.out.println("To which island do you want to move it?\n" +
+                        "This is the current state of the islands\n" + gm +
+                        "\nIndicate the island by its number (0-11)") ;
+                int index = scanner.nextInt(); //mettiamo poi un try-catch
+                Island island = gm.getArchipelago().get(index);
+                int oldval = island.students.get(stud);
+                island.students.replace(stud, oldval,oldval+1);
+
+
+            }
+            else{
+                System.out.println("You don't have this student in your entrance");
+                i-=1;
+            }
+        }
+
+        //in the second part we still ask which, but now we move it to one of the islands.
+
+
     }
 
     public int askHowMany(int availablemoves) {
@@ -95,7 +129,7 @@ public class Entrance {
     @Override
     public String toString() {
         return "Entrance{" +
-                "students =" + students +
+                "students: " + students +
                 '}';
     }
 
@@ -105,10 +139,15 @@ public class Entrance {
 
     public static void main(String[] args) {
         //TEST FOR MOVETODR, ALSO USES THE FILLRANDOMTEST
+        GameMap gm = new GameMap();
         DiningRoom dg = new DiningRoom();
         Entrance e = new Entrance(3,dg);
-        e.moveToDiningRoom(4);
-        System.out.println(dg.getTables());
+        System.out.println("Chosen movetodiningroom");
+        e.moveToDiningRoom(4); //choose 0 or back to test the other method
+        System.out.println("Your table configuration after the moves: " + dg.getTables());
+        System.out.println("Chosen movetoisland");
+        e.moveToIsland(gm,4);
+        System.out.println("New archipelago: " + gm);
     }
 
 

@@ -74,6 +74,10 @@ public class GameMap {
         return string;
     }
 
+    public List<Island> getArchipelago() {
+        return archipelago;
+    }
+
     public static void main(String[] args) {
         //TEST FOR ISLAND INITIALIZATION
         GameMap gm = new GameMap();
