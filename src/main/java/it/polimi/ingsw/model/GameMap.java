@@ -46,30 +46,38 @@ public class GameMap {
      */
     private void startStudents(int startindex){
         System.out.println("mother nature is here:" + startindex);
-        ArrayList<StudColor> smallBag = new ArrayList<>(Arrays.asList(StudColor.values()));
-        smallBag.addAll(Arrays.asList(StudColor.values()));
 
-        System.out.println(smallBag);
-        System.out.println("size of bag: " + smallBag.size());
-        //prendiamo un colore random da towercolor.values
-        //poi ne togliamo uno da smallbag e lo mettiamo sulla prossima isola, ma non sulla numero 6
+        ArrayList<StudColor> smallBag = new ArrayList<>(Arrays.asList(StudColor.values()));
+        smallBag.addAll(Arrays.asList(StudColor.values())); //these 2 lines make the initial bag
+
         Random randomizer = new Random();
+        //below is the code for student initialization
         for (int i=1;i<12;i++) {
             if (i == 6){continue;}
             int index = randomizer.nextInt(smallBag.size());
             StudColor student = smallBag.remove(index);
             Island island = this.archipelago.get((startindex+i)%12);
-            island.students.replace(student,0,1); //no need to generalize, always 1 in each island
+            island.students.replace(student,0,1);
 
         }
     }
-    // TODO: 14/04/2022 A string representation to show the gameMap in the CLI
+
+
+    // TODO: 14/04/2022 A nice string representation to show the gameMap in the CLI
+    @Override
+    public String toString() {
+        String string = "";
+        for (Island island : archipelago){
+            string += "Island " + island.id + ": ";
+            string += island.getStudents() + "\n";
+        }
+        return string;
+    }
 
     public static void main(String[] args) {
+        //TEST FOR ISLAND INITIALIZATION
         GameMap gm = new GameMap();
-        for (Island i : gm.archipelago){
-            System.out.println(i.students);
-        }
+        System.out.println(gm);
 
     }
 }
