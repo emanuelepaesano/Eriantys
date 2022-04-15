@@ -12,7 +12,6 @@ public class Game {
     private Map<StudColor, Integer> bag;
     private List<Cloud> clouds;
     private GameMap gameMap;
-    private List<Cloud> clouds;
 
     /**
      * initialize bag and random order of player. round starts from 1

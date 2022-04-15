@@ -6,19 +6,13 @@ import java.util.Map;
 public class DiningRoom {
     // TODO: 12/04/2022 reference to player
     //  we may not need it for now
-    /**
-     * la scuola deve avere un ingresso e una sala. la sala ha 5 tavoli,
-     * uno per ogni colore. possono essere solo una map.
-     * poi deve avere i professori, anche quelli una map con boolean
-     *
-     */
     private Map<StudColor, Integer> tables;
     private Map<StudColor, Boolean> professors;
 
     //maybe the entrance can contain a reference to the dining room
     //so we dont pass through player every time. then we make the dining room first
     public DiningRoom(){
-        this.tables = makeTables();
+        this.tables = Island.makeStudents();
         this.professors= makeProfessors();
     }
 

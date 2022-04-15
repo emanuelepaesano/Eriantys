@@ -23,7 +23,8 @@ public class Entrance {
     /**
      *
      * @param availablemoves the moves that are left to the player, will come from the controller.
-     * First try of method for moving students to dining room. It needs to be simplified / broken down
+     * First try of method for moving students to dining room. It needs to be simplified / broken down.
+     * Now better with the 2 separate methods
      */
     public void moveToDiningRoom(int availablemoves){
         //First part: we ask how many students to move, maximum availablemoves
@@ -50,6 +51,13 @@ public class Entrance {
         }
     }
 
+    /**
+     *
+     * @param gm the game map, it's needed to connect to the islands
+     * @param availablemoves the same as movetodiningroom. This method asks the current player
+     *                       which students he wants to move to the islands, then does it by updating
+     *                       the game map.
+     */
     public void moveToIsland(GameMap gm, int availablemoves){
         //here we do the same thing but with choosing an island index
         //in the second part. Let's not duplicate code, we need to make a separate method
@@ -69,7 +77,7 @@ public class Entrance {
             }
             if (students.contains(stud)){
                 students.remove(stud);
-                //qui adesso lo mandiamo in un isola
+                //Now we move it to the island chosen
                 System.out.println("To which island do you want to move it?\n" +
                         "This is the current state of the islands\n" + gm +
                         "\nIndicate the island by its number (0-11)") ;
