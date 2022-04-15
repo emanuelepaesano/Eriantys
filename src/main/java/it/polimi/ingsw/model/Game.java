@@ -10,6 +10,7 @@ public class Game {
     private List<Player> currentOrder;
     private Integer round;
     private Map<StudColor, Integer> bag;
+    private List<Cloud> clouds;
     private GameMap gameMap;
     private List<Cloud> clouds;
 
