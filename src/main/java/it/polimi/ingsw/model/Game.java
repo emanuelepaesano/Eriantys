@@ -129,6 +129,10 @@ public class Game {
     public GameMap getGameMap() {
         return gameMap;
     }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
 }
 
 

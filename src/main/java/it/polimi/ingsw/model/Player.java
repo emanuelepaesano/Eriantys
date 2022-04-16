@@ -11,12 +11,15 @@ public class Player {
     private Entrance entrance;
     private Integer numTowers;
     private Map<Assistant, Boolean> assistants;
+    private  int numPlayers;
     private Assistant currentAssistant;
     private int availableMoves;
+    private  Game game;
 
     public Player(int id, Game game) {
         this.id = id;
-        int numPlayers = game.numPlayers;
+        this.game = game;
+        numPlayers = game.numPlayers;
         diningRoom = new DiningRoom();
         entrance = new Entrance(game, diningRoom);
         playerName = askPlayerName();
@@ -104,6 +107,32 @@ public class Player {
                 }
             } catch (IllegalArgumentException exception) {System.out.println("Not a valid assistant, take one from the list: " + remass);}
         }
+    }
+
+    // TODO: 16/04/2022 idk where to put this
+    public void doActions(){
+        int availableActions = (numPlayers == 3 ? 4:3 );
+        //this will be an actionlistener linked to 2 buttons. depending on the button pressed
+        //(movetodiningroom or movetoisland) the controller calls a different method, then updates model
+        while (availableActions>0) {
+            String action = askWhichAction(availableActions); //this will come from the view, so it must be in a controller
+            if (Objects.equals(action, "diningroom")) {
+                availableActions -= entrance.moveToDiningRoom(availableActions);
+            }
+            else if (Objects.equals(action, "islands")){
+                availableActions -= entrance.moveToIsland(game.getGameMap(), availableActions);}
+        }
+        //These methods need to know the availableMoves so that player can move more than
+        //1 student at once and then we can subtract all the moves from the available.
+        //They return the number of moves used, so we can do this.
+        // They also need to give an option to go back if player changes his mind (choosing 0 is enough)
+    }
+
+    private String askWhichAction(int availableActions){
+        Scanner scanner = new Scanner(System.in);
+        System.out.printf("%s, where do you want to move your students (%d moves left)? please type 'islands' or 'diningroom' "
+                , playerName,availableActions);
+        return scanner.nextLine();
     }
 
     public int askMNMoves(){

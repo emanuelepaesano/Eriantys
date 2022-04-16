@@ -7,7 +7,7 @@ public class Entrance {
     //  actually we may not need it
     private final List<Student> students;
     private final DiningRoom diningRoom;
-    private int size;
+    private final int size;
 
     public Entrance(Game game, DiningRoom diningRoom){
         size = (game.numPlayers == 3 ? 9:7 );
@@ -25,11 +25,11 @@ public class Entrance {
      * @param availablemoves the moves that are left to the player, will come from the controller.
      * First try of method for moving students to dining room. It needs to be simplified / broken down.
      * Now better with the 2 separate methods
+     * @return number of moves used, needed by doActions
      */
-    public void moveToDiningRoom(int availablemoves){
+    public int moveToDiningRoom(int availablemoves){
         //First part: we ask how many students to move, maximum availablemoves
         int nstud = askHowMany(availablemoves);
-
         //Now we ask to move the students
         Student stud;
         for (int i = 0;i<nstud;i++){
@@ -49,6 +49,8 @@ public class Entrance {
                 i-=1;
             }
         }
+        //if (nstud>0){game.checkprofessors()}
+        return nstud; //doActions() needs this
     }
 
     /**
@@ -56,11 +58,11 @@ public class Entrance {
      * @param gm the game map, it's needed to connect to the islands
      * @param availablemoves the same as movetodiningroom.
      *
-     * @returns This method asks the current player which students he wants to move to the islands, then does it by updating
-     * the game map (returns nothing).
+     * @return asks the current player which students he wants to move to the islands, then does it by updating
+     * the game map. Returns number of used moves, for doActions()
      *
      */
-    public void moveToIsland(GameMap gm, int availablemoves){
+    public int moveToIsland(GameMap gm, int availablemoves){
         //here we do the same thing but with choosing an island index
         //in the second part. Let's not duplicate code, we need to make a separate method
         //for the first part.
@@ -93,24 +95,26 @@ public class Entrance {
                 i-=1;
             }
         }
+        return nstud; //doActions() needs this
     }
 
-    // TODO: 16/04/2022 a fillfromClouds method, where you must now the remaining clouds. Or just see
-    //  the current state of the clouds and catch an exception if it's empty
     private void fillFromClouds(Game game){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Fill your entrance from a cloud.\n " + game.getClouds() +
-                "\n enter a number from 1 to" + game.getClouds().size() + "to choose the cloud.");
+                "\n enter a number from 1 to " + game.getClouds().size() + "to choose the cloud.");
         // TODO: 16/04/2022 for now we only choose a number, we will do a more elaborate way to choose
         while (true) {
             try {
                 int choice = scanner.nextInt();
-                if ( choice<= game.getClouds().size() && choice >= 1 ){
+                if (choice<= game.getClouds().size() && choice >= 1 ){
                     Cloud cloud = game.getClouds().get(choice-1);
+                    if (cloud.students.size()>0){
                     //add those students to our entrance
                     this.students.addAll(cloud.students);
                     cloud.students.clear();
                     break;
+                    }
+                    else{System.out.println("That cloud is empty! Try again.");}
                 }
             } catch (IllegalArgumentException ex) {System.out.println("Not a number, try again.");}
         }
@@ -169,10 +173,6 @@ public class Entrance {
                 '}';
     }
 
-    public void setSize(int size) {
-        this.size = size;
-    }
-
     public List<Student> getStudents() {
         return students;
     }
@@ -185,12 +185,15 @@ public class Entrance {
         System.out.println("for >>>MOVETODININGROOM<<<");
         e.moveToDiningRoom(4); //choose 0 or back to test the other method
         System.out.println("Your table configuration after the moves: " + dg.getTables());
+        System.out.println("Before filling from clouds: " + e.students);
+        e.fillFromClouds(game);
+        System.out.println("Entrance after filling: " + e);
         System.out.println("for >>>MOVETOISLAND<<<");
         e.moveToIsland(game.getGameMap(), 4);
         System.out.println("New archipelago: " + game.getGameMap());
         System.out.println("Before filling from clouds: " + e.students);
         e.fillFromClouds(game);
-        System.out.println(e);
+        System.out.println("Entrance after filling: " + e);
     }
 
 
