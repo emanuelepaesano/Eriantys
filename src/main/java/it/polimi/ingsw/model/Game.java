@@ -1,17 +1,16 @@
 package it.polimi.ingsw.model;
-import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.PlayerController;
 
 import java.util.*;
 
 
 public class Game {
-    private int numPlayers;
+    public final int numPlayers;
     private Player currentPlayer;
     private final List<Player> tableOrder;
     private List<Player> currentOrder;
     private Integer round;
-    private Map<StudColor, Integer> bag;
+    private Map<Student, Integer> bag;
     private List<Cloud> clouds;
     private GameMap gameMap;
 
@@ -26,6 +25,7 @@ public class Game {
         gameMap = new GameMap(this); //this will start the islands, motherNature, initial students
         bag = makeBag();
         clouds = makeClouds(numPlayers);
+        fillClouds();
         currentPlayer = currentOrder.get(0);
 
     }
@@ -48,9 +48,9 @@ public class Game {
 
 
 
-    private HashMap<StudColor,Integer> makeBag(){
-        HashMap<StudColor,Integer> bag = new HashMap<>();
-        for (StudColor sc : StudColor.values()){
+    private HashMap<Student,Integer> makeBag(){
+        HashMap<Student,Integer> bag = new HashMap<>();
+        for (Student sc : Student.values()){
             bag.put(sc,24);
         }
         return bag;
@@ -82,17 +82,17 @@ public class Game {
             //draw from the bag
             for (int i = 0; i<cloud.size; i++) {
                 int randind = randomizer.nextInt(5);
-                StudColor randstud = Arrays.asList(StudColor.values()).get(randind);
+                Student randstud = Arrays.asList(Student.values()).get(randind);
                 int oldnum = bag.get(randstud);
                 bag.replace(randstud, oldnum, oldnum - 1);
-                cloud.students.set(i,randstud);
+                cloud.students.add(randstud);
             }
         }
     }
 
     public static void main(String[] args) {
         //test for fillClouds()
-        Game g = new Game(3);
+        Game g = new Game(2);
         System.out.println(g.clouds);
         System.out.println(g.bag);
         g.fillClouds();
@@ -112,9 +112,6 @@ public class Game {
 
     public List<Player> getCurrentOrder() {
         return currentOrder;
-    }
-    public Integer getNumPlayers() {
-        return numPlayers;
     }
 
     public List<Player> getTableOrder() {

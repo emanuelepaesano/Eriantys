@@ -14,12 +14,14 @@ public class Player {
     private Assistant currentAssistant;
     private int availableMoves;
 
-    public Player(int id, DiningRoom diningRoom, Entrance entrance) {
+    public Player(int id, Game game) {
         this.id = id;
-        this.diningRoom = diningRoom;
-        this.entrance = entrance;
+        int numPlayers = game.numPlayers;
+        diningRoom = new DiningRoom();
+        entrance = new Entrance(game, diningRoom);
         playerName = askPlayerName();
         assistants = buildDeck();
+        numTowers = (numPlayers == 3 ? 6 : 8);
 
 
     }

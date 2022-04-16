@@ -2,11 +2,10 @@ package it.polimi.ingsw.model;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public class Island {
     int id;
-    Map<StudColor,Integer> students;
+    Map<Student,Integer> students;
     Player owner;
     //we might do a test that we never have 2 island with this set to true
     Boolean hasMother;
@@ -16,9 +15,9 @@ public class Island {
      *
      * @return Map of all StudColors to 0. This method is used also by the DiningRoom to initialize, hence it's static.
      */
-    public static Map<StudColor,Integer> makeStudents(){
-        HashMap<StudColor,Integer> studs = new HashMap<>();
-        for (StudColor sc : StudColor.values()){
+    public static Map<Student,Integer> makeStudents(){
+        HashMap<Student,Integer> studs = new HashMap<>();
+        for (Student sc : Student.values()){
             studs.put(sc,0);
         }
         return studs;
@@ -38,7 +37,7 @@ public class Island {
         this.hasMother = hasMother;
     }
 
-    public Map<StudColor, Integer> getStudents() {
+    public Map<Student, Integer> getStudents() {
         return students;
     }
 }

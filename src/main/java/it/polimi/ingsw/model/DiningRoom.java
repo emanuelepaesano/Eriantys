@@ -6,8 +6,8 @@ import java.util.Map;
 public class DiningRoom {
     // TODO: 12/04/2022 reference to player
     //  we may not need it for now
-    private Map<StudColor, Integer> tables;
-    private Map<StudColor, Boolean> professors;
+    private Map<Student, Integer> tables;
+    private Map<Student, Boolean> professors;
 
     //maybe the entrance can contain a reference to the dining room
     //so we dont pass through player every time. then we make the dining room first
@@ -21,15 +21,15 @@ public class DiningRoom {
      *
      * @return initializes all professors to false
      */
-    private Map<StudColor,Boolean> makeProfessors(){
+    private Map<Student,Boolean> makeProfessors(){
         professors = new HashMap<>();
-        for (StudColor sc : StudColor.values()){
+        for (Student sc : Student.values()){
             professors.put(sc,false);
         }
         return professors;
     }
 
-    public Map<StudColor, Integer> getTables() {
+    public Map<Student, Integer> getTables() {
         return tables;
     }
 }

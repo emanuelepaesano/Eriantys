@@ -44,7 +44,7 @@ public class GameController {
      * It will be stored as an attribute of the player
      */
     private static void askAllForTC(Game game){
-        int n = game.getNumPlayers();
+        int n = game.numPlayers;
         ArrayList<TowerColor> remainingColors;
         if (n==3) {
             remainingColors = new ArrayList<>(Arrays.asList(TowerColor.values()));
@@ -80,8 +80,8 @@ public class GameController {
         //table order. In this order, we make players play assistants, and store them in a Map
         Map<Integer, Player> playedAssistants = new TreeMap<>();
         int initialind = g.getTableOrder().indexOf(g.getCurrentOrder().get(0)); //this is the index in the tableOrder if current first
-        for (int i = initialind; i<initialind+g.getNumPlayers();i++) {
-            Player p = g.getTableOrder().get(i%g.getNumPlayers());
+        for (int i = initialind; i<initialind+g.numPlayers;i++) {
+            Player p = g.getTableOrder().get(i%g.numPlayers);
             //this print should not really be here as it must be shown to each player
             System.out.println("The other players played " + playedAssistants.keySet() + ", please choose a new assistant.");
             Assistant choice = p.playAssistant();
@@ -99,7 +99,7 @@ public class GameController {
 
         //The second part uses the Map to make a new currentOrder
         List<Player> newOrder = new ArrayList<>();
-        for (int i = 0; i< g.getNumPlayers();i++){
+        for (int i = 0; i< g.numPlayers;i++){
             Player first = playedAssistants.remove(Collections.min(playedAssistants.keySet()));
             newOrder.add(first);
         }

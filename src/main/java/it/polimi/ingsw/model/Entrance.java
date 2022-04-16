@@ -1,20 +1,20 @@
 package it.polimi.ingsw.model;
 
-import javax.swing.text.html.HTMLDocument;
 import java.util.*;
 
 public class Entrance {
     // TODO: 12/04/2022 missing reference to the player.
     //  actually we may not need it
-    private final List<StudColor> students;
+    private final List<Student> students;
     private final DiningRoom diningRoom;
     private int size;
 
     public Entrance(Game game, DiningRoom diningRoom){
+        size = (game.numPlayers == 3 ? 9:7 );
         this.diningRoom = diningRoom;
         //initialize all entries to null
-        students = new ArrayList<>(Arrays.asList(new StudColor[size]));
-
+        students = new ArrayList<>(Arrays.asList(new Student[size]));
+        System.out.println("size of entrance array: " + students.size());
         //test, bad, remove
         // we will need to fill the entrance following the rules
         fillRandomTEST();
@@ -31,7 +31,7 @@ public class Entrance {
         int nstud = askHowMany(availablemoves);
 
         //Now we ask to move the students
-        StudColor stud;
+        Student stud;
         for (int i = 0;i<nstud;i++){
             try{stud = askWhich(i);}
             catch (IllegalArgumentException ex) {
@@ -69,7 +69,7 @@ public class Entrance {
         //First part is the same.
         int nstud = askHowMany(availablemoves);
         Scanner scanner = new Scanner(System.in);
-        StudColor stud;
+        Student stud;
         for (int i = 0;i<nstud;i++){
             try{stud = askWhich(i);}
             catch (IllegalArgumentException ex) {
@@ -92,6 +92,27 @@ public class Entrance {
                 System.out.println("You don't have this student in your entrance");
                 i-=1;
             }
+        }
+    }
+
+    // TODO: 16/04/2022 a fillfromClouds method, where you must now the remaining clouds. Or just see
+    //  the current state of the clouds and catch an exception if it's empty
+    private void fillFromClouds(Game game){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Fill your entrance from a cloud.\n " + game.getClouds() +
+                "\n enter a number from 1 to" + game.getClouds().size() + "to choose the cloud.");
+        // TODO: 16/04/2022 for now we only choose a number, we will do a more elaborate way to choose
+        while (true) {
+            try {
+                int choice = scanner.nextInt();
+                if ( choice<= game.getClouds().size() && choice >= 1 ){
+                    Cloud cloud = game.getClouds().get(choice-1);
+                    //add those students to our entrance
+                    this.students.addAll(cloud.students);
+                    cloud.students.clear();
+                    break;
+                }
+            } catch (IllegalArgumentException ex) {System.out.println("Not a number, try again.");}
         }
     }
 
@@ -125,19 +146,19 @@ public class Entrance {
      * @param number the iteration number
      * @return similarly, it's here mostly not to duplicate code
      */
-    private StudColor askWhich(int number){
+    private Student askWhich(int number){
         Scanner scanner = new Scanner(System.in);
         System.out.println("choose the color of student number " + (number+1) + " from your entrance:" + students);
         String color = scanner.next();
-        return StudColor.valueOf(color.toUpperCase());
+        return Student.valueOf(color.toUpperCase());
     }
 
     //only for test, will need to draw from the clouds in the game
     private void fillRandomTEST(){
         Random randomizer = new Random();
-        for (int i = 0; i< students.size();i++){
+        for (int i = 0; i< this.size;i++){
             int ind = randomizer.nextInt(5);
-            StudColor s = Arrays.asList(StudColor.values()).get(ind);
+            Student s = Arrays.asList(Student.values()).get(ind);
             students.set(i,s);
         }
     }
@@ -152,22 +173,24 @@ public class Entrance {
         this.size = size;
     }
 
-    public List<StudColor> getStudents() {
+    public List<Student> getStudents() {
         return students;
     }
 
     public static void main(String[] args) {
         //TEST FOR MOVETODR, ALSO USES THE FILLRANDOMTEST
         Game game = new Game(3);
-        GameMap gm = new GameMap(game);
         DiningRoom dg = new DiningRoom();
         Entrance e = new Entrance(game, dg);
-        System.out.println("for movetodiningroom");
+        System.out.println("for >>>MOVETODININGROOM<<<");
         e.moveToDiningRoom(4); //choose 0 or back to test the other method
         System.out.println("Your table configuration after the moves: " + dg.getTables());
-        System.out.println("for movetoisland");
-        e.moveToIsland(gm,4);
-        System.out.println("New archipelago: " + gm);
+        System.out.println("for >>>MOVETOISLAND<<<");
+        e.moveToIsland(game.getGameMap(), 4);
+        System.out.println("New archipelago: " + game.getGameMap());
+        System.out.println("Before filling from clouds: " + e.students);
+        e.fillFromClouds(game);
+        System.out.println(e);
     }
 
 
@@ -180,7 +203,7 @@ public class Entrance {
             try {
                 System.out.println("choose the color of student number " + (i+1) + " from your entrance:" + students);
                 String color = scanner.next();
-                StudColor stud = StudColor.valueOf(color.toUpperCase());
+                Student stud = Student.valueOf(color.toUpperCase());
                 if (students.contains(stud)){
                     students.remove(stud);
                     int old = diningRoom.getTables().get(stud);

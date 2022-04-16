@@ -4,7 +4,7 @@ import java.util.ArrayList;
 // TODO: 11/04/2022
 //  -> add abbreviations
 
-public enum StudColor {
+public enum Student {
     YELLOW,
     BLUE,
     RED,

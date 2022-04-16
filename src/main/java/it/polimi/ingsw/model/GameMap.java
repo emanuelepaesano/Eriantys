@@ -51,15 +51,15 @@ public class GameMap {
     private void startStudents(int startindex){
         System.out.println("mother nature is here:" + startindex);
 
-        ArrayList<StudColor> smallBag = new ArrayList<>(Arrays.asList(StudColor.values()));
-        smallBag.addAll(Arrays.asList(StudColor.values())); //these 2 lines make the initial bag
+        ArrayList<Student> smallBag = new ArrayList<>(Arrays.asList(Student.values()));
+        smallBag.addAll(Arrays.asList(Student.values())); //these 2 lines make the initial bag
 
         Random randomizer = new Random();
         //below is the code for student initialization
         for (int i=1;i<12;i++) {
             if (i == 6){continue;}
             int index = randomizer.nextInt(smallBag.size());
-            StudColor student = smallBag.remove(index);
+            Student student = smallBag.remove(index);
             Island island = this.archipelago.get((startindex+i)%12);
             island.students.replace(student,0,1);
 

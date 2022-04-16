@@ -14,12 +14,9 @@ public class PlayerController {
     public PlayerController(int id, Game game){ //if this gives weird errors, go back to int numplayers instead of game
         //the id of the playercontroller and its player coincide, might turn out useful
         this.id = id;
-        this.numPlayers = game.getNumPlayers();
-        DiningRoom d = new DiningRoom();
-        Entrance e = new Entrance(game, d);
-        e.setSize(numPlayers == 3 ? 9 : 7);
-        player = new Player(id,d,e);
-        player.setNumTowers(numPlayers == 3 ? 6 : 8);
+        numPlayers = game.numPlayers;
+        player = new Player(id,game);
+
         //it's important to make the dining room before the entrance
     }
 
