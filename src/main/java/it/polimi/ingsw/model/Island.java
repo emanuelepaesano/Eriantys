@@ -9,12 +9,12 @@ public class Island {
     Map<StudColor,Integer> students;
     Player owner;
     //we might do a test that we never have 2 island with this set to true
-    public Boolean hasMother;
+    Boolean hasMother;
     int size;
 
     /**
      *
-     * @return Map of all StudColors to 0. This method is used also by the clouds and DiningRoom to initialize, hence it's static.
+     * @return Map of all StudColors to 0. This method is used also by the DiningRoom to initialize, hence it's static.
      */
     public static Map<StudColor,Integer> makeStudents(){
         HashMap<StudColor,Integer> studs = new HashMap<>();

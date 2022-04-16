@@ -142,4 +142,19 @@ public class Player {
         return assistants;
     }
 
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public DiningRoom getDiningRoom() {
+        return diningRoom;
+    }
+
+    public Entrance getEntrance() {
+        return entrance;
+    }
+
+    public Integer getNumTowers() {
+        return numTowers;
+    }
 }

@@ -6,7 +6,6 @@ import java.util.*;
 
 
 public class Game {
-    private static Game game = null;
     private int numPlayers;
     private Player currentPlayer;
     private final List<Player> tableOrder;
@@ -65,14 +64,38 @@ public class Game {
     private List<Cloud> makeClouds(int numPlayers){
         List<Cloud> clouds = new ArrayList<>();
         for (int i=0; i<numPlayers; i++){
-            clouds.add(new Cloud());
+            clouds.add(new Cloud(this));
         }
         return clouds;
     }
 
+    public void newRound(){
+        round += 1;
+        fillClouds();
+
+    }
+
+    //fills all the clouds of this game by drawing from the bag
+    private void fillClouds(){
+        Random randomizer = new Random();
+        for (Cloud cloud : clouds){
+            //draw from the bag
+            for (int i = 0; i<cloud.size; i++) {
+                int randind = randomizer.nextInt(5);
+                StudColor randstud = Arrays.asList(StudColor.values()).get(randind);
+                int oldnum = bag.get(randstud);
+                bag.replace(randstud, oldnum, oldnum - 1);
+                cloud.students.set(i,randstud);
+            }
+        }
+    }
+
     public static void main(String[] args) {
-      //  List<Player> so = GameController.startPlayersandOrder(3);
+        //test for fillClouds()
         Game g = new Game(3);
+        System.out.println(g.clouds);
+        System.out.println(g.bag);
+        g.fillClouds();
         System.out.println(g.clouds);
         System.out.println(g.bag);
     }

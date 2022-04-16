@@ -16,7 +16,7 @@ public class PlayerController {
         this.id = id;
         this.numPlayers = game.getNumPlayers();
         DiningRoom d = new DiningRoom();
-        Entrance e = new Entrance(d);
+        Entrance e = new Entrance(game, d);
         e.setSize(numPlayers == 3 ? 9 : 7);
         player = new Player(id,d,e);
         player.setNumTowers(numPlayers == 3 ? 6 : 8);

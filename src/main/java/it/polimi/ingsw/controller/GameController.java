@@ -13,8 +13,7 @@ public class GameController {
     public GameController() {
         int numplayers = AskForPN();
         //List<Player> startingOrder = startPlayersandOrder(numplayers); //initialize players, give a random playerOrder to the game
-        Game game = new Game(numplayers); //initializes the game, because it's the first call
-        this.game = game; //only for test, remove later
+        game = new Game(numplayers); //initializes the game, because it's the first call
         askAllForTC(game);
         askAllForWiz(game);
 

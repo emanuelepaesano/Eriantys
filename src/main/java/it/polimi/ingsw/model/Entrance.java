@@ -10,7 +10,7 @@ public class Entrance {
     private final DiningRoom diningRoom;
     private int size;
 
-    public Entrance(DiningRoom diningRoom){
+    public Entrance(Game game, DiningRoom diningRoom){
         this.diningRoom = diningRoom;
         //initialize all entries to null
         students = new ArrayList<>(Arrays.asList(new StudColor[size]));
@@ -161,7 +161,7 @@ public class Entrance {
         Game game = new Game(3);
         GameMap gm = new GameMap(game);
         DiningRoom dg = new DiningRoom();
-        Entrance e = new Entrance(dg);
+        Entrance e = new Entrance(game, dg);
         System.out.println("for movetodiningroom");
         e.moveToDiningRoom(4); //choose 0 or back to test the other method
         System.out.println("Your table configuration after the moves: " + dg.getTables());
