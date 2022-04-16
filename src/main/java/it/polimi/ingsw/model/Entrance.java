@@ -8,9 +8,9 @@ public class Entrance {
     //  actually we may not need it
     private final List<StudColor> students;
     private final DiningRoom diningRoom;
+    private int size;
 
-    public Entrance(int numplayers, DiningRoom diningRoom){
-        int size = (numplayers == 3 ? 9 : 7);
+    public Entrance(DiningRoom diningRoom){
         this.diningRoom = diningRoom;
         //initialize all entries to null
         students = new ArrayList<>(Arrays.asList(new StudColor[size]));
@@ -54,9 +54,11 @@ public class Entrance {
     /**
      *
      * @param gm the game map, it's needed to connect to the islands
-     * @param availablemoves the same as movetodiningroom. This method asks the current player
-     *                       which students he wants to move to the islands, then does it by updating
-     *                       the game map.
+     * @param availablemoves the same as movetodiningroom.
+     *
+     * @returns This method asks the current player which students he wants to move to the islands, then does it by updating
+     * the game map (returns nothing).
+     *
      */
     public void moveToIsland(GameMap gm, int availablemoves){
         //here we do the same thing but with choosing an island index
@@ -75,31 +77,30 @@ public class Entrance {
                 i-= 1;
                 continue;
             }
+            //In the 2nd part now we move it to the chosen island
             if (students.contains(stud)){
                 students.remove(stud);
-                //Now we move it to the island chosen
                 System.out.println("To which island do you want to move it?\n" +
                         "This is the current state of the islands\n" + gm +
                         "\nIndicate the island by its number (0-11)") ;
-                int index = scanner.nextInt(); //mettiamo poi un try-catch
+                int index = scanner.nextInt(); //we will need a try-catch
                 Island island = gm.getArchipelago().get(index);
                 int oldval = island.students.get(stud);
                 island.students.replace(stud, oldval,oldval+1);
-
-
             }
             else{
                 System.out.println("You don't have this student in your entrance");
                 i-=1;
             }
         }
-
-        //in the second part we still ask which, but now we move it to one of the islands.
-
-
     }
 
-    public int askHowMany(int availablemoves) {
+    /**
+     *
+     * @param availablemoves you can move at most this number of students
+     * @return asks how many students one wants to move. it's used by movetoDiningRoom and movetoIsland
+     */
+    private int askHowMany(int availablemoves) {
         Scanner scanner = new Scanner(System.in);
         int nstud;
         while (true) {
@@ -119,13 +120,19 @@ public class Entrance {
         return nstud;
     }
 
-    public StudColor askWhich(int number){
+    /**
+     *
+     * @param number the iteration number
+     * @return similarly, it's here mostly not to duplicate code
+     */
+    private StudColor askWhich(int number){
         Scanner scanner = new Scanner(System.in);
         System.out.println("choose the color of student number " + (number+1) + " from your entrance:" + students);
         String color = scanner.next();
         return StudColor.valueOf(color.toUpperCase());
     }
 
+    //only for test, will need to draw from the clouds in the game
     private void fillRandomTEST(){
         Random randomizer = new Random();
         for (int i = 0; i< students.size();i++){
@@ -141,19 +148,24 @@ public class Entrance {
                 '}';
     }
 
+    public void setSize(int size) {
+        this.size = size;
+    }
+
     public List<StudColor> getStudents() {
         return students;
     }
 
     public static void main(String[] args) {
         //TEST FOR MOVETODR, ALSO USES THE FILLRANDOMTEST
-        GameMap gm = new GameMap();
+        Game game = new Game(3);
+        GameMap gm = new GameMap(game);
         DiningRoom dg = new DiningRoom();
-        Entrance e = new Entrance(3,dg);
-        System.out.println("Chosen movetodiningroom");
+        Entrance e = new Entrance(dg);
+        System.out.println("for movetodiningroom");
         e.moveToDiningRoom(4); //choose 0 or back to test the other method
         System.out.println("Your table configuration after the moves: " + dg.getTables());
-        System.out.println("Chosen movetoisland");
+        System.out.println("for movetoisland");
         e.moveToIsland(gm,4);
         System.out.println("New archipelago: " + gm);
     }

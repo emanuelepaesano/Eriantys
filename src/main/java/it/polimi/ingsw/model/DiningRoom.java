@@ -18,17 +18,6 @@ public class DiningRoom {
 
 
     /**
-     * @return initializes tables with 0 students
-     */
-    private Map<StudColor,Integer> makeTables(){
-     tables = new HashMap<>();
-     for (StudColor sc : StudColor.values()){
-         tables.put(sc,0);
-     }
-     return tables;
-    }
-
-    /**
      *
      * @return initializes all professors to false
      */

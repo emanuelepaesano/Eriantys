@@ -25,6 +25,10 @@ public enum Assistant {
         return priority;
     }
 
+    public int getMoves() {
+        return moves;
+    }
+
     public static void main(String[] args) {
         for (Assistant a : Assistant.values())
             System.out.printf("Your assistant %s can move with a priority of %d and move mother Nature %d steps \n",

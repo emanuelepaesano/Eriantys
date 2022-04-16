@@ -1,4 +1,7 @@
 package it.polimi.ingsw.model;
+import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.controller.PlayerController;
+
 import java.util.*;
 
 
@@ -16,27 +19,62 @@ public class Game {
     /**
      * initialize bag and random order of player. round starts from 1
      */
-    public Game(int numPlayers, List<Player> startingOrder) {
-        bag = buildBag();
+    public Game(int numPlayers) {
         round = 1;
         this.numPlayers = numPlayers;
-        currentOrder= startingOrder;
-        tableOrder = startingOrder;
-        gameMap = new GameMap(); //this will start the islands, motherNature, initial students
-
+        currentOrder= startPlayersandOrder(numPlayers);
+        tableOrder = new ArrayList<>(currentOrder); //this is to make a copy
+        gameMap = new GameMap(this); //this will start the islands, motherNature, initial students
+        bag = makeBag();
+        clouds = makeClouds(numPlayers);
+        currentPlayer = currentOrder.get(0);
 
     }
 
 
-    private static HashMap<StudColor,Integer> buildBag(){
-        HashMap<StudColor,Integer> bag = new HashMap<>();
-        bag.put(StudColor.BLUE, 24);
-        bag.put(StudColor.YELLOW, 24);
-        bag.put(StudColor.RED, 24);
-        bag.put(StudColor.GREEN, 24);
-        bag.put(StudColor.PINK, 24);
-        return bag;
+    /**
+     * @return initializes the players (and their tower number), returns a random starting order.
+     * This one may be moved to a playerController, or maybe from this we make the playercontroller
+     * instead
+     */
+    public List<Player> startPlayersandOrder(int numplayers){
+        ArrayList<Player> startingOrder = new ArrayList<>();
+        for (int i=0; i< numplayers; i++){
+            PlayerController pc = new PlayerController(i+1, this);
+            startingOrder.add(pc.getPlayer());
+        }
+        Collections.shuffle(startingOrder);
+        return startingOrder;
+    }
 
+
+
+    private HashMap<StudColor,Integer> makeBag(){
+        HashMap<StudColor,Integer> bag = new HashMap<>();
+        for (StudColor sc : StudColor.values()){
+            bag.put(sc,24);
+        }
+        return bag;
+    }
+
+    /**
+     *
+     * @param numPlayers Make as many clouds as there are players.
+     *                   They are initialized with 0 students.
+     */
+    private List<Cloud> makeClouds(int numPlayers){
+        List<Cloud> clouds = new ArrayList<>();
+        for (int i=0; i<numPlayers; i++){
+            clouds.add(new Cloud());
+        }
+        return clouds;
+    }
+
+    public static void main(String[] args) {
+      //  List<Player> so = GameController.startPlayersandOrder(3);
+        Game g = new Game(3);
+        System.out.println(g.clouds);
+        System.out.println(g.bag);
     }
 
 
@@ -58,6 +96,18 @@ public class Game {
 
     public List<Player> getTableOrder() {
         return tableOrder;
+    }
+
+    public List<Cloud> getClouds() {
+        return clouds;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public GameMap getGameMap() {
+        return gameMap;
     }
 }
 

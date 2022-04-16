@@ -1,23 +1,20 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.model.Assistant;
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.TowerColor;
+import it.polimi.ingsw.model.*;
 
 import java.util.*;
 
 public class GameController {
-    private Game game;//remove, only test
+    private Game game;//remove later, only test
     /**
      * In the constructor we can put the methods to inizialize the game.
      * Our main will call the constructor of this class to start the game
      */
     public GameController() {
         int numplayers = AskForPN();
-        List<Player> startingOrder = startPlayersandOrder(numplayers); //initialize players, give a random playerOrder to the game
-        Game game = new Game(numplayers, startingOrder); //initializes the game, because it's the first call
-        this.game = game; //only for test, remove
+        //List<Player> startingOrder = startPlayersandOrder(numplayers); //initialize players, give a random playerOrder to the game
+        Game game = new Game(numplayers); //initializes the game, because it's the first call
+        this.game = game; //only for test, remove later
         askAllForTC(game);
         askAllForWiz(game);
 
@@ -40,24 +37,9 @@ public class GameController {
         return input;
     }
 
-    /**
-     * @return initializes the players (and their tower number), returns a random starting order.
-     * This one may be moved to a playerController, or maybe from this we make the playercontroller
-     * instead
-     */
-    private static List<Player> startPlayersandOrder(int numplayers){
-        ArrayList<Player> startingOrder = new ArrayList<>();
-        for (int i=0; i< numplayers; i++){
-            PlayerController pc = new PlayerController(i+1, numplayers);
-            pc.player.setNumTowers(numplayers==3 ? 6 : 8);
-            startingOrder.add(pc.player);
-        }
-        Collections.shuffle(startingOrder);
-        return startingOrder;
-    }
 
-
-
+// TODO: 15/04/2022 maybe these methods should go in the game, not in the controller
+//  ("the model is something you ask questions to...?")
     /**
      * Cycles through players and asks them a color.
      * It will be stored as an attribute of the player
@@ -91,7 +73,7 @@ public class GameController {
 
     /**
      * I put this here for now but maybe we can do a planningPhaseController.
-     * This is a bit complicated, we might break it down somehow
+     * This is a bit complicated, we might break it down somehow. maybe this could go in the game actually...
      */
     public void doPlanningPhase(Game g){
         // TODO: 13/04/2022 we miss the case in which the player only has the same assistant left
@@ -124,19 +106,16 @@ public class GameController {
         }
         System.out.println("Player order for this turn:" + newOrder);
         g.setCurrentOrder(newOrder);
+        // TODO: 16/04/2022 right now this updates the currentorder, but we are not taking care of the current player yet
     }
 
-    public static void main(String[] args) {
-        // Test for the game controller
-        GameController gc = new GameController();
-        gc.doPlanningPhase(gc.game);
-
-//        for (Player p : gc.game.getCurrentOrder()){
-//            System.out.println(p.getPlayerName() +" has this in the entrance:" + p.getEntrance()
-//            + ";\n these in the tables:" + p.getDiningRoom().getTables());
-//            System.out.println(p.getNumTowers());
-//        }
 
 
+
+
+
+    //GETTER
+    public Game getGame() {
+        return game;
     }
 }

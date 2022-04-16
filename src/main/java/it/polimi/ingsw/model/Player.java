@@ -11,15 +11,15 @@ public class Player {
     private Entrance entrance;
     private Integer numTowers;
     private Map<Assistant, Boolean> assistants;
+    private Assistant currentAssistant;
     private int availableMoves;
 
-    public Player(int id, DiningRoom diningRoom, Entrance entrance, int numPlayers) {
+    public Player(int id, DiningRoom diningRoom, Entrance entrance) {
         this.id = id;
         this.diningRoom = diningRoom;
         this.entrance = entrance;
         playerName = askPlayerName();
         assistants = buildDeck();
-        availableMoves = (numPlayers == 3 ? 4:3);
 
 
     }
@@ -91,76 +91,55 @@ public class Player {
         System.out.println(this.playerName + ", play one of your remaining assistants (speed value): " + remass);
         while (true) {
             String input = new Scanner(System.in).nextLine();
+            // TODO: 15/04/2022 would be nice if also putting es.9 or 10 worked
             try {
                 Assistant choice = Assistant.valueOf(input.toUpperCase());
                 if (remass.contains(choice)){
+                    this.currentAssistant = choice;
+                    System.out.println("Current assistant for "+ playerName + ": " + choice);
                     this.assistants.replace (choice, true, false);
                     return choice;
-            }
-            } catch (IllegalArgumentException ignored) {}
-            System.out.println("Not a valid assistant, take one from the list: " + remass);
-            }
+                }
+            } catch (IllegalArgumentException exception) {System.out.println("Not a valid assistant, take one from the list: " + remass);}
+        }
     }
 
-    // TODO: 14/04/2022 this is now here, but we can do an ActionPhaseController for every player + turn
-    public void doActions(){
-        //this will be an actionlistener linked to 2 buttons. depending on the button pressed
-        //(movetoentrance or movetoisland) the controller calls a different method, then updates model
-        //int usedmoves = 0
-        //while usedmoves < availableMoves:
-        //  askWhichAction(); //this will come from the view, so it must be in a controller
-        //  if actionperformed == 'diningroom':
-        //      usedmoves += entrance.movetoDiningRoom(availableMoves)
-        //  else:
-        //      usedmoves += entrance.movetoIsland(availableMoves)
-
-        //These methods need to know the availableMoves so that player can move more than
-        //1 student at once and then we can subtract all the moves from the available.
-        //They can return the number of moves used, so we can do this.
-        // They also need to give an option to go back if player changes his mind (how to do this??)
+    public int askMNMoves(){
+        //this needs to be called at the end of every player's action phase.
+        //it allows moving mother nature of: min 1 step, max currentassistant.moves steps.
+        //obviously we need to change the bools in the 2 islands.
+        //so, we need to see the map, so we call this from the game, or we have to import the game in the constructor
+        //only for this which i dont like. Sooo from this we only ask basically.
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(playerName + ", how many steps do you want to move Mother Nature? " +
+                "(At least 1, maximum " + currentAssistant.getMoves() + ")");
+        while (true) {
+            try {
+                int choice = scanner.nextInt();
+                if (choice >=1 && choice<= currentAssistant.getMoves()){
+                    return choice;
+                }
+                else{System.out.println("That choice is not allowed! Try again");}
+            } catch (IllegalArgumentException ex) {System.out.println("Not a valid number, try again");}
+        }
     }
+
 
 
     @Override
     public String toString() {
-        return "Player{" +
-                "id=" + id +
-                ", playerName='" + playerName + '\'' +
-                '}';
+        return "Player" + id +
+                ": \"" + playerName +"\"";
     }
 
     //GETTERS SETTERS
 
-    public TowerColor getTowerColor() {
-        return towerColor;
-    }
-
-    public Integer getWizard() {
-        return wizard;
-    }
-
     public void setNumTowers(Integer numTowers) {
         this.numTowers = numTowers;
-    }
-    public Integer getNumTowers() {
-        return numTowers;
-    }
-
-    public String getPlayerName() {
-        return playerName;
-    }
-
-    public DiningRoom getDiningRoom() {
-        return diningRoom;
-    }
-
-    public Entrance getEntrance() {
-        return entrance;
     }
 
     public Map<Assistant, Boolean> getAssistants() {
         return assistants;
     }
-
 
 }

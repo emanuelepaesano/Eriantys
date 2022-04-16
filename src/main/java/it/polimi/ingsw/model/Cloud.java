@@ -9,4 +9,10 @@ public class Cloud {
         this.students = Island.makeStudents();
     }
 
+    @Override
+    public String toString() {
+        return "\n Cloud: "
+                + students
+                ;
+    }
 }

@@ -1,15 +1,19 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.controller.GameController;
+
 import java.util.*;
 
 public class GameMap {
     //I think we need this class, or we need to
     //put everything to handle the islands in the game
     List<Island> archipelago;
+    Game game;
 
     //make this a singleton class?
-    public GameMap(){
+    public GameMap(Game game){
         archipelago = makeIslands();
+        this.game = game;
         int startindex = startMotherNature();
         startStudents(startindex);
     }
@@ -62,16 +66,35 @@ public class GameMap {
         }
     }
 
+    public void moveMotherNature(){
+        int nmoves = game.getCurrentPlayer().askMNMoves();
+        // Now, take the island where mother nature is true and move n steps to the right inside the gamemap
+        int index = searchForMN();
+        archipelago.get(index).setHasMother(false);
+        archipelago.get((index+nmoves)%12).setHasMother(true);
+    }
+
+    private int searchForMN(){
+        int index = 0;
+        for (Island island : archipelago){
+            if (island.hasMother){
+                index = archipelago.indexOf(island);
+            }
+        }
+        return index;
+    }
+
 
     // TODO: 14/04/2022 A nice string representation to show the gameMap in the CLI
     @Override
     public String toString() {
-        String string = "";
+        StringBuilder string = new StringBuilder();
         for (Island island : archipelago){
-            string += "Island " + island.id + ": ";
-            string += island.getStudents() + "\n";
+            string.append("Island ").append(island.id).append(": ");
+            string.append(island.getStudents()).append(island.hasMother).append("\n");
+
         }
-        return string;
+        return string.toString();
     }
 
     public List<Island> getArchipelago() {
@@ -79,9 +102,14 @@ public class GameMap {
     }
 
     public static void main(String[] args) {
-        //TEST FOR ISLAND INITIALIZATION
-        GameMap gm = new GameMap();
-        System.out.println(gm);
+        //TEST FOR ISLAND INITIALIZATION AND MOVEMOTHER
+        GameController gc = new GameController ();
+        gc.doPlanningPhase(gc.getGame()); //not complete yet, only here to set a current assistant
+        System.out.println(gc.getGame().getGameMap());
+        gc.getGame().getGameMap().moveMotherNature();
+        System.out.println(gc.getGame().getGameMap());
+        System.out.println("mother nature is now here: " + gc.getGame().getGameMap().searchForMN());
+
 
     }
 }
