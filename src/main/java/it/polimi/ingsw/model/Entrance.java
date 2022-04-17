@@ -8,10 +8,12 @@ public class Entrance {
     private final List<Student> students;
     private final DiningRoom diningRoom;
     private final int size;
+    private Game game;
 
     public Entrance(Game game, DiningRoom diningRoom){
-        size = (game.numPlayers == 3 ? 9:7 );
         this.diningRoom = diningRoom;
+        this.game = game;
+        size = (game.numPlayers == 3 ? 9:7 );
         //initialize all entries to null
         students = new ArrayList<>(Arrays.asList(new Student[size]));
         System.out.println("size of entrance array: " + students.size());
@@ -31,9 +33,14 @@ public class Entrance {
         //First part: we ask how many students to move, maximum availablemoves
         int nstud = askHowMany(availablemoves);
         //Now we ask to move the students
+        String st;
         Student stud;
         for (int i = 0;i<nstud;i++){
-            try{stud = askWhich(i);}
+            try{
+                st = askWhich(i);
+                if (Objects.equals(st, "back")) {return i;}
+                else {stud = Student.valueOf(st.toUpperCase());}
+            }
             catch (IllegalArgumentException ex) {
                 System.out.println("Not a valid student color, try again");
                 i-= 1;
@@ -69,11 +76,16 @@ public class Entrance {
         //Probably also for asking which student to move we need an independent method(done).
 
         //First part is the same.
+        System.out.println("Current map:\n" + gm);
         int nstud = askHowMany(availablemoves);
-        Scanner scanner = new Scanner(System.in);
+        String st;
         Student stud;
         for (int i = 0;i<nstud;i++){
-            try{stud = askWhich(i);}
+            try{
+                st = askWhich(i);
+                if (Objects.equals(st, "back")) {return i;} //if player wants back at 1st iteration, we don't remove actions and so on
+                else {stud = Student.valueOf(st.toUpperCase());}
+            }
             catch (IllegalArgumentException ex) {
                 System.out.println("Not a valid student color, try again");
                 i-= 1;
@@ -82,43 +94,18 @@ public class Entrance {
             //In the 2nd part now we move it to the chosen island
             if (students.contains(stud)){
                 students.remove(stud);
-                System.out.println("To which island do you want to move it?\n" +
-                        "This is the current state of the islands\n" + gm +
-                        "\nIndicate the island by its number (0-11)") ;
-                int index = scanner.nextInt(); //we will need a try-catch
-                Island island = gm.getArchipelago().get(index);
+                Island island = askWhichIsland(gm);
                 int oldval = island.students.get(stud);
                 island.students.replace(stud, oldval,oldval+1);
             }
             else{
-                System.out.println("You don't have this student in your entrance");
+                System.out.println("You don't have this student in your entrance!");
                 i-=1;
             }
         }
         return nstud; //doActions() needs this
     }
 
-    private void fillFromClouds(Game game){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Fill your entrance from a cloud.\n " + game.getClouds() +
-                "\n enter a number from 1 to " + game.getClouds().size() + "to choose the cloud.");
-        // TODO: 16/04/2022 for now we only choose a number, we will do a more elaborate way to choose
-        while (true) {
-            try {
-                int choice = scanner.nextInt();
-                if (choice<= game.getClouds().size() && choice >= 1 ){
-                    Cloud cloud = game.getClouds().get(choice-1);
-                    if (cloud.students.size()>0){
-                    //add those students to our entrance
-                    this.students.addAll(cloud.students);
-                    cloud.students.clear();
-                    break;
-                    }
-                    else{System.out.println("That cloud is empty! Try again.");}
-                }
-            } catch (IllegalArgumentException ex) {System.out.println("Not a number, try again.");}
-        }
-    }
 
     /**
      *
@@ -129,12 +116,11 @@ public class Entrance {
         Scanner scanner = new Scanner(System.in);
         int nstud;
         while (true) {
-            System.out.println("How many students do you want to move? (maximum " + availablemoves+ ")\n" +
-                    "To return to action selection, type '0' or 'back' (doesn't work yet)"); //obviously back doesnt work
+            System.out.println("How many students do you want to move (maximum " + availablemoves+ ") ?\n" +
+                    "To return to action selection, type '0' or 'back'"); //obviously back doesnt work
             String in = scanner.next();
             if (Objects.equals(in, "back")) {
-                return 0;
-                //Basically it will be a return null; statement, to go back to the caller (doActions)
+                return 0; //go back to movetox and then to doActions()
             }
             try {
                 nstud = Integer.parseInt(in);
@@ -144,17 +130,58 @@ public class Entrance {
         }
         return nstud;
     }
-
     /**
      *
      * @param number the iteration number
      * @return similarly, it's here mostly not to duplicate code
      */
-    private Student askWhich(int number){
+    private String askWhich(int number){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("choose the color of student number " + (number+1) + " from your entrance:" + students);
-        String color = scanner.next();
-        return Student.valueOf(color.toUpperCase());
+        System.out.println("Choose the color of student number " + (number+1) + " from your entrance:\n"
+                + students + ", or type \"back\" to change action");
+        return scanner.next();
+    }
+
+    //only for moveToIsland
+    private Island askWhichIsland(GameMap gm){
+        Scanner scanner = new Scanner(System.in);
+        while (true){
+            System.out.println("To which island do you want to move it?\n" +
+                    "This is the current state of the islands:\n" + gm +
+                    "\nIndicate the island by its number (0~11):") ;
+            try {
+                int index = Integer.parseInt(scanner.next()); //we will need a try-catch
+                if (index>=0 &&index <=11) {
+                    return gm.getArchipelago().get(index);
+                }
+                System.out.println("That's not a valid index, please choose one between 0~11.\n");
+            }catch (NumberFormatException ex) {
+                System.out.println("That's not an index, please choose an index between 0~11.\n");
+            }
+        }
+    }
+
+
+    public void fillFromClouds(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Fill your entrance from a cloud.\n " + game.getClouds() +
+                "\n enter a number from 1 to " + game.getClouds().size() + "to choose the cloud.");
+        // TODO: 16/04/2022 for now we only choose a number, we will do a more elaborate way to choose
+        while (true) {
+            try {
+                int choice = scanner.nextInt();
+                if (choice<= game.getClouds().size() && choice >= 1 ){
+                    Cloud cloud = game.getClouds().get(choice-1);
+                    if (cloud.students.size()>0){
+                        //add those students to our entrance
+                        this.students.addAll(cloud.students);
+                        cloud.students.clear();
+                        break;
+                    }
+                    else{System.out.println("That cloud is empty! Try again.");}
+                }
+            } catch (IllegalArgumentException ex) {System.out.println("Not a number, try again.");}
+        }
     }
 
     //only for test, will need to draw from the clouds in the game
@@ -186,13 +213,13 @@ public class Entrance {
         e.moveToDiningRoom(4); //choose 0 or back to test the other method
         System.out.println("Your table configuration after the moves: " + dg.getTables());
         System.out.println("Before filling from clouds: " + e.students);
-        e.fillFromClouds(game);
+        e.fillFromClouds();
         System.out.println("Entrance after filling: " + e);
         System.out.println("for >>>MOVETOISLAND<<<");
         e.moveToIsland(game.getGameMap(), 4);
         System.out.println("New archipelago: " + game.getGameMap());
         System.out.println("Before filling from clouds: " + e.students);
-        e.fillFromClouds(game);
+        e.fillFromClouds();
         System.out.println("Entrance after filling: " + e);
     }
 

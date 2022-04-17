@@ -26,7 +26,6 @@ public class Game {
         bag = makeBag();
         clouds = makeClouds(numPlayers);
         fillClouds();
-        currentPlayer = currentOrder.get(0);
 
     }
 

@@ -8,7 +8,7 @@ public class Cloud {
     //Actually i don't really like the map, a list would be better since only 3 or 4 positions
     public Cloud(Game game){
         size = (game.numPlayers == 3 ? 4:3);
-        //I like this better, since we only have 3 or 4 positions
+        //I like this better, since we only have 3 or 4 positions.
         students = new ArrayList<>();
     }
 

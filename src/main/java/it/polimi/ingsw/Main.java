@@ -4,9 +4,6 @@ import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * this will be the main to play the game.
@@ -14,21 +11,17 @@ import java.util.List;
  */
 public class Main {
     public static void main(String[] args) {
-        // Test for the game controller
+//         Test for the game
         GameController gc = new GameController();
         Game game = gc.getGame();
         gc.doPlanningPhase(gc.getGame());
-        for (Player p : game.getCurrentOrder()){
-            System.out.println(p.getPlayerName() +" has this in the entrance:" + p.getEntrance()
-            + ";\n these in the tables:" + p.getDiningRoom().getTables());
-            System.out.println("tower number: " + p.getNumTowers());
-        }
+//
         game.setCurrentPlayer(game.getCurrentOrder().get(0)); //we don't have a rule for switching between players yet
         Player testpl = game.getCurrentPlayer();
         testpl.doActions();
         System.out.println("Test player entrance after moves: " + testpl.getEntrance() +"\n" +
-                "Islands after test player's moves: " + game.getGameMap());
-
+                "Islands after test player's moves:\n" + game.getGameMap());
+        game.getGameMap().moveMotherNature();
 
     }
 }

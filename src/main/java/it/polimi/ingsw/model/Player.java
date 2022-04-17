@@ -7,26 +7,23 @@ public class Player {
     private final String playerName;
     private TowerColor towerColor;
     private Integer wizard;
-    private DiningRoom diningRoom;
-    private Entrance entrance;
+    private final DiningRoom diningRoom;
+    private final Entrance entrance;
     private Integer numTowers;
     private Map<Assistant, Boolean> assistants;
-    private  int numPlayers;
+    private final int numPlayers;
     private Assistant currentAssistant;
-    private int availableMoves;
-    private  Game game;
+    private final Game game;
 
     public Player(int id, Game game) {
         this.id = id;
         this.game = game;
         numPlayers = game.numPlayers;
-        diningRoom = new DiningRoom();
+        diningRoom = new DiningRoom();//it's important to make the dining room before the entrance
         entrance = new Entrance(game, diningRoom);
         playerName = askPlayerName();
         assistants = buildDeck();
         numTowers = (numPlayers == 3 ? 6 : 8);
-
-
     }
 
     private TreeMap<Assistant, Boolean> buildDeck(){
@@ -47,7 +44,11 @@ public class Player {
     }
 
 
-
+    /**
+     *
+     * @param remainingWizards the remaining wizards, by askAllforWiz()
+     * @return the wizard chosen by the player
+     */
     public int askWizard(ArrayList<Integer> remainingWizards) {
         System.out.println(this.playerName + ", choose your wizard number among these: " + remainingWizards);
         while (true) {
@@ -122,25 +123,16 @@ public class Player {
             else if (Objects.equals(action, "islands")){
                 availableActions -= entrance.moveToIsland(game.getGameMap(), availableActions);}
         }
-        //These methods need to know the availableMoves so that player can move more than
-        //1 student at once and then we can subtract all the moves from the available.
-        //They return the number of moves used, so we can do this.
-        // They also need to give an option to go back if player changes his mind (choosing 0 is enough)
     }
 
     private String askWhichAction(int availableActions){
         Scanner scanner = new Scanner(System.in);
-        System.out.printf("%s, where do you want to move your students (%d moves left)? please type 'islands' or 'diningroom' "
+        System.out.printf("%s, where do you want to move your students (%d moves left)? Please type \"islands\" or \"diningroom\" "
                 , playerName,availableActions);
         return scanner.nextLine();
     }
 
     public int askMNMoves(){
-        //this needs to be called at the end of every player's action phase.
-        //it allows moving mother nature of: min 1 step, max currentassistant.moves steps.
-        //obviously we need to change the bools in the 2 islands.
-        //so, we need to see the map, so we call this from the game, or we have to import the game in the constructor
-        //only for this which i dont like. Sooo from this we only ask basically.
         Scanner scanner = new Scanner(System.in);
         System.out.println(playerName + ", how many steps do you want to move Mother Nature? " +
                 "(At least 1, maximum " + currentAssistant.getMoves() + ")");

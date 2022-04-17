@@ -16,14 +16,14 @@ public class PlayerController {
 
 
     public PlayerController(int id, Game game){ //if this gives weird errors, go back to int numplayers instead of game
-        //the id of the playercontroller and its player coincide, might turn out useful
+        //the id of the playercontroller and its player coincide
         this.id = id;
         this.game = game;
         numPlayers = game.numPlayers;
         player = new Player(id,game);
 
 
-        //it's important to make the dining room before the entrance
+
     }
 
 

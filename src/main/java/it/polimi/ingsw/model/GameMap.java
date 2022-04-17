@@ -66,6 +66,7 @@ public class GameMap {
         }
     }
 
+    //could go in the player instead
     public void moveMotherNature(){
         int nmoves = game.getCurrentPlayer().askMNMoves();
         // Now, take the island where mother nature is true and move n steps to the right inside the gamemap
@@ -91,7 +92,7 @@ public class GameMap {
         StringBuilder string = new StringBuilder();
         for (Island island : archipelago){
             string.append("Island ").append(island.id).append(": ");
-            string.append(island.getStudents()).append(island.hasMother).append("\n");
+            string.append(island.getStudents()).append((island.hasMother? " 🍀":"")).append("\n");
 
         }
         return string.toString();
