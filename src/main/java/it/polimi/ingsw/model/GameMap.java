@@ -15,8 +15,8 @@ public class GameMap {
 
     //make this a singleton class?
     public GameMap(Game game){
-        archipelago = makeIslands();
         this.game = game;
+        archipelago = makeIslands();
         motherNature = startMotherNature();
         startStudents(motherNature);
     }
@@ -28,7 +28,7 @@ public class GameMap {
     private List<Island> makeIslands(){
         List<Island> archipelago = new ArrayList<>();
         for (int i = 0; i<12; i++){
-            archipelago.add(new Island(i));
+            archipelago.add(new Island(i, game));
         }
         return archipelago;
     }
@@ -76,7 +76,9 @@ public class GameMap {
         StringBuilder string = new StringBuilder();
         for (Island island : archipelago){
             string.append("Island ").append(island.id).append(": ");
+            string.append("Owner{").append(island.owner).append("} ");
             string.append(island.getStudents()).append((archipelago.indexOf(island) == motherNature? " 🍀":"")).append("\n");
+
 
         }
         return string.toString();

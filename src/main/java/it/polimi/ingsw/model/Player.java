@@ -171,6 +171,17 @@ public class Player {
         }
     }
 
+    public int calculateInfluence(Island island) {
+        int influence = 0;
+        if (island.owner == this) {influence += island.size;}
+        for (Student student : Student.values() ){
+            if (this.diningRoom.getProfessors().get(student)){
+                influence += island.getStudents().get(student);
+            }
+        }
+        return influence;
+    }
+
 
 
     @Override

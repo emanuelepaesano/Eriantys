@@ -224,18 +224,19 @@ public class Entrance {
             e.fillFromClouds();
             System.out.println("Entrance after filling: " + e);
             System.out.println(p.getDiningRoom());
+            System.out.println(p + ": for >>>MOVETOISLAND<<<, choose 4 to test fillclouds");
+            e.moveToIsland(game.getGameMap(), 4);
+            System.out.println("New archipelago: " + game.getGameMap());
+            for( Island i : game.getGameMap().getArchipelago()){
+                //for the moment we do check on all the islands, not only where mn is
+                System.out.println("Owner of island "+ i.id +": "+ i.checkOwner());
+            }
         }
+
         for(Player p : game.getCurrentOrder()) {
             System.out.println(p.getPlayerName() + "'s " + p.getDiningRoom());
         }
 
-
-//        System.out.println(activeplayer + ": for >>>MOVETOISLAND<<<, choose 4 to test fillclouds");
-//        e.moveToIsland(game.getGameMap(), 4);
-//        System.out.println("New archipelago: " + game.getGameMap());
-//        System.out.println("Before filling from clouds: " + e.students);
-//        e.fillFromClouds();
-//        System.out.println("Entrance after filling: " + e);
     }
 
 
