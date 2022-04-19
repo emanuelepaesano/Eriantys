@@ -9,15 +9,16 @@ public class GameMap {
     //  sense from an o.o.p. point of view
     //I think we need this class, or we need to
     //put everything to handle the islands in the game
-    List<Island> archipelago;
-    Game game;
+    private final List<Island> archipelago;
+    private final Game game;
+    private int motherNature;
 
     //make this a singleton class?
     public GameMap(Game game){
         archipelago = makeIslands();
         this.game = game;
-        int startindex = startMotherNature();
-        startStudents(startindex);
+        motherNature = startMotherNature();
+        startStudents(motherNature);
     }
 
     /**
@@ -36,22 +37,17 @@ public class GameMap {
      * Take a random index and put motherNature in that island
      */
     private int startMotherNature(){
-
         Random randomizer = new Random();
-        int index = randomizer.nextInt(12);
-        Island inIsland = archipelago.get(index);
-        inIsland.setHasMother(true);
-        return index;
-
+        return randomizer.nextInt(12);
     }
 
     /**
      *
-     * @param startindex Needs to know starting motherNature position
+     * @param motherNature Needs to know starting motherNature position
      * - Initializes students from a "smallBag" containing 2 of each color
      */
-    private void startStudents(int startindex){
-        System.out.println("mother nature is here:" + startindex);
+    private void startStudents(int motherNature){
+        System.out.println("mother nature is here:" + motherNature);
 
         ArrayList<Student> smallBag = new ArrayList<>(Arrays.asList(Student.values()));
         smallBag.addAll(Arrays.asList(Student.values())); //these 2 lines make the initial bag
@@ -62,30 +58,17 @@ public class GameMap {
             if (i == 6){continue;}
             int index = randomizer.nextInt(smallBag.size());
             Student student = smallBag.remove(index);
-            Island island = this.archipelago.get((startindex+i)%12);
+            Island island = this.archipelago.get((motherNature+i)%12);
             island.students.replace(student,0,1);
-
         }
     }
 
 
     public void moveMotherNature(){
         int nmoves = game.getCurrentPlayer().askMNMoves();
-        // Now, take the island where mother nature is true and move n steps to the right inside the gamemap
-        int index = searchForMN();
-        archipelago.get(index).setHasMother(false);
-        archipelago.get((index+nmoves)%12).setHasMother(true);
+        motherNature = (motherNature+nmoves)%(archipelago.size()); //archipelago changes in size
     }
 
-    private int searchForMN(){
-        int index = 0;
-        for (Island island : archipelago){
-            if (island.hasMother){
-                index = archipelago.indexOf(island);
-            }
-        }
-        return index;
-    }
 
 
     @Override
@@ -93,7 +76,7 @@ public class GameMap {
         StringBuilder string = new StringBuilder();
         for (Island island : archipelago){
             string.append("Island ").append(island.id).append(": ");
-            string.append(island.getStudents()).append((island.hasMother? " 🍀":"")).append("\n");
+            string.append(island.getStudents()).append((archipelago.indexOf(island) == motherNature? " 🍀":"")).append("\n");
 
         }
         return string.toString();
@@ -110,8 +93,7 @@ public class GameMap {
         System.out.println(gc.getGame().getGameMap());
         gc.getGame().getGameMap().moveMotherNature();
         System.out.println(gc.getGame().getGameMap());
-        System.out.println("mother nature is now here: " + gc.getGame().getGameMap().searchForMN());
-
+        System.out.println("mother nature is now here: " + gc.getGame().getGameMap().motherNature);
 
     }
 }

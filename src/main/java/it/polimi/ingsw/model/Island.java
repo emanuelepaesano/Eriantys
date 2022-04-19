@@ -7,8 +7,6 @@ public class Island {
     int id;
     Map<Student,Integer> students;
     Player owner;
-    //we might do a test that we never have 2 island with this set to true
-    Boolean hasMother;
     int size;
 
     /**
@@ -27,15 +25,11 @@ public class Island {
         this.id = id;
         size = 1;
         students = makeStudents();
-        hasMother = false;
     }
 
 
 
     //GETTERS SETTERS
-    public void setHasMother(Boolean hasMother) {
-        this.hasMother = hasMother;
-    }
 
     public Map<Student, Integer> getStudents() {
         return students;
