@@ -8,7 +8,7 @@ public class Entrance {
     private final List<Student> students;
     private final DiningRoom diningRoom;
     private final int size;
-    private Game game;
+    private final Game game;
 
     public Entrance(Game game, DiningRoom diningRoom){
         this.diningRoom = diningRoom;
@@ -25,9 +25,9 @@ public class Entrance {
     /**
      *
      * @param availablemoves the moves that are left to the player, will come from the controller.
-     * First try of method for moving students to dining room. It needs to be simplified / broken down.
-     * Now better with the 2 separate methods
-     * @return number of moves used, needed by doActions
+     *
+     * @return Method for moving students to dining room. Returns the number of moves used, for doActions()
+     *
      */
     public int moveToDiningRoom(int availablemoves){
         //First part: we ask how many students to move, maximum availablemoves
@@ -50,13 +50,17 @@ public class Entrance {
                 students.remove(stud);
                 int oldnum = diningRoom.getTables().get(stud);
                 this.diningRoom.getTables().replace(stud,oldnum,oldnum+1);
+                game.getCurrentPlayer().checkProfessor(stud);
+                //there are some alternatives:
+                //->we do it as a method in the game instead, harder to implement
+                //->we pass the player as attribute to this entrance and just call player.checkprofessor
+                //->we can do all of these by checking for all students at once
             }
             else{
                 System.out.println("You don't have this student in your entrance");
                 i-=1;
             }
         }
-        //if (nstud>0){game.checkprofessors()}
         return nstud; //doActions() needs this
     }
 
@@ -65,7 +69,7 @@ public class Entrance {
      * @param gm the game map, it's needed to connect to the islands
      * @param availablemoves the same as movetodiningroom.
      *
-     * @return asks the current player which students he wants to move to the islands, then does it by updating
+     * @return Method for moving students to the islands, updates
      * the game map. Returns number of used moves, for doActions()
      *
      */
@@ -74,7 +78,6 @@ public class Entrance {
         //in the second part. Let's not duplicate code, we need to make a separate method
         //for the first part.
         //Probably also for asking which student to move we need an independent method(done).
-
         //First part is the same.
         System.out.println("Current map:\n" + gm);
         int nstud = askHowMany(availablemoves);
@@ -161,11 +164,13 @@ public class Entrance {
         }
     }
 
-
+    /**
+     * Lets the player choose a cloud and fills the entrance with the students of that cloud
+     */
     public void fillFromClouds(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Fill your entrance from a cloud.\n " + game.getClouds() +
-                "\n enter a number from 1 to " + game.getClouds().size() + "to choose the cloud.");
+                "\n enter a number from 1 to " + game.getClouds().size() + " to choose the cloud.");
         // TODO: 16/04/2022 for now we only choose a number, we will do a more elaborate way to choose
         while (true) {
             try {
@@ -179,7 +184,7 @@ public class Entrance {
                         break;
                     }
                     else{System.out.println("That cloud is empty! Try again.");}
-                }
+                } else {System.out.printf("Not a valid number, type a number between 1 and %d", game.getClouds().size());}
             } catch (IllegalArgumentException ex) {System.out.println("Not a number, try again.");}
         }
     }
@@ -205,22 +210,32 @@ public class Entrance {
     }
 
     public static void main(String[] args) {
-        //TEST FOR MOVETODR, ALSO USES THE FILLRANDOMTEST
+        //TEST FOR MOVETODR AND P.CHECKPROFESSOR, still uses fillrandomTEST
         Game game = new Game(3);
         DiningRoom dg = new DiningRoom();
-        Entrance e = new Entrance(game, dg);
-        System.out.println("for >>>MOVETODININGROOM<<<");
-        e.moveToDiningRoom(4); //choose 0 or back to test the other method
-        System.out.println("Your table configuration after the moves: " + dg.getTables());
-        System.out.println("Before filling from clouds: " + e.students);
-        e.fillFromClouds();
-        System.out.println("Entrance after filling: " + e);
-        System.out.println("for >>>MOVETOISLAND<<<");
-        e.moveToIsland(game.getGameMap(), 4);
-        System.out.println("New archipelago: " + game.getGameMap());
-        System.out.println("Before filling from clouds: " + e.students);
-        e.fillFromClouds();
-        System.out.println("Entrance after filling: " + e);
+        //1ST PLAYER
+        for(Player p : game.getCurrentOrder()) {
+            game.setCurrentPlayer(p);
+            Entrance e = p.getEntrance();
+            System.out.println(p + ": for >>>MOVETODININGROOM<<<, choose 4 to test fillclouds");
+            e.moveToDiningRoom(4); //choose 0 or back to test the other method
+            System.out.println("Your table configuration after the moves: " + dg.getTables());
+            System.out.println("Before filling from clouds: " + e.students);
+            e.fillFromClouds();
+            System.out.println("Entrance after filling: " + e);
+            System.out.println(p.getDiningRoom());
+        }
+        for(Player p : game.getCurrentOrder()) {
+            System.out.println(p.getPlayerName() + "'s " + p.getDiningRoom());
+        }
+
+
+//        System.out.println(activeplayer + ": for >>>MOVETOISLAND<<<, choose 4 to test fillclouds");
+//        e.moveToIsland(game.getGameMap(), 4);
+//        System.out.println("New archipelago: " + game.getGameMap());
+//        System.out.println("Before filling from clouds: " + e.students);
+//        e.fillFromClouds();
+//        System.out.println("Entrance after filling: " + e);
     }
 
 

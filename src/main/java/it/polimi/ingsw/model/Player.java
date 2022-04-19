@@ -3,7 +3,7 @@ package it.polimi.ingsw.model;
 import java.util.*;
 
 public class Player {
-    private final int id ;
+    public final int id ;
     private final String playerName;
     private TowerColor towerColor;
     private Integer wizard;
@@ -35,7 +35,6 @@ public class Player {
     }
 
 
-    //we have to show this only to one player at a time
     private String askPlayerName() {
         System.out.println("Player " + this.id + ", enter your nickname:");
         return (new Scanner(System.in).nextLine());
@@ -132,6 +131,11 @@ public class Player {
         return scanner.nextLine();
     }
 
+    /**
+     *
+     * @return The number of steps the player wants to move mother Nature. This method is now only called from GameMap.moveMotherNature().
+     * This could change if we choose to move that method
+     */
     public int askMNMoves(){
         Scanner scanner = new Scanner(System.in);
         System.out.println(playerName + ", how many steps do you want to move Mother Nature? " +
@@ -144,6 +148,26 @@ public class Player {
                 }
                 else{System.out.println("That choice is not allowed! Try again");}
             } catch (IllegalArgumentException ex) {System.out.println("Not a valid number, try again");}
+        }
+    }
+
+    public void checkProfessor(Student student){
+        //look into all players to see if we get that professor
+        //N.B: we win only with strictly more students
+        int countwins = 0;
+        for (Player player : game.getTableOrder()){
+            if (player.id != this.id){
+                if (this.diningRoom.getTables().get(student) > player.diningRoom.getTables().get(student)){
+                    countwins+=1;
+                }
+            }
+        }
+        if (countwins == (numPlayers-1)){
+            //set all to false and then our to true
+            for (Player player : game.getTableOrder()){
+                    player.diningRoom.getProfessors().replace(student,true,false);
+            }
+            this.diningRoom.getProfessors().replace(student,true);
         }
     }
 

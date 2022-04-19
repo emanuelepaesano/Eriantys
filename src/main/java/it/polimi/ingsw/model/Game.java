@@ -26,6 +26,7 @@ public class Game {
         bag = makeBag();
         clouds = makeClouds(numPlayers);
         fillClouds();
+        currentPlayer = currentOrder.get(0);
 
     }
 
@@ -89,6 +90,8 @@ public class Game {
         }
     }
 
+
+
     public static void main(String[] args) {
         //test for fillClouds()
         Game g = new Game(2);
@@ -98,7 +101,6 @@ public class Game {
         System.out.println(g.clouds);
         System.out.println(g.bag);
     }
-
 
 
 

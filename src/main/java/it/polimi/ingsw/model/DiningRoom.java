@@ -29,7 +29,24 @@ public class DiningRoom {
         return professors;
     }
 
+    @Override
+    public String toString() {
+        String dr = "Dining Room {\n";
+        for (Student student : Student.values()){
+            dr += student + ": ";
+            dr += this.tables.get(student);
+            dr += (this.professors.get(student)? " \u200D\uD83C\uDF93":"");
+            dr += "\n";
+        }
+        dr += "}";
+        return dr;
+    }
+
     public Map<Student, Integer> getTables() {
         return tables;
+    }
+
+    public Map<Student, Boolean> getProfessors() {
+        return professors;
     }
 }

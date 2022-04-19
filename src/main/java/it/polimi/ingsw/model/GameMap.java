@@ -5,6 +5,8 @@ import it.polimi.ingsw.controller.GameController;
 import java.util.*;
 
 public class GameMap {
+    // TODO: 19/04/2022 mother nature could just be a int stored here to indicate her position, it would make more
+    //  sense from an o.o.p. point of view
     //I think we need this class, or we need to
     //put everything to handle the islands in the game
     List<Island> archipelago;
@@ -46,7 +48,7 @@ public class GameMap {
     /**
      *
      * @param startindex Needs to know starting motherNature position
-     * - initializes students from a "smallBag" containing 2 of each color
+     * - Initializes students from a "smallBag" containing 2 of each color
      */
     private void startStudents(int startindex){
         System.out.println("mother nature is here:" + startindex);
@@ -66,7 +68,7 @@ public class GameMap {
         }
     }
 
-    //could go in the player instead
+
     public void moveMotherNature(){
         int nmoves = game.getCurrentPlayer().askMNMoves();
         // Now, take the island where mother nature is true and move n steps to the right inside the gamemap
@@ -86,7 +88,6 @@ public class GameMap {
     }
 
 
-    // TODO: 14/04/2022 A nice string representation to show the gameMap in the CLI
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();
