@@ -66,19 +66,19 @@ public class Entrance {
 
     /**
      *
-     * @param gm the game map, it's needed to connect to the islands
      * @param availablemoves the same as movetodiningroom.
      *
      * @return Method for moving students to the islands, updates
      * the game map. Returns number of used moves, for doActions()
      *
      */
-    public int moveToIsland(GameMap gm, int availablemoves){
+    public int moveToIsland(int availablemoves){
         //here we do the same thing but with choosing an island index
         //in the second part. Let's not duplicate code, we need to make a separate method
         //for the first part.
         //Probably also for asking which student to move we need an independent method(done).
         //First part is the same.
+        GameMap gm = this.game.getGameMap();
         System.out.println("Current map:\n" + gm);
         int nstud = askHowMany(availablemoves);
         String st;
@@ -107,6 +107,10 @@ public class Entrance {
             }
         }
         return nstud; //doActions() needs this
+    }
+
+    private void fillFromBag(){
+
     }
 
 
@@ -225,7 +229,7 @@ public class Entrance {
             System.out.println("Entrance after filling: " + e);
             System.out.println(p.getDiningRoom());
             System.out.println(p + ": for >>>MOVETOISLAND<<<, choose 4 to test fillclouds");
-            e.moveToIsland(game.getGameMap(), 4);
+            e.moveToIsland(4);
             System.out.println("New archipelago: " + game.getGameMap());
             p.playAssistant();
             game.getGameMap().moveMotherNatureAndCheck();

@@ -120,7 +120,7 @@ public class Player {
                 availableActions -= entrance.moveToDiningRoom(availableActions);
             }
             else if (Objects.equals(action, "islands")){
-                availableActions -= entrance.moveToIsland(game.getGameMap(), availableActions);}
+                availableActions -= entrance.moveToIsland(availableActions);}
         }
     }
 

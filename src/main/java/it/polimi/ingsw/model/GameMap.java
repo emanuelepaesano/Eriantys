@@ -132,7 +132,7 @@ public class GameMap {
         StringBuilder string = new StringBuilder();
         for (Island island : archipelago){
             string.append("Island ").append(island.id).append(": ");
-            string.append("Size= " + island.size + "; ");
+            string.append("Size= ").append(island.size).append("; ");
             string.append("Owner{").append(island.owner).append("} ");
             string.append(island.getStudents()).append((archipelago.indexOf(island) == motherNature? " 🍀":"")).append("\n");
 
