@@ -19,11 +19,11 @@ public class Player {
         this.id = id;
         this.game = game;
         numPlayers = game.numPlayers;
-        diningRoom = new DiningRoom();//it's important to make the dining room before the entrance
-        entrance = new Entrance(game, diningRoom);
         playerName = askPlayerName();
         assistants = buildDeck();
         numTowers = (numPlayers == 3 ? 6 : 8);
+        diningRoom = new DiningRoom(this);//it's important to make the dining room before the entrance
+        entrance = new Entrance(this, diningRoom);
     }
 
     private TreeMap<Assistant, Boolean> buildDeck(){
@@ -151,26 +151,6 @@ public class Player {
         }
     }
 
-    // TODO: 20/04/2022 why is this not inside the diningroom?
-    public void checkProfessor(Student student){
-        //look into all players to see if we get that professor
-        //N.B: we win only with strictly more students
-        int countwins = 0;
-        for (Player player : game.getTableOrder()){
-            if (player.id != this.id){
-                if (this.diningRoom.getTables().get(student) > player.diningRoom.getTables().get(student)){
-                    countwins+=1;
-                }
-            }
-        }
-        if (countwins == (numPlayers-1)){
-            //set all to false and then our to true
-            for (Player player : game.getTableOrder()){
-                    player.diningRoom.getProfessors().replace(student,true,false);
-            }
-            this.diningRoom.getProfessors().replace(student,true);
-        }
-    }
 
     public int calculateInfluence(Island island) {
         int influence = 0;
@@ -222,5 +202,13 @@ public class Player {
 
     public Integer getNumTowers() {
         return numTowers;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public int getNumPlayers() {
+        return numPlayers;
     }
 }

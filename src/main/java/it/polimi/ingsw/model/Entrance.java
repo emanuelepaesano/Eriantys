@@ -3,17 +3,16 @@ package it.polimi.ingsw.model;
 import java.util.*;
 
 public class Entrance {
-    // TODO: 12/04/2022 missing reference to the player.
-    //  actually we may not need it
+
     private final List<Student> students;
     private final DiningRoom diningRoom;
     private final int size;
-    private final Game game;
+    private final Player player;
 
-    public Entrance(Game game, DiningRoom diningRoom){
+    public Entrance(Player player, DiningRoom diningRoom){
         this.diningRoom = diningRoom;
-        this.game = game;
-        size = (game.numPlayers == 3 ? 9:7 );
+        this.player = player;
+        size = (player.getNumPlayers() == 3 ? 9:7 );
         //initialize all entries to null
         students = new ArrayList<>(Arrays.asList(new Student[size]));
         System.out.println("size of entrance array: " + students.size());
@@ -49,8 +48,8 @@ public class Entrance {
             if (students.contains(stud)){
                 students.remove(stud);
                 int oldnum = diningRoom.getTables().get(stud);
-                this.diningRoom.getTables().replace(stud,oldnum,oldnum+1);
-                game.getCurrentPlayer().checkProfessor(stud);
+                diningRoom.getTables().replace(stud,oldnum,oldnum+1);
+                diningRoom.checkProfessor(stud);
                 //there are some alternatives:
                 //->we do it as a method in the game instead, harder to implement
                 //->we pass the player as attribute to this entrance and just call player.checkprofessor
@@ -78,7 +77,7 @@ public class Entrance {
         //for the first part.
         //Probably also for asking which student to move we need an independent method(done).
         //First part is the same.
-        GameMap gm = this.game.getGameMap();
+        GameMap gm = player.getGame().getGameMap();
         System.out.println("Current map:\n" + gm);
         int nstud = askHowMany(availablemoves);
         String st;
@@ -109,9 +108,7 @@ public class Entrance {
         return nstud; //doActions() needs this
     }
 
-    private void fillFromBag(){
 
-    }
 
 
     /**
@@ -172,15 +169,16 @@ public class Entrance {
      * Lets the player choose a cloud and fills the entrance with the students of that cloud
      */
     public void fillFromClouds(){
+        List<Cloud> clouds = player.getGame().getClouds();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Fill your entrance from a cloud.\n " + game.getClouds() +
-                "\n enter a number from 1 to " + game.getClouds().size() + " to choose the cloud.");
+        System.out.println("Fill your entrance from a cloud.\n " + clouds +
+                "\n enter a number from 1 to " + clouds.size() + " to choose the cloud.");
         // TODO: 16/04/2022 for now we only choose a number, we will do a more elaborate way to choose
         while (true) {
             try {
                 int choice = scanner.nextInt();
-                if (choice<= game.getClouds().size() && choice >= 1 ){
-                    Cloud cloud = game.getClouds().get(choice-1);
+                if (choice<= clouds.size() && choice >= 1 ){
+                    Cloud cloud = clouds.get(choice-1);
                     if (cloud.students.size()>0){
                         //add those students to our entrance
                         this.students.addAll(cloud.students);
@@ -188,9 +186,13 @@ public class Entrance {
                         break;
                     }
                     else{System.out.println("That cloud is empty! Try again.");}
-                } else {System.out.printf("Not a valid number, type a number between 1 and %d", game.getClouds().size());}
+                } else {System.out.printf("Not a valid number, type a number between 1 and %d", clouds.size());}
             } catch (IllegalArgumentException ex) {System.out.println("Not a number, try again.");}
         }
+    }
+
+    private void fillFromBag(){
+
     }
 
     //only for test, will need to draw from the clouds in the game
@@ -216,14 +218,13 @@ public class Entrance {
     public static void main(String[] args) {
         //TEST FOR MOVETODR AND P.CHECKPROFESSOR, still uses fillrandomTEST
         Game game = new Game(3);
-        DiningRoom dg = new DiningRoom();
         //1ST PLAYER
         for(Player p : game.getCurrentOrder()) {
             game.setCurrentPlayer(p);
             Entrance e = p.getEntrance();
             System.out.println(p + ": for >>>MOVETODININGROOM<<<, choose 4 to test fillclouds");
             e.moveToDiningRoom(4); //choose 0 or back to test the other method
-            System.out.println("Your table configuration after the moves: " + dg.getTables());
+            System.out.println("Your table configuration after the moves: " + p.getDiningRoom());
             System.out.println("Before filling from clouds: " + e.students);
             e.fillFromClouds();
             System.out.println("Entrance after filling: " + e);
@@ -231,8 +232,9 @@ public class Entrance {
             System.out.println(p + ": for >>>MOVETOISLAND<<<, choose 4 to test fillclouds");
             e.moveToIsland(4);
             System.out.println("New archipelago: " + game.getGameMap());
-            p.playAssistant();
+            p.playAssistant(); //only to enable movemothernature
             game.getGameMap().moveMotherNatureAndCheck();
+            System.out.println(game.getGameMap());
         }
 
         for(Player p : game.getCurrentOrder()) {
