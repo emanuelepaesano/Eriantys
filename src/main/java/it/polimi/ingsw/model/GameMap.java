@@ -64,9 +64,65 @@ public class GameMap {
     }
 
 
-    public void moveMotherNature(){
+    public void moveMotherNatureAndCheck(){
         int nmoves = game.getCurrentPlayer().askMNMoves();
         motherNature = (motherNature+nmoves)%(archipelago.size()); //archipelago changes in size
+        archipelago.get(motherNature).checkOwner();
+    }
+
+
+
+    //it's quite ugly but it should do the job
+    public void doJoins(Island tojoin){
+        int startindex = archipelago.indexOf(tojoin);
+        Island left = archipelago.get(startindex==0? (archipelago.size()-1):(startindex-1));
+        Island right = archipelago.get((startindex+1)%archipelago.size());
+        switch (checkJoins(tojoin)){
+            case "none":
+                break;
+            case "both":
+                //add all students inside tojoin
+                tojoin.students.replaceAll((s,i) -> i += right.students.get(s));
+                tojoin.students.replaceAll((s,i) -> i += left.students.get(s));
+                tojoin.size += 2;
+                archipelago.removeAll(List.of(left,right));
+                motherNature = archipelago.indexOf(tojoin);//indices changed
+                break;
+            case "left":
+                tojoin.students.replaceAll((s,i) -> i += left.students.get(s));
+                tojoin.size += 1;
+                archipelago.remove(left);
+                motherNature = archipelago.indexOf(tojoin);
+                break;
+            case "right":
+                tojoin.students.replaceAll((s,i) -> i += right.students.get(s));
+                tojoin.size += 1;
+                archipelago.remove(right);
+                motherNature = archipelago.indexOf(tojoin);
+                break;
+        }
+    }
+
+    /**
+     *
+     * @param newisland The island from which we start checking. It is the one motherNature lands on
+     * @return This method works together with doJoins() to perform the joins in a neighborhood of the input island.
+     * The string returned signals to doJoins() which other islands it must be joined with.
+     */
+    private String checkJoins(Island newisland){
+        int index = archipelago.indexOf(newisland);
+        int right = ((index+1)%(archipelago.size()));
+        int left = (index==0? archipelago.size()-1:(index-1));
+        if (archipelago.get(right).owner == newisland.owner){
+            if (archipelago.get(left).owner == newisland.owner){
+                return "both";
+            }
+            return "right";
+        }
+        if (archipelago.get(left).owner == newisland.owner){
+            return "left";
+        }
+        return "none";
     }
 
 
@@ -76,9 +132,9 @@ public class GameMap {
         StringBuilder string = new StringBuilder();
         for (Island island : archipelago){
             string.append("Island ").append(island.id).append(": ");
+            string.append("Size= " + island.size + "; ");
             string.append("Owner{").append(island.owner).append("} ");
             string.append(island.getStudents()).append((archipelago.indexOf(island) == motherNature? " 🍀":"")).append("\n");
-
 
         }
         return string.toString();
@@ -90,12 +146,25 @@ public class GameMap {
 
     public static void main(String[] args) {
         //TEST FOR ISLAND INITIALIZATION AND MOVEMOTHER
-        GameController gc = new GameController ();
-        gc.doPlanningPhase(gc.getGame()); //not complete yet, only here to set a current assistant
-        System.out.println(gc.getGame().getGameMap());
-        gc.getGame().getGameMap().moveMotherNature();
-        System.out.println(gc.getGame().getGameMap());
-        System.out.println("mother nature is now here: " + gc.getGame().getGameMap().motherNature);
+//        GameController gc = new GameController ();
+//        gc.doPlanningPhase(gc.getGame()); //not complete yet, only here to set a current assistant
+//        System.out.println(gc.getGame().getGameMap());
+//        gc.getGame().getGameMap().moveMotherNatureAndCheck();
+//        System.out.println(gc.getGame().getGameMap());
+//        System.out.println("mother nature is now here: " + gc.getGame().getGameMap().motherNature);
 
+        //TEST FOR DOJOINS()
+        Game game = new Game(3);
+        game.getGameMap().archipelago.get(0).setOwner(game.getCurrentPlayer());
+        game.getGameMap().archipelago.get(2).setOwner(game.getCurrentPlayer());
+        game.getGameMap().archipelago.get(3).setOwner(game.getCurrentPlayer());
+        game.getGameMap().doJoins(game.getGameMap().archipelago.get(3));
+        System.out.println(game.getGameMap());
+        //now join again the island with size 3
+//        game.getGameMap().archipelago.get(9).setOwner(game.getCurrentPlayer());
+//        game.getGameMap().archipelago.get(0).setOwner(game.getCurrentPlayer());
+//        game.getGameMap().archipelago.get(8).setOwner(game.getCurrentPlayer());
+//        game.getGameMap().doJoins(game.getGameMap().archipelago.get(9));
+//        System.out.println(game.getGameMap());
     }
 }

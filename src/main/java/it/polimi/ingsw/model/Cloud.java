@@ -3,7 +3,7 @@ package it.polimi.ingsw.model;
 import java.util.*;
 
 public class Cloud {
-    final List<Student> students;
+    List<Student> students;
     int size;
     //Actually i don't really like the map, a list would be better since only 3 or 4 positions
     public Cloud(Game game){

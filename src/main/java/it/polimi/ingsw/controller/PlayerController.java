@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class PlayerController {
     private int id;
     private Player player;
-    private int numPlayers;
     private Game game;
 
 
@@ -19,9 +18,8 @@ public class PlayerController {
         //the id of the playercontroller and its player coincide
         this.id = id;
         this.game = game;
-        numPlayers = game.numPlayers;
+        int numPlayers = game.numPlayers;
         player = new Player(id,game);
-
 
 
     }

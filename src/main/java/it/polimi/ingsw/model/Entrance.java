@@ -227,10 +227,8 @@ public class Entrance {
             System.out.println(p + ": for >>>MOVETOISLAND<<<, choose 4 to test fillclouds");
             e.moveToIsland(game.getGameMap(), 4);
             System.out.println("New archipelago: " + game.getGameMap());
-            for( Island i : game.getGameMap().getArchipelago()){
-                //for the moment we do check on all the islands, not only where mn is
-                System.out.println("Owner of island "+ i.id +": "+ i.checkOwner());
-            }
+            p.playAssistant();
+            game.getGameMap().moveMotherNatureAndCheck();
         }
 
         for(Player p : game.getCurrentOrder()) {

@@ -5,14 +5,13 @@ import it.polimi.ingsw.model.*;
 import java.util.*;
 
 public class GameController {
-    private Game game;//remove later, only test
+    private Game game;
     /**
      * In the constructor we can put the methods to inizialize the game.
      * Our main will call the constructor of this class to start the game
      */
     public GameController() {
         int numplayers = AskForPN();
-        //List<Player> startingOrder = startPlayersandOrder(numplayers); //initialize players, give a random playerOrder to the game
         game = new Game(numplayers); //initializes the game, because it's the first call
         askAllForTC(game);
         askAllForWiz(game);
@@ -43,7 +42,7 @@ public class GameController {
      * Cycles through players and asks them a color.
      * It will be stored as an attribute of the player
      */
-    private static void askAllForTC(Game game){
+    private void askAllForTC(Game game){
         int n = game.numPlayers;
         ArrayList<TowerColor> remainingColors;
         if (n==3) {
@@ -62,7 +61,7 @@ public class GameController {
      * Cycles through players and asks them a wizard number.
      * It will be stored as an attribute of the player
      */
-    public static void askAllForWiz(Game game) {
+    public void askAllForWiz(Game game) {
         ArrayList<Integer> remainingWizards = new ArrayList<>(Arrays.asList(1,2,3,4));
         for (Player player : game.getCurrentOrder()){
             Integer wiz = player.askWizard(remainingWizards);
@@ -79,7 +78,7 @@ public class GameController {
         //This weird code is to start from the current first and then go clockwise, following the
         //table order. In this order, we make players play assistants, and store them in a Map
         Map<Integer, Player> playedAssistants = new TreeMap<>();
-        int initialind = g.getTableOrder().indexOf(g.getCurrentOrder().get(0)); //this is the index in the tableOrder if current first
+        int initialind = g.getTableOrder().indexOf(g.getCurrentOrder().get(0)); //this is the index in the tableOrder of current first
         for (int i = initialind; i<initialind+g.numPlayers;i++) {
             Player p = g.getTableOrder().get(i%g.numPlayers);
             //this print should not really be here as it must be shown to each player

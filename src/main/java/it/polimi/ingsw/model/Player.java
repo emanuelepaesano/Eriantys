@@ -151,6 +151,7 @@ public class Player {
         }
     }
 
+    // TODO: 20/04/2022 why is this not inside the diningroom?
     public void checkProfessor(Student student){
         //look into all players to see if we get that professor
         //N.B: we win only with strictly more students
@@ -174,7 +175,7 @@ public class Player {
     public int calculateInfluence(Island island) {
         int influence = 0;
         if (island.owner == this) {influence += island.size;}
-        for (Student student : Student.values() ){
+        for (Student student : Student.values()){
             if (this.diningRoom.getProfessors().get(student)){
                 influence += island.getStudents().get(student);
             }
@@ -184,11 +185,18 @@ public class Player {
 
 
 
+
+    //method to check winning condition: return 1 if we have 0 towers
+    public Boolean checkNumTowers(){
+        return (numTowers == 0);
+    }
+
     @Override
     public String toString() {
         return "Player" + id +
                 ": \"" + playerName +"\"";
     }
+
 
     //GETTERS SETTERS
 

@@ -36,7 +36,7 @@ public class Game {
      * This one may be moved to a playerController, or maybe from this we make the playercontroller
      * instead
      */
-    public List<Player> startPlayersandOrder(int numplayers){
+    private List<Player> startPlayersandOrder(int numplayers){
         ArrayList<Player> startingOrder = new ArrayList<>();
         for (int i=0; i< numplayers; i++){
             PlayerController pc = new PlayerController(i+1, this);
