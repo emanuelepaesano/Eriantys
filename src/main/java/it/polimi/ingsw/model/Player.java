@@ -26,8 +26,8 @@ public class Player {
         entrance = new Entrance(this, diningRoom);
     }
 
-    private TreeMap<Assistant, Boolean> buildDeck(){
-        TreeMap<Assistant,Boolean> tm = new TreeMap<>();
+    private Map<Assistant, Boolean> buildDeck(){
+        Map<Assistant,Boolean> tm = new TreeMap<>();
         for (Assistant as : Assistant.values()) {
             tm.put(as, true);
         }
@@ -37,9 +37,8 @@ public class Player {
 
     private String askPlayerName() {
         System.out.println("Player " + this.id + ", enter your nickname:");
-        return (new Scanner(System.in).nextLine());
-        //create an anonymous scanner from keyboard,
-        //ask the user for input and return.
+        return Game.globalScanner.nextLine(); //it's the only way i could think of to do junit tests with input
+//        return (new Scanner(System.in).nextLine());
     }
 
 
@@ -109,7 +108,12 @@ public class Player {
         }
     }
 
+
     // TODO: 16/04/2022 idk where to put this
+    /**
+     * This is the main method for the action phase of each player. It asks the player which action they want to do
+     * and then performs the action, until they used all of their moves.
+     */
     public void doActions(){
         int availableActions = (numPlayers == 3 ? 4:3 );
         //this will be an actionlistener linked to 2 buttons. depending on the button pressed
@@ -151,7 +155,9 @@ public class Player {
         }
     }
 
-
+    /**
+     *Method to calculate this player's influence on an island. It gets called by Island.checkOwner().
+     */
     public int calculateInfluence(Island island) {
         int influence = 0;
         if (island.owner == this) {influence += island.size;}

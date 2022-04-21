@@ -16,9 +16,7 @@ public class Entrance {
         //initialize all entries to null
         students = new ArrayList<>(Arrays.asList(new Student[size]));
         System.out.println("size of entrance array: " + students.size());
-        //test, bad, remove
-        // we will need to fill the entrance following the rules
-        fillRandomTEST();
+        fillFromBag();
     }
 
     /**
@@ -32,13 +30,13 @@ public class Entrance {
         //First part: we ask how many students to move, maximum availablemoves
         int nstud = askHowMany(availablemoves);
         //Now we ask to move the students
-        String st;
+        String str;
         Student stud;
         for (int i = 0;i<nstud;i++){
             try{
-                st = askWhich(i);
-                if (Objects.equals(st, "back")) {return i;}
-                else {stud = Student.valueOf(st.toUpperCase());}
+                str = askWhich(i);
+                if (Objects.equals(str, "back")) {return i;}
+                else {stud = Student.valueOf(str.toUpperCase());}
             }
             catch (IllegalArgumentException ex) {
                 System.out.println("Not a valid student color, try again");
@@ -46,14 +44,13 @@ public class Entrance {
                 continue;
             }
             if (students.contains(stud)){
-                students.remove(stud);
+                students.set(students.indexOf(stud),null);
                 int oldnum = diningRoom.getTables().get(stud);
                 diningRoom.getTables().replace(stud,oldnum,oldnum+1);
                 diningRoom.checkProfessor(stud);
                 //there are some alternatives:
                 //->we do it as a method in the game instead, harder to implement
-                //->we pass the player as attribute to this entrance and just call player.checkprofessor
-                //->we can do all of these by checking for all students at once
+                //->we can check for all students at once
             }
             else{
                 System.out.println("You don't have this student in your entrance");
@@ -80,13 +77,13 @@ public class Entrance {
         GameMap gm = player.getGame().getGameMap();
         System.out.println("Current map:\n" + gm);
         int nstud = askHowMany(availablemoves);
-        String st;
+        String str;
         Student stud;
         for (int i = 0;i<nstud;i++){
             try{
-                st = askWhich(i);
-                if (Objects.equals(st, "back")) {return i;} //if player wants back at 1st iteration, we don't remove actions and so on
-                else {stud = Student.valueOf(st.toUpperCase());}
+                str = askWhich(i);
+                if (Objects.equals(str, "back")) {return i;} //if player wants back at 1st iteration, we don't remove actions and so on
+                else {stud = Student.valueOf(str.toUpperCase());}
             }
             catch (IllegalArgumentException ex) {
                 System.out.println("Not a valid student color, try again");
@@ -95,7 +92,7 @@ public class Entrance {
             }
             //In the 2nd part now we move it to the chosen island
             if (students.contains(stud)){
-                students.remove(stud);
+                students.set(students.indexOf(stud),null);
                 Island island = askWhichIsland(gm);
                 int oldval = island.students.get(stud);
                 island.students.replace(stud, oldval,oldval+1);
@@ -135,9 +132,7 @@ public class Entrance {
         return nstud;
     }
     /**
-     *
-     * @param number the iteration number
-     * @return similarly, it's here mostly not to duplicate code
+     *similarly, it's here mostly not to duplicate code
      */
     private String askWhich(int number){
         Scanner scanner = new Scanner(System.in);
@@ -192,7 +187,10 @@ public class Entrance {
     }
 
     private void fillFromBag(){
-
+        for (int i=0;i<size;i++) {
+            Student randstud = player.getGame().drawFromBag();
+            students.set(i,randstud);
+        }
     }
 
     //only for test, will need to draw from the clouds in the game

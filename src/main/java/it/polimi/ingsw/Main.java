@@ -25,6 +25,7 @@ public class Main {
 //        System.out.println("Test player entrance after moves: " + testpl.getEntrance() +"\n" +
 //                "Islands after test player's moves:\n" + game.getGameMap());
 //        game.getGameMap().moveMotherNature();
+
     }
 
 }

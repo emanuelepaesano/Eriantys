@@ -13,6 +13,7 @@ public class Game {
     private Map<Student, Integer> bag;
     private List<Cloud> clouds;
     private GameMap gameMap;
+    public static Scanner globalScanner = new Scanner((System.in));
 
     /**
      * initialize bag and random order of player. round starts from 1
@@ -20,11 +21,11 @@ public class Game {
     public Game(int numPlayers) {
         round = 1;
         this.numPlayers = numPlayers;
+        bag = makeBag(); //players draw from the bag, so it's important to make this first
+        clouds = makeClouds(numPlayers);
         currentOrder= startPlayersandOrder(numPlayers);
         tableOrder = new ArrayList<>(currentOrder); //this is to make a copy
         gameMap = new GameMap(this); //this will start the islands, motherNature, initial students
-        bag = makeBag();
-        clouds = makeClouds(numPlayers);
         fillClouds();
         currentPlayer = currentOrder.get(0);
 
@@ -77,17 +78,22 @@ public class Game {
 
     //fills all the clouds of this game by drawing from the bag
     private void fillClouds(){
-        Random randomizer = new Random();
         for (Cloud cloud : clouds){
             //draw from the bag
             for (int i = 0; i<cloud.size; i++) {
-                int randind = randomizer.nextInt(5);
-                Student randstud = Arrays.asList(Student.values()).get(randind);
-                int oldnum = bag.get(randstud);
-                bag.replace(randstud, oldnum, oldnum - 1);
+                Student randstud = drawFromBag();
                 cloud.students.add(randstud);
             }
         }
+    }
+
+    public Student drawFromBag(){
+        Random randomizer = new Random();
+        int randind = randomizer.nextInt(5);
+        Student randstud = Arrays.asList(Student.values()).get(randind);
+        int oldnum = bag.get(randstud);
+        bag.replace(randstud, oldnum, oldnum - 1);
+        return randstud;
     }
 
 

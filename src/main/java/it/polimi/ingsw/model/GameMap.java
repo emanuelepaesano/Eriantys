@@ -5,15 +5,11 @@ import it.polimi.ingsw.controller.GameController;
 import java.util.*;
 
 public class GameMap {
-    // TODO: 19/04/2022 mother nature could just be a int stored here to indicate her position, it would make more
-    //  sense from an o.o.p. point of view
-    //I think we need this class, or we need to
-    //put everything to handle the islands in the game
+
     private final List<Island> archipelago;
     private final Game game;
     private int motherNature;
 
-    //make this a singleton class?
     public GameMap(Game game){
         this.game = game;
         archipelago = makeIslands();
@@ -132,7 +128,7 @@ public class GameMap {
         StringBuilder string = new StringBuilder();
         for (Island island : archipelago){
             string.append("Island ").append(island.id).append(": ");
-            string.append("Size= ").append(island.size).append("; ");
+            string.append("Size=").append(island.size).append("; ");
             string.append("Owner{").append(island.owner).append("} ");
             string.append(island.getStudents()).append((archipelago.indexOf(island) == motherNature? " 🍀":"")).append("\n");
 

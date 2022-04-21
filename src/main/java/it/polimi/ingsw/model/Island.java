@@ -28,6 +28,11 @@ public class Island {
         students = makeStudents();
         owner = null;
     }
+    // TODO: 21/04/2022 a better implementation of the joins with something like a checkjoinable
+    //  that sets a bool to true for the joinable islansd
+    //  then the doJoins looks for all islands that are joinable and jons them (?)
+    //  -> pros: shorter and more readable methods, less duplication (+points)
+    //  -> cons: will maybe need to store a this.joinable attribute (-design?)
 
     /**
      *
