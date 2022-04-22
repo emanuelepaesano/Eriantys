@@ -11,7 +11,7 @@ public class Game {
     private List<Player> currentOrder;
     private Integer round;
     private Map<Student, Integer> bag;
-    private List<Cloud> clouds;
+    private List<List<Student>> clouds;
     private GameMap gameMap;
 
     /**
@@ -21,14 +21,32 @@ public class Game {
         round = 1;
         this.numPlayers = numPlayers;
         bag = makeBag();
-        clouds = makeClouds(numPlayers);
         currentOrder= startPlayersandOrder(numPlayers);
         tableOrder = new ArrayList<>(currentOrder); //this is to make a copy
         gameMap = new GameMap(); //this will start the islands, motherNature, initial students
-        fillClouds();
         currentPlayer = currentOrder.get(0);
+        clouds = makeClouds(numPlayers);
+        fillClouds();
         fillAllEntrancesBag();
+        System.out.println("clouds with new stuff " + clouds);
 
+    }
+
+    private List<List<Student>> makeClouds(int numPlayers){
+        List<List<Student>> clouds = new ArrayList<>();
+        for (int i=0; i<numPlayers; i++){
+            clouds.add(new ArrayList<>());
+        }
+        return clouds;
+    }
+
+    private void fillClouds(){
+        for(List<Student> cloud : clouds){
+            for (int i = 0; i<(numPlayers==3?4:3); i++) {
+                Student randstud = drawFromBag();
+                cloud.add(randstud);
+            }
+        }
     }
 
 
@@ -58,35 +76,12 @@ public class Game {
         return bag;
     }
 
-    /**
-     *
-     * @param numPlayers Make as many clouds as there are players.
-     *                   They are initialized with 0 students.
-     */
-    private List<Cloud> makeClouds(int numPlayers){
-        List<Cloud> clouds = new ArrayList<>();
-        for (int i=0; i<numPlayers; i++){
-            clouds.add(new Cloud(this));
-        }
-        return clouds;
-    }
 
     public void newRound(){
         round += 1;
         fillClouds();
-
     }
 
-    //fills all the clouds of this game by drawing from the bag
-    private void fillClouds(){
-        for (Cloud cloud : clouds){
-            //draw from the bag
-            for (int i = 0; i<cloud.size; i++) {
-                Student randstud = drawFromBag();
-                cloud.students.add(randstud);
-            }
-        }
-    }
 
     public Student drawFromBag(){
         Random randomizer = new Random();
@@ -111,11 +106,11 @@ public class Game {
             try {
                 int choice = scanner.nextInt();
                 if (choice<= clouds.size() && choice >= 1 ){
-                    Cloud cloud = clouds.get(choice-1);
-                    if (cloud.students.size()>0){
+                    List<Student> cloud = clouds.get(choice-1);
+                    if (cloud.size()>0){
                         //add those students to our entrance
-                        player.getEntrance().getStudents().addAll(cloud.students);
-                        cloud.students.clear();
+                        player.getEntrance().getStudents().addAll(cloud);
+                        cloud.clear();
                         break;
                     }
                     else{System.out.println("That cloud is empty! Try again.");}
@@ -147,12 +142,8 @@ public class Game {
 
     public static void main(String[] args) {
         //test for fillClouds()
-        Game g = new Game(2);
-        System.out.println(g.clouds);
-        System.out.println(g.bag);
-        g.fillClouds();
-        System.out.println(g.clouds);
-        System.out.println(g.bag);
+        Game g = new Game(3);
+
     }
 
 
@@ -172,7 +163,7 @@ public class Game {
         return tableOrder;
     }
 
-    public List<Cloud> getClouds() {
+    public List<List<Student>> getClouds() {
         return clouds;
     }
 

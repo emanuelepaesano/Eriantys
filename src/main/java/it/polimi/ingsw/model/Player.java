@@ -21,7 +21,7 @@ public class Player {
         numActions = (numPlayers==3? 4 : 3);
         numTowers = (numPlayers == 3? 6 : 8);
         diningRoom = new DiningRoom();//it's important to make the dining room before the entrance
-        entrance = new Entrance(this.id,numPlayers,diningRoom);
+        entrance = new Entrance(numPlayers,diningRoom);
     }
 
     private Map<Assistant, Boolean> buildDeck(){

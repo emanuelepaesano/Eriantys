@@ -7,13 +7,11 @@ public class Entrance {
     private final List<Student> students;
     private final DiningRoom diningRoom;
     private final int size;
-    private final int ownerId;
 
     //idk if i like taking 3 parameters. alternatives?
-    public Entrance(int ownerId, int numPlayers, DiningRoom diningRoom){
+    public Entrance(int numPlayers, DiningRoom diningRoom){
         this.diningRoom = diningRoom;
-        this.ownerId = ownerId;
-        size = (numPlayers == 3 ? 9:7 );
+        this.size = (numPlayers==3? 9:7);
         //initialize all entries to null
         students = new ArrayList<>(Arrays.asList(new Student[size]));
         System.out.println("size of entrance array: " + students.size());

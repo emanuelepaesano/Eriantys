@@ -28,5 +28,4 @@ public class Main {
 //        game.getGameMap().moveMotherNature();
 
     }
-
 }
