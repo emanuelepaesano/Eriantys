@@ -1,17 +1,13 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.controller.GameController;
-
 import java.util.*;
 
 public class GameMap {
 
     private final List<Island> archipelago;
-    private final Game game;
     private int motherNature;
 
-    public GameMap(Game game){
-        this.game = game;
+    public GameMap(){
         archipelago = makeIslands();
         motherNature = startMotherNature();
         startStudents(motherNature);
@@ -24,7 +20,7 @@ public class GameMap {
     private List<Island> makeIslands(){
         List<Island> archipelago = new ArrayList<>();
         for (int i = 0; i<12; i++){
-            archipelago.add(new Island(i, game));
+            archipelago.add(new Island(i));
         }
         return archipelago;
     }
@@ -59,11 +55,14 @@ public class GameMap {
         }
     }
 
-
-    public void moveMotherNatureAndCheck(){
-        int nmoves = game.getCurrentPlayer().askMNMoves();
+    //now this needs to take a list of players. i don't really like it.
+    //Splitting it into 2 methods might be a good idea
+    public void moveMotherNatureAndCheck(Player player, List<Player> players){
+        int nmoves = player.askMNMoves();
         motherNature = (motherNature+nmoves)%(archipelago.size()); //archipelago changes in size
-        archipelago.get(motherNature).checkOwner();
+        Island toCheck = archipelago.get(motherNature);
+        Boolean needJoin = toCheck.checkOwner(players);
+        if (needJoin) {doJoins(toCheck);}
     }
 
 
@@ -149,7 +148,7 @@ public class GameMap {
 //        System.out.println(gc.getGame().getGameMap());
 //        System.out.println("mother nature is now here: " + gc.getGame().getGameMap().motherNature);
 
-        //TEST FOR DOJOINS()
+        //TEST FOR DOJOINS() change the indices as you want
         Game game = new Game(3);
         game.getGameMap().archipelago.get(0).setOwner(game.getCurrentPlayer());
         game.getGameMap().archipelago.get(2).setOwner(game.getCurrentPlayer());

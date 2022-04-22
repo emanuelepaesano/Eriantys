@@ -7,7 +7,6 @@ public class Island {
     Map<Student,Integer> students;
     Player owner;
     int size;
-    private Game game;
 
     /**
      *
@@ -21,9 +20,8 @@ public class Island {
         return studs;
     }
 
-    public Island(int id, Game game){
+    public Island(int id){
         this.id = id;
-        this.game = game;
         size = 1;
         students = makeStudents();
         owner = null;
@@ -38,9 +36,10 @@ public class Island {
      *
      * @return the Player who has the most influence in the island. Has to be called when mother nature lands on this
      */
-    public Player checkOwner() {
+    //Now this is called only by moveMotherNatureAndCheck and returns a boolean for it to decide whether to join or not
+    public Boolean checkOwner(List<Player> players) {
         Map<Player, Integer> influences = new HashMap<>();
-        game.getTableOrder().forEach((Player p)->influences.put(p,p.calculateInfluence(this)));
+        players.forEach((Player p)->influences.put(p,p.calculateInfluence(this)));
 
         List<Player> ties = new ArrayList<>();
         for (Player p : influences.keySet()) {
@@ -48,18 +47,17 @@ public class Island {
                 ties.add(p);
             }
         }
-        if (ties.size() > 1) {//if 2 have same best, no new owner
-            return owner;
-        } else {
+        if (ties.size() == 1) { //if 2 players tie, we cannot have new owner
             Player newowner = ties.get(0);
             if (newowner != this.owner) { //update tower numbers, join if that is the case
                 if (owner != null) {owner.setNumTowers(owner.getNumTowers() + this.size);}
                 this.owner = newowner;
+                System.out.println("Island " + this.id + "has a new owner: " + newowner) ;
                 newowner.setNumTowers(newowner.getNumTowers() - this.size);
-                game.getGameMap().doJoins(this);
+                return true;
             }
-            return newowner;
         }
+        return false;
     }
 
 

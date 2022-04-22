@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DiningRoom {
@@ -8,12 +9,10 @@ public class DiningRoom {
     //  we may not need it for now
     private Map<Student, Integer> tables;
     private Map<Student, Boolean> professors;
-    private final Player player;
 
     //maybe the entrance can contain a reference to the dining room
     //so we dont pass through player every time. then we make the dining room first
-    public DiningRoom(Player player){
-        this.player= player;
+    public DiningRoom(){
         this.tables = Island.makeStudents();
         this.professors= makeProfessors();
     }
@@ -32,23 +31,25 @@ public class DiningRoom {
     }
 
 
-    public void checkProfessor(Student student){
-        //look into all players to see if we get that professor
+    public void checkProfessors(Player owner, List<Player> players){
+        //look into all players to see if we get that professor (for every table)
         //N.B: we win only with strictly more students
-        int countwins = 0;
-        for (Player p : player.getGame().getTableOrder()){
-            if (p.id != this.player.id){
-                if (this.tables.get(student) > p.getDiningRoom().tables.get(student)){
-                    countwins+=1;
+        for (Student table : Student.values()) {
+            int countwins = 0;
+            for (Player p : players) {
+                if (p.id != owner.id) {
+                    if (this.tables.get(table) > p.getDiningRoom().tables.get(table)) {
+                        countwins += 1;
+                    }
                 }
             }
-        }
-        if (countwins == (player.getNumPlayers()-1)){
-            //set all to false and then our to true
-            for (Player p : player.getGame().getTableOrder()){
-                p.getDiningRoom().professors.replace(student,true,false);
+            if (countwins == (owner.getNumPlayers() - 1)) {
+                //set all to false and then our to true
+                for (Player p : players) {
+                    p.getDiningRoom().professors.replace(table, true, false);
+                }
+                this.professors.replace(table, true);
             }
-            this.professors.replace(student,true);
         }
     }
 

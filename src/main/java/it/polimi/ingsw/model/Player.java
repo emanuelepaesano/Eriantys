@@ -11,19 +11,18 @@ public class Player {
     private final Entrance entrance;
     private Integer numTowers;
     private Map<Assistant, Boolean> assistants;
-    private final int numPlayers;
     private Assistant currentAssistant;
-    private final Game game;
+    private final int numPlayers;
 
-    public Player(int id, Game game) {
+    public Player(int id, int numPlayers) {
+        //anche 2 costruttori si possono fare, uno senza numplayers che te lo chiede poi dentro setNumTowers
         this.id = id;
-        this.game = game;
-        numPlayers = game.numPlayers;
+        this.numPlayers = numPlayers;
         playerName = askPlayerName();
         assistants = buildDeck();
         numTowers = (numPlayers == 3 ? 6 : 8);
-        diningRoom = new DiningRoom(this);//it's important to make the dining room before the entrance
-        entrance = new Entrance(this, diningRoom);
+        diningRoom = new DiningRoom();//it's important to make the dining room before the entrance
+        entrance = new Entrance(this.id,numPlayers,diningRoom);
     }
 
     private Map<Assistant, Boolean> buildDeck(){
@@ -37,8 +36,7 @@ public class Player {
 
     private String askPlayerName() {
         System.out.println("Player " + this.id + ", enter your nickname:");
-        return Game.globalScanner.nextLine(); //it's the only way i could think of to do junit tests with input
-//        return (new Scanner(System.in).nextLine());
+        return (new Scanner(System.in).nextLine());
     }
 
 
@@ -114,7 +112,7 @@ public class Player {
      * This is the main method for the action phase of each player. It asks the player which action they want to do
      * and then performs the action, until they used all of their moves.
      */
-    public void doActions(){
+    public void doActions(GameMap gm, List<Player> players){
         int availableActions = (numPlayers == 3 ? 4:3 );
         //this will be an actionlistener linked to 2 buttons. depending on the button pressed
         //(movetodiningroom or movetoisland) the controller calls a different method, then updates model
@@ -122,10 +120,12 @@ public class Player {
             String action = askWhichAction(availableActions); //this will come from the view, so it must be in a controller
             if (Objects.equals(action, "diningroom")) {
                 availableActions -= entrance.moveToDiningRoom(availableActions);
+                this.diningRoom.checkProfessors(this, players);
             }
             else if (Objects.equals(action, "islands")){
-                availableActions -= entrance.moveToIsland(availableActions);}
+                availableActions -= entrance.moveToIsland(availableActions, gm);}
         }
+        System.out.println("After your moves: " + this.diningRoom);
     }
 
     private String askWhichAction(int availableActions){
@@ -210,9 +210,6 @@ public class Player {
         return numTowers;
     }
 
-    public Game getGame() {
-        return game;
-    }
 
     public int getNumPlayers() {
         return numPlayers;
