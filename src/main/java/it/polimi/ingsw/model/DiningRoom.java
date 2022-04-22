@@ -13,7 +13,7 @@ public class DiningRoom {
     //maybe the entrance can contain a reference to the dining room
     //so we dont pass through player every time. then we make the dining room first
     public DiningRoom(){
-        this.tables = Game.makeStudents();
+        this.tables = Student.makeStudents();
         this.professors= makeProfessors();
     }
 
