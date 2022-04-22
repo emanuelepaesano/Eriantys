@@ -58,7 +58,10 @@ public class Game {
     private List<Player> startPlayersandOrder(int numplayers){
         ArrayList<Player> startingOrder = new ArrayList<>();
         for (int i=0; i< numplayers; i++){
-            PlayerController pc = new PlayerController(i+1, this.numPlayers);
+            DiningRoom diningRoom = new DiningRoom();
+            Entrance entrance = new Entrance(this.numPlayers);
+            School school = new School(diningRoom, entrance);
+            PlayerController pc = new PlayerController(i+1, this.numPlayers, school);
             startingOrder.add(pc.getPlayer());
         }
         Collections.shuffle(startingOrder);
@@ -108,7 +111,7 @@ public class Game {
                     List<Student> cloud = clouds.get(choice-1);
                     if (cloud.size()>0){
                         //add those students to our entrance
-                        player.getEntrance().getStudents().addAll(cloud);
+                        player.getSchool().getEntrance().getStudents().addAll(cloud);
                         cloud.clear();
                         break;
                     }
@@ -130,7 +133,7 @@ public class Game {
     private void fillEntranceFromBag(Player player){
         for (int i=0;i<(numPlayers==3? 9:7);i++) {
             Student randstud = this.drawFromBag();
-            player.getEntrance().getStudents().set(i,randstud);
+            player.getSchool().getEntrance().getStudents().set(i, randstud);
         }
     }
 

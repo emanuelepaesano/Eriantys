@@ -7,21 +7,19 @@ public class Player {
     private final String playerName;
     private TowerColor towerColor;
     private Integer wizard;
-    private final DiningRoom diningRoom;
-    private final Entrance entrance;
+    private School school;
     private Integer numTowers;
     private Map<Assistant, Boolean> assistants;
     private Assistant currentAssistant;
     private int numActions;
 
-    public Player(int id, int numPlayers) {
+    public Player(int id, int numPlayers, School school) {
         this.id = id;
         playerName = askPlayerName();
         assistants = buildDeck();
         numActions = (numPlayers==3? 4 : 3);
         numTowers = (numPlayers == 3? 6 : 8);
-        diningRoom = new DiningRoom();//it's important to make the dining room before the entrance
-        entrance = new Entrance(numPlayers,diningRoom);
+        this.school = school;
     }
 
     private Map<Assistant, Boolean> buildDeck(){
@@ -118,13 +116,13 @@ public class Player {
         while (availableActions>0) {
             String action = askWhichAction(availableActions); //this will come from the view, so it must be in a controller
             if (Objects.equals(action, "diningroom")) {
-                availableActions -= entrance.moveToDiningRoom(availableActions);
-                this.diningRoom.checkProfessors(this, players);
+                availableActions -= school.moveStudFrEntranceToDiningRoom(availableActions);
+                this.school.getDiningRoom().checkProfessors(this, players);
             }
             else if (Objects.equals(action, "islands")){
-                availableActions -= entrance.moveToIsland(availableActions, gm);}
+                availableActions -= school.getEntrance().moveToIsland(availableActions, gm);}
         }
-        System.out.println("After your moves: " + this.diningRoom);
+        System.out.println("After your moves: " + this.school.getDiningRoom());
         numActions = 4;
     }
 
@@ -162,7 +160,7 @@ public class Player {
         int influence = 0;
         if (island.owner == this) {influence += island.size;}
         for (Student student : Student.values()){
-            if (this.diningRoom.getProfessors().get(student)){
+            if (this.school.getDiningRoom().getProfessors().get(student)){
                 influence += island.getStudents().get(student);
             }
         }
@@ -198,16 +196,12 @@ public class Player {
         return playerName;
     }
 
-    public DiningRoom getDiningRoom() {
-        return diningRoom;
-    }
-
-    public Entrance getEntrance() {
-        return entrance;
-    }
-
     public Integer getNumTowers() {
         return numTowers;
+    }
+
+    public School getSchool() {
+        return this.school;
     }
 
 
