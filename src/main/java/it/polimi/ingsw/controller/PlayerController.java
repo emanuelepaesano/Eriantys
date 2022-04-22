@@ -10,9 +10,9 @@ public class PlayerController {
     private Player player;
 
 
-    public PlayerController(int id, int numPlayers, School school){
+    public PlayerController(int id, int numPlayers){
         this.id = id;
-        player = new Player(id, numPlayers, school);
+        player = new Player(id, numPlayers);
     }
 
 

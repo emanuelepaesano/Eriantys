@@ -13,13 +13,13 @@ public class Player {
     private Assistant currentAssistant;
     private int numActions;
 
-    public Player(int id, int numPlayers, School school) {
+    public Player(int id, int numPlayers) {
         this.id = id;
         playerName = askPlayerName();
         assistants = buildDeck();
         numActions = (numPlayers==3? 4 : 3);
         numTowers = (numPlayers == 3? 6 : 8);
-        this.school = school;
+        this.school = new School(numPlayers);
     }
 
     private Map<Assistant, Boolean> buildDeck(){
