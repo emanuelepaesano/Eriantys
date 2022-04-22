@@ -12,7 +12,6 @@ public enum Assistant {
     NINE(9),
     TEN(10);
 
-
     private final int priority;
     private final int moves;
     Assistant(int priority) {
