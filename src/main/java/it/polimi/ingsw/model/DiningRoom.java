@@ -13,7 +13,7 @@ public class DiningRoom {
     //maybe the entrance can contain a reference to the dining room
     //so we dont pass through player every time. then we make the dining room first
     public DiningRoom(){
-        this.tables = Island.makeStudents();
+        this.tables = Game.makeStudents();
         this.professors= makeProfessors();
     }
 
@@ -43,7 +43,7 @@ public class DiningRoom {
                     }
                 }
             }
-            if (countwins == (owner.getNumPlayers() - 1)) {
+            if (countwins == (players.size())-1) {
                 //set all to false and then our to true
                 for (Player p : players) {
                     p.getDiningRoom().professors.replace(table, true, false);

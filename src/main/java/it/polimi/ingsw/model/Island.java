@@ -8,22 +8,11 @@ public class Island {
     Player owner;
     int size;
 
-    /**
-     *
-     * @return Map of all StudColors to 0. This method is used also by the DiningRoom to initialize, hence it's static.
-     */
-    public static Map<Student,Integer> makeStudents(){
-        HashMap<Student,Integer> studs = new HashMap<>();
-        for (Student sc : Student.values()){
-            studs.put(sc,0);
-        }
-        return studs;
-    }
 
     public Island(int id){
         this.id = id;
         size = 1;
-        students = makeStudents();
+        students = Game.makeStudents();
         owner = null;
     }
     // TODO: 21/04/2022 a better implementation of the joins with something like a checkjoinable

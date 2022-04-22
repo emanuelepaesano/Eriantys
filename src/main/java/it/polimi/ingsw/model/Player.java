@@ -15,12 +15,11 @@ public class Player {
     private int numActions;
 
     public Player(int id, int numPlayers) {
-        //anche 2 costruttori si possono fare, uno senza numplayers che te lo chiede poi dentro setNumTowers
         this.id = id;
         playerName = askPlayerName();
         assistants = buildDeck();
-        numActions = (numPlayers==3 ? 4 : 3);
-        numTowers = (numPlayers == 3 ? 6 : 8);
+        numActions = (numPlayers==3? 4 : 3);
+        numTowers = (numPlayers == 3? 6 : 8);
         diningRoom = new DiningRoom();//it's important to make the dining room before the entrance
         entrance = new Entrance(this.id,numPlayers,diningRoom);
     }
@@ -113,7 +112,7 @@ public class Player {
      * and then performs the action, until they used all of their moves.
      */
     public void doActions(GameMap gm, List<Player> players){
-        int availableActions = (numActions);
+        int availableActions = numActions;
         //this will be an actionlistener linked to 2 buttons. depending on the button pressed
         //(movetodiningroom or movetoisland) the controller calls a different method, then updates model
         while (availableActions>0) {
@@ -126,6 +125,7 @@ public class Player {
                 availableActions -= entrance.moveToIsland(availableActions, gm);}
         }
         System.out.println("After your moves: " + this.diningRoom);
+        numActions = 4;
     }
 
     private String askWhichAction(int availableActions){

@@ -141,6 +141,19 @@ public class Game {
     }
 
 
+    /**
+     *
+     * @return Map of all StudColors to 0. This method is used also by the DiningRoom to initialize, hence it's static.
+     */
+    public static Map<Student,Integer> makeStudents(){
+        HashMap<it.polimi.ingsw.model.Student, java.lang.Integer> studs = new HashMap<>();
+        for (it.polimi.ingsw.model.Student sc : it.polimi.ingsw.model.Student.values()){
+            studs.put(sc,0);
+        }
+        return studs;
+    }
+
+
 
     public static void main(String[] args) {
         //test for fillClouds()
