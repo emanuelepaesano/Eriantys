@@ -1,9 +1,6 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.model.DiningRoom;
-import it.polimi.ingsw.model.Entrance;
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.*;
 
 import java.util.Objects;
 import java.util.Scanner;
@@ -13,11 +10,9 @@ public class PlayerController {
     private Player player;
 
 
-    public PlayerController(int id, int numPlayers){
+    public PlayerController(int id, int numPlayers, School school){
         this.id = id;
-        player = new Player(id,numPlayers);
-
-
+        player = new Player(id, numPlayers, school);
     }
 
 

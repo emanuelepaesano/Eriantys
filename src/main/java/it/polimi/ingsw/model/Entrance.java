@@ -5,61 +5,16 @@ import java.util.*;
 public class Entrance {
 
     private final List<Student> students;
-    private final DiningRoom diningRoom;
     private final int size;
 
     //idk if i like taking 3 parameters. alternatives?
-    public Entrance(int numPlayers, DiningRoom diningRoom){
-        this.diningRoom = diningRoom;
+    public Entrance(int numPlayers){
         this.size = (numPlayers==3? 9:7);
         //initialize all entries to null
         students = new ArrayList<>(Arrays.asList(new Student[size]));
         System.out.println("size of entrance array: " + students.size());
     }
 
-    /**
-     *
-     * @param availablemoves the moves that are left to the player, will come from the controller.
-     *
-     * @return Method for moving students to dining room. Returns the number of moves used, for doActions()
-     *
-     */
-    public int moveToDiningRoom(int availablemoves){
-        //First part: we ask how many students to move, maximum availablemoves
-        int nstud = askHowMany(availablemoves);
-        //Now we ask to move the students
-        String str;
-        Student stud;
-        for (int i = 0;i<nstud;i++){
-            try{
-                str = askWhich(i);
-                if (Objects.equals(str, "back")) {return i;}
-                else {stud = Student.valueOf(str.toUpperCase());}
-            }
-            catch (IllegalArgumentException ex) {
-                System.out.println("Not a valid student color, try again");
-                i-= 1;
-                continue;
-            }
-            if (students.contains(stud)){
-                students.remove(stud);
-                int oldnum = diningRoom.getTables().get(stud);
-                diningRoom.getTables().replace(stud,oldnum,oldnum+1);
-                //now this cannot be called from here, but it can from player.
-                //So we call it every time after we move students, but for all the tables?
-                // ->diningRoom.checkProfessor(stud,);
-
-                //there are some alternatives:
-                //->we do it as a method in the game instead, harder to implement
-                //->we can check for all students at once
-            }
-            else{
-                System.out.println("You don't have this student in your entrance");
-                i-=1;
-            }
-        }
-        return nstud; //doActions() needs this
-    }
 
     /**
      *
@@ -161,9 +116,6 @@ public class Entrance {
     }
 
 
-
-
-
     //only for test, will need to draw from the clouds in the game
     private void fillRandomTEST(){
         Random randomizer = new Random();
@@ -209,36 +161,9 @@ public class Entrance {
         }
 
         for(Player p : game.getCurrentOrder()) {
-            System.out.println(p.getPlayerName() + "'s " + p.getDiningRoom());
+            System.out.println(p.getPlayerName() + "'s " + p.getSchool().getDiningRoom());
         }
 
     }
 
-
-    public void moveToDiningRoomOLD(int availablemoves){
-        //First part: we ask how many students to move, maximum availablemoves
-        int nstud = askHowMany(availablemoves);
-        //Now we ask to move the students
-        Scanner scanner = new Scanner(System.in);
-        for (int i = 0;i<nstud;i++){
-            try {
-                System.out.println("choose the color of student number " + (i+1) + " from your entrance:" + students);
-                String color = scanner.next();
-                Student stud = Student.valueOf(color.toUpperCase());
-                if (students.contains(stud)){
-                    students.remove(stud);
-                    int old = diningRoom.getTables().get(stud);
-                    this.diningRoom.getTables().replace(stud,old,old+1);
-                }
-                else{
-                    System.out.println("You don't have this student in your entrance");
-                    i-=1;
-                }
-            } catch (IllegalArgumentException ex) {
-                System.out.println("Not a valid student color, try again");
-                i-=1;
-            }
-
-        }
-    }
 }
