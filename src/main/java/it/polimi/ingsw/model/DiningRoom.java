@@ -5,15 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 public class DiningRoom {
-    // TODO: 12/04/2022 reference to player
-    //  we may not need it for now
+
     private Map<Student, Integer> tables;
     private Map<Student, Boolean> professors;
 
     //maybe the entrance can contain a reference to the dining room
     //so we dont pass through player every time. then we make the dining room first
     public DiningRoom(){
-        this.tables = Game.makeStudents();
+        this.tables = Student.makeStudents();
         this.professors= makeProfessors();
     }
 

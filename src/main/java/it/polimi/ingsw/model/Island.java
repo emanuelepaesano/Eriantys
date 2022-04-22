@@ -12,7 +12,7 @@ public class Island {
     public Island(int id){
         this.id = id;
         size = 1;
-        students = Game.makeStudents();
+        students = Student.makeStudents();
         owner = null;
     }
     // TODO: 21/04/2022 a better implementation of the joins with something like a checkjoinable
