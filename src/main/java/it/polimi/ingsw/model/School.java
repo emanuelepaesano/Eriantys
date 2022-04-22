@@ -9,9 +9,9 @@ public class School {
 
     //maybe the entrance can contain a reference to the dining room
     //so we dont pass through player every time. then we make the dining room first
-    public School(DiningRoom diningRoom, Entrance entrance){
-        this.diningRoom = diningRoom;
-        this.entrance = entrance;
+    public School(int numPlayers){
+        this.diningRoom = new DiningRoom();
+        this.entrance = new Entrance(numPlayers);
     }
 
     /**
