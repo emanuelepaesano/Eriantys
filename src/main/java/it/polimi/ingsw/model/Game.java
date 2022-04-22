@@ -59,10 +59,7 @@ public class Game {
     private List<Player> startPlayersandOrder(int numplayers){
         ArrayList<Player> startingOrder = new ArrayList<>();
         for (int i=0; i< numplayers; i++){
-            DiningRoom diningRoom = new DiningRoom();
-            Entrance entrance = new Entrance(this.numPlayers);
-            School school = new School(diningRoom, entrance);
-            PlayerController pc = new PlayerController(i+1, this.numPlayers, school);
+            PlayerController pc = new PlayerController(i+1, this.numPlayers);
             startingOrder.add(pc.getPlayer());
         }
         Collections.shuffle(startingOrder);
