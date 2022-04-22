@@ -15,17 +15,17 @@ import java.util.stream.Stream;
  */
 public class Main {
     public static void main(String[] args) {
-//         Test for the game
-//        GameController gc = new GameController();
-//        Game game = gc.getGame();
-//        gc.doPlanningPhase(gc.getGame());
-////
-//        game.setCurrentPlayer(game.getCurrentOrder().get(0)); //we don't have a rule for switching between players yet
-//        Player testpl = game.getCurrentPlayer();
-//        testpl.doActions();
-//        System.out.println("Test player entrance after moves: " + testpl.getEntrance() +"\n" +
-//                "Islands after test player's moves:\n" + game.getGameMap());
-//        game.getGameMap().moveMotherNature();
+         //Test for the game
+        GameController gc = new GameController();
+        Game game = gc.getGame();
+        gc.doPlanningPhase(gc.getGame());
+
+        game.setCurrentPlayer(game.getCurrentOrder().get(0)); //we don't have a rule for switching between players yet
+        Player testpl = game.getCurrentPlayer();
+        testpl.doActions(game.getGameMap(), game.getTableOrder());
+        System.out.println("Test player entrance after moves: " + testpl.getEntrance() +"\n" +
+                "Islands after test player's moves:\n" + game.getGameMap());
+        game.getGameMap().moveMotherNatureAndCheck(game.getCurrentPlayer(),game.getTableOrder());
 
     }
 }

@@ -28,7 +28,6 @@ public class Game {
         clouds = makeClouds(numPlayers);
         fillClouds();
         fillAllEntrancesBag();
-        System.out.println("clouds with new stuff " + clouds);
 
     }
 
@@ -143,7 +142,9 @@ public class Game {
     public static void main(String[] args) {
         //test for fillClouds()
         Game g = new Game(3);
-
+        for(Player p: g.getTableOrder()) {
+            g.fillEntranceFromClouds(p);
+        }
     }
 
 
