@@ -21,7 +21,7 @@ public class Player {
         numActions = (numPlayers==3? 4 : 3);
         numTowers = (numPlayers == 3? 6 : 8);
         diningRoom = new DiningRoom();//it's important to make the dining room before the entrance
-        entrance = new Entrance(numPlayers,diningRoom);
+        entrance = new Entrance(numPlayers);
     }
 
     private Map<Assistant, Boolean> buildDeck(){
@@ -118,7 +118,7 @@ public class Player {
         while (availableActions>0) {
             String action = askWhichAction(availableActions); //this will come from the view, so it must be in a controller
             if (Objects.equals(action, "diningroom")) {
-                availableActions -= entrance.moveToDiningRoom(availableActions);
+                availableActions -= entrance.moveToDiningRoom(availableActions, this.diningRoom);
                 this.diningRoom.checkProfessors(this, players);
             }
             else if (Objects.equals(action, "islands")){

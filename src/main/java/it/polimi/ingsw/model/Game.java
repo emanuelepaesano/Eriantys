@@ -28,7 +28,6 @@ public class Game {
         clouds = makeClouds(numPlayers);
         fillClouds();
         fillAllEntrancesBag();
-        System.out.println("clouds with new stuff " + clouds);
 
     }
 

@@ -5,12 +5,10 @@ import java.util.*;
 public class Entrance {
 
     private final List<Student> students;
-    private final DiningRoom diningRoom;
     private final int size;
 
     //idk if i like taking 3 parameters. alternatives?
-    public Entrance(int numPlayers, DiningRoom diningRoom){
-        this.diningRoom = diningRoom;
+    public Entrance(int numPlayers){
         this.size = (numPlayers==3? 9:7);
         //initialize all entries to null
         students = new ArrayList<>(Arrays.asList(new Student[size]));
@@ -24,7 +22,7 @@ public class Entrance {
      * @return Method for moving students to dining room. Returns the number of moves used, for doActions()
      *
      */
-    public int moveToDiningRoom(int availablemoves){
+    public int moveToDiningRoom(int availablemoves, DiningRoom diningRoom){
         //First part: we ask how many students to move, maximum availablemoves
         int nstud = askHowMany(availablemoves);
         //Now we ask to move the students
@@ -189,21 +187,6 @@ public class Entrance {
         Game game = new Game(3);
         //1ST PLAYER
         for(Player p : game.getCurrentOrder()) {
-//            game.setCurrentPlayer(p);
-//            Entrance e = p.getEntrance();
-//            System.out.println(p + ": for >>>MOVETODININGROOM<<<, choose 4 to test fillclouds");
-//            e.moveToDiningRoom(4); //choose 0 or back to test the other method
-//            System.out.println("Your table configuration after the moves: " + p.getDiningRoom());
-//            System.out.println("Before filling from clouds: " + e.students);
-//            game.fillFromClouds(p);
-//            System.out.println("Entrance after filling: " + e);
-//            System.out.println(p.getDiningRoom());
-//            System.out.println(p + ": for >>>MOVETOISLAND<<<, choose 4 to test fillclouds");
-//            e.moveToIsland(4, game.getGameMap());
-//            System.out.println("New archipelago: " + game.getGameMap());
-//            p.playAssistant(); //only to enable movemothernature
-//            game.getGameMap().moveMotherNatureAndCheck(game.getCurrentPlayer(),game.getTableOrder());
-//            System.out.println(game.getGameMap());
             game.setCurrentPlayer(p);
             p.doActions(game.getGameMap(),game.getTableOrder());
         }
@@ -213,32 +196,7 @@ public class Entrance {
         }
 
     }
-
-
-    public void moveToDiningRoomOLD(int availablemoves){
-        //First part: we ask how many students to move, maximum availablemoves
-        int nstud = askHowMany(availablemoves);
-        //Now we ask to move the students
-        Scanner scanner = new Scanner(System.in);
-        for (int i = 0;i<nstud;i++){
-            try {
-                System.out.println("choose the color of student number " + (i+1) + " from your entrance:" + students);
-                String color = scanner.next();
-                Student stud = Student.valueOf(color.toUpperCase());
-                if (students.contains(stud)){
-                    students.remove(stud);
-                    int old = diningRoom.getTables().get(stud);
-                    this.diningRoom.getTables().replace(stud,old,old+1);
-                }
-                else{
-                    System.out.println("You don't have this student in your entrance");
-                    i-=1;
-                }
-            } catch (IllegalArgumentException ex) {
-                System.out.println("Not a valid student color, try again");
-                i-=1;
-            }
-
-        }
-    }
 }
+
+
+
