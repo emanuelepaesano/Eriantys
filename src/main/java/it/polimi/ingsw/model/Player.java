@@ -12,7 +12,7 @@ public class Player {
     private Map<Assistant, Boolean> assistants;
     private Assistant currentAssistant;
     private int numActions;
-
+/*
     public Player(int id, int numPlayers) {
         this.id = id;
         playerName = askPlayerName();
@@ -22,6 +22,16 @@ public class Player {
         this.school = new School(numPlayers);
     }
 
+ */
+    public Player(int id, String name, Map<Assistant, Boolean> deck, int numActions, int numTowers, School school){
+        this.id = id;
+        this.playerName = name;
+        this.assistants = deck;
+        this.numActions = numActions;
+        this.numTowers = numTowers;
+        this.school = school;
+    }
+/*
     private Map<Assistant, Boolean> buildDeck(){
         Map<Assistant,Boolean> tm = new TreeMap<>();
         for (Assistant as : Assistant.values()) {
@@ -36,6 +46,8 @@ public class Player {
         return (new Scanner(System.in).nextLine());
     }
 
+
+ */
 
     /**
      *

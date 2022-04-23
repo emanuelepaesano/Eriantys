@@ -37,7 +37,7 @@ public class DiningRoom {
             int countwins = 0;
             for (Player p : players) {
                 if (p.id != owner.id) {
-                    if (this.tables.get(table) > p.getDiningRoom().tables.get(table)) {
+                    if (this.tables.get(table) > p.getSchool().getDiningRoom().tables.get(table)) {
                         countwins += 1;
                     }
                 }
@@ -45,7 +45,7 @@ public class DiningRoom {
             if (countwins == (players.size())-1) {
                 //set all to false and then our to true
                 for (Player p : players) {
-                    p.getDiningRoom().professors.replace(table, true, false);
+                    p.getSchool().getDiningRoom().professors.replace(table, true, false);
                 }
                 this.professors.replace(table, true);
             }
