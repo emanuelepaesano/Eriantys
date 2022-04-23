@@ -23,21 +23,17 @@ public class Entrance {
      */
     public int moveToDiningRoom(int availablemoves, DiningRoom diningRoom){
         //First part: we ask how many students to move, maximum availablemoves
-        int nstud = askHowMany(availablemoves);
+        int nstud = askHowManyStudents(availablemoves);
         //Now we ask to move the students
         String str;
         Student stud;
         for (int i = 0;i<nstud;i++){
-            try{
-                str = askWhichColor(i);
-                if (Objects.equals(str, "back")) {return i;}
-                else {stud = Student.valueOf(str.toUpperCase());}
-            }
-            catch (IllegalArgumentException ex) {
-                System.out.println("Not a valid student color, try again");
-                i-= 1;
-                continue;
-            }
+            switch (str = askWhichColor(i)){
+                case "back": return i;
+                case "retry":
+                    i-=1;
+                    continue;
+                default: stud = Student.valueOf(str.toUpperCase());}
             if (students.contains(stud)){
                 students.remove(stud);
                 int oldnum = diningRoom.getTables().get(stud);
@@ -58,14 +54,7 @@ public class Entrance {
         return nstud; //doActions() needs this
     }
 
-    /**
-     *
-     * @param availablemoves the same as movetodiningroom.
-     *
-     * @return Method for moving students to the islands, updates
-     * the game map. Returns number of used moves, for doActions()
-     *
-     */
+
     public int moveToIsland(int availablemoves, GameMap gm){
         //here we do the same thing but with choosing an island index
         //in the second part. Let's not duplicate code, we need to make a separate method
@@ -73,19 +62,16 @@ public class Entrance {
         //Probably also for asking which student to move we need an independent method(done).
         //First part is the same.
         System.out.println("Current map:\n" + gm);
-        int nstud = askHowMany(availablemoves);
+        int nstud = askHowManyStudents(availablemoves);
         String str;
         Student stud;
         for (int i = 0;i<nstud;i++){
-            try{
-                str = askWhichColor(i);
-                if (Objects.equals(str, "back")) {return i;} //if player wants back at 1st iteration, we don't remove actions and so on
-                else {stud = Student.valueOf(str.toUpperCase());}
-            }
-            catch (IllegalArgumentException ex) {
-                System.out.println("Not a valid student color, try again");
-                i-= 1;
-                continue;
+            switch (str = askWhichColor(i)){
+                case "back": return i;
+                case "retry":
+                    i-=1;
+                    continue;
+                default: stud = Student.valueOf(str.toUpperCase());
             }
             //In the 2nd part now we move it to the chosen island
             if (students.contains(stud)){
@@ -102,15 +88,35 @@ public class Entrance {
         return nstud; //doActions() needs this
     }
 
-
-
+    /**
+     *
+     * @param iteration the number of the student moved, from the 2 methods that use this
+     * @return a String to signal if the input is acceptable(in this case it's returned), or not
+     */
+    private String askWhichColor(int iteration){
+        String str;
+        try{
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Choose the color of student number " + (iteration+1) + " from your entrance:\n"
+                    + students + ", or type \"back\" to change action");
+            str = scanner.nextLine();
+            if (Objects.equals(str, "back")) {return "back";} //if player wants back at 1st iteration, we don't remove actions and so on
+            else {
+                Student.valueOf(str.toUpperCase());
+                return str;
+            }
+        }
+        catch (IllegalArgumentException ex) {
+            return ("retry");
+        }
+    }
 
     /**
      *
      * @param availablemoves you can move at most this number of students
      * @return asks how many students one wants to move. it's used by movetoDiningRoom and movetoIsland
      */
-    private int askHowMany(int availablemoves) {
+    private int askHowManyStudents(int availablemoves) {
         Scanner scanner = new Scanner(System.in);
         int nstud;
         while (true) {
@@ -127,15 +133,6 @@ public class Entrance {
             } catch (IllegalArgumentException ex) { System.out.println("not a number, try again");}
         }
         return nstud;
-    }
-    /**
-     *similarly, it's here mostly not to duplicate code
-     */
-    private String askWhichColor(int number){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Choose the color of student number " + (number+1) + " from your entrance:\n"
-                + students + ", or type \"back\" to change action");
-        return scanner.next();
     }
 
     //only for moveToIsland
