@@ -7,7 +7,6 @@ public class Entrance {
     private final List<Student> students;
     private final int size;
 
-    //idk if i like taking 3 parameters. alternatives?
     public Entrance(int numPlayers){
         this.size = (numPlayers==3? 9:7);
         //initialize all entries to null
@@ -30,7 +29,7 @@ public class Entrance {
         Student stud;
         for (int i = 0;i<nstud;i++){
             try{
-                str = askWhich(i);
+                str = askWhichColor(i);
                 if (Objects.equals(str, "back")) {return i;}
                 else {stud = Student.valueOf(str.toUpperCase());}
             }
@@ -79,7 +78,7 @@ public class Entrance {
         Student stud;
         for (int i = 0;i<nstud;i++){
             try{
-                str = askWhich(i);
+                str = askWhichColor(i);
                 if (Objects.equals(str, "back")) {return i;} //if player wants back at 1st iteration, we don't remove actions and so on
                 else {stud = Student.valueOf(str.toUpperCase());}
             }
@@ -116,7 +115,7 @@ public class Entrance {
         int nstud;
         while (true) {
             System.out.println("How many students do you want to move (maximum " + availablemoves+ ") ?\n" +
-                    "To return to action selection, type '0' or 'back'"); //obviously back doesnt work
+                    "To return to action selection, type '0' or 'back'");
             String in = scanner.next();
             if (Objects.equals(in, "back")) {
                 return 0; //go back to movetox and then to doActions()
@@ -132,7 +131,7 @@ public class Entrance {
     /**
      *similarly, it's here mostly not to duplicate code
      */
-    private String askWhich(int number){
+    private String askWhichColor(int number){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Choose the color of student number " + (number+1) + " from your entrance:\n"
                 + students + ", or type \"back\" to change action");

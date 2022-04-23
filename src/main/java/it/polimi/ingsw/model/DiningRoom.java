@@ -9,8 +9,7 @@ public class DiningRoom {
     private Map<Student, Integer> tables;
     private Map<Student, Boolean> professors;
 
-    //maybe the entrance can contain a reference to the dining room
-    //so we dont pass through player every time. then we make the dining room first
+
     public DiningRoom(){
         this.tables = Student.makeStudents();
         this.professors= makeProfessors();

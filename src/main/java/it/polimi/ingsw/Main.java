@@ -1,6 +1,7 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.model.Assistant;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Student;
@@ -15,11 +16,13 @@ import java.util.stream.Stream;
  */
 public class Main {
     public static void main(String[] args) {
-//         Test for the game
+      //   Test for the game
         GameController gc = new GameController();
         Game game = gc.getGame();
         gc.doPlanningPhase(gc.getGame());
-//
+
+
+
         game.setCurrentPlayer(game.getCurrentOrder().get(0)); //we don't have a rule for switching between players yet
         Player testpl = game.getCurrentPlayer();
         testpl.doActions(game.getGameMap(),game.getTableOrder());
