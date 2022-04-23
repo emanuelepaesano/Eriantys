@@ -215,5 +215,7 @@ public class Player {
         return numTowers;
     }
 
-
+    public Assistant getCurrentAssistant() {
+        return currentAssistant;
+    }
 }

@@ -41,6 +41,7 @@ class PlayerTest {
         System.setIn(new ByteArrayInputStream(assistant.toString().getBytes()));
         Assistant choice = testplayer.playAssistant();
         assertEquals(choice, assistant); //this is truly only a test of the test setup...
+        assertEquals(testplayer.getCurrentAssistant(), choice);
    }
 
     @Test
