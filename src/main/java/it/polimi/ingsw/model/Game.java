@@ -108,7 +108,7 @@ public class Game {
                     List<Student> cloud = clouds.get(choice-1);
                     if (cloud.size()>0){
                         //add those students to our entrance
-                        player.getSchool().getEntrance().getStudents().addAll(cloud);
+                        player.getEntrance().getStudents().addAll(cloud);
                         cloud.clear();
                         break;
                     }
@@ -130,7 +130,7 @@ public class Game {
     private void fillEntranceFromBag(Player player){
         for (int i=0;i<(numPlayers==3? 9:7);i++) {
             Student randstud = this.drawFromBag();
-            player.getSchool().getEntrance().getStudents().set(i, randstud);
+            player.getEntrance().getStudents().set(i, randstud);
         }
     }
 

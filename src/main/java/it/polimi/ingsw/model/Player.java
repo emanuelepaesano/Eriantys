@@ -7,11 +7,13 @@ public class Player {
     private final String playerName;
     private TowerColor towerColor;
     private Integer wizard;
-    private School school;
+    private final DiningRoom diningRoom;
+    private final Entrance entrance;
     private Integer numTowers;
     private Map<Assistant, Boolean> assistants;
     private Assistant currentAssistant;
     private int numActions;
+
 
     public Player(int id, int numPlayers) {
         this.id = id;
@@ -19,7 +21,8 @@ public class Player {
         assistants = buildDeck();
         numActions = (numPlayers==3? 4 : 3);
         numTowers = (numPlayers == 3? 6 : 8);
-        this.school = new School(numPlayers);
+        diningRoom = new DiningRoom();//it's important to make the dining room before the entrance
+        entrance = new Entrance(numPlayers);
     }
 
     private Map<Assistant, Boolean> buildDeck(){
@@ -42,10 +45,11 @@ public class Player {
      * @param remainingWizards the remaining wizards, by askAllforWiz()
      * @return the wizard chosen by the player
      */
-    public int askWizard(ArrayList<Integer> remainingWizards) {
+    public int askWizard(List<Integer> remainingWizards) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println(this.playerName + ", choose your wizard number among these: " + remainingWizards);
         while (true) {
-            int input = Integer.parseInt(new Scanner(System.in).nextLine());
+            int input = Integer.parseInt(scanner.nextLine());
             if (remainingWizards.contains(input)){
                 Integer wiz = remainingWizards.get(remainingWizards.indexOf(input));
                 this.wizard = wiz;
@@ -60,10 +64,12 @@ public class Player {
      * @param remainingColors the remaining colors, by the game controller
      * @return the TowerColor chosen by the player among the remaining ones
      */
-    public TowerColor askTowerColor(ArrayList<TowerColor> remainingColors) {
+    public TowerColor askTowerColor(List<TowerColor> remainingColors) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println(this.playerName + ", please choose your tower color among the available ones: " + remainingColors);
         while (true) {
-            try {            String input = new Scanner(System.in).nextLine();
+            try {
+                String input = scanner.nextLine();
                 TowerColor choice = TowerColor.valueOf(input.toUpperCase());
                 if (remainingColors.contains(choice)){
                     this.towerColor = choice;
@@ -81,6 +87,7 @@ public class Player {
      * This way the GameController will then join all the played assistants and choose the new playerOrder
      */
     public Assistant playAssistant(){
+        Scanner scan = new Scanner (System.in);
         ArrayList<Assistant> remass = new ArrayList<>(); //list of remaining assistants
         for (Assistant key: this.assistants.keySet()){
             if (this.assistants.get(key)){
@@ -89,7 +96,7 @@ public class Player {
         }
         System.out.println(this.playerName + ", play one of your remaining assistants (speed value): " + remass);
         while (true) {
-            String input = new Scanner(System.in).nextLine();
+            String input = scan.nextLine();
             // TODO: 15/04/2022 would be nice if also putting es.9 or 10 worked
             try {
                 Assistant choice = Assistant.valueOf(input.toUpperCase());
@@ -116,13 +123,13 @@ public class Player {
         while (availableActions>0) {
             String action = askWhichAction(availableActions); //this will come from the view, so it must be in a controller
             if (Objects.equals(action, "diningroom")) {
-                availableActions -= school.moveStudFrEntranceToDiningRoom(availableActions);
-                this.school.getDiningRoom().checkProfessors(this, players);
+                availableActions -= entrance.moveToDiningRoom(availableActions, this.diningRoom);
+                this.diningRoom.checkProfessors(this, players);
             }
             else if (Objects.equals(action, "islands")){
-                availableActions -= school.getEntrance().moveToIsland(availableActions, gm);}
+                availableActions -= entrance.moveToIsland(availableActions, gm);}
         }
-        System.out.println("After your moves: " + this.school.getDiningRoom());
+        System.out.println("After your moves: " + this.diningRoom);
         numActions = 4;
     }
 
@@ -160,7 +167,7 @@ public class Player {
         int influence = 0;
         if (island.owner == this) {influence += island.size;}
         for (Student student : Student.values()){
-            if (this.school.getDiningRoom().getProfessors().get(student)){
+            if (this.diningRoom.getProfessors().get(student)){
                 influence += island.getStudents().get(student);
             }
         }
@@ -196,13 +203,19 @@ public class Player {
         return playerName;
     }
 
+    public DiningRoom getDiningRoom() {
+        return diningRoom;
+    }
+
+    public Entrance getEntrance() {
+        return entrance;
+    }
+
     public Integer getNumTowers() {
         return numTowers;
     }
 
-    public School getSchool() {
-        return this.school;
+    public Assistant getCurrentAssistant() {
+        return currentAssistant;
     }
-
-
 }
