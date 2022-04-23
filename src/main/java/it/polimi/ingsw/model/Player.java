@@ -14,7 +14,6 @@ public class Player {
     private Assistant currentAssistant;
     private int numActions;
 
-    private Scanner scanner = new Scanner(System.in);
 
     public Player(int id, int numPlayers) {
         this.id = id;
@@ -37,7 +36,7 @@ public class Player {
 
     private String askPlayerName() {
         System.out.println("Player " + this.id + ", enter your nickname:");
-        return (scanner.nextLine());
+        return (new Scanner(System.in).nextLine());
     }
 
 
@@ -47,6 +46,7 @@ public class Player {
      * @return the wizard chosen by the player
      */
     public int askWizard(ArrayList<Integer> remainingWizards) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println(this.playerName + ", choose your wizard number among these: " + remainingWizards);
         while (true) {
             int input = Integer.parseInt(scanner.nextLine());
@@ -65,6 +65,7 @@ public class Player {
      * @return the TowerColor chosen by the player among the remaining ones
      */
     public TowerColor askTowerColor(ArrayList<TowerColor> remainingColors) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println(this.playerName + ", please choose your tower color among the available ones: " + remainingColors);
         while (true) {
             try {
@@ -86,6 +87,7 @@ public class Player {
      * This way the GameController will then join all the played assistants and choose the new playerOrder
      */
     public Assistant playAssistant(){
+        Scanner scan = new Scanner (System.in);
         ArrayList<Assistant> remass = new ArrayList<>(); //list of remaining assistants
         for (Assistant key: this.assistants.keySet()){
             if (this.assistants.get(key)){
@@ -94,7 +96,7 @@ public class Player {
         }
         System.out.println(this.playerName + ", play one of your remaining assistants (speed value): " + remass);
         while (true) {
-            String input = scanner.nextLine();
+            String input = scan.nextLine();
             // TODO: 15/04/2022 would be nice if also putting es.9 or 10 worked
             try {
                 Assistant choice = Assistant.valueOf(input.toUpperCase());
@@ -132,6 +134,7 @@ public class Player {
     }
 
     private String askWhichAction(int availableActions){
+        Scanner scanner = new Scanner(System.in);
         System.out.printf("%s, where do you want to move your students (%d moves left)? Please type \"islands\" or \"diningroom\" "
                 , playerName,availableActions);
         return scanner.nextLine();
@@ -143,6 +146,7 @@ public class Player {
      * This could change if we choose to move that method
      */
     public int askMNMoves(){
+        Scanner scanner = new Scanner(System.in);
         System.out.println(playerName + ", how many steps do you want to move Mother Nature? " +
                 "(At least 1, maximum " + currentAssistant.getMoves() + ")");
         while (true) {

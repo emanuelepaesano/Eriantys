@@ -193,7 +193,6 @@ public class Entrance {
         for(Player p : game.getCurrentOrder()) {
             System.out.println(p.getPlayerName() + "'s " + p.getDiningRoom());
         }
-
     }
 }
 

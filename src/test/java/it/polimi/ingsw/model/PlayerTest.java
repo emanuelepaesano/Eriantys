@@ -38,8 +38,7 @@ class PlayerTest {
     @ParameterizedTest
     @MethodSource("giveAssistants")
     void playAssistant(Assistant assistant) {
-        //why this doesn't work :(
-        System.setIn(new ByteArrayInputStream(assistant.toString().getBytes(StandardCharsets.UTF_8)));
+        System.setIn(new ByteArrayInputStream(assistant.toString().getBytes()));
         Assistant choice = testplayer.playAssistant();
         assertEquals(choice, assistant); //this is truly only a test of the test setup...
    }
