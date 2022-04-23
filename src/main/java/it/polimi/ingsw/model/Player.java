@@ -45,7 +45,7 @@ public class Player {
      * @param remainingWizards the remaining wizards, by askAllforWiz()
      * @return the wizard chosen by the player
      */
-    public int askWizard(ArrayList<Integer> remainingWizards) {
+    public int askWizard(List<Integer> remainingWizards) {
         Scanner scanner = new Scanner(System.in);
         System.out.println(this.playerName + ", choose your wizard number among these: " + remainingWizards);
         while (true) {
@@ -64,7 +64,7 @@ public class Player {
      * @param remainingColors the remaining colors, by the game controller
      * @return the TowerColor chosen by the player among the remaining ones
      */
-    public TowerColor askTowerColor(ArrayList<TowerColor> remainingColors) {
+    public TowerColor askTowerColor(List<TowerColor> remainingColors) {
         Scanner scanner = new Scanner(System.in);
         System.out.println(this.playerName + ", please choose your tower color among the available ones: " + remainingColors);
         while (true) {
