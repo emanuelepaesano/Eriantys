@@ -29,16 +29,14 @@ public class DiningRoom {
     }
 
 
-    public void checkProfessors(Player owner, List<Player> players){
+    public void checkProfessors(List<Player> players){
         //look into all players to see if we get that professor (for every table)
         //N.B: we win only with strictly more students
         for (Student table : Student.values()) {
             int countwins = 0;
             for (Player p : players) {
-                if (p.id != owner.id) {
-                    if (this.tables.get(table) > p.getDiningRoom().tables.get(table)) {
+                if (this.tables.get(table) > p.getDiningRoom().tables.get(table)) {
                         countwins += 1;
-                    }
                 }
             }
             if (countwins == (players.size())-1) {

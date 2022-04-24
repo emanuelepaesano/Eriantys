@@ -25,6 +25,7 @@ public class Player {
         entrance = new Entrance(numPlayers);
     }
 
+
     private Map<Assistant, Boolean> buildDeck(){
         Map<Assistant,Boolean> tm = new TreeMap<>();
         for (Assistant as : Assistant.values()) {
@@ -124,7 +125,7 @@ public class Player {
             String action = askWhichAction(availableActions); //this will come from the view, so it must be in a controller
             if (Objects.equals(action, "diningroom")) {
                 availableActions -= entrance.moveToDiningRoom(availableActions, this.diningRoom);
-                this.diningRoom.checkProfessors(this, players);
+                this.diningRoom.checkProfessors(players);
             }
             else if (Objects.equals(action, "islands")){
                 availableActions -= entrance.moveToIsland(availableActions, gm);}
