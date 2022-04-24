@@ -95,7 +95,7 @@ public class Game {
     /**
      * Lets the player choose a cloud and fills the entrance with the students of that cloud
      */
-    // I believe now this has to be moved inside the game with player as parameter
+    // TODO: 24/04/2022 I think stuff like this should go inside a controller
     public void fillEntranceFromClouds(Player player){
         Scanner scanner = new Scanner(System.in);
         //this must be shown to each player, so maybe make a player.askcloud()
@@ -119,7 +119,7 @@ public class Game {
     }
 
 
-    //fills all entrances. New way to initialize the entrances students, in here instead of entrance
+    //fills all entrances. New way to initialize the entrances, in here instead of entrance
     private void fillAllEntrancesBag(){
         for (Player player : tableOrder){
             fillEntranceFromBag(player);

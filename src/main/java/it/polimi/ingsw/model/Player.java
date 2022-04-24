@@ -56,7 +56,6 @@ public class Player {
                 this.wizard = wiz;
                 return wiz;
             }
-
         }
     }
 

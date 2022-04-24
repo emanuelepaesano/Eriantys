@@ -51,15 +51,13 @@ public class DiningRoom {
 
     @Override
     public String toString() {
-        String dr = "Dining Room {\n";
+        StringBuilder dr = new StringBuilder("Dining Room {\n");
         for (Student student : Student.values()){
-            dr += student + ": ";
-            dr += this.tables.get(student);
-            dr += (this.professors.get(student)? " \u200D\uD83C\uDF93":"");
-            dr += "\n";
+            dr.append(student).append(": ").append(this.tables.get(student));
+            dr.append(this.professors.get(student) ? " \u200D\uD83C\uDF93" : "").append("\n");
         }
-        dr += "}";
-        return dr;
+        dr.append("}");
+        return dr.toString();
     }
 
     public Map<Student, Integer> getTables() {

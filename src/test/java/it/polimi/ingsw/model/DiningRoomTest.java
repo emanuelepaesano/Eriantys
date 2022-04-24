@@ -46,10 +46,14 @@ class DiningRoomTest {
         return Stream.of(arguments(List.of(player1,player2,player3,player4),Map.of(Student.RED,false,Student.GREEN,true,
                 Student.YELLOW,false,Student.BLUE, false,Student.PINK,true)));
     }
+
+    /**
+     *cases tested: same number of students of best(BLUE); lower than best (YELLOW,RED); higher than best (PINK,GREEN)
+     */
     @ParameterizedTest
     @MethodSource("givePlayers")
     void checkProfessors(List<Player> players, Map<Student,Boolean> expected) {
-    //cases tested: same number of students of best(BLUE); lower than best (YELLOW,RED); higher than best (PINK,GREEN)
+
         testDiningRoom.getTables().putAll(Map.of(Student.BLUE,3,Student.PINK,9,
                 Student.GREEN,4,Student.RED,1));
         testDiningRoom.checkProfessors(players);

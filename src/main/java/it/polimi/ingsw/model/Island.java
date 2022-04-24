@@ -16,7 +16,7 @@ public class Island {
         owner = null;
     }
     // TODO: 21/04/2022 a better implementation of the joins with something like a checkjoinable
-    //  that sets a bool to true for the joinable islansd
+    //  that sets a bool to true for the joinable islands
     //  then the doJoins looks for all islands that are joinable and jons them (?)
     //  -> pros: shorter and more readable methods, less duplication (+points)
     //  -> cons: will maybe need to store a this.joinable attribute (-design?)
@@ -26,8 +26,9 @@ public class Island {
      * @return the Player who has the most influence in the island. Has to be called when mother nature lands on this
      */
     //Now this is called only by moveMotherNatureAndCheck and returns a boolean for it to decide whether to join or not
-    public Boolean checkOwner(List<Player> players) {
+    public Player checkOwner(List<Player> players) {
         Map<Player, Integer> influences = new HashMap<>();
+        Player newOwner = this.owner;
         players.forEach((Player p)->influences.put(p,p.calculateInfluence(this)));
 
         List<Player> ties = new ArrayList<>();
@@ -36,17 +37,15 @@ public class Island {
                 ties.add(p);
             }
         }
-        if (ties.size() == 1) { //if 2 players tie, we cannot have new owner
-            Player newowner = ties.get(0);
-            if (newowner != this.owner) { //update tower numbers, join if that is the case
-                if (owner != null) {owner.setNumTowers(owner.getNumTowers() + this.size);}
-                this.owner = newowner;
-                System.out.println("Island " + this.id + "has a new owner: " + newowner) ;
-                newowner.setNumTowers(newowner.getNumTowers() - this.size);
-                return true;
-            }
+        //if 2 players tie, we cannot have new owner
+        if (ties.size() == 1 && !ties.get(0).equals(this.owner)) {
+            newOwner = ties.get(0);
+            if (owner != null) {owner.setNumTowers(owner.getNumTowers() + this.size);}
+            this.owner = newOwner;
+            System.out.println("Island " + this.id + " has a new owner: " + newOwner) ;
+            newOwner.setNumTowers(newOwner.getNumTowers() - this.size);
         }
-        return false;
+        return newOwner;
     }
 
 
@@ -59,10 +58,6 @@ public class Island {
 
     public void setOwner(Player owner) {
         this.owner = owner;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setSize(int size) {
