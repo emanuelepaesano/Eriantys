@@ -67,7 +67,7 @@ public class Entrance {
         Student stud;
         for (int i = 0;i<nstud;i++){
             switch (str = askWhichColor(i)){
-                case "back": return i;
+                case "back": return i;//if player wants back at 1st iteration, we don't remove actions and so on
                 case "retry":
                     i-=1;
                     continue;
@@ -100,7 +100,7 @@ public class Entrance {
             System.out.println("Choose the color of student number " + (iteration+1) + " from your entrance:\n"
                     + students + ", or type \"back\" to change action");
             str = scanner.nextLine();
-            if (Objects.equals(str, "back")) {return "back";} //if player wants back at 1st iteration, we don't remove actions and so on
+            if (Objects.equals(str, "back")) {return "back";}
             else {
                 Student.valueOf(str.toUpperCase());
                 return str;
@@ -143,7 +143,7 @@ public class Entrance {
                     "This is the current state of the islands:\n" + gm +
                     "\nIndicate the island by its number (0~11):") ;
             try {
-                int index = Integer.parseInt(scanner.next()); //we will need a try-catch
+                int index = Integer.parseInt(scanner.next());
                 if (index>=0 &&index <=11) {
                     return gm.getArchipelago().get(index);
                 }
@@ -158,7 +158,7 @@ public class Entrance {
 
 
 
-    //only for test, will need to draw from the clouds in the game
+    //only for test, will need to draw from the clouds/bag in the game
     private void fillRandomTEST(){
         Random randomizer = new Random();
         for (int i = 0; i< this.size;i++){

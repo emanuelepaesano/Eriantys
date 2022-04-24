@@ -13,14 +13,18 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class PlayerTest {
-    Player testplayer;
+    private Player testplayer;
 
     @BeforeEach
     void setUp(){
@@ -70,7 +74,27 @@ class PlayerTest {
     void askMNMoves() {
     }
 
+
     @Test
     void calculateInfluence() {
+        //we have red and green professor
+        testplayer.getDiningRoom().getProfessors().putAll(Map.of(Student.GREEN,true,Student.RED,true));
+        //not ours, size = 1
+        Island island1 = new Island(1);
+        island1.getStudents().putAll(Map.of(Student.GREEN,3,Student.BLUE,5));
+        assertEquals( 3,testplayer.calculateInfluence(island1));
+        //ours, size = 1
+        Island island2 = new Island(2);
+        island2.setOwner(testplayer);
+        island2.getStudents().putAll(Map.of(Student.RED,3,Student.YELLOW,5,Student.GREEN,1));
+        assertEquals( 5,testplayer.calculateInfluence(island2));
+        //ours, size = 3
+        Island island3 = new Island(3);
+        island3.setSize(3);
+        island3.setOwner(testplayer);
+        island3.getStudents().putAll(Map.of(Student.PINK,6,Student.GREEN,3));
+        assertEquals( 6,testplayer.calculateInfluence(island3));
+
+
     }
 }

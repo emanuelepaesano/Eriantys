@@ -64,6 +64,10 @@ public class Island {
     public void setId(int id) {
         this.id = id;
     }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
 }
 
 
