@@ -106,7 +106,7 @@ public class Player {
                     this.assistants.replace (choice, true, false);
                     return choice;
                 }
-            } catch (IllegalArgumentException exception) {System.out.println("Not a valid assistant, take one from the list: " + remass);}
+            } catch (Exception exception) {System.out.println("Not a valid assistant, take one from the list: " + remass);}
         }
     }
 
@@ -165,7 +165,7 @@ public class Player {
      */
     public int calculateInfluence(Island island) {
         int influence = 0;
-        if (island.owner == this) {influence += island.size;}
+        if (island.getOwner() == this) {influence += island.size;}
         for (Student student : Student.values()){
             if (this.diningRoom.getProfessors().get(student)){
                 influence += island.getStudents().get(student);
@@ -217,5 +217,13 @@ public class Player {
 
     public Assistant getCurrentAssistant() {
         return currentAssistant;
+    }
+
+    public Integer getWizard() {
+        return wizard;
+    }
+
+    public TowerColor getTowerColor() {
+        return towerColor;
     }
 }

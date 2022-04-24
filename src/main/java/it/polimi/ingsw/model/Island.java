@@ -68,6 +68,11 @@ public class Island {
     public void setSize(int size) {
         this.size = size;
     }
+
+    public Player getOwner() {
+        return owner;
+    }
+
 }
 
 
