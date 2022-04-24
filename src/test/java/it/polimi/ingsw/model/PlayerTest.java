@@ -5,10 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.EnumSource;
-import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.*;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -65,16 +62,6 @@ class PlayerTest {
         System.setIn(new ByteArrayInputStream(assistant.toString().getBytes()));
         assertThrows(NoSuchElementException.class, ()->testplayer.playAssistant());
 
-
-       //another possible way to test this, but needs to include playassistant{scanner.nextLine()} in the try-catch
-//        Thread stuck = new Thread(() -> {
-//            System.setIn(new ByteArrayInputStream(assistant.toString().getBytes()));
-//            testplayer.playAssistant();
-//        });
-//        stuck.start();
-//        Thread.sleep(10);
-//        assertTrue(stuck.isAlive());
-//        stuck.interrupt();
    }
 
     @Test
@@ -82,8 +69,25 @@ class PlayerTest {
         //for this we need also to create a map, a diningroom and a entrance
     }
 
-    @Test
-    void askMNMoves() {
+    @ParameterizedTest (name = "Testing for: Assistant {0}; {1} moves")
+    @CsvSource({ "ONE, 1",
+            "ONE, 2",
+            "FIVE, 0",
+            "FIVE, 3",
+            "TEN, 6",
+            "TEN, 4",
+            "EIGHT, -3",
+            "SEVEN, 2"
+    })
+    void askMNMoves(Assistant assistant, Integer triedMoves) {
+        System.setIn(new ByteArrayInputStream(triedMoves.toString().getBytes()));
+        //test that: works if the moves are acceptable (=returns the moves)
+        //           does not work if not acceptable (=throws nosuchelement)
+        testplayer.setCurrentAssistant(assistant);
+        if (triedMoves <= assistant.getMoves() && triedMoves > 0){
+            assertEquals(triedMoves,testplayer.askMNMoves());
+        }
+        else{assertThrows(NoSuchElementException.class, ()->testplayer.askMNMoves());}
     }
 
 

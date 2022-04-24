@@ -226,4 +226,8 @@ public class Player {
     public TowerColor getTowerColor() {
         return towerColor;
     }
+
+    public void setCurrentAssistant(Assistant currentAssistant) {
+        this.currentAssistant = currentAssistant;
+    }
 }
