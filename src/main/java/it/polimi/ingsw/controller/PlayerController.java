@@ -2,9 +2,6 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.*;
 
-import java.util.Objects;
-import java.util.Scanner;
-
 public class PlayerController {
     private int id;
     private Player player;

@@ -1,4 +1,8 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.controller;
+
+import it.polimi.ingsw.model.Assistant;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.School;
 
 import java.util.Map;
 import java.util.Scanner;
