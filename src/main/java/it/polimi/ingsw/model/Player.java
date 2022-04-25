@@ -15,16 +15,15 @@ public class Player {
     private int numActions;
 
 
-    public Player(int id, int numPlayers) {
+    public Player(int id, String name, Map<Assistant, Boolean> deck, int numActions, int numTowers, DiningRoom diningRoom, Entrance entrance) {
         this.id = id;
-        playerName = askPlayerName();
-        assistants = buildDeck();
-        numActions = (numPlayers==3? 4 : 3);
-        numTowers = (numPlayers == 3? 6 : 8);
-        diningRoom = new DiningRoom();//it's important to make the dining room before the entrance
-        entrance = new Entrance(numPlayers);
+        playerName = name;
+        assistants = deck;
+        this.numActions = numActions;
+        this.numTowers = numTowers;
+        this.diningRoom = diningRoom;
+        this.entrance = entrance;
     }
-
 
     private Map<Assistant, Boolean> buildDeck(){
         Map<Assistant,Boolean> tm = new TreeMap<>();
@@ -47,15 +46,15 @@ public class Player {
      * @return the wizard chosen by the player
      */
     public int askWizard(List<Integer> remainingWizards) {
-        Scanner scanner = new Scanner(System.in);
         System.out.println(this.playerName + ", choose your wizard number among these: " + remainingWizards);
         while (true) {
-            int input = Integer.parseInt(scanner.nextLine());
+            int input = Integer.parseInt(new Scanner(System.in).nextLine());
             if (remainingWizards.contains(input)){
                 Integer wiz = remainingWizards.get(remainingWizards.indexOf(input));
                 this.wizard = wiz;
                 return wiz;
             }
+
         }
     }
 
@@ -65,11 +64,9 @@ public class Player {
      * @return the TowerColor chosen by the player among the remaining ones
      */
     public TowerColor askTowerColor(List<TowerColor> remainingColors) {
-        Scanner scanner = new Scanner(System.in);
         System.out.println(this.playerName + ", please choose your tower color among the available ones: " + remainingColors);
         while (true) {
-            try {
-                String input = scanner.nextLine();
+            try {            String input = new Scanner(System.in).nextLine();
                 TowerColor choice = TowerColor.valueOf(input.toUpperCase());
                 if (remainingColors.contains(choice)){
                     this.towerColor = choice;
@@ -87,7 +84,6 @@ public class Player {
      * This way the GameController will then join all the played assistants and choose the new playerOrder
      */
     public Assistant playAssistant(){
-        Scanner scan = new Scanner (System.in);
         ArrayList<Assistant> remass = new ArrayList<>(); //list of remaining assistants
         for (Assistant key: this.assistants.keySet()){
             if (this.assistants.get(key)){
@@ -96,7 +92,7 @@ public class Player {
         }
         System.out.println(this.playerName + ", play one of your remaining assistants (speed value): " + remass);
         while (true) {
-            String input = scan.nextLine();
+            String input = new Scanner(System.in).nextLine();
             // TODO: 15/04/2022 would be nice if also putting es.9 or 10 worked
             try {
                 Assistant choice = Assistant.valueOf(input.toUpperCase());
@@ -106,7 +102,7 @@ public class Player {
                     this.assistants.replace (choice, true, false);
                     return choice;
                 }
-            } catch (Exception exception) {System.out.println("Not a valid assistant, take one from the list: " + remass);}
+            } catch (IllegalArgumentException exception) {System.out.println("Not a valid assistant, take one from the list: " + remass);}
         }
     }
 
@@ -230,4 +226,5 @@ public class Player {
     public void setCurrentAssistant(Assistant currentAssistant) {
         this.currentAssistant = currentAssistant;
     }
+
 }
