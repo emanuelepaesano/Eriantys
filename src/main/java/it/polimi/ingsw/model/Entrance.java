@@ -70,7 +70,7 @@ public class Entrance {
             //In the 2nd part now we move it to the chosen island
             if (students.contains(stud)){
                 students.remove(stud);
-                Island island = askWhichIsland(gm);
+                Island island = askWhichIsland(gm, scanner);
                 int oldval = island.students.get(stud);
                 island.students.replace(stud, oldval,oldval+1);
             }
@@ -129,8 +129,7 @@ public class Entrance {
     }
 
     //only for moveToIsland
-    private Island askWhichIsland(GameMap gm){
-        Scanner scanner = new Scanner(System.in);
+    private Island askWhichIsland(GameMap gm, Scanner scanner){
         while (true){
             System.out.println("To which island do you want to move it?\n" +
                     "This is the current state of the islands:\n" + gm +

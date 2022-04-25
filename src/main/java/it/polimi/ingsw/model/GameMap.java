@@ -10,14 +10,13 @@ public class GameMap {
     public GameMap(){
         archipelago = makeIslands();
         motherNature = startMotherNature();
-
     }
 
     /**
      *
      * @return Initializes 12 islands in a list
      */
-    private List<Island> makeIslands(){
+    private static List<Island> makeIslands(){
         List<Island> archipelago = new ArrayList<>();
         for (int i = 0; i<12; i++){
             archipelago.add(new Island(i));
@@ -28,7 +27,7 @@ public class GameMap {
     /**
      * Take a random index and put motherNature in that island
      */
-    private int startMotherNature(){
+    private static int startMotherNature(){
         Random randomizer = new Random();
         return randomizer.nextInt(12);
     }
