@@ -14,29 +14,58 @@ public class Game {
     private List<List<Student>> clouds;
     private GameMap gameMap;
 
+    public static Game makeGame(int numPlayers){
+        List<Player> startingOrder = startPlayersandOrder(numPlayers);
+        List<List<Student>> clouds = makeClouds(numPlayers);
+        Map<Student, Integer> bag = makeBag();
+        GameMap gm = new GameMap();
+        return new Game(numPlayers, startingOrder, clouds, bag, gm);
+    }
     /**
-     * initialize bag and random order of player. round starts from 1
+     * @return initializes the players (and their tower number), returns a random starting order.
+     * This one may be moved to a playerController, or maybe from this we make the playercontroller
+     * instead
      */
-    public Game(int numPlayers) {
-        round = 1;
-        this.numPlayers = numPlayers;
-        bag = makeBag();
-        currentOrder= startPlayersandOrder(numPlayers);
-        tableOrder = new ArrayList<>(currentOrder); //this is to make a copy
-        gameMap = new GameMap(); //this will start the islands, motherNature, initial students
-        currentPlayer = currentOrder.get(0);
-        clouds = makeClouds(numPlayers);
-        fillClouds();
-        fillAllEntrancesBag();
-
+    private static List<Player> startPlayersandOrder(int numPlayers){
+        ArrayList<Player> startingOrder = new ArrayList<>();
+        for (int i=0; i< numPlayers; i++){
+            PlayerController pc = new PlayerController(i+1, numPlayers);
+            startingOrder.add(pc.getPlayer());
+        }
+        Collections.shuffle(startingOrder);
+        return startingOrder;
     }
 
-    private List<List<Student>> makeClouds(int numPlayers){
+    private static List<List<Student>> makeClouds(int numPlayers){
         List<List<Student>> clouds = new ArrayList<>();
         for (int i=0; i<numPlayers; i++){
             clouds.add(new ArrayList<>());
         }
         return clouds;
+    }
+
+    private static Map<Student,Integer> makeBag(){
+        HashMap<Student,Integer> bag = new HashMap<>();
+        for (Student sc : Student.values()){
+            bag.put(sc,24);
+        }
+        return bag;
+    }
+
+
+    private Game(int numPlayers, List<Player> startingOrder, List<List<Student>> clouds,
+                 Map<Student, Integer> bag, GameMap gm) {
+
+        this.numPlayers = numPlayers;
+        this.clouds = clouds;
+        this.currentOrder = startingOrder;
+        this.bag = bag;
+        this.gameMap = gm; //this will start the islands, motherNature, initial students
+        round = 1;
+        tableOrder = new ArrayList<>(currentOrder); //this is to make a copy
+        currentPlayer = currentOrder.get(0);
+        fillClouds();
+        fillAllEntrancesBag();
     }
 
     private void fillClouds(){
@@ -46,33 +75,6 @@ public class Game {
                 cloud.add(randstud);
             }
         }
-    }
-
-
-
-    /**
-     * @return initializes the players (and their tower number), returns a random starting order.
-     * This one may be moved to a playerController, or maybe from this we make the playercontroller
-     * instead
-     */
-    private List<Player> startPlayersandOrder(int numplayers){
-        ArrayList<Player> startingOrder = new ArrayList<>();
-        for (int i=0; i< numplayers; i++){
-            PlayerController pc = new PlayerController(i+1, this.numPlayers);
-            startingOrder.add(pc.getPlayer());
-        }
-        Collections.shuffle(startingOrder);
-        return startingOrder;
-    }
-
-
-
-    private HashMap<Student,Integer> makeBag(){
-        HashMap<Student,Integer> bag = new HashMap<>();
-        for (Student sc : Student.values()){
-            bag.put(sc,24);
-        }
-        return bag;
     }
 
 
@@ -149,13 +151,6 @@ public class Game {
 
 
 
-    public static void main(String[] args) {
-        //test for fillClouds()
-        Game g = new Game(3);
-        for(Player p: g.getTableOrder()) {
-            g.fillEntranceFromClouds(p);
-        }
-    }
 
 
 

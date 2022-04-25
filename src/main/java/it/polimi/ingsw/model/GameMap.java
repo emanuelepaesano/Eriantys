@@ -150,7 +150,7 @@ public class GameMap {
 //        System.out.println("mother nature is now here: " + gc.getGame().getGameMap().motherNature);
 
         //TEST FOR DOJOINS() change the indices as you want
-        Game game = new Game(3);
+        Game game = Game.makeGame(3);
         game.getGameMap().archipelago.get(0).setOwner(game.getCurrentPlayer());
         game.getGameMap().archipelago.get(2).setOwner(game.getCurrentPlayer());
         game.getGameMap().archipelago.get(3).setOwner(game.getCurrentPlayer());

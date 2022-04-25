@@ -43,7 +43,7 @@ public class Player {
     }
 
 
-    public Player(int id, String name, Map<Assistant, Boolean> deck,
+    private Player(int id, String name, Map<Assistant, Boolean> deck,
                   int numActions, int numTowers, DiningRoom diningRoom, Entrance entrance) {
         this.id = id;
         playerName = name;
@@ -70,7 +70,6 @@ public class Player {
                 this.wizard = wiz;
                 return wiz;
             }
-
         }
     }
 
@@ -89,7 +88,6 @@ public class Player {
                     return choice;
                 }
             } catch (IllegalArgumentException ignored) {}
-
             System.out.println("Not an acceptable color, available colors are: "+ remainingColors.toString());
         }
     }

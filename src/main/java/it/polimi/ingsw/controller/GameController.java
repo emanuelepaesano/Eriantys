@@ -12,7 +12,7 @@ public class GameController {
      */
     public GameController() {
         int numplayers = AskForPN();
-        game = new Game(numplayers); //initializes the game, because it's the first call
+        game = Game.makeGame(numplayers); //initializes the game, because it's the first call
         askAllForTC(game);
         askAllForWiz(game);
 
