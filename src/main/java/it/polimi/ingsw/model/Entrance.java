@@ -40,7 +40,7 @@ public class Entrance {
                 diningRoom.getTables().replace(stud,oldnum,oldnum+1);
             }
             else{
-                System.out.println("You don't have this student in your entrance");
+                System.out.println("You don't have this student in your entrance!");
                 i-=1;
             }
         }
