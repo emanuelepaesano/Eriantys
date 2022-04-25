@@ -15,14 +15,14 @@ public class Player {
     private int numActions;
 
 
-    public Player(int id, int numPlayers) {
+    public Player(int id, String name, Map<Assistant, Boolean> deck, int numActions, int numTowers, DiningRoom diningRoom, Entrance entrance) {
         this.id = id;
-        playerName = askPlayerName();
-        assistants = buildDeck();
-        numActions = (numPlayers==3? 4 : 3);
-        numTowers = (numPlayers == 3? 6 : 8);
-        diningRoom = new DiningRoom();//it's important to make the dining room before the entrance
-        entrance = new Entrance(numPlayers);
+        playerName = name;
+        assistants = deck;
+        this.numActions = numActions;
+        this.numTowers = numTowers;
+        this.diningRoom = diningRoom;
+        this.entrance = entrance;
     }
 
     private Map<Assistant, Boolean> buildDeck(){
@@ -45,7 +45,7 @@ public class Player {
      * @param remainingWizards the remaining wizards, by askAllforWiz()
      * @return the wizard chosen by the player
      */
-    public int askWizard(ArrayList<Integer> remainingWizards) {
+    public int askWizard(List<Integer> remainingWizards) {
         System.out.println(this.playerName + ", choose your wizard number among these: " + remainingWizards);
         while (true) {
             int input = Integer.parseInt(new Scanner(System.in).nextLine());
@@ -63,7 +63,7 @@ public class Player {
      * @param remainingColors the remaining colors, by the game controller
      * @return the TowerColor chosen by the player among the remaining ones
      */
-    public TowerColor askTowerColor(ArrayList<TowerColor> remainingColors) {
+    public TowerColor askTowerColor(List<TowerColor> remainingColors) {
         System.out.println(this.playerName + ", please choose your tower color among the available ones: " + remainingColors);
         while (true) {
             try {            String input = new Scanner(System.in).nextLine();
@@ -219,5 +219,12 @@ public class Player {
         return wizard;
     }
 
+    public TowerColor getTowerColor() {
+        return towerColor;
+    }
+
+    public void setCurrentAssistant(Assistant currentAssistant) {
+        this.currentAssistant = currentAssistant;
+    }
 
 }

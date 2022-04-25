@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.controller.PlayerFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -24,7 +25,8 @@ class PlayerTest {
     @BeforeEach
     void setUp(){
         System.setIn(new ByteArrayInputStream("player1".getBytes(StandardCharsets.UTF_8)));
-        testplayer = new Player(1,3);
+        PlayerFactory pf = new PlayerFactory();
+        testplayer = pf.makePlayer(1,3);
     }
 
     @ParameterizedTest (name = "Testing: {0}")

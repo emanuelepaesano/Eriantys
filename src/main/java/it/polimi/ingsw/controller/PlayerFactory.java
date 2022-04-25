@@ -2,7 +2,8 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Assistant;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.School;
+import it.polimi.ingsw.model.DiningRoom;
+import it.polimi.ingsw.model.Entrance;
 
 import java.util.Map;
 import java.util.Scanner;
@@ -13,8 +14,10 @@ public class PlayerFactory {
     public Player makePlayer(int id, int numPlayers){
         String pname = askPlayerName(id);
         Map<Assistant, Boolean> assistants = buildDeck();
-        School school = assignSchool(numPlayers);
-        return new Player(id, pname, assistants, (numPlayers==3? 4 : 3), (numPlayers == 3? 6 : 8), school);
+        DiningRoom diningRoom = assignDiningRoom();
+        Entrance entrance = assignEntrance(numPlayers);
+
+        return new Player(id, pname, assistants, (numPlayers==3? 4 : 3), (numPlayers == 3? 6 : 8), diningRoom, entrance);
     }
 
     private String askPlayerName(int id) {
@@ -30,7 +33,11 @@ public class PlayerFactory {
         return tm;
     }
 
-    private School assignSchool(int numplayers){
-        return new School(numplayers);
+    private DiningRoom assignDiningRoom() {
+        return new DiningRoom();
+    }
+
+    private Entrance assignEntrance(int numplayers) {
+        return new Entrance(numplayers);
     }
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.controller.PlayerFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,20 +27,21 @@ class DiningRoomTest {
 
     private     static Stream<Arguments> givePlayers(){
         System.setIn(new ByteArrayInputStream("player1".getBytes(StandardCharsets.UTF_8)));
-        Player player1 = new Player(1,3);
+        PlayerFactory pf = new PlayerFactory();
+        Player player1 = pf.makePlayer(1,3);
         player1.getDiningRoom().getTables().putAll(Map.of(Student.BLUE,3,Student.YELLOW,5));
 
         System.setIn(new ByteArrayInputStream("player2".getBytes(StandardCharsets.UTF_8)));
-        Player player2 = new Player(2,3);
+        Player player2 = pf.makePlayer(2,3);
         player2.getDiningRoom().getTables().putAll(Map.of(Student.RED,3,Student.PINK,1,Student.GREEN,1));
 
         System.setIn(new ByteArrayInputStream("player3".getBytes(StandardCharsets.UTF_8)));
-        Player player3 = new Player(3,3);
+        Player player3 = pf.makePlayer(3,3);
         player3.getDiningRoom().getTables().putAll(Map.of(Student.PINK,1,Student.GREEN,3));
 
         //this simulates the owner of this dinigroom: it is a player you can never beat
         System.setIn(new ByteArrayInputStream("Me".getBytes(StandardCharsets.UTF_8)));
-        Player player4 = new Player(0,3);
+        Player player4 = pf.makePlayer(0,3);
         player4.getDiningRoom().getTables().putAll(Map.of(Student.RED,10,Student.GREEN,10,
                 Student.YELLOW,10,Student.BLUE,10,Student.PINK,10));
 
