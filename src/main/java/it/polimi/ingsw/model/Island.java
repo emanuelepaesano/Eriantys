@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Island {
     int id;
-    Map<Student,Integer> students;
+    HashMap<Student,Integer> students;
     Player owner;
     int size;
 
@@ -30,9 +30,6 @@ public class Island {
         Map<Player, Integer> influences = new HashMap<>();
         Player newOwner = this.owner;
         players.forEach((Player p)->influences.put(p,p.calculateInfluence(this)));
-        System.out.println("influencessssssssss");
-        System.out.println(influences.toString());
-        System.out.println("influencessssssssss");
 
         List<Player> ties = new ArrayList<>();
         for (Player p : influences.keySet()) {
@@ -74,9 +71,10 @@ public class Island {
 
 
     //   for test
-    public void setStudents(Map<Student,Integer> students) {
+    public void setStudents(HashMap<Student,Integer> students) {
         this.students = students;
     }
+
 }
 
 

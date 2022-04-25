@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,14 +31,14 @@ class GameMapTest {
         gameMap.setMotherNature(1);
     }
 
-//    check mothernature is updated
+//    check if the motherNature position is updated
     @Test
     void moveMotherNatureAndCheck_checkMotherNaturePosition() {
 //        setting scenario
         p1.setCurrentAssistant(Assistant.FIVE);
-        gameMap.getArchipelago().get(2).setOwner(p1);
-        gameMap.getArchipelago().get(3).setOwner(p2);
-        gameMap.getArchipelago().get(4).setOwner(p1);
+        gameMap.getIslandById(2).setOwner(p1);
+        gameMap.getIslandById(3).setOwner(p2);
+        gameMap.getIslandById(4).setOwner(p1);
 
 //        "p1, how many steps do you want to move Mother Nature? (At least 1, maximum 3)"
         System.setIn(new ByteArrayInputStream("2".getBytes(StandardCharsets.UTF_8)));
@@ -46,55 +47,76 @@ class GameMapTest {
         assertEquals(3, gameMap.getMotherNature());
     }
 
-    //    check archpelago is update for left, right, both
 //    the owner of the island 3 changes from p2 to p1.
     @Test
     void moveMotherNatureAndCheck_checkOwnerUpdate() {
 //        setting scenario
         p1.setCurrentAssistant(Assistant.FIVE);
-        p1.getDiningRoom().getTables().putAll(
-                Map.of(  Student.YELLOW, 999, Student.BLUE,999,  Student.PINK,999,  Student.GREEN,999,  Student.RED,999  ));
+        p1.getDiningRoom().getTables().putAll(makeSuperStudents());
 //        need checkProfessors() to update professors
         p1.getDiningRoom().checkProfessors(List.of(p1, p2, p3));
 
         System.out.println(p1.getDiningRoom().getProfessors().toString());
         System.out.println(p2.getDiningRoom().getProfessors().toString());
-        gameMap.getArchipelago().get(3).setOwner(p2);
-        gameMap.getArchipelago().get(3).setStudents(Map.of(
-                Student.YELLOW, 999, Student.BLUE,999,  Student.PINK,999,  Student.GREEN,999,  Student.RED,999
-        ));
+        gameMap.getIslandById(3).setOwner(p2);
+        gameMap.getIslandById(3).setStudents(makeSuperStudents());
 
 //        "p1, how many steps do you want to move Mother Nature? (At least 1, maximum 3)"
         System.setIn(new ByteArrayInputStream("2".getBytes(StandardCharsets.UTF_8)));
         gameMap.moveMotherNatureAndCheck(p1, List.of(p1, p2, p3));
         System.out.println(gameMap.toString());
-        assertEquals(p1, gameMap.getArchipelago().get(3).getOwner());
+        assertEquals(p1, gameMap.getIslandById(3).getOwner());
     }
 
-
+//    check if the archpelago joins the islands "both"
     @Test
     void moveMotherNatureAndCheck_checkOwnerJoins() {
         //        setting scenario
         p1.setCurrentAssistant(Assistant.FIVE);
-        p1.getDiningRoom().getTables().putAll(
-                Map.of(  Student.YELLOW, 999, Student.BLUE,999,  Student.PINK,999,  Student.GREEN,999,  Student.RED,999  ));
+        p1.getDiningRoom().getTables().putAll(makeSuperStudents());
 //        need checkProfessors() to update professors
         p1.getDiningRoom().checkProfessors(List.of(p1, p2, p3));
 
-        System.out.println(p1.getDiningRoom().getProfessors().toString());
-        System.out.println(p2.getDiningRoom().getProfessors().toString());
-        gameMap.getArchipelago().get(2).setOwner(p1);
-        gameMap.getArchipelago().get(3).setOwner(p2);
-        gameMap.getArchipelago().get(3).setStudents(Map.of(
-                Student.YELLOW, 999, Student.BLUE,999,  Student.PINK,999,  Student.GREEN,999,  Student.RED,999
-        ));
-        gameMap.getArchipelago().get(4).setOwner(p1);
+        gameMap.getIslandById(2).setOwner(p1);
+        gameMap.getIslandById(3).setOwner(p2);
+        HashMap<Student, Integer> studetns = makeSuperStudents();
+        gameMap.getIslandById(3).setStudents(studetns);
+        gameMap.getIslandById(4).setOwner(p1);
+
+        HashMap<Student, Integer> expectedStudetns = makeSuperStudents();
+        expectedStudetns.replaceAll((k,v) -> v + gameMap.getIslandById(2).getStudents().get(k));
+        expectedStudetns.replaceAll((k,v) -> v + gameMap.getIslandById(4).getStudents().get(k));
 
 //        "p1, how many steps do you want to move Mother Nature? (At least 1, maximum 3)"
         System.setIn(new ByteArrayInputStream("2".getBytes(StandardCharsets.UTF_8)));
         gameMap.moveMotherNatureAndCheck(p1, List.of(p1, p2, p3));
         System.out.println(gameMap.toString());
-        assertEquals(p1, gameMap.getArchipelago().get(3).getOwner());
+
+        Island expectedIsland = new Island(3);
+        expectedIsland.setOwner(p1);
+        expectedIsland.setStudents(expectedStudetns);
+        assertEquals(expectedIsland.getOwner(), gameMap.getIslandById(3).getOwner());
+        assertEquals(expectedIsland.getStudents(), gameMap.getIslandById(3).getStudents());
+    }
+
+    HashMap<Student, Integer> makeSuperStudents() {
+        HashMap<Student, Integer> studetns = new HashMap<>();
+        for (Student sc : Student.values()) {
+            studetns.put(sc, 99);
+        }
+        return studetns;
+    }
+
+    @Test
+    void testMap() {
+        Map<Integer,String> map = new HashMap<>();
+        map.put(1, "Red");
+        map.put(2, "Green");
+        map.put(3, "Blue");
+
+        map.replaceAll((k,v) -> v = "TEST");
+        System.out.println(map.toString());
+
     }
 
     @Test

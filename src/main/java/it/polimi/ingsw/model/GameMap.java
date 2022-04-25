@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class GameMap {
 
@@ -63,8 +64,6 @@ public class GameMap {
         Island toCheck = archipelago.get(motherNature);
         Player oldOwner = toCheck.getOwner();
         Player newOwner = toCheck.checkOwner(players);
-        System.out.println("oldOwner: " + oldOwner.getPlayerName());
-        System.out.println("newOwner: " + newOwner.getPlayerName());
         if (newOwner!= null && !newOwner.equals(oldOwner)) {doJoins(toCheck);}
     }
 
@@ -145,6 +144,19 @@ public class GameMap {
 //    only for test
     public void setMotherNature(int motherNaturePosition) {
         this.motherNature = motherNaturePosition;
+    }
+
+//    return should be an island.
+    public Island getIslandById(int islandId) {
+        List<Island> islands = archipelago.stream()
+                .filter(i -> i.id == islandId)
+                .collect(Collectors.toList());
+        try {
+            return islands.get(0);
+        } catch (Exception e) {
+            System.out.println("island id: " + islandId + "does not exist.");
+        }
+        return null;
     }
 
     public int getMotherNature() {
