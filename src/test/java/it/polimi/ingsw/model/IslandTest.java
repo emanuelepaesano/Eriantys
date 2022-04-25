@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import static it.polimi.ingsw.model.Student.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
@@ -25,7 +26,7 @@ class IslandTest {
 
     /**
      * @param testCase we are testing 3 main cases:<br>(testCase 1) -> the owner changes. In this case, check that the change is done correctly<br>
-     *         (testCase 2) -> the owner does not change because no one has influence > owner<br>
+     *         (testCase 2) -> the owner does not change because no one has influence strictly > owner<br>
      *         (testCase 3) -> the owner does not change because 2 or more players tie, even if they beat the owner
      */
     @ParameterizedTest(name = "Testing test case {1} ...")
@@ -35,8 +36,8 @@ class IslandTest {
         Player maybeNewOwner = players.get(1);
         testIsland.setOwner(oldOwner);
         oldOwner.setNumTowers(5);
-        testIsland.getStudents().putAll(
-        Map.of(Student.BLUE,1,  Student.RED,2,  Student.PINK,5,  Student.YELLOW,5,  Student.GREEN,4)
+        testIsland.getStudents().putAll(//this is the content of the island, same for all cases.
+        Map.of( BLUE,1,  RED,2,  PINK,5,  YELLOW,5,  GREEN,4 )
         );
         //oldOwner has BLUE,RED; maybeNewOwner has PINK; p3 has none.
         if (testCase==1){
@@ -53,11 +54,11 @@ class IslandTest {
         }
         //oldOwner has BLUE,RED; maybeNewOwner has GREEN; p3 has none.
         else if (testCase == 2) {
-            assertEquals(oldOwner,testIsland.checkOwner(players));
+            assertEquals(oldOwner,testIsland.checkOwner(players),"Owner should not change (owner wins)");
         }
         //oldOwner has BLUE,RED; maybeNewOwner has PINK; p3 has YELLOW.
         else if (testCase == 3) {
-            assertEquals(oldOwner, testIsland.checkOwner(players));
+            assertEquals(oldOwner, testIsland.checkOwner(players), "Owner should not change (tie)");
         }
     }
 
@@ -67,8 +68,8 @@ class IslandTest {
         Player oldOwner = new Player(1,3);
         System.setIn(new ByteArrayInputStream("newOwner".getBytes()));
         Player p2 = new Player(2,3);
-        oldOwner.getDiningRoom().getProfessors().putAll(Map.of(Student.BLUE,true,Student.RED,true));
-        p2.getDiningRoom().getProfessors().replace(Student.PINK,true);
+        oldOwner.getDiningRoom().getProfessors().putAll(Map.of(BLUE,true, RED,true));
+        p2.getDiningRoom().getProfessors().replace(PINK,true);
         List<Player> players1 = List.of(oldOwner,p2);
         //case2 data
         System.setIn(new ByteArrayInputStream("player5".getBytes()));
@@ -80,7 +81,7 @@ class IslandTest {
         Player p7 = new Player(2,3);
         System.setIn(new ByteArrayInputStream("player8".getBytes()));
         Player p8 = new Player(2,3);
-        p7.getDiningRoom().getProfessors().replace(Student.PINK,true);
+        p7.getDiningRoom().getProfessors().replace(PINK,true);
         p8.getDiningRoom().getProfessors().replace(Student.YELLOW,true);
         List<Player> players3 = List.of(oldOwner,p7,p8);
 

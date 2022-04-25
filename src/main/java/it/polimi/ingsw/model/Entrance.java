@@ -11,7 +11,6 @@ public class Entrance {
         this.size = (numPlayers==3? 9:7);
         //initialize all entries to null
         students = new ArrayList<>(Arrays.asList(new Student[size]));
-        System.out.println("size of entrance array: " + students.size());
     }
 
     /**
@@ -23,12 +22,13 @@ public class Entrance {
      */
     public int moveToDiningRoom(int availablemoves, DiningRoom diningRoom){
         //First part: we ask how many students to move, maximum availablemoves
-        int nstud = askHowManyStudents(availablemoves);
+        Scanner scanner = new Scanner(System.in);
+        int nstud = askHowManyStudents(availablemoves, scanner);
         //Now we ask to move the students
         String str;
         Student stud;
         for (int i = 0;i<nstud;i++){
-            switch (str = askWhichColor(i)){
+            switch (str = askWhichColor(i, scanner)){
                 case "back": return i;
                 case "retry":
                     i-=1;
@@ -38,13 +38,6 @@ public class Entrance {
                 students.remove(stud);
                 int oldnum = diningRoom.getTables().get(stud);
                 diningRoom.getTables().replace(stud,oldnum,oldnum+1);
-                //now this cannot be called from here, but it can from player.
-                //So we call it every time after we move students, but for all the tables?
-                // ->diningRoom.checkProfessor(stud,);
-
-                //there are some alternatives:
-                //->we do it as a method in the game instead, harder to implement
-                //->we can check for all students at once
             }
             else{
                 System.out.println("You don't have this student in your entrance");
@@ -61,12 +54,13 @@ public class Entrance {
         //for the first part.
         //Probably also for asking which student to move we need an independent method(done).
         //First part is the same.
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Current map:\n" + gm);
-        int nstud = askHowManyStudents(availablemoves);
+        int nstud = askHowManyStudents(availablemoves, scanner);
         String str;
         Student stud;
         for (int i = 0;i<nstud;i++){
-            switch (str = askWhichColor(i)){
+            switch (str = askWhichColor(i, scanner)){
                 case "back": return i;//if player wants back at 1st iteration, we don't remove actions and so on
                 case "retry":
                     i-=1;
@@ -93,10 +87,9 @@ public class Entrance {
      * @param iteration the number of the student moved, from the 2 methods that use this
      * @return a String to signal if the input is acceptable(in this case it's returned), or not
      */
-    private String askWhichColor(int iteration){
+    private String askWhichColor(int iteration, Scanner scanner){
         String str;
         try{
-            Scanner scanner = new Scanner(System.in);
             System.out.println("Choose the color of student number " + (iteration+1) + " from your entrance:\n"
                     + students + ", or type \"back\" to change action");
             str = scanner.nextLine();
@@ -107,6 +100,7 @@ public class Entrance {
             }
         }
         catch (IllegalArgumentException ex) {
+            System.out.println("Not a valid color, try again.");
             return ("retry");
         }
     }
@@ -116,13 +110,12 @@ public class Entrance {
      * @param availablemoves you can move at most this number of students
      * @return asks how many students one wants to move. it's used by movetoDiningRoom and movetoIsland
      */
-    private int askHowManyStudents(int availablemoves) {
-        Scanner scanner = new Scanner(System.in);
+    private int askHowManyStudents(int availablemoves, Scanner scanner) {
         int nstud;
         while (true) {
             System.out.println("How many students do you want to move (maximum " + availablemoves+ ") ?\n" +
                     "To return to action selection, type '0' or 'back'");
-            String in = scanner.next();
+            String in = scanner.nextLine();
             if (Objects.equals(in, "back")) {
                 return 0; //go back to movetox and then to doActions()
             }
@@ -159,11 +152,10 @@ public class Entrance {
 
 
     //only for test, will need to draw from the clouds/bag in the game
-    private void fillRandomTEST(){
+    public void fillTEST(){
         Random randomizer = new Random();
         for (int i = 0; i< this.size;i++){
-            int ind = randomizer.nextInt(5);
-            Student s = Arrays.asList(Student.values()).get(ind);
+            Student s = Arrays.asList(Student.values()).get(i%5);
             students.set(i,s);
         }
     }
@@ -178,19 +170,19 @@ public class Entrance {
         return students;
     }
 
-    public static void main(String[] args) {
-        //TEST FOR MOVETODR AND P.CHECKPROFESSOR, still uses fillrandomTEST
-        Game game = new Game(3);
-        //1ST PLAYER
-        for(Player p : game.getCurrentOrder()) {
-            game.setCurrentPlayer(p);
-            p.doActions(game.getGameMap(),game.getTableOrder());
-        }
-
-        for(Player p : game.getCurrentOrder()) {
-            System.out.println(p.getPlayerName() + "'s " + p.getDiningRoom());
-        }
-    }
+//    public static void main(String[] args) {
+//        //TEST FOR MOVETODR AND P.CHECKPROFESSOR, still uses fillrandomTEST
+//        Game game = new Game(3);
+//        //1ST PLAYER
+//        for(Player p : game.getCurrentOrder()) {
+//            game.setCurrentPlayer(p);
+//            p.doActions(game.getGameMap(),game.getTableOrder());
+//        }
+//
+//        for(Player p : game.getCurrentOrder()) {
+//            System.out.println(p.getPlayerName() + "'s " + p.getDiningRoom());
+//        }
+//    }
 }
 
 

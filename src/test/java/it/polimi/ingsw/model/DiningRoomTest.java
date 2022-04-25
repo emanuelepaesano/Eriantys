@@ -24,7 +24,7 @@ class DiningRoomTest {
 
     }
 
-    static Stream<Arguments> givePlayers(){
+    private     static Stream<Arguments> givePlayers(){
         System.setIn(new ByteArrayInputStream("player1".getBytes(StandardCharsets.UTF_8)));
         Player player1 = new Player(1,3);
         player1.getDiningRoom().getTables().putAll(Map.of(Student.BLUE,3,Student.YELLOW,5));
@@ -37,7 +37,7 @@ class DiningRoomTest {
         Player player3 = new Player(3,3);
         player3.getDiningRoom().getTables().putAll(Map.of(Student.PINK,1,Student.GREEN,3));
 
-        //this simulates the owner of this: it is a player you can never beat
+        //this simulates the owner of this dinigroom: it is a player you can never beat
         System.setIn(new ByteArrayInputStream("Me".getBytes(StandardCharsets.UTF_8)));
         Player player4 = new Player(0,3);
         player4.getDiningRoom().getTables().putAll(Map.of(Student.RED,10,Student.GREEN,10,
@@ -48,17 +48,17 @@ class DiningRoomTest {
     }
 
     /**
-     *cases tested: same number of students of best(BLUE); lower than best (YELLOW,RED); higher than best (PINK,GREEN)
+     *Test cases: <br> BLUE -> We have same students of best opponent. We don't get that professor;<br>
+     * YELLOW,RED -> lower than best opponent, no professor;<br>PINK,GREEN -> More than best opponent, we get the professor
      */
     @ParameterizedTest
     @MethodSource("givePlayers")
     void checkProfessors(List<Player> players, Map<Student,Boolean> expected) {
-
-        testDiningRoom.getTables().putAll(Map.of(Student.BLUE,3,Student.PINK,9,
-                Student.GREEN,4,Student.RED,1));
+        //best opponent's student number for: BLUE=2, PINK=1, GREEN=3, YELLOW=5, RED=3
+        testDiningRoom.getTables().putAll(
+        Map.of(  Student.BLUE,3,  Student.PINK,9,  Student.GREEN,4,  Student.RED,1  ));
         testDiningRoom.checkProfessors(players);
-        assertEquals(expected,testDiningRoom.getProfessors());
-
+        assertEquals(expected,testDiningRoom.getProfessors(),"We should get only pink and green professors");
     }
 
     @Test

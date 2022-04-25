@@ -134,6 +134,16 @@ public class Game {
         }
     }
 
+    private void checkEndGameCondition(String condition){
+        switch (condition){
+            case "towerEnd":
+            case "archipelagoEnd":
+            case "deckEnd":
+            case "studentEnd":
+                break;
+        }
+    }
+
 
 
 
