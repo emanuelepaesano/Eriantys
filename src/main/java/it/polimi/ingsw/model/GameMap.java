@@ -10,7 +10,7 @@ public class GameMap {
     public GameMap(){
         archipelago = makeIslands();
         motherNature = startMotherNature();
-        startStudents(motherNature);
+
     }
 
     /**
@@ -38,7 +38,7 @@ public class GameMap {
      * @param motherNature Needs to know starting motherNature position
      * - Initializes students from a "smallBag" containing 2 of each color
      */
-    private void startStudents(int motherNature){
+    public void startStudents(int motherNature){
         System.out.println("mother nature starts here :" + motherNature);
 
         ArrayList<Student> smallBag = new ArrayList<>(Arrays.asList(Student.values()));
@@ -138,6 +138,10 @@ public class GameMap {
 
     public List<Island> getArchipelago() {
         return archipelago;
+    }
+
+    public int getMotherNature() {
+        return motherNature;
     }
 
     public static void main(String[] args) {

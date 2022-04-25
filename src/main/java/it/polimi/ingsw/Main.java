@@ -21,14 +21,12 @@ public class Main {
         Game game = gc.getGame();
         gc.doPlanningPhase(gc.getGame());
 
-
         game.setCurrentPlayer(game.getCurrentOrder().get(0)); //we don't have a rule for switching between players yet
         Player testpl = game.getCurrentPlayer();
         testpl.doActions(game.getGameMap(),game.getTableOrder());
         System.out.println("Test player entrance after moves: " + testpl.getEntrance() +"\n" +
-                "Islands after test player's moves:\n" + game.getGameMap());
+                "Islands after player's moves:\n" + game.getGameMap());
         game.getGameMap().moveMotherNatureAndCheck(testpl, game.getTableOrder());
-
 
     }
 }

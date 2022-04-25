@@ -15,6 +15,7 @@ public class GameController {
         game = Game.makeGame(numplayers); //initializes the game, because it's the first call
         askAllForTC(game);
         askAllForWiz(game);
+        game.doSetUp();
 
         // TODO: 11/04/2022 initialize the view(s)
 

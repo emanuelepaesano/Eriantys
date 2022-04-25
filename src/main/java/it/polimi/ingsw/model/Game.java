@@ -18,7 +18,7 @@ public class Game {
         List<Player> startingOrder = startPlayersandOrder(numPlayers);
         List<List<Student>> clouds = makeClouds(numPlayers);
         Map<Student, Integer> bag = makeBag();
-        GameMap gm = new GameMap();
+        GameMap gm = new GameMap(); //this will start the islands, motherNature, initial students
         return new Game(numPlayers, startingOrder, clouds, bag, gm);
     }
     /**
@@ -60,12 +60,16 @@ public class Game {
         this.clouds = clouds;
         this.currentOrder = startingOrder;
         this.bag = bag;
-        this.gameMap = gm; //this will start the islands, motherNature, initial students
+        this.gameMap = gm;
+        tableOrder = new ArrayList<>(this.currentOrder); //this is to make a copy
+    }
+
+    public void doSetUp(){
         round = 1;
-        tableOrder = new ArrayList<>(currentOrder); //this is to make a copy
         currentPlayer = currentOrder.get(0);
         fillClouds();
         fillAllEntrancesBag();
+        gameMap.startStudents(gameMap.getMotherNature());
     }
 
     private void fillClouds(){
@@ -78,11 +82,18 @@ public class Game {
     }
 
 
-    public void newRound(){
-        round += 1;
-        fillClouds();
+    private void fillAllEntrancesBag(){
+        for (Player player : tableOrder){
+            fillEntranceFromBag(player);
+        }
     }
 
+    private void fillEntranceFromBag(Player player){
+        for (int i=0;i<(numPlayers==3? 9:7);i++) {
+            Student randstud = this.drawFromBag();
+            player.getEntrance().getStudents().set(i, randstud);
+        }
+    }
 
     public Student drawFromBag(){
         Random randomizer = new Random();
@@ -92,6 +103,12 @@ public class Game {
         bag.replace(randstud, oldnum, oldnum - 1);
         return randstud;
     }
+
+    public void newRound(){
+        round += 1;
+        fillClouds();
+    }
+
 
 
     /**
@@ -120,21 +137,8 @@ public class Game {
         }
     }
 
-
     //fills all entrances. New way to initialize the entrances, in here instead of entrance
-    private void fillAllEntrancesBag(){
-        for (Player player : tableOrder){
-            fillEntranceFromBag(player);
-        }
-    }
-
     //same for this, move inside game and take player as par.
-    private void fillEntranceFromBag(Player player){
-        for (int i=0;i<(numPlayers==3? 9:7);i++) {
-            Student randstud = this.drawFromBag();
-            player.getEntrance().getStudents().set(i, randstud);
-        }
-    }
 
     private void checkEndGameCondition(String condition){
         switch (condition){

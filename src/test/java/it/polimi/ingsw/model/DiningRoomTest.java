@@ -51,7 +51,7 @@ class DiningRoomTest {
      *Test cases: <br> BLUE -> We have same students of best opponent. We don't get that professor;<br>
      * YELLOW,RED -> lower than best opponent, no professor;<br>PINK,GREEN -> More than best opponent, we get the professor
      */
-    @ParameterizedTest
+    @ParameterizedTest (name = "Testing change of professors ...")
     @MethodSource("givePlayers")
     void checkProfessors(List<Player> players, Map<Student,Boolean> expected) {
         //best opponent's student number for: BLUE=2, PINK=1, GREEN=3, YELLOW=5, RED=3
