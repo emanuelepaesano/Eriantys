@@ -7,31 +7,24 @@ public class Player {
     private final String playerName;
     private TowerColor towerColor;
     private Integer wizard;
-    private School school;
+    private final DiningRoom diningRoom;
+    private final Entrance entrance;
     private Integer numTowers;
     private Map<Assistant, Boolean> assistants;
     private Assistant currentAssistant;
     private int numActions;
-/*
+
+
     public Player(int id, int numPlayers) {
         this.id = id;
         playerName = askPlayerName();
         assistants = buildDeck();
         numActions = (numPlayers==3? 4 : 3);
         numTowers = (numPlayers == 3? 6 : 8);
-        this.school = new School(numPlayers);
+        diningRoom = new DiningRoom();//it's important to make the dining room before the entrance
+        entrance = new Entrance(numPlayers);
     }
 
- */
-    public Player(int id, String name, Map<Assistant, Boolean> deck, int numActions, int numTowers, School school){
-        this.id = id;
-        this.playerName = name;
-        this.assistants = deck;
-        this.numActions = numActions;
-        this.numTowers = numTowers;
-        this.school = school;
-    }
-/*
     private Map<Assistant, Boolean> buildDeck(){
         Map<Assistant,Boolean> tm = new TreeMap<>();
         for (Assistant as : Assistant.values()) {
@@ -46,8 +39,6 @@ public class Player {
         return (new Scanner(System.in).nextLine());
     }
 
-
- */
 
     /**
      *
@@ -128,13 +119,13 @@ public class Player {
         while (availableActions>0) {
             String action = askWhichAction(availableActions); //this will come from the view, so it must be in a controller
             if (Objects.equals(action, "diningroom")) {
-                availableActions -= school.moveStudFrEntranceToDiningRoom(availableActions);
-                this.school.getDiningRoom().checkProfessors(this, players);
+                availableActions -= entrance.moveToDiningRoom(availableActions, this.diningRoom);
+                this.diningRoom.checkProfessors(players);
             }
             else if (Objects.equals(action, "islands")){
-                availableActions -= school.getEntrance().moveToIsland(availableActions, gm);}
+                availableActions -= entrance.moveToIsland(availableActions, gm);}
         }
-        System.out.println("After your moves: " + this.school.getDiningRoom());
+        System.out.println("After your moves: " + this.diningRoom);
         numActions = 4;
     }
 
@@ -170,9 +161,9 @@ public class Player {
      */
     public int calculateInfluence(Island island) {
         int influence = 0;
-        if (island.owner == this) {influence += island.size;}
+        if (island.getOwner() == this) {influence += island.size;}
         for (Student student : Student.values()){
-            if (this.school.getDiningRoom().getProfessors().get(student)){
+            if (this.diningRoom.getProfessors().get(student)){
                 influence += island.getStudents().get(student);
             }
         }
@@ -208,12 +199,24 @@ public class Player {
         return playerName;
     }
 
+    public DiningRoom getDiningRoom() {
+        return diningRoom;
+    }
+
+    public Entrance getEntrance() {
+        return entrance;
+    }
+
     public Integer getNumTowers() {
         return numTowers;
     }
 
-    public School getSchool() {
-        return this.school;
+    public Assistant getCurrentAssistant() {
+        return currentAssistant;
+    }
+
+    public Integer getWizard() {
+        return wizard;
     }
 
 

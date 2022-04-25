@@ -9,8 +9,7 @@ public class DiningRoom {
     private Map<Student, Integer> tables;
     private Map<Student, Boolean> professors;
 
-    //maybe the entrance can contain a reference to the dining room
-    //so we dont pass through player every time. then we make the dining room first
+
     public DiningRoom(){
         this.tables = Student.makeStudents();
         this.professors= makeProfessors();
@@ -30,22 +29,20 @@ public class DiningRoom {
     }
 
 
-    public void checkProfessors(Player owner, List<Player> players){
+    public void checkProfessors(List<Player> players){
         //look into all players to see if we get that professor (for every table)
         //N.B: we win only with strictly more students
         for (Student table : Student.values()) {
             int countwins = 0;
             for (Player p : players) {
-                if (p.id != owner.id) {
-                    if (this.tables.get(table) > p.getSchool().getDiningRoom().tables.get(table)) {
+                if (this.tables.get(table) > p.getDiningRoom().tables.get(table)) {
                         countwins += 1;
-                    }
                 }
             }
             if (countwins == (players.size())-1) {
                 //set all to false and then our to true
                 for (Player p : players) {
-                    p.getSchool().getDiningRoom().professors.replace(table, true, false);
+                    p.getDiningRoom().professors.replace(table, true, false);
                 }
                 this.professors.replace(table, true);
             }
@@ -54,15 +51,13 @@ public class DiningRoom {
 
     @Override
     public String toString() {
-        String dr = "Dining Room {\n";
+        StringBuilder dr = new StringBuilder("Dining Room {\n");
         for (Student student : Student.values()){
-            dr += student + ": ";
-            dr += this.tables.get(student);
-            dr += (this.professors.get(student)? " \u200D\uD83C\uDF93":"");
-            dr += "\n";
+            dr.append(student).append(": ").append(this.tables.get(student));
+            dr.append(this.professors.get(student) ? " \u200D\uD83C\uDF93" : "").append("\n");
         }
-        dr += "}";
-        return dr;
+        dr.append("}");
+        return dr.toString();
     }
 
     public Map<Student, Integer> getTables() {

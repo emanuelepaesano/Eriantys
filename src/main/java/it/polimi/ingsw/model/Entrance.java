@@ -7,43 +7,65 @@ public class Entrance {
     private final List<Student> students;
     private final int size;
 
-    //idk if i like taking 3 parameters. alternatives?
     public Entrance(int numPlayers){
         this.size = (numPlayers==3? 9:7);
         //initialize all entries to null
         students = new ArrayList<>(Arrays.asList(new Student[size]));
-        System.out.println("size of entrance array: " + students.size());
     }
-
 
     /**
      *
-     * @param availablemoves the same as movetodiningroom.
+     * @param availablemoves the moves that are left to the player, will come from the controller.
      *
-     * @return Method for moving students to the islands, updates
-     * the game map. Returns number of used moves, for doActions()
+     * @return Method for moving students to dining room. Returns the number of moves used, for doActions()
      *
      */
+    public int moveToDiningRoom(int availablemoves, DiningRoom diningRoom){
+        //First part: we ask how many students to move, maximum availablemoves
+        Scanner scanner = new Scanner(System.in);
+        int nstud = askHowManyStudents(availablemoves, scanner);
+        //Now we ask to move the students
+        String str;
+        Student stud;
+        for (int i = 0;i<nstud;i++){
+            switch (str = askWhichColor(i, scanner)){
+                case "back": return i;
+                case "retry":
+                    i-=1;
+                    continue;
+                default: stud = Student.valueOf(str.toUpperCase());}
+            if (students.contains(stud)){
+                students.remove(stud);
+                int oldnum = diningRoom.getTables().get(stud);
+                diningRoom.getTables().replace(stud,oldnum,oldnum+1);
+            }
+            else{
+                System.out.println("You don't have this student in your entrance");
+                i-=1;
+            }
+        }
+        return nstud; //doActions() needs this
+    }
+
+
     public int moveToIsland(int availablemoves, GameMap gm){
         //here we do the same thing but with choosing an island index
         //in the second part. Let's not duplicate code, we need to make a separate method
         //for the first part.
         //Probably also for asking which student to move we need an independent method(done).
         //First part is the same.
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Current map:\n" + gm);
-        int nstud = askHowMany(availablemoves);
+        int nstud = askHowManyStudents(availablemoves, scanner);
         String str;
         Student stud;
         for (int i = 0;i<nstud;i++){
-            try{
-                str = askWhich(i);
-                if (Objects.equals(str, "back")) {return i;} //if player wants back at 1st iteration, we don't remove actions and so on
-                else {stud = Student.valueOf(str.toUpperCase());}
-            }
-            catch (IllegalArgumentException ex) {
-                System.out.println("Not a valid student color, try again");
-                i-= 1;
-                continue;
+            switch (str = askWhichColor(i, scanner)){
+                case "back": return i;//if player wants back at 1st iteration, we don't remove actions and so on
+                case "retry":
+                    i-=1;
+                    continue;
+                default: stud = Student.valueOf(str.toUpperCase());
             }
             //In the 2nd part now we move it to the chosen island
             if (students.contains(stud)){
@@ -60,21 +82,40 @@ public class Entrance {
         return nstud; //doActions() needs this
     }
 
-
-
+    /**
+     *
+     * @param iteration the number of the student moved, from the 2 methods that use this
+     * @return a String to signal if the input is acceptable(in this case it's returned), or not
+     */
+    private String askWhichColor(int iteration, Scanner scanner){
+        String str;
+        try{
+            System.out.println("Choose the color of student number " + (iteration+1) + " from your entrance:\n"
+                    + students + ", or type \"back\" to change action");
+            str = scanner.nextLine();
+            if (Objects.equals(str, "back")) {return "back";}
+            else {
+                Student.valueOf(str.toUpperCase());
+                return str;
+            }
+        }
+        catch (IllegalArgumentException ex) {
+            System.out.println("Not a valid color, try again.");
+            return ("retry");
+        }
+    }
 
     /**
      *
      * @param availablemoves you can move at most this number of students
      * @return asks how many students one wants to move. it's used by movetoDiningRoom and movetoIsland
      */
-    private int askHowMany(int availablemoves) {
-        Scanner scanner = new Scanner(System.in);
+    private int askHowManyStudents(int availablemoves, Scanner scanner) {
         int nstud;
         while (true) {
             System.out.println("How many students do you want to move (maximum " + availablemoves+ ") ?\n" +
-                    "To return to action selection, type '0' or 'back'"); //obviously back doesnt work
-            String in = scanner.next();
+                    "To return to action selection, type '0' or 'back'");
+            String in = scanner.nextLine();
             if (Objects.equals(in, "back")) {
                 return 0; //go back to movetox and then to doActions()
             }
@@ -86,15 +127,6 @@ public class Entrance {
         }
         return nstud;
     }
-    /**
-     *similarly, it's here mostly not to duplicate code
-     */
-    private String askWhich(int number){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Choose the color of student number " + (number+1) + " from your entrance:\n"
-                + students + ", or type \"back\" to change action");
-        return scanner.next();
-    }
 
     //only for moveToIsland
     private Island askWhichIsland(GameMap gm){
@@ -104,7 +136,7 @@ public class Entrance {
                     "This is the current state of the islands:\n" + gm +
                     "\nIndicate the island by its number (0~11):") ;
             try {
-                int index = Integer.parseInt(scanner.next()); //we will need a try-catch
+                int index = Integer.parseInt(scanner.next());
                 if (index>=0 &&index <=11) {
                     return gm.getArchipelago().get(index);
                 }
@@ -116,12 +148,14 @@ public class Entrance {
     }
 
 
-    //only for test, will need to draw from the clouds in the game
-    private void fillRandomTEST(){
+
+
+
+    //only for test, will need to draw from the clouds/bag in the game
+    public void fillTEST(){
         Random randomizer = new Random();
         for (int i = 0; i< this.size;i++){
-            int ind = randomizer.nextInt(5);
-            Student s = Arrays.asList(Student.values()).get(ind);
+            Student s = Arrays.asList(Student.values()).get(i%5);
             students.set(i,s);
         }
     }
@@ -136,34 +170,20 @@ public class Entrance {
         return students;
     }
 
-    public static void main(String[] args) {
-        //TEST FOR MOVETODR AND P.CHECKPROFESSOR, still uses fillrandomTEST
-        Game game = new Game(3);
-        //1ST PLAYER
-        for(Player p : game.getCurrentOrder()) {
+//    public static void main(String[] args) {
+//        //TEST FOR MOVETODR AND P.CHECKPROFESSOR, still uses fillrandomTEST
+//        Game game = new Game(3);
+//        //1ST PLAYER
+//        for(Player p : game.getCurrentOrder()) {
 //            game.setCurrentPlayer(p);
-//            Entrance e = p.getEntrance();
-//            System.out.println(p + ": for >>>MOVETODININGROOM<<<, choose 4 to test fillclouds");
-//            e.moveToDiningRoom(4); //choose 0 or back to test the other method
-//            System.out.println("Your table configuration after the moves: " + p.getDiningRoom());
-//            System.out.println("Before filling from clouds: " + e.students);
-//            game.fillFromClouds(p);
-//            System.out.println("Entrance after filling: " + e);
-//            System.out.println(p.getDiningRoom());
-//            System.out.println(p + ": for >>>MOVETOISLAND<<<, choose 4 to test fillclouds");
-//            e.moveToIsland(4, game.getGameMap());
-//            System.out.println("New archipelago: " + game.getGameMap());
-//            p.playAssistant(); //only to enable movemothernature
-//            game.getGameMap().moveMotherNatureAndCheck(game.getCurrentPlayer(),game.getTableOrder());
-//            System.out.println(game.getGameMap());
-            game.setCurrentPlayer(p);
-            p.doActions(game.getGameMap(),game.getTableOrder());
-        }
-
-        for(Player p : game.getCurrentOrder()) {
-            System.out.println(p.getPlayerName() + "'s " + p.getSchool().getDiningRoom());
-        }
-
-    }
-
+//            p.doActions(game.getGameMap(),game.getTableOrder());
+//        }
+//
+//        for(Player p : game.getCurrentOrder()) {
+//            System.out.println(p.getPlayerName() + "'s " + p.getDiningRoom());
+//        }
+//    }
 }
+
+
+

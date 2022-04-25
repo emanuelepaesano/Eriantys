@@ -61,8 +61,9 @@ public class GameMap {
         int nmoves = player.askMNMoves();
         motherNature = (motherNature+nmoves)%(archipelago.size()); //archipelago changes in size
         Island toCheck = archipelago.get(motherNature);
-        Boolean needJoin = toCheck.checkOwner(players);
-        if (needJoin) {doJoins(toCheck);}
+        Player oldOwner = toCheck.getOwner();
+        Player newOwner = toCheck.checkOwner(players);
+        if (newOwner!= null && !newOwner.equals(oldOwner)) {doJoins(toCheck);}
     }
 
 

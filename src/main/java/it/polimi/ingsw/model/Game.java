@@ -28,7 +28,6 @@ public class Game {
         clouds = makeClouds(numPlayers);
         fillClouds();
         fillAllEntrancesBag();
-        System.out.println("clouds with new stuff " + clouds);
 
     }
 
@@ -96,7 +95,7 @@ public class Game {
     /**
      * Lets the player choose a cloud and fills the entrance with the students of that cloud
      */
-    // I believe now this has to be moved inside the game with player as parameter
+    // TODO: 24/04/2022 I think stuff like this should go inside a controller
     public void fillEntranceFromClouds(Player player){
         Scanner scanner = new Scanner(System.in);
         //this must be shown to each player, so maybe make a player.askcloud()
@@ -109,7 +108,7 @@ public class Game {
                     List<Student> cloud = clouds.get(choice-1);
                     if (cloud.size()>0){
                         //add those students to our entrance
-                        player.getSchool().getEntrance().getStudents().addAll(cloud);
+                        player.getEntrance().getStudents().addAll(cloud);
                         cloud.clear();
                         break;
                     }
@@ -120,7 +119,7 @@ public class Game {
     }
 
 
-    //fills all entrances. New way to initialize the entrances students, in here instead of entrance
+    //fills all entrances. New way to initialize the entrances, in here instead of entrance
     private void fillAllEntrancesBag(){
         for (Player player : tableOrder){
             fillEntranceFromBag(player);
@@ -131,7 +130,17 @@ public class Game {
     private void fillEntranceFromBag(Player player){
         for (int i=0;i<(numPlayers==3? 9:7);i++) {
             Student randstud = this.drawFromBag();
-            player.getSchool().getEntrance().getStudents().set(i, randstud);
+            player.getEntrance().getStudents().set(i, randstud);
+        }
+    }
+
+    private void checkEndGameCondition(String condition){
+        switch (condition){
+            case "towerEnd":
+            case "archipelagoEnd":
+            case "deckEnd":
+            case "studentEnd":
+                break;
         }
     }
 
@@ -143,7 +152,9 @@ public class Game {
     public static void main(String[] args) {
         //test for fillClouds()
         Game g = new Game(3);
-
+        for(Player p: g.getTableOrder()) {
+            g.fillEntranceFromClouds(p);
+        }
     }
 
 
