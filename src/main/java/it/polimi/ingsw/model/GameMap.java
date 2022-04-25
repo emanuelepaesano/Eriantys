@@ -63,11 +63,13 @@ public class GameMap {
         Island toCheck = archipelago.get(motherNature);
         Player oldOwner = toCheck.getOwner();
         Player newOwner = toCheck.checkOwner(players);
+        System.out.println("oldOwner: " + oldOwner.getPlayerName());
+        System.out.println("newOwner: " + newOwner.getPlayerName());
         if (newOwner!= null && !newOwner.equals(oldOwner)) {doJoins(toCheck);}
     }
 
 
-
+//    this should be private?
     //it's quite ugly but it should do the job
     public void doJoins(Island tojoin){
         int startindex = archipelago.indexOf(tojoin);
@@ -85,7 +87,7 @@ public class GameMap {
                 motherNature = archipelago.indexOf(tojoin);//indices changed
                 break;
             case "left":
-                tojoin.students.replaceAll((s,i) -> i += left.students.get(s));
+                tojoin.getStudents().replaceAll((s,i) -> i += left.getStudents().get(s));
                 tojoin.size += 1;
                 archipelago.remove(left);
                 motherNature = archipelago.indexOf(tojoin);
@@ -138,6 +140,15 @@ public class GameMap {
 
     public List<Island> getArchipelago() {
         return archipelago;
+    }
+
+//    only for test
+    public void setMotherNature(int motherNaturePosition) {
+        this.motherNature = motherNaturePosition;
+    }
+
+    public int getMotherNature() {
+        return this.motherNature;
     }
 
     public static void main(String[] args) {

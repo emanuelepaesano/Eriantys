@@ -30,6 +30,9 @@ public class Island {
         Map<Player, Integer> influences = new HashMap<>();
         Player newOwner = this.owner;
         players.forEach((Player p)->influences.put(p,p.calculateInfluence(this)));
+        System.out.println("influencessssssssss");
+        System.out.println(influences.toString());
+        System.out.println("influencessssssssss");
 
         List<Player> ties = new ArrayList<>();
         for (Player p : influences.keySet()) {
@@ -56,6 +59,7 @@ public class Island {
         return students;
     }
 
+
     public void setOwner(Player owner) {
         this.owner = owner;
     }
@@ -68,6 +72,11 @@ public class Island {
         return owner;
     }
 
+
+    //   for test
+    public void setStudents(Map<Student,Integer> students) {
+        this.students = students;
+    }
 }
 
 
