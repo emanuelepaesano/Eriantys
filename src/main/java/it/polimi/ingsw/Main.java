@@ -29,5 +29,6 @@ public class Main {
                 "Islands after test player's moves:\n" + game.getGameMap());
         game.getGameMap().moveMotherNatureAndCheck(testpl, game.getTableOrder());
 
+
     }
 }

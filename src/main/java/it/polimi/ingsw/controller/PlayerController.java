@@ -9,8 +9,7 @@ public class PlayerController {
 
     public PlayerController(int id, int numPlayers){
         this.id = id;
-        PlayerFactory pf = new PlayerFactory();
-        player = pf.makePlayer(id, numPlayers);
+        player = Player.makePlayer(id, numPlayers);
     }
 
 

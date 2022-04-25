@@ -13,9 +13,38 @@ public class Player {
     private Map<Assistant, Boolean> assistants;
     private Assistant currentAssistant;
     private int numActions;
+    public static Player makePlayer(int id, int numPlayers){
+        String pName = askPlayerName(id);
+        Map<Assistant, Boolean> assistants = buildDeck();
+        DiningRoom diningRoom = new DiningRoom();
+        Entrance entrance = new Entrance(numPlayers);
+        return new Player(id, pName, assistants, (numPlayers==3? 4 : 3), (numPlayers == 3? 6 : 8), diningRoom, entrance);
+    }
+
+    private static String askPlayerName(int id)  {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Player " + id + ", enter your nickname:");
+        while (true){
+            String name = scanner.nextLine();
+            if (name.length() < 20){
+                return name;
+            }
+            System.out.println("name too long! Insert a shorter name");
+        }
+    }
 
 
-    public Player(int id, String name, Map<Assistant, Boolean> deck, int numActions, int numTowers, DiningRoom diningRoom, Entrance entrance) {
+    private static Map<Assistant, Boolean> buildDeck(){
+        Map<Assistant,Boolean> tm = new TreeMap<>();
+        for (Assistant as : Assistant.values()) {
+            tm.put(as, true);
+        }
+        return tm;
+    }
+
+
+    public Player(int id, String name, Map<Assistant, Boolean> deck,
+                  int numActions, int numTowers, DiningRoom diningRoom, Entrance entrance) {
         this.id = id;
         playerName = name;
         assistants = deck;
@@ -25,19 +54,6 @@ public class Player {
         this.entrance = entrance;
     }
 
-    private Map<Assistant, Boolean> buildDeck(){
-        Map<Assistant,Boolean> tm = new TreeMap<>();
-        for (Assistant as : Assistant.values()) {
-            tm.put(as, true);
-        }
-        return tm;
-    }
-
-
-    private String askPlayerName() {
-        System.out.println("Player " + this.id + ", enter your nickname:");
-        return (new Scanner(System.in).nextLine());
-    }
 
 
     /**

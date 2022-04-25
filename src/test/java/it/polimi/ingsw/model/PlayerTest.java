@@ -1,23 +1,16 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.controller.PlayerFactory;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.*;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class PlayerTest {
     private Player testplayer;
@@ -25,8 +18,7 @@ class PlayerTest {
     @BeforeEach
     void setUp(){
         System.setIn(new ByteArrayInputStream("player1".getBytes(StandardCharsets.UTF_8)));
-        PlayerFactory pf = new PlayerFactory();
-        testplayer = pf.makePlayer(1,3);
+        testplayer = Player.makePlayer(1,3);
     }
 
     @ParameterizedTest (name = "Testing: {0}")

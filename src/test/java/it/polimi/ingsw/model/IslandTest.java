@@ -1,14 +1,11 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.controller.PlayerFactory;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.ByteArrayInputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -66,23 +63,22 @@ class IslandTest {
     static Stream<Arguments> sourceForCheckOwner(){
         //case1 + general data
         System.setIn(new ByteArrayInputStream("player1".getBytes()));
-        PlayerFactory pf = new PlayerFactory();
-        Player oldOwner = pf.makePlayer(1,3);
+        Player oldOwner = Player.makePlayer(1,3);
         System.setIn(new ByteArrayInputStream("newOwner".getBytes()));
-        Player p2 = pf.makePlayer(2,3);
+        Player p2 = Player.makePlayer(2,3);
         oldOwner.getDiningRoom().getProfessors().putAll(Map.of(BLUE,true, RED,true));
         p2.getDiningRoom().getProfessors().replace(PINK,true);
         List<Player> players1 = List.of(oldOwner,p2);
         //case2 data
         System.setIn(new ByteArrayInputStream("player5".getBytes()));
-        Player p5 = pf.makePlayer(2,3);
+        Player p5 = Player.makePlayer(2,3);
         p5.getDiningRoom().getProfessors().replace(Student.GREEN,true);
         List<Player> players2 = List.of(oldOwner,p5);
         //case 3 data
         System.setIn(new ByteArrayInputStream("player7".getBytes()));
-        Player p7 = pf.makePlayer(2,3);
+        Player p7 = Player.makePlayer(2,3);
         System.setIn(new ByteArrayInputStream("player8".getBytes()));
-        Player p8 = pf.makePlayer(2,3);
+        Player p8 = Player.makePlayer(2,3);
         p7.getDiningRoom().getProfessors().replace(PINK,true);
         p8.getDiningRoom().getProfessors().replace(Student.YELLOW,true);
         List<Player> players3 = List.of(oldOwner,p7,p8);

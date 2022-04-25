@@ -39,7 +39,7 @@ public class GameMap {
      * - Initializes students from a "smallBag" containing 2 of each color
      */
     private void startStudents(int motherNature){
-        System.out.println("mother nature is here:" + motherNature);
+        System.out.println("mother nature starts here :" + motherNature);
 
         ArrayList<Student> smallBag = new ArrayList<>(Arrays.asList(Student.values()));
         smallBag.addAll(Arrays.asList(Student.values())); //these 2 lines make the initial bag
