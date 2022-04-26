@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Island {
     public int id;
-    public HashMap<Student,Integer> students;
+    public Map<Student,Integer> students;
     public Player owner;
     public int size;
 
@@ -71,7 +71,7 @@ public class Island {
 
 
     //   for test
-    public void setStudents(HashMap<Student,Integer> students) {
+    public void setStudents(Map<Student,Integer> students) {
         this.students = students;
     }
 

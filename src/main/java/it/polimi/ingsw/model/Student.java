@@ -15,8 +15,8 @@ public enum Student {
     GREEN,
     ;
 
-    public static HashMap<Student, Integer> makeStudents() {
-        HashMap<Student, Integer> studs = new HashMap<>();
+    public static Map<Student, Integer> makeStudents() {
+        Map<Student, Integer> studs = new HashMap<>();
         for (Student sc : Student.values()) {
             studs.put(sc, 0);
         }

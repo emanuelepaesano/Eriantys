@@ -79,11 +79,11 @@ class GameMapTest {
 
         gameMap.getIslandById(2).setOwner(p1);
         gameMap.getIslandById(3).setOwner(p2);
-        HashMap<Student, Integer> studetns = makeSuperStudents();
+        Map<Student, Integer> studetns = makeSuperStudents();
         gameMap.getIslandById(3).setStudents(studetns);
         gameMap.getIslandById(4).setOwner(p1);
 
-        HashMap<Student, Integer> expectedStudetns = makeSuperStudents();
+        Map<Student, Integer> expectedStudetns = makeSuperStudents();
         expectedStudetns.replaceAll((k,v) -> v + gameMap.getIslandById(2).getStudents().get(k));
         expectedStudetns.replaceAll((k,v) -> v + gameMap.getIslandById(4).getStudents().get(k));
 
@@ -99,8 +99,8 @@ class GameMapTest {
         assertEquals(expectedIsland.getStudents(), gameMap.getIslandById(3).getStudents());
     }
 
-    HashMap<Student, Integer> makeSuperStudents() {
-        HashMap<Student, Integer> studetns = new HashMap<>();
+    Map<Student, Integer> makeSuperStudents() {
+        Map<Student, Integer> studetns = new HashMap<>();
         for (Student sc : Student.values()) {
             studetns.put(sc, 99);
         }
