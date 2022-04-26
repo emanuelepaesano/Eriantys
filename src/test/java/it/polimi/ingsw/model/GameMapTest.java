@@ -108,22 +108,6 @@ class GameMapTest {
     }
 
     @Test
-    void testMap() {
-        Map<Integer,String> map = new HashMap<>();
-        map.put(1, "Red");
-        map.put(2, "Green");
-        map.put(3, "Blue");
-
-        map.replaceAll((k,v) -> v = "TEST");
-        System.out.println(map.toString());
-
-    }
-
-    @Test
-    void testToString() {
-    }
-
-    @Test
     void getArchipelago() {
         assertInstanceOf(List.class, gameMap.getArchipelago());
         for (int i = 0; i < gameMap.getArchipelago().size(); i++) {
