@@ -18,7 +18,7 @@ public class Game {
         List<Player> startingOrder = startPlayersandOrder(numPlayers);
         List<List<Student>> clouds = makeClouds(numPlayers);
         Map<Student, Integer> bag = makeBag();
-        GameMap gm = new GameMap(); //this will start the islands, motherNature, initial students
+        GameMap gm = new GameMap(); //this will start the islands, motherNature
         return new Game(numPlayers, startingOrder, clouds, bag, gm);
     }
     /**
@@ -69,7 +69,7 @@ public class Game {
         currentPlayer = currentOrder.get(0);
         fillClouds();
         fillAllEntrancesBag();
-        gameMap.startStudents(gameMap.getMotherNature());
+        gameMap.startMNAndStudents();
     }
 
     private void fillClouds(){

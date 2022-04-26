@@ -10,7 +10,6 @@ public class GameMap {
 
     public GameMap(){
         archipelago = makeIslands();
-        motherNature = startMotherNature();
     }
 
     /**
@@ -25,26 +24,19 @@ public class GameMap {
         return archipelago;
     }
 
-    /**
-     * Take a random index and put motherNature in that island
-     */
-    private int startMotherNature(){
-        Random randomizer = new Random();
-        return randomizer.nextInt(12);
-    }
 
     /**
      *
-     * @param motherNature Needs to know starting motherNature position
      * - Initializes students from a "smallBag" containing 2 of each color
      */
-    public void startStudents(int motherNature){
+    public void startMNAndStudents(){
+        Random randomizer = new Random();
+        motherNature =  randomizer.nextInt(12);
         System.out.println("mother nature is here:" + motherNature);
 
         ArrayList<Student> smallBag = new ArrayList<>(Arrays.asList(Student.values()));
         smallBag.addAll(Arrays.asList(Student.values())); //these 2 lines make the initial bag
 
-        Random randomizer = new Random();
         //below is the code for student initialization
         for (int i=1;i<12;i++) {
             if (i == 6){continue;}
