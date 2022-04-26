@@ -67,4 +67,8 @@ public class DiningRoom {
     public Map<Student, Boolean> getProfessors() {
         return professors;
     }
+
+    public void setProfessors(Map<Student, Boolean> professors) {
+        this.professors = professors;
+    }
 }

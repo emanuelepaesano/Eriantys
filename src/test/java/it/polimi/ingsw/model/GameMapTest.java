@@ -52,9 +52,7 @@ class GameMapTest {
     void moveMotherNatureAndCheck_checkOwnerUpdate() {
 //        setting scenario
         p1.setCurrentAssistant(Assistant.FIVE);
-        p1.getDiningRoom().getTables().putAll(makeSuperStudents());
-//        need checkProfessors() to update professors
-        p1.getDiningRoom().checkProfessors(List.of(p1, p2, p3));
+        p1.getDiningRoom().setProfessors(makeSuperProfessors());
 
         System.out.println(p1.getDiningRoom().getProfessors().toString());
         System.out.println(p2.getDiningRoom().getProfessors().toString());
@@ -73,9 +71,7 @@ class GameMapTest {
     void moveMotherNatureAndCheck_checkOwnerJoins() {
         //        setting scenario
         p1.setCurrentAssistant(Assistant.FIVE);
-        p1.getDiningRoom().getTables().putAll(makeSuperStudents());
-//        need checkProfessors() to update professors
-        p1.getDiningRoom().checkProfessors(List.of(p1, p2, p3));
+        p1.getDiningRoom().setProfessors(makeSuperProfessors());
 
         gameMap.getIslandById(2).setOwner(p1);
         gameMap.getIslandById(3).setOwner(p2);
@@ -105,6 +101,14 @@ class GameMapTest {
             studetns.put(sc, 99);
         }
         return studetns;
+    }
+
+    Map<Student, Boolean> makeSuperProfessors() {
+        Map<Student, Boolean> professors = new HashMap<>();
+        for (Student sc : Student.values()) {
+            professors.put(sc, true);
+        }
+        return professors;
     }
 
     @Test
