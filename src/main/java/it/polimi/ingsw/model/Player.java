@@ -13,6 +13,8 @@ public class Player {
     private Map<Assistant, Boolean> assistants;
     private Assistant currentAssistant;
     private int numActions;
+
+    private int baseInfluence = 0;
     public static Player makePlayer(int id, int numPlayers){
         String pName = askPlayerName(id);
         Map<Assistant, Boolean> assistants = buildDeck();
@@ -173,7 +175,7 @@ public class Player {
      *Method to calculate this player's influence on an island. It gets called by Island.checkOwner().
      */
     public int calculateInfluence(Island island) {
-        int influence = 0;
+        int influence = baseInfluence;
         if (island.getOwner() == this) {influence += island.size;}
         for (Student student : Student.values()){
             if (this.diningRoom.getProfessors().get(student)){
@@ -240,4 +242,10 @@ public class Player {
         this.currentAssistant = currentAssistant;
     }
 
+    public int getBaseInfluence() {
+        return baseInfluence;}
+
+    public void setBaseInfluence(int baseInfluence) {
+        this.baseInfluence = baseInfluence;
+    }
 }

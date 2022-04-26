@@ -14,13 +14,41 @@ public class Game {
     private List<List<Student>> clouds;
     private GameMap gameMap;
 
-    public static Game makeGame(int numPlayers){
+    private List<Character> characters;
+
+    public static Game makeGame(int numPlayers, Boolean expert){
         List<Player> startingOrder = startPlayersandOrder(numPlayers);
         List<List<Student>> clouds = makeClouds(numPlayers);
-        Map<Student, Integer> bag = makeBag();
-        GameMap gm = new GameMap(); //this will start the islands, motherNature
-        return new Game(numPlayers, startingOrder, clouds, bag, gm);
+        Map<Student, Integer> bag =  makeBag();
+        List<Character> characters = makeAllCharacters();
+        GameMap gm = new GameMap(); //this will start the islands
+        if (expert) {
+            return new Game(numPlayers, startingOrder, clouds, bag, gm, characters);
+        }
+        else {
+            return new Game(numPlayers, startingOrder, clouds, bag, gm);
+        }
     }
+
+
+    private static List<Character> makeAllCharacters(){
+        Random randomizer = new Random();
+        List<Character> characters = new ArrayList<>();
+        List<Integer> availables = new ArrayList<>(List.of(1, 2, 3, 4, 5));
+        for (int i=0; i<3;i++) {
+            Integer pickedChara;
+            while(true) {
+                pickedChara = 1 + randomizer.nextInt(Collections.max(availables));
+                if (availables.contains(pickedChara)) {
+                    availables.remove(pickedChara);
+                    break;
+                }
+            }
+            characters.add(Characters.makeCharacter(pickedChara));
+        }
+        return characters;
+    }
+
     /**
      * @return initializes the players (and their tower number), returns a random starting order.
      * This one may be moved to a playerController, or maybe from this we make the playercontroller
@@ -45,7 +73,7 @@ public class Game {
     }
 
     private static Map<Student,Integer> makeBag(){
-        HashMap<Student,Integer> bag = new HashMap<>();
+        Map<Student,Integer> bag = new HashMap<>();
         for (Student sc : Student.values()){
             bag.put(sc,24);
         }
@@ -61,6 +89,18 @@ public class Game {
         this.currentOrder = startingOrder;
         this.bag = bag;
         this.gameMap = gm;
+        tableOrder = new ArrayList<>(this.currentOrder); //this is to make a copy
+    }
+
+    private Game(int numPlayers, List<Player> startingOrder, List<List<Student>> clouds,
+                 Map<Student, Integer> bag, GameMap gm, List<Character> characters) {
+
+        this.numPlayers = numPlayers;
+        this.clouds = clouds;
+        this.currentOrder = startingOrder;
+        this.bag = bag;
+        this.gameMap = gm;
+        this.characters = characters;
         tableOrder = new ArrayList<>(this.currentOrder); //this is to make a copy
     }
 
@@ -140,23 +180,11 @@ public class Game {
     //fills all entrances. New way to initialize the entrances, in here instead of entrance
     //same for this, move inside game and take player as par.
 
-    private void checkEndGameCondition(String condition){
-        switch (condition){
-            case "towerEnd":
-            case "archipelagoEnd":
-            case "deckEnd":
-            case "studentEnd":
-                break;
-        }
+
+    public static void main(String[] args) {
+        Game game = Game.makeGame(2,true);
+        System.out.println(game.characters);
     }
-
-
-
-
-
-
-
-
 
     //BELOW THIS ALL GETTER AND SETTERS
 
@@ -187,6 +215,10 @@ public class Game {
 
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
+    }
+
+    public Integer getRound() {
+        return round;
     }
 }
 
