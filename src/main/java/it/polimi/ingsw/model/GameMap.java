@@ -11,7 +11,6 @@ public class GameMap {
     public GameMap(){
         archipelago = makeIslands();
         motherNature = startMotherNature();
-        startStudents(motherNature);
     }
 
     /**
@@ -39,7 +38,7 @@ public class GameMap {
      * @param motherNature Needs to know starting motherNature position
      * - Initializes students from a "smallBag" containing 2 of each color
      */
-    private void startStudents(int motherNature){
+    public void startStudents(int motherNature){
         System.out.println("mother nature is here:" + motherNature);
 
         ArrayList<Student> smallBag = new ArrayList<>(Arrays.asList(Student.values()));
@@ -173,7 +172,7 @@ public class GameMap {
 //        System.out.println("mother nature is now here: " + gc.getGame().getGameMap().motherNature);
 
         //TEST FOR DOJOINS() change the indices as you want
-        Game game = new Game(3);
+        Game game = Game.makeGame(3);
         game.getGameMap().archipelago.get(0).setOwner(game.getCurrentPlayer());
         game.getGameMap().archipelago.get(2).setOwner(game.getCurrentPlayer());
         game.getGameMap().archipelago.get(3).setOwner(game.getCurrentPlayer());

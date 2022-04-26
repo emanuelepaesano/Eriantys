@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.controller.PlayerFactory;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,13 +20,12 @@ class GameMapTest {
 
     @BeforeEach
     void setUp(){
-        PlayerFactory pf = new PlayerFactory();
         System.setIn(new ByteArrayInputStream("p1".getBytes(StandardCharsets.UTF_8)));
-        p1 = pf.makePlayer(1,3);
+        p1 = Player.makePlayer(1,3);
         System.setIn(new ByteArrayInputStream("p2".getBytes(StandardCharsets.UTF_8)));
-        p2 = pf.makePlayer(2,3);
+        p2 = Player.makePlayer(2,3);
         System.setIn(new ByteArrayInputStream("p3".getBytes(StandardCharsets.UTF_8)));
-        p3 = pf.makePlayer(3,3);
+        p3 = Player.makePlayer(3,3);
         gameMap = new GameMap();
         gameMap.setMotherNature(1);
     }

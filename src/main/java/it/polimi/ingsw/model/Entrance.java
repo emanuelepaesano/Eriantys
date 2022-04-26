@@ -171,7 +171,7 @@ public class Entrance {
 
     public static void main(String[] args) {
         //TEST FOR MOVETODR AND P.CHECKPROFESSOR, still uses fillrandomTEST
-        Game game = new Game(2);
+        Game game = Game.makeGame(2);
         //1ST PLAYER
         for(Player p : game.getCurrentOrder()) {
             game.setCurrentPlayer(p);
