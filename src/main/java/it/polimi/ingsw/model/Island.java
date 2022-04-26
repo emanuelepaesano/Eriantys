@@ -3,10 +3,10 @@ package it.polimi.ingsw.model;
 import java.util.*;
 
 public class Island {
-    int id;
-    Map<Student,Integer> students;
-    Player owner;
-    int size;
+    public int id;
+    public Map<Student,Integer> students;
+    public Player owner;
+    public int size;
 
 
     public Island(int id){
@@ -56,6 +56,7 @@ public class Island {
         return students;
     }
 
+
     public void setOwner(Player owner) {
         this.owner = owner;
     }
@@ -66,6 +67,12 @@ public class Island {
 
     public Player getOwner() {
         return owner;
+    }
+
+
+    //   for test
+    public void setStudents(Map<Student,Integer> students) {
+        this.students = students;
     }
 
 }

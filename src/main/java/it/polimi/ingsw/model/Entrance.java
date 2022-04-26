@@ -169,19 +169,19 @@ public class Entrance {
         return students;
     }
 
-//    public static void main(String[] args) {
-//        //TEST FOR MOVETODR AND P.CHECKPROFESSOR, still uses fillrandomTEST
-//        Game game = new Game(3);
-//        //1ST PLAYER
-//        for(Player p : game.getCurrentOrder()) {
-//            game.setCurrentPlayer(p);
-//            p.doActions(game.getGameMap(),game.getTableOrder());
-//        }
-//
-//        for(Player p : game.getCurrentOrder()) {
-//            System.out.println(p.getPlayerName() + "'s " + p.getDiningRoom());
-//        }
-//    }
+    public static void main(String[] args) {
+        //TEST FOR MOVETODR AND P.CHECKPROFESSOR, still uses fillrandomTEST
+        Game game = new Game(2);
+        //1ST PLAYER
+        for(Player p : game.getCurrentOrder()) {
+            game.setCurrentPlayer(p);
+            p.doActions(game.getGameMap(),game.getTableOrder());
+        }
+
+        for(Player p : game.getCurrentOrder()) {
+            System.out.println(p.getPlayerName() + "'s " + p.getDiningRoom());
+        }
+    }
 }
 
 

@@ -140,7 +140,6 @@ public class Player {
                 availableActions -= entrance.moveToIsland(availableActions, gm);}
         }
         System.out.println("After your moves: " + this.diningRoom);
-        numActions = 4;
     }
 
     private String askWhichAction(int availableActions){

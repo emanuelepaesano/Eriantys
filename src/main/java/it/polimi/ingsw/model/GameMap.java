@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class GameMap {
 
@@ -10,13 +11,14 @@ public class GameMap {
     public GameMap(){
         archipelago = makeIslands();
         motherNature = startMotherNature();
+        startStudents(motherNature);
     }
 
     /**
      *
      * @return Initializes 12 islands in a list
      */
-    private static List<Island> makeIslands(){
+    private List<Island> makeIslands(){
         List<Island> archipelago = new ArrayList<>();
         for (int i = 0; i<12; i++){
             archipelago.add(new Island(i));
@@ -27,7 +29,7 @@ public class GameMap {
     /**
      * Take a random index and put motherNature in that island
      */
-    private static int startMotherNature(){
+    private int startMotherNature(){
         Random randomizer = new Random();
         return randomizer.nextInt(12);
     }
@@ -37,8 +39,8 @@ public class GameMap {
      * @param motherNature Needs to know starting motherNature position
      * - Initializes students from a "smallBag" containing 2 of each color
      */
-    public void startStudents(int motherNature){
-        System.out.println("mother nature starts here :" + motherNature);
+    private void startStudents(int motherNature){
+        System.out.println("mother nature is here:" + motherNature);
 
         ArrayList<Student> smallBag = new ArrayList<>(Arrays.asList(Student.values()));
         smallBag.addAll(Arrays.asList(Student.values())); //these 2 lines make the initial bag
@@ -66,7 +68,7 @@ public class GameMap {
     }
 
 
-
+//    this should be private?
     //it's quite ugly but it should do the job
     public void doJoins(Island tojoin){
         int startindex = archipelago.indexOf(tojoin);
@@ -84,7 +86,7 @@ public class GameMap {
                 motherNature = archipelago.indexOf(tojoin);//indices changed
                 break;
             case "left":
-                tojoin.students.replaceAll((s,i) -> i += left.students.get(s));
+                tojoin.students.replaceAll((s,i) -> i += left.getStudents().get(s));
                 tojoin.size += 1;
                 archipelago.remove(left);
                 motherNature = archipelago.indexOf(tojoin);
@@ -139,8 +141,26 @@ public class GameMap {
         return archipelago;
     }
 
+//    only for test
+    public void setMotherNature(int motherNaturePosition) {
+        this.motherNature = motherNaturePosition;
+    }
+
+//    return should be an island.
+    public Island getIslandById(int islandId) {
+        List<Island> islands = archipelago.stream()
+                .filter(i -> i.id == islandId)
+                .collect(Collectors.toList());
+        try {
+            return islands.get(0);
+        } catch (Exception e) {
+            System.out.println("island id: " + islandId + "does not exist.");
+        }
+        return null;
+    }
+
     public int getMotherNature() {
-        return motherNature;
+        return this.motherNature;
     }
 
     public static void main(String[] args) {
@@ -153,7 +173,7 @@ public class GameMap {
 //        System.out.println("mother nature is now here: " + gc.getGame().getGameMap().motherNature);
 
         //TEST FOR DOJOINS() change the indices as you want
-        Game game = Game.makeGame(3);
+        Game game = new Game(3);
         game.getGameMap().archipelago.get(0).setOwner(game.getCurrentPlayer());
         game.getGameMap().archipelago.get(2).setOwner(game.getCurrentPlayer());
         game.getGameMap().archipelago.get(3).setOwner(game.getCurrentPlayer());
