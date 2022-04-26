@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class GameMap {
 
@@ -67,7 +68,7 @@ public class GameMap {
     }
 
 
-
+//    this should be private?
     //it's quite ugly but it should do the job
     public void doJoins(Island tojoin){
         int startindex = archipelago.indexOf(tojoin);
@@ -85,7 +86,7 @@ public class GameMap {
                 motherNature = archipelago.indexOf(tojoin);//indices changed
                 break;
             case "left":
-                tojoin.students.replaceAll((s,i) -> i += left.students.get(s));
+                tojoin.students.replaceAll((s,i) -> i += left.getStudents().get(s));
                 tojoin.size += 1;
                 archipelago.remove(left);
                 motherNature = archipelago.indexOf(tojoin);
@@ -138,6 +139,28 @@ public class GameMap {
 
     public List<Island> getArchipelago() {
         return archipelago;
+    }
+
+//    only for test
+    public void setMotherNature(int motherNaturePosition) {
+        this.motherNature = motherNaturePosition;
+    }
+
+//    return should be an island.
+    public Island getIslandById(int islandId) {
+        List<Island> islands = archipelago.stream()
+                .filter(i -> i.id == islandId)
+                .collect(Collectors.toList());
+        try {
+            return islands.get(0);
+        } catch (Exception e) {
+            System.out.println("island id: " + islandId + "does not exist.");
+        }
+        return null;
+    }
+
+    public int getMotherNature() {
+        return this.motherNature;
     }
 
     public static void main(String[] args) {
