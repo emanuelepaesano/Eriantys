@@ -3,10 +3,10 @@ package it.polimi.ingsw.model;
 import java.util.*;
 
 public class Island {
-    int id;
-    HashMap<Student,Integer> students;
-    Player owner;
-    int size;
+    public int id;
+    public HashMap<Student,Integer> students;
+    public Player owner;
+    public int size;
 
 
     public Island(int id){

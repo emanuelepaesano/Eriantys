@@ -86,7 +86,7 @@ public class GameMap {
                 motherNature = archipelago.indexOf(tojoin);//indices changed
                 break;
             case "left":
-                tojoin.getStudents().replaceAll((s,i) -> i += left.getStudents().get(s));
+                tojoin.students.replaceAll((s,i) -> i += left.getStudents().get(s));
                 tojoin.size += 1;
                 archipelago.remove(left);
                 motherNature = archipelago.indexOf(tojoin);
