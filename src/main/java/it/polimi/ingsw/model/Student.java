@@ -21,20 +21,21 @@ public enum Student {
         return studs;
     }
 
-    public static Student askStudent(List<Student> students, Scanner scanner){
+    public static String askStudent(List<Student> students, Scanner scanner){
         String str;
         try{
             System.out.println("Choose a student color from the list :\n"
-                    + students);
+                    + students + "  or type \"back\" to annull.");
             str = scanner.nextLine();
-            if (Objects.equals(str, "back")) {return null;}
+            if (Objects.equals(str, "back")) {return "back";}
             else {
-                return Student.valueOf(str.toUpperCase());
+                Student.valueOf(str.toUpperCase());
+                return str;
             }
         }
         catch (IllegalArgumentException ex) {
             System.out.println("Not a valid color, try again.");
-            return (null);
+            return "retry";
         }
     }
 }

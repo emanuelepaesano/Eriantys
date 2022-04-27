@@ -24,7 +24,9 @@ class MoveToDRCharacter extends Characters {
     }
 
     public void play(Player player, Game game) {
-        player.getDiningRoom().setCoins(player.getDiningRoom().getCoins() - cost);
+        if (!Characters.enoughMoney(player,cost)){
+            System.out.println("You don't have enough money!");
+            return;}
         Scanner scanner = new Scanner(System.in);
         String str;
         while (true) {
@@ -51,7 +53,7 @@ class MoveToDRCharacter extends Characters {
                 System.out.println("Not a valid color, try again.");
             }
         }
-        this.cost += 1;
+        this.cost = Characters.payandUpdateCost(player,cost);
     }
 
     @Override

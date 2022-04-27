@@ -65,7 +65,7 @@ public class Entrance {
             //In the 2nd part now we move it to the chosen island
             if (students.contains(stud)){
                 students.remove(stud);
-                Island island = askWhichIsland(gm, scanner);
+                Island island = gm.askWhichIsland(scanner);
                 int oldval = island.students.get(stud);
                 island.students.replace(stud, oldval,oldval+1);
             }
@@ -124,22 +124,6 @@ public class Entrance {
     }
 
     //only for moveToIsland
-    public Island askWhichIsland(GameMap gm, Scanner scanner){
-        while (true){
-            System.out.println(
-                    "This is the current state of the islands:\n" + gm +
-                    "\nIndicate the island by its number (0~11):") ;
-            try {
-                int index = Integer.parseInt(scanner.next());
-                if (index>=0 &&index <=11) {
-                    return gm.getArchipelago().get(index);
-                }
-                System.out.println("That's not a valid index, please choose one between 0~11.\n");
-            }catch (NumberFormatException ex) {
-                System.out.println("That's not an index, please choose an index between 0~11.\n");
-            }
-        }
-    }
 
 
 

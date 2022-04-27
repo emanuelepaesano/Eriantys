@@ -16,14 +16,14 @@ class MoreInfluenceCharacter extends Characters {
 
     public synchronized void play(Player player, Game game) throws InterruptedException {
         //this turn +2 influence (n.b. you cant combine characters)
+        if (!Characters.enoughMoney(player,cost)){return;}
+        this.cost = Characters.payandUpdateCost(player,cost);
         Player thisTurn = game.getCurrentPlayer();
         while (game.getCurrentPlayer() == thisTurn) {
             player.setBaseInfluence(2);
             wait();
-
         }
         player.setBaseInfluence(0);
-        this.cost += 1;
         System.out.println("Thread finished!");
     }
 

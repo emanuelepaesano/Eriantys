@@ -149,6 +149,24 @@ public class GameMap {
         return null;
     }
 
+    public Island askWhichIsland(Scanner scanner){
+        while (true){
+            System.out.println(
+                    "This is the current state of the islands:\n" + this +
+                            "\nIndicate the island by its number (0~11):") ;
+            try {
+                int index = Integer.parseInt(scanner.next());
+                if (index>=0 &&index <=11) {
+                    return this.getArchipelago().get(index);
+                }
+                System.out.println("That's not a valid index, please choose one between 0~11.\n");
+            }catch (NumberFormatException ex) {
+                System.out.println("That's not an index, please choose an index between 0~11.\n");
+            }
+        }
+    }
+
+
     public int getMotherNature() {
         return this.motherNature;
     }

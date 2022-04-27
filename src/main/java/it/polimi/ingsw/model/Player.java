@@ -203,8 +203,16 @@ public class Player {
     }
 
 
+
+
     //GETTERS SETTERS
 
+    public int getCoins(){
+        return this.getDiningRoom().getCoins();
+    }
+    public void setCoins(int coins){
+        this.getDiningRoom().setCoins(coins);
+    }
     public void setNumTowers(Integer numTowers) {
         this.numTowers = numTowers;
     }

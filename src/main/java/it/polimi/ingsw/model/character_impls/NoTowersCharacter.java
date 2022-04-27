@@ -17,11 +17,13 @@ class NoTowersCharacter extends Characters {
     }
 
     public synchronized void play(Player player, Game game) throws InterruptedException {
-        //for this turn, for checkowner(), size does not matter :)
+        if (!Characters.enoughMoney(player,cost)){
+            System.out.println("You don't have enough money!");
+            return;}
+        this.cost = Characters.payandUpdateCost(player,cost);
         Player thisTurn = game.getCurrentPlayer();
         List<Island> islands = game.getGameMap().getArchipelago();
         List<Integer> oldsizes = islands.stream().map(Island::getSize).toList();
-
         while (game.getCurrentPlayer() == thisTurn) {
             //we either make size 0 or  change the checkowner
             //if (islands.get(0).getSize() != 0){

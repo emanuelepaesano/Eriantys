@@ -4,7 +4,6 @@ import it.polimi.ingsw.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -22,34 +21,31 @@ import java.util.Scanner;
 
     public void play(Player player, Game game) {
         //ask the player which one wants and then ask the island
-        String str;
+        if (!Characters.enoughMoney(player,cost)){
+            System.out.println("You don't have enough money!");
+            return;}
+        Student student;
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            try {
-                System.out.println("Choose the color of the student: " + students + ", or type \"back\" to annull. ");
-                str = scanner.nextLine();
-                if (Objects.equals(str, "back")) {
-                    break;
-                } else {
-                    Student stud = Student.valueOf(str.toUpperCase());
-                    if (students.contains(stud)) {
-                        Island island = player.getEntrance().askWhichIsland(game.getGameMap(), scanner);
-                        students.remove(stud);
-                        int oldval = island.students.get(stud);
-                        island.students.replace(stud, oldval, oldval + 1);
-                        students.add(game.drawFromBag());
-                        break;
-                    } else {
+            String str = Student.askStudent(students, scanner).toUpperCase();
+                if (str.equals("RETRY")){continue;}
+                if (str.equals("BACK")){return;}
+                else if (List.of(Student.values()).contains(Student.valueOf(str))) {
+                    student = Student.valueOf(str);
+                    if (!students.contains(student)){
                         System.out.println("the character does not have that student! Try again");
+                        continue;
                     }
+                    break;
                 }
-            } catch (IllegalArgumentException ex) {
-                System.out.println("Not a valid color, try again.");
             }
-        }
-        player.getDiningRoom().setCoins(player.getDiningRoom().getCoins() - cost);
+        Island island = game.getGameMap().askWhichIsland(scanner);
+        students.remove(student);
+        int oldval = island.students.get(student);
+        island.students.replace(student, oldval, oldval + 1);
+        students.add(game.drawFromBag());
+        this.cost = Characters.payandUpdateCost(player,cost);
     }
-
     public int getCost() {
         return cost;
     }

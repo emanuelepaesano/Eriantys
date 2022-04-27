@@ -18,11 +18,12 @@ public class CheckOwnerCharacter extends Characters {
 
     public void play(Player player, Game game) {
         //choose an island to checkOwner() immediately
+        if (!Characters.enoughMoney(player,cost)){return;}
         System.out.println(player + ", please choose an island to resolve.");
         Scanner scanner = new Scanner(System.in);
-        Island island = player.getEntrance().askWhichIsland(game.getGameMap(), scanner);
+        Island island = game.getGameMap().askWhichIsland(scanner);
         island.checkOwner(game.getTableOrder());
-        this.cost += 1;
+        this.cost = Characters.payandUpdateCost(player,cost);
     }
 
     public int getCost() {

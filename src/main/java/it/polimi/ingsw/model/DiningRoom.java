@@ -88,8 +88,7 @@ public class DiningRoom {
     public void setProfessors(Map<Student, Boolean> professors) {
         this.professors = professors;
     }
+    int getCoins() { return coins;}
 
-    public int getCoins() { return coins;}
-
-    public void setCoins(int coins) {this.coins = coins;}
+    void setCoins(int coins) {this.coins = coins;}
 }

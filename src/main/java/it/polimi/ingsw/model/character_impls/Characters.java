@@ -3,7 +3,6 @@ package it.polimi.ingsw.model.character_impls;
 import it.polimi.ingsw.model.Character;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.character_impls.*;
 
 public abstract class Characters implements Character {
     ////this factory, depending on the subtype of character that is passed,
@@ -36,6 +35,14 @@ public abstract class Characters implements Character {
         });
 
         activeCharacter.start();
+    }
+
+    static Boolean enoughMoney(Player player, int cost){
+        return player.getCoins() >= cost;
+    }
+    static int payandUpdateCost(Player player, int cost){
+        player.setCoins(player.getCoins() - cost);
+        return cost + 1;
     }
     public static int getCost(Character character){
         return character.getCost();

@@ -14,16 +14,15 @@ class CheckProfCharacter extends Characters {
 
     }
 
-    public void play(Player player, Game game) throws InterruptedException {
+    public synchronized void play(Player player, Game game) throws InterruptedException {
+        if (!Characters.enoughMoney(player,cost)){return;}
+        this.cost = Characters.payandUpdateCost(player,cost);
         Player thisTurn = game.getCurrentPlayer();
         while (game.getCurrentPlayer() == thisTurn) {
             player.setOrEqual(true);
-            synchronized (this) {
-                wait();
-            }
+            wait();
         }
         player.setOrEqual(false);
-        this.cost += 1;
         System.out.println("Thread finished!");
     }
 
