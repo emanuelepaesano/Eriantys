@@ -12,15 +12,19 @@ public class GameController {
      */
     public GameController() {
         int numplayers = AskForPN();
-        game = Game.makeGame(numplayers,false); //initializes the game, because it's the first call
+        game = Game.makeGame(numplayers); //initializes the game, because it's the first call
         askAllForTC(game);
         askAllForWiz(game);
-        game.doSetUp();
+        Boolean ad = askForAdvanced();
+        game.doSetUp(ad);
 
         // TODO: 11/04/2022 initialize the view(s)
 
     }
 
+     Boolean askForAdvanced(){
+        return true;
+    }
     /**
      *
      * @return Asks and returns the number of players for this game

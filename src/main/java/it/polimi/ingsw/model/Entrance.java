@@ -36,8 +36,7 @@ public class Entrance {
                 default: stud = Student.valueOf(str.toUpperCase());}
             if (students.contains(stud)){
                 students.remove(stud);
-                int oldnum = diningRoom.getTables().get(stud);
-                diningRoom.getTables().replace(stud,oldnum,oldnum+1);
+                diningRoom.putStudent(stud);
             }
             else{
                 System.out.println("You don't have this student in your entrance!");
@@ -49,11 +48,7 @@ public class Entrance {
 
 
     public int moveToIsland(int availablemoves, GameMap gm){
-        //here we do the same thing but with choosing an island index
-        //in the second part. Let's not duplicate code, we need to make a separate method
-        //for the first part.
-        //Probably also for asking which student to move we need an independent method(done).
-        //First part is the same.
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Current map:\n" + gm);
         int nstud = askHowManyStudents(availablemoves, scanner);
@@ -129,9 +124,9 @@ public class Entrance {
     }
 
     //only for moveToIsland
-    private Island askWhichIsland(GameMap gm, Scanner scanner){
+    public Island askWhichIsland(GameMap gm, Scanner scanner){
         while (true){
-            System.out.println("To which island do you want to move it?\n" +
+            System.out.println(
                     "This is the current state of the islands:\n" + gm +
                     "\nIndicate the island by its number (0~11):") ;
             try {

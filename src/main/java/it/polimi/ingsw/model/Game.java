@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.model.character_impls.Characters;
 
 import java.util.*;
 
@@ -16,38 +17,14 @@ public class Game {
 
     private List<Character> characters;
 
-    public static Game makeGame(int numPlayers, Boolean expert){
+    public static Game makeGame(int numPlayers){
         List<Player> startingOrder = startPlayersandOrder(numPlayers);
         List<List<Student>> clouds = makeClouds(numPlayers);
         Map<Student, Integer> bag =  makeBag();
-        List<Character> characters = makeAllCharacters();
         GameMap gm = new GameMap(); //this will start the islands
-        if (expert) {
-            return new Game(numPlayers, startingOrder, clouds, bag, gm, characters);
-        }
-        else {
-            return new Game(numPlayers, startingOrder, clouds, bag, gm);
-        }
+        return new Game(numPlayers, startingOrder, clouds, bag, gm);
     }
 
-
-    private static List<Character> makeAllCharacters(){
-        Random randomizer = new Random();
-        List<Character> characters = new ArrayList<>();
-        List<Integer> availables = new ArrayList<>(List.of(1, 2, 3, 4, 5));
-        for (int i=0; i<3;i++) {
-            Integer pickedChara;
-            while(true) {
-                pickedChara = 1 + randomizer.nextInt(Collections.max(availables));
-                if (availables.contains(pickedChara)) {
-                    availables.remove(pickedChara);
-                    break;
-                }
-            }
-            characters.add(Characters.makeCharacter(pickedChara));
-        }
-        return characters;
-    }
 
     /**
      * @return initializes the players (and their tower number), returns a random starting order.
@@ -80,7 +57,9 @@ public class Game {
         return bag;
     }
 
-
+    /**
+     *Constructor for GAME
+     */
     private Game(int numPlayers, List<Player> startingOrder, List<List<Student>> clouds,
                  Map<Student, Integer> bag, GameMap gm) {
 
@@ -92,24 +71,33 @@ public class Game {
         tableOrder = new ArrayList<>(this.currentOrder); //this is to make a copy
     }
 
-    private Game(int numPlayers, List<Player> startingOrder, List<List<Student>> clouds,
-                 Map<Student, Integer> bag, GameMap gm, List<Character> characters) {
 
-        this.numPlayers = numPlayers;
-        this.clouds = clouds;
-        this.currentOrder = startingOrder;
-        this.bag = bag;
-        this.gameMap = gm;
-        this.characters = characters;
-        tableOrder = new ArrayList<>(this.currentOrder); //this is to make a copy
-    }
-
-    public void doSetUp(){
+    public void doSetUp(Boolean ad){
         round = 1;
         currentPlayer = currentOrder.get(0);
         fillClouds();
         fillAllEntrancesBag();
         gameMap.startMNAndStudents();
+        if (ad){characters = makeAllCharacters(this);}
+    }
+
+    private List<Character> makeAllCharacters(Game game){
+        Random randomizer = new Random();
+        List<Character> characters = new ArrayList<>();
+        List<Integer> availables = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 7));
+//        for (int i=0; i<3;i++) {
+//            Integer pickedChara;
+//            while(true) {
+//                pickedChara = 1 + randomizer.nextInt(Collections.max(availables));
+//                if (availables.contains(pickedChara)) {
+//                    availables.remove(pickedChara);
+//                    break;
+//                }
+//            }
+//            characters.add(Characters.makeCharacter(pickedChara, game));
+//        }
+        characters.add(Characters.makeCharacter(6,game));
+        return characters;
     }
 
     private void fillClouds(){
@@ -182,8 +170,21 @@ public class Game {
 
 
     public static void main(String[] args) {
-        Game game = Game.makeGame(2,true);
-        System.out.println(game.characters);
+        //small test for wait and notify
+        Game game = Game.makeGame(3);
+        game.doSetUp(true);
+        for (Character c : game.characters)
+        {
+            System.out.println(c);
+        }
+        Character chara = game.characters.get(0);
+        Characters.play(chara,game.currentPlayer,game);
+        System.out.println("current player: "+ game.getCurrentPlayer());
+        synchronized (game.characters.get(0)) {
+            game.setCurrentPlayer(game.getTableOrder().get(1));
+            System.out.println("current player: "+ game.getCurrentPlayer());
+            game.characters.get(0).notifyAll();
+        }
     }
 
     //BELOW THIS ALL GETTER AND SETTERS

@@ -75,6 +75,8 @@ public class Island {
         this.students = students;
     }
 
+    public int getSize() {return size;}
+
 }
 
 

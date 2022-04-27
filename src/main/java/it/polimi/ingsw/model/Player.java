@@ -12,9 +12,11 @@ public class Player {
     private Integer numTowers;
     private Map<Assistant, Boolean> assistants;
     private Assistant currentAssistant;
-    private int numActions;
-
+    private final int numActions;
+    private int baseMoves = 0;
     private int baseInfluence = 0;
+    private boolean orEqual = false;
+
     public static Player makePlayer(int id, int numPlayers){
         String pName = askPlayerName(id);
         Map<Assistant, Boolean> assistants = buildDeck();
@@ -136,7 +138,7 @@ public class Player {
             String action = askWhichAction(availableActions); //this will come from the view, so it must be in a controller
             if (Objects.equals(action, "diningroom")) {
                 availableActions -= entrance.moveToDiningRoom(availableActions, this.diningRoom);
-                this.diningRoom.checkProfessors(players);
+                this.diningRoom.checkProfessors(players,orEqual);
             }
             else if (Objects.equals(action, "islands")){
                 availableActions -= entrance.moveToIsland(availableActions, gm);}
@@ -157,13 +159,14 @@ public class Player {
      * This could change if we choose to move that method
      */
     public int askMNMoves(){
+        int possibleMoves = baseMoves + currentAssistant.getMoves();
         Scanner scanner = new Scanner(System.in);
         System.out.println(playerName + ", how many steps do you want to move Mother Nature? " +
-                "(At least 1, maximum " + currentAssistant.getMoves() + ")");
+                "(At least 1, maximum " + possibleMoves + ")");
         while (true) {
             try {
                 int choice = scanner.nextInt();
-                if (choice >=1 && choice<= currentAssistant.getMoves()){
+                if (choice >=1 && choice<= possibleMoves){
                     return choice;
                 }
                 else{System.out.println("That choice is not allowed! Try again");}
@@ -242,10 +245,17 @@ public class Player {
         this.currentAssistant = currentAssistant;
     }
 
-    public int getBaseInfluence() {
-        return baseInfluence;}
+    public int getBaseInfluence() { return baseInfluence;}
 
-    public void setBaseInfluence(int baseInfluence) {
-        this.baseInfluence = baseInfluence;
+    public void setBaseInfluence(int baseInfluence) { this.baseInfluence = baseInfluence;}
+
+    public int getBaseMoves() {
+        return baseMoves;
     }
+
+    public void setBaseMoves(int baseMoves) {
+        this.baseMoves = baseMoves;
+    }
+
+    public void setOrEqual(boolean orEqual) {this.orEqual = orEqual;}
 }

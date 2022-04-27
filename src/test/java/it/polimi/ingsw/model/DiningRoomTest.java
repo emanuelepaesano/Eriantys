@@ -57,7 +57,7 @@ class DiningRoomTest {
         //best opponent's student number for: BLUE=2, PINK=1, GREEN=3, YELLOW=5, RED=3
         testDiningRoom.getTables().putAll(
         Map.of(  Student.BLUE,3,  Student.PINK,9,  Student.GREEN,4,  Student.RED,1  ));
-        testDiningRoom.checkProfessors(players);
+        testDiningRoom.checkProfessors(players,false);
         assertEquals(expected,testDiningRoom.getProfessors(),"We should get only pink and green professors");
     }
 
