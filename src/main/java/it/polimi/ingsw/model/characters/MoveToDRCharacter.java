@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.character_impls;
+package it.polimi.ingsw.model.characters;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
@@ -24,7 +24,7 @@ class MoveToDRCharacter extends Characters {
     }
 
     public void play(Player player, Game game) {
-        if (!Characters.enoughMoney(player,cost)){
+        if (!Character.enoughMoney(player,cost)){
             System.out.println("You don't have enough money!");
             return;}
         Scanner scanner = new Scanner(System.in);
@@ -53,7 +53,7 @@ class MoveToDRCharacter extends Characters {
                 System.out.println("Not a valid color, try again.");
             }
         }
-        this.cost = Characters.payandUpdateCost(player,cost);
+        this.cost = Character.payandUpdateCost(player,cost);
     }
 
     @Override

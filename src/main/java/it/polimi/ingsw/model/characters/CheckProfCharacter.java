@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.character_impls;
+package it.polimi.ingsw.model.characters;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
@@ -15,8 +15,8 @@ class CheckProfCharacter extends Characters {
     }
 
     public synchronized void play(Player player, Game game) throws InterruptedException {
-        if (!Characters.enoughMoney(player,cost)){return;}
-        this.cost = Characters.payandUpdateCost(player,cost);
+        if (!Character.enoughMoney(player,cost)){return;}
+        this.cost = Character.payandUpdateCost(player,cost);
         Player thisTurn = game.getCurrentPlayer();
         while (game.getCurrentPlayer() == thisTurn) {
             player.setOrEqual(true);

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.character_impls;
+package it.polimi.ingsw.model.characters;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Island;
@@ -17,10 +17,10 @@ class NoTowersCharacter extends Characters {
     }
 
     public synchronized void play(Player player, Game game) throws InterruptedException {
-        if (!Characters.enoughMoney(player,cost)){
+        if (!Character.enoughMoney(player,cost)){
             System.out.println("You don't have enough money!");
             return;}
-        this.cost = Characters.payandUpdateCost(player,cost);
+        this.cost = Character.payandUpdateCost(player,cost);
         Player thisTurn = game.getCurrentPlayer();
         List<Island> islands = game.getGameMap().getArchipelago();
         List<Integer> oldsizes = islands.stream().map(Island::getSize).toList();

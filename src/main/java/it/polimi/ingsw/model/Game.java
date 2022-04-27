@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 import it.polimi.ingsw.controller.PlayerController;
-import it.polimi.ingsw.model.character_impls.Characters;
+import it.polimi.ingsw.model.characters.Character;
 
 import java.util.*;
 
@@ -94,8 +94,9 @@ public class Game {
                     break;
                 }
             }
-            characters.add(Characters.makeCharacter(pickedChara, game));
+            characters.add(Character.makeCharacter(pickedChara, game));
         }
+//        characters.add(Character.makeCharacter(5,game));
         return characters;
     }
 
@@ -177,16 +178,17 @@ public class Game {
             System.out.println(c);
         }
         Character chara = game.characters.get(0);
-        game.getCurrentPlayer().getDiningRoom().setCoins(3);
+        game.getCurrentPlayer().setCoins(3);
         Player user = game.currentPlayer;
-        Characters.play(chara,user,game);
+        Character.play(chara,user,game);
         System.out.println("current player: "+ game.getCurrentPlayer());
+        game.gameMap.getArchipelago().get(0).checkOwner(game.getTableOrder());
         synchronized (game.characters.get(0)) {
             game.setCurrentPlayer(game.getTableOrder().get(1));
             System.out.println("current player: "+ game.getCurrentPlayer());
             game.characters.get(0).notifyAll();
         }
-        System.out.println(user.getDiningRoom().getCoins());
+        System.out.println("coins after payment: " + user.getCoins());
     }
 
     //BELOW THIS ALL GETTER AND SETTERS

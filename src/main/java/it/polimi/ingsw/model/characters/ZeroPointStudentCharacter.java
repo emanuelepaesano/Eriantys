@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.character_impls;
+package it.polimi.ingsw.model.characters;
 
 import it.polimi.ingsw.model.*;
 
@@ -16,7 +16,7 @@ class ZeroPointStudentCharacter extends Characters {
     }
 
     public synchronized void play(Player player, Game game) throws InterruptedException {
-        if (!Characters.enoughMoney(player,cost)){
+        if (!Character.enoughMoney(player,cost)){
             System.out.println("You don't have enough money!");
             return;}
         Student student;
@@ -34,18 +34,15 @@ class ZeroPointStudentCharacter extends Characters {
         }
         Student finalStudent = student;
         List<Integer> oldnumbers = islands.stream().map(i -> i.getStudents().get(finalStudent)).toList();
-        this.cost = Characters.payandUpdateCost(player,cost);
+        this.cost = Character.payandUpdateCost(player,cost);
         while (game.getCurrentPlayer() == thisTurn) {
             islands.replaceAll(i -> {
-                i.getStudents().replace(finalStudent, 0);
-                return i;
+                i.getStudents().replace(finalStudent, 0);return i;
             });
             System.out.println(game.getGameMap());
             wait();
         }
-        islands.replaceAll(i -> {
-            i.getStudents().replace(finalStudent, oldnumbers.get(islands.indexOf(i)));
-            return i;
+        islands.replaceAll(i -> {i.getStudents().replace(finalStudent, oldnumbers.get(islands.indexOf(i)));return i;
         });
         System.out.println(game.getGameMap());
         System.out.println("Thread finished!");

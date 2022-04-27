@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.character_impls;
+package it.polimi.ingsw.model.characters;
 
 import it.polimi.ingsw.model.*;
 
@@ -21,7 +21,7 @@ import java.util.Scanner;
 
     public void play(Player player, Game game) {
         //ask the player which one wants and then ask the island
-        if (!Characters.enoughMoney(player,cost)){
+        if (!Character.enoughMoney(player,cost)){
             System.out.println("You don't have enough money!");
             return;}
         Student student;
@@ -44,7 +44,7 @@ import java.util.Scanner;
         int oldval = island.students.get(student);
         island.students.replace(student, oldval, oldval + 1);
         students.add(game.drawFromBag());
-        this.cost = Characters.payandUpdateCost(player,cost);
+        this.cost = Character.payandUpdateCost(player,cost);
     }
     public int getCost() {
         return cost;

@@ -1,34 +1,33 @@
-package it.polimi.ingsw.model.character_impls;
+package it.polimi.ingsw.model.characters;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 
 /**
- * This turn player has +2 influence
+ * For this turn, player has +2 Mother Nature movements
  */
-class MoreInfluenceCharacter extends Characters {
-
+class MoreMovementsCharacter extends Characters {
     int cost;
 
-    public MoreInfluenceCharacter() {
+    public MoreMovementsCharacter() {
         this.cost = 1;
     }
 
     public synchronized void play(Player player, Game game) throws InterruptedException {
-        //this turn +2 influence (n.b. you cant combine characters)
-        if (!Characters.enoughMoney(player,cost)){return;}
-        this.cost = Characters.payandUpdateCost(player,cost);
+        if (!Character.enoughMoney(player,cost)){
+            System.out.println("You don't have enough money!");
+            return;}
+        this.cost = Character.payandUpdateCost(player,cost);
         Player thisTurn = game.getCurrentPlayer();
         while (game.getCurrentPlayer() == thisTurn) {
-            player.setBaseInfluence(2);
+            player.setBaseMoves(2);
             wait();
         }
-        player.setBaseInfluence(0);
+        player.setBaseMoves(0);
         System.out.println("Thread finished!");
     }
 
     public int getCost() {
         return cost;
     }
-
 }
