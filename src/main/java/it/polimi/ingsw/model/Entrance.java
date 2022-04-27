@@ -28,12 +28,14 @@ public class Entrance {
         String str;
         Student stud;
         for (int i = 0;i<nstud;i++){
-            switch (str = askWhichColor(i, scanner)){
-                case "back": return i;
-                case "retry":
-                    i-=1;
-                    continue;
-                default: stud = Student.valueOf(str.toUpperCase());}
+            System.out.println("For student " +i + " :\n");
+            str = Student.askStudent(students, scanner).toUpperCase();
+            if  (str.equals("BACK")) {return i;}
+            else if  (str.equals("RETRY")) {
+                i -= 1;
+                continue;}
+            else {stud = Student.valueOf(str);}
+
             if (students.contains(stud)){
                 students.remove(stud);
                 diningRoom.putStudent(stud);
@@ -55,13 +57,13 @@ public class Entrance {
         String str;
         Student stud;
         for (int i = 0;i<nstud;i++){
-            switch (str = askWhichColor(i, scanner)){
-                case "back": return i;//if player wants back at 1st iteration, we don't remove actions and so on
-                case "retry":
-                    i-=1;
-                    continue;
-                default: stud = Student.valueOf(str.toUpperCase());
-            }
+            System.out.println("For student number " +i + " :\n");
+            str = Student.askStudent(students, scanner).toUpperCase();
+            if  (str.equals("BACK")) {return i;}
+            else if  (str.equals("RETRY")) {
+                i -= 1;
+                continue;}
+            else {stud = Student.valueOf(str);}
             //In the 2nd part now we move it to the chosen island
             if (students.contains(stud)){
                 students.remove(stud);
@@ -77,28 +79,6 @@ public class Entrance {
         return nstud; //doActions() needs this
     }
 
-    /**
-     *
-     * @param iteration the number of the student moved, from the 2 methods that use this
-     * @return a String to signal if the input is acceptable(in this case it's returned), or not
-     */
-    private String askWhichColor(int iteration, Scanner scanner){
-        String str;
-        try{
-            System.out.println("Choose the color of student number " + (iteration+1) + " from your entrance:\n"
-                    + students + ", or type \"back\" to change action");
-            str = scanner.nextLine();
-            if (Objects.equals(str, "back")) {return "back";}
-            else {
-                Student.valueOf(str.toUpperCase());
-                return str;
-            }
-        }
-        catch (IllegalArgumentException ex) {
-            System.out.println("Not a valid color, try again.");
-            return ("retry");
-        }
-    }
 
     /**
      *
@@ -122,11 +102,6 @@ public class Entrance {
         }
         return nstud;
     }
-
-    //only for moveToIsland
-
-
-
 
 
     //only for test, will need to draw from the clouds/bag in the game
