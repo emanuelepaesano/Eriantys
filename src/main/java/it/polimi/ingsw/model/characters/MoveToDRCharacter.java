@@ -17,43 +17,47 @@ class MoveToDRCharacter extends Characters {
 
     List<Student> students;
 
+    Scanner scanner = new Scanner(System.in);
+
     public MoveToDRCharacter(Game game) {
         this.cost = 2;
         students = new ArrayList<>(List.of(game.drawFromBag(), game.drawFromBag(),
                 game.drawFromBag(), game.drawFromBag()));
     }
 
-    public void play(Player player, Game game) {
-        if (!Character.enoughMoney(player,cost)){
-            System.out.println("You don't have enough money!");
-            return;}
-        Scanner scanner = new Scanner(System.in);
-        String str;
+    private Student pickStudent(){
+        Student student;
         while (true) {
-            try {
-                System.out.println(player + ", choose 1 student to move to your Dining Room");
-                System.out.println("Choose the color of the student: " + students + ", or type \"back\" to annull. ");
-                str = scanner.nextLine();
-                if (Objects.equals(str, "back")) {
-                    return;
-                } else {
-                    Student stud = Student.valueOf(str.toUpperCase());
-                    if (students.contains(stud)) {
-                        students.remove(stud);
-                        player.getDiningRoom().putStudent(stud);
-                        if (students.size() < 3) {
-                            students.add(game.drawFromBag());
-                        }
-                        break;
-                    } else {
-                        System.out.println("the character does not have that student! Try again");
-                    }
+            System.out.println("Choose 1 student from the character to move to your dining Room.");
+            String str = Student.askStudent(students, scanner).toUpperCase();
+            if (str.equals("RETRY")){continue;}
+            if (str.equals("BACK")){return null;}
+            else if (List.of(Student.values()).contains(Student.valueOf(str))) {
+                student = Student.valueOf(str);
+                if (!students.contains(student)){
+                    System.err.println("the character does not have that student! Try again");
+                    continue;
                 }
-            } catch (IllegalArgumentException ex) {
-                System.out.println("Not a valid color, try again.");
+                break;
             }
         }
+        return student;
+    }
+
+    public void play(Player player, Game game) {
+        Student chosenStudent = pickStudent();
+        if (chosenStudent == null){return;}
+        if (!Character.enoughMoney(player,cost)){
+            System.err.println("You don't have enough money!");
+            return;}
+        students.remove(chosenStudent);
+        player.getDiningRoom().putStudent(chosenStudent);
+        player.getDiningRoom().checkProfessors(game.getTableOrder(),false);
+        if (students.size() < 3) {
+            students.add(game.drawFromBag());
+        }
         this.cost = Character.payandUpdateCost(player,cost);
+        System.out.println("New Dining Room:\n " + player.getDiningRoom());
     }
 
     @Override

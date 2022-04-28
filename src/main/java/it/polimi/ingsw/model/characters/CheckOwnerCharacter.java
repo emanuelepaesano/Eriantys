@@ -18,7 +18,9 @@ class CheckOwnerCharacter extends Characters {
 
     public void play(Player player, Game game) {
         //choose an island to checkOwner() immediately
-        if (!Character.enoughMoney(player,cost)){return;}
+        if (!Character.enoughMoney(player,cost)){
+            System.err.println("You don't have enough money!");
+            return;}
         System.out.println(player + ", please choose an island to resolve.");
         Scanner scanner = new Scanner(System.in);
         Island island = game.getGameMap().askWhichIsland(scanner);

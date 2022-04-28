@@ -86,19 +86,19 @@ public class Game {
     private List<Character> makeAllCharacters(Game game){
 
         characters = new ArrayList<>();
-        List<Integer> availables = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 7));
-        for (int i=0; i<3;i++) {
-            Integer pickedChara;
-            while(true) {
-                pickedChara = 1 + randomizer.nextInt(Collections.max(availables));
-                if (availables.contains(pickedChara)) {
-                    availables.remove(pickedChara);
-                    break;
-                }
-            }
-            characters.add(Character.makeCharacter(pickedChara, game));
-        }
-//        characters.add(Character.makeCharacter(5,game));
+//        List<Integer> availables = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 7));
+//        for (int i=0; i<3;i++) {
+//            Integer pickedChara;
+//            while(true) {
+//                pickedChara = 1 + randomizer.nextInt(Collections.max(availables));
+//                if (availables.contains(pickedChara)) {
+//                    availables.remove(pickedChara);
+//                    break;
+//                }
+//            }
+//            characters.add(Character.makeCharacter(pickedChara, game));
+//        }
+        characters.add(Character.makeCharacter(5,game));
         return characters;
     }
 
@@ -189,7 +189,6 @@ public class Game {
             System.out.println("current player: "+ game.getCurrentPlayer());
             game.characters.get(0).notifyAll();
         }
-        System.out.println("coins after payment: " + user.getCoins());
     }
 
     //BELOW THIS ALL GETTER AND SETTERS

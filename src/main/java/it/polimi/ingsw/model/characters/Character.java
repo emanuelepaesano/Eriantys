@@ -2,20 +2,21 @@ package it.polimi.ingsw.model.characters;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.Student;
 
 public interface Character {
      /////////////this factory constructs the corresponding character,
      /////////////depending on the subtype of character that is passed.
      static Character makeCharacter(Integer chara, Game game) {
           return switch (chara) {
-               case 1 -> new CheckProfCharacter();
-               case 2 -> new CheckOwnerCharacter();
-               case 3 -> new MoreMovementsCharacter();
-               case 4 -> new NoTowersCharacter();
-               case 5 -> new MoreInfluenceCharacter();
-               case 6 -> new ZeroPointStudentCharacter();
+               case 1 -> new CheckOwnerCharacter();
+               case 2 -> new CheckProfCharacter();
+               case 3 -> new MoreInfluenceCharacter();
+               case 4 -> new MoreMovementsCharacter();
+               case 5 -> new MoveToDRCharacter(game);
+               case 6 -> new NoTowersCharacter();
                case 7 -> new PlaceInIslandCharacter(game);
-               case 8 -> new MoveToDRCharacter(game);
+               case 8 -> new ZeroPointStudentCharacter();
                default -> null;
           };
      }
@@ -42,10 +43,12 @@ public interface Character {
 
      static int payandUpdateCost(Player player, int cost){
           player.setCoins(player.getCoins() - cost);
+          System.out.println("coins after payment: " + player.getCoins());
           return cost + 1;
      }
 
      void play(Player player, Game game) throws InterruptedException;
+
 
      int getCost();
 

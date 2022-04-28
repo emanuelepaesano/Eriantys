@@ -255,13 +255,8 @@ public class Player {
         this.currentAssistant = currentAssistant;
     }
 
-    public int getBaseInfluence() { return baseInfluence;}
 
     public void setBaseInfluence(int baseInfluence) { this.baseInfluence = baseInfluence;}
-
-    public int getBaseMoves() {
-        return baseMoves;
-    }
 
     public void setBaseMoves(int baseMoves) {
         this.baseMoves = baseMoves;

@@ -15,7 +15,9 @@ class CheckProfCharacter extends Characters {
     }
 
     public synchronized void play(Player player, Game game) throws InterruptedException {
-        if (!Character.enoughMoney(player,cost)){return;}
+        if (!Character.enoughMoney(player,cost)){
+            System.err.println("You don't have enough money!");
+            return;}
         this.cost = Character.payandUpdateCost(player,cost);
         Player thisTurn = game.getCurrentPlayer();
         while (game.getCurrentPlayer() == thisTurn) {

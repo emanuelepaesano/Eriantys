@@ -12,6 +12,7 @@ import java.util.Scanner;
  class PlaceInIslandCharacter extends Characters {
     int cost;
     List<Student> students;
+    Scanner scanner = new Scanner(System.in);
 
     public PlaceInIslandCharacter(Game game) {
         this.cost = 1;
@@ -19,30 +20,36 @@ import java.util.Scanner;
                 List.of(game.drawFromBag(), game.drawFromBag(), game.drawFromBag()));
     }
 
+    private Student pickStudent(){
+        Student student;
+        while (true) {
+            System.out.println("Choose 1 student from this character to move to an island.");
+            String str = Student.askStudent(students, scanner).toUpperCase();
+            if (str.equals("RETRY")){continue;}
+            if (str.equals("BACK")){return null;}
+            else if (List.of(Student.values()).contains(Student.valueOf(str))) {
+                student = Student.valueOf(str);
+                if (!students.contains(student)){
+                    System.err.println("the character does not have that student! Try again");
+                    continue;
+                }
+                break;
+            }
+        }
+        return student;
+    }
+
     public void play(Player player, Game game) {
-        //ask the player which one wants and then ask the island
+        Student chosenStudent = pickStudent();
+        if(chosenStudent ==null){return;}
         if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
             return;}
-        Student student;
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            String str = Student.askStudent(students, scanner).toUpperCase();
-                if (str.equals("RETRY")){continue;}
-                if (str.equals("BACK")){return;}
-                else if (List.of(Student.values()).contains(Student.valueOf(str))) {
-                    student = Student.valueOf(str);
-                    if (!students.contains(student)){
-                        System.err.println("the character does not have that student! Try again");
-                        continue;
-                    }
-                    break;
-                }
-            }
+
         Island island = game.getGameMap().askWhichIsland(scanner);
-        students.remove(student);
-        int oldval = island.students.get(student);
-        island.students.replace(student, oldval, oldval + 1);
+        students.remove(chosenStudent);
+        int oldval = island.students.get(chosenStudent);
+        island.students.replace(chosenStudent, oldval, oldval + 1);
         students.add(game.drawFromBag());
         this.cost = Character.payandUpdateCost(player,cost);
     }
