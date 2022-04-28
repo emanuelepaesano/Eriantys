@@ -91,7 +91,9 @@ public class Player {
                     this.towerColor = choice;
                     return choice;
                 }
-            } catch (IllegalArgumentException ignored) {}
+            } catch (IllegalArgumentException ex) {
+                System.out.println("Try again!");
+            }
             System.out.println("Not an acceptable color, available colors are: "+ remainingColors.toString());
         }
     }

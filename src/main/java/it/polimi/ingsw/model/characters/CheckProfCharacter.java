@@ -23,7 +23,6 @@ class CheckProfCharacter extends Characters {
             wait();
         }
         player.setOrEqual(false);
-        System.out.println("Thread finished!");
     }
 
     public int getCost() {

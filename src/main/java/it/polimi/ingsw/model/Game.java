@@ -17,6 +17,8 @@ public class Game {
 
     private List<Character> characters;
 
+    Random randomizer = new Random();
+
     public static Game makeGame(int numPlayers){
         List<Player> startingOrder = startPlayersandOrder(numPlayers);
         List<List<Student>> clouds = makeClouds(numPlayers);
@@ -50,7 +52,7 @@ public class Game {
     }
 
     private static Map<Student,Integer> makeBag(){
-        Map<Student,Integer> bag = new HashMap<>();
+        Map<Student,Integer> bag = new EnumMap<>(Student.class);
         for (Student sc : Student.values()){
             bag.put(sc,24);
         }
@@ -82,8 +84,8 @@ public class Game {
     }
 
     private List<Character> makeAllCharacters(Game game){
-        Random randomizer = new Random();
-        List<Character> characters = new ArrayList<>();
+
+        characters = new ArrayList<>();
         List<Integer> availables = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 7));
         for (int i=0; i<3;i++) {
             Integer pickedChara;
@@ -124,7 +126,6 @@ public class Game {
     }
 
     public Student drawFromBag(){
-        Random randomizer = new Random();
         int randind = randomizer.nextInt(5);
         Student randstud = Arrays.asList(Student.values()).get(randind);
         int oldnum = bag.get(randstud);
@@ -153,7 +154,7 @@ public class Game {
                 int choice = scanner.nextInt();
                 if (choice<= clouds.size() && choice >= 1 ){
                     List<Student> cloud = clouds.get(choice-1);
-                    if (cloud.size()>0){
+                    if (cloud.isEmpty()){
                         //add those students to our entrance
                         player.getEntrance().getStudents().addAll(cloud);
                         cloud.clear();
@@ -180,8 +181,8 @@ public class Game {
         Character chara = game.characters.get(0);
         game.getCurrentPlayer().setCoins(3);
         Player user = game.currentPlayer;
-        Character.play(chara,user,game);
         System.out.println("current player: "+ game.getCurrentPlayer());
+        Character.play(chara,user,game);
         game.gameMap.getArchipelago().get(0).checkOwner(game.getTableOrder());
         synchronized (game.characters.get(0)) {
             game.setCurrentPlayer(game.getTableOrder().get(1));

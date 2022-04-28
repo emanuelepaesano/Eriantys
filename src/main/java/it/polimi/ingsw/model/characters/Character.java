@@ -29,7 +29,8 @@ public interface Character {
 
                try {character.play(p,game);
 
-               } catch (InterruptedException e) {throw new RuntimeException(e);}
+               } catch (InterruptedException e) {Thread.currentThread().interrupt();}
+               System.out.println("Thread finished!");
           });
 
           activeCharacter.start();

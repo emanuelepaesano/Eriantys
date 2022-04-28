@@ -22,7 +22,7 @@ import java.util.Scanner;
     public void play(Player player, Game game) {
         //ask the player which one wants and then ask the island
         if (!Character.enoughMoney(player,cost)){
-            System.out.println("You don't have enough money!");
+            System.err.println("You don't have enough money!");
             return;}
         Student student;
         Scanner scanner = new Scanner(System.in);
@@ -33,7 +33,7 @@ import java.util.Scanner;
                 else if (List.of(Student.values()).contains(Student.valueOf(str))) {
                     student = Student.valueOf(str);
                     if (!students.contains(student)){
-                        System.out.println("the character does not have that student! Try again");
+                        System.err.println("the character does not have that student! Try again");
                         continue;
                     }
                     break;

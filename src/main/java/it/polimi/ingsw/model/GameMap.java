@@ -1,12 +1,13 @@
 package it.polimi.ingsw.model;
 
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 public class GameMap {
 
     private final List<Island> archipelago;
     private int motherNature;
+    Random randomizer = new Random();
 
     public GameMap(){
         archipelago = makeIslands();
@@ -30,7 +31,7 @@ public class GameMap {
      * - Initializes students from a "smallBag" containing 2 of each color
      */
     public void startMNAndStudents(){
-        Random randomizer = new Random();
+
         motherNature =  randomizer.nextInt(12);
         System.out.println("mother nature is here:" + motherNature);
 
@@ -87,6 +88,9 @@ public class GameMap {
                 tojoin.size += 1;
                 archipelago.remove(right);
                 motherNature = archipelago.indexOf(tojoin);
+                break;
+            default:
+                System.err.println("Something went wrong...");
                 break;
         }
     }

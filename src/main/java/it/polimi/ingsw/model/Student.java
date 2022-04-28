@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model;
 
 import java.util.*;
-import java.util.HashMap;
 // TODO: 11/04/2022
 //  -> add abbreviations
 
@@ -14,7 +13,7 @@ public enum Student {
     ;
 
     public static Map<Student, Integer> makeStudents() {
-        Map<Student, Integer> studs = new HashMap<>();
+        Map<Student, Integer> studs = new EnumMap<>(Student.class);
         for (Student sc : Student.values()) {
             studs.put(sc, 0);
         }

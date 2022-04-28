@@ -106,7 +106,6 @@ public class Entrance {
 
     //only for test, will need to draw from the clouds/bag in the game
     public void fillTEST(){
-        Random randomizer = new Random();
         for (int i = 0; i< this.size;i++){
             Student s = Arrays.asList(Student.values()).get(i%5);
             students.set(i,s);

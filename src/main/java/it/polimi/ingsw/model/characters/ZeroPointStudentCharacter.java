@@ -45,7 +45,6 @@ class ZeroPointStudentCharacter extends Characters {
         islands.replaceAll(i -> {i.getStudents().replace(finalStudent, oldnumbers.get(islands.indexOf(i)));return i;
         });
         System.out.println(game.getGameMap());
-        System.out.println("Thread finished!");
     }
 
     public int getCost() {

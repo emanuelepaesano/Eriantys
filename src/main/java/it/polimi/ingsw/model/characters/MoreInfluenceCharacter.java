@@ -24,7 +24,6 @@ class MoreInfluenceCharacter extends Characters {
             wait();
         }
         player.setBaseInfluence(0);
-        System.out.println("Thread finished!");
     }
 
     public int getCost() {

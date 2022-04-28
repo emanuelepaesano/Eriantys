@@ -26,7 +26,6 @@ class NoTowersCharacter extends Characters {
         List<Integer> oldsizes = islands.stream().map(Island::getSize).toList();
         while (game.getCurrentPlayer() == thisTurn) {
             //we either make size 0 or  change the checkowner
-            //if (islands.get(0).getSize() != 0){
             islands.replaceAll(island -> {
                 island.setSize(0);
                 return island;
@@ -37,7 +36,6 @@ class NoTowersCharacter extends Characters {
             island.setSize(oldsizes.get(islands.indexOf(island)));
             return island;
         });
-        System.out.println("Thread finished!");
     }
 
     public int getCost() {

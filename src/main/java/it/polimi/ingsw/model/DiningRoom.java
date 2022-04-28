@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +33,7 @@ public class DiningRoom {
      * @return initializes all professors to false
      */
     private Map<Student,Boolean> makeProfessors(){
-        professors = new HashMap<>();
+        professors = new EnumMap<>(Student.class);
         for (Student sc : Student.values()){
             professors.put(sc,false);
         }
@@ -41,29 +41,41 @@ public class DiningRoom {
     }
 
 
-    public void checkProfessors(List<Player> players, Boolean orEqual){
+    public void checkProfessors(List<Player> players, Boolean orEqual) {
         //look into all players to see if we get that professor (for every table)
         //N.B: we win only with strictly more students
         for (Student table : Student.values()) {
-            int countwins = 0;
-            for (Player p : players) {
-                if (orEqual){
-                    if (this.tables.get(table) >= p.getDiningRoom().tables.get(table)) {
-                        countwins += 1;
-                }}
-                else{
-                    if (this.tables.get(table) > p.getDiningRoom().tables.get(table)) {
-                    countwins += 1;
-                }}
-            }
-            if (orEqual? countwins == (players.size()):countwins == (players.size())-1) {
-                //set all to false and then our to true
+            int countwins;
+            if (orEqual) {countwins= countOrEqualWins(players, table);}
+            else {countwins = countNormalWins(players,table);}
+            //you need enough wins, but with orEqual you will also beat yourself
+            if (orEqual? countwins == (players.size()) : countwins == (players.size()) - 1) {
                 for (Player p : players) {
                     p.getDiningRoom().professors.replace(table, true, false);
                 }
                 this.professors.replace(table, true);
             }
         }
+    }
+
+    private int countNormalWins(List<Player> players, Student table){
+        int countwins = 0;
+        for (Player p : players) {
+                if (this.tables.get(table) > p.getDiningRoom().tables.get(table)) {
+                    countwins += 1;
+                }
+        }
+        return countwins;
+
+    }
+    private int countOrEqualWins(List<Player> players, Student table){
+        int countwins = 0;
+        for (Player p : players) {
+            if (this.tables.get(table) >= p.getDiningRoom().tables.get(table)) {
+                countwins += 1;
+            }
+        }
+        return countwins;
     }
 
     @Override
