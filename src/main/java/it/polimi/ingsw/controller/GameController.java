@@ -6,12 +6,13 @@ import java.util.*;
 
 public class GameController {
     private Game game;
+
     /**
      * In the constructor we can put the methods to inizialize the game.
      * Our main will call the constructor of this class to start the game
      */
     public GameController() {
-        int numplayers = AskForPN();
+        int numplayers = askForPN();
         game = Game.makeGame(numplayers); //initializes the game, because it's the first call
         askAllForTC(game);
         askAllForWiz(game);
@@ -22,20 +23,29 @@ public class GameController {
 
     }
 
-     Boolean askForAdvanced(){
-        return true;
-    }
     /**
      *
      * @return Asks and returns the number of players for this game
      */
-    private int AskForPN() {
+    private int askForPN() {
         int input = 0;
         while ((input != 3) && (input != 2)) {
-            System.out.println("Enter number of players:");
+            System.out.println("Welcome! Please enter number of players:");
             input = Integer.parseInt(new Scanner(System.in).nextLine());
         }
         return input;
+    }
+
+    Boolean askForAdvanced(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Normal game or expert version? Please type \"normal\" or \"expert\".");
+        while (true){
+            String choice = scanner.nextLine();
+            if (choice.equalsIgnoreCase("expert")) {return true;}
+            else if (choice.equalsIgnoreCase("normal")) {return false;}
+
+            System.err.println("What do you mean? Please type \"normal\" or \"expert\".");
+        }
     }
 
 
@@ -74,7 +84,7 @@ public class GameController {
 
     /**
      * I put this here for now but maybe we can do a planningPhaseController.
-     * This is a bit complicated, we might break it down somehow. maybe this could go in the game actually...
+     * This is a bit complicated, we might break it down somehow.
      */
     public void doPlanningPhase(Game g){
         // TODO: 13/04/2022 we miss the case in which the player only has the same assistant left

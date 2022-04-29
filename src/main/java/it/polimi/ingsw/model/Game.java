@@ -98,7 +98,7 @@ public class Game {
 //            }
 //            characters.add(Character.makeCharacter(pickedChara, game));
 //        }
-        characters.add(Character.makeCharacter(5,game));
+        characters.add(Character.makeCharacter(3,game));
         return characters;
     }
 
