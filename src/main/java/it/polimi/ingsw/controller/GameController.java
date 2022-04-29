@@ -1,18 +1,24 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.ServerHandler;
 import it.polimi.ingsw.model.*;
 
+import java.io.IOException;
 import java.util.*;
 
 public class GameController {
     private Game game;
+    private ServerHandler server;
 
     /**
      * In the constructor we can put the methods to inizialize the game.
      * Our main will call the constructor of this class to start the game
      */
-    public GameController() {
+    public GameController() throws IOException {
+        server = new ServerHandler(1337);
+        server.startServer();
         int numplayers = askForPN();
+        server.lookForMorePlayers(numplayers-1);
         game = Game.makeGame(numplayers); //initializes the game, because it's the first call
         askAllForTC(game);
         askAllForWiz(game);
@@ -30,8 +36,8 @@ public class GameController {
     private int askForPN() {
         int input = 0;
         while ((input != 3) && (input != 2)) {
-            System.out.println("Welcome! Please enter number of players:");
-            input = Integer.parseInt(new Scanner(System.in).nextLine());
+            server.update("Welcome! Please enter number of players:");
+            input = Integer.parseInt(server.getAnswer());
         }
         return input;
     }
@@ -129,4 +135,5 @@ public class GameController {
     public Game getGame() {
         return game;
     }
+    
 }

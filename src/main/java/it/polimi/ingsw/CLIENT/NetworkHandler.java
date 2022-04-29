@@ -19,13 +19,16 @@ public class NetworkHandler{
     }
 
     public void startClient(View view) throws IOException{
+        this.view = view;
         try (socket) {
             PrintWriter outSocket = new PrintWriter(socket.getOutputStream());
             Scanner socketScanner = new Scanner(socket.getInputStream());
             while (true) {
                 String socketInput = socketScanner.nextLine();
                 model = socketInput;
-                view.update(this);
+                view.update();
+                outSocket.println(view.getUserInput());
+                outSocket.flush();
             }
         }
     }

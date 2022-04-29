@@ -1,6 +1,7 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.CLIENT.NetworkHandler;
+import it.polimi.ingsw.controller.GameController;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -14,6 +15,10 @@ import java.util.Scanner;
 public class ServerHandler {
     int port;
     List<Socket> clients;
+    String model;
+    Scanner inStream;
+    PrintWriter outStream;
+    ServerSocket serverSocket;
     //To the first client we ask the number of players, which is the first thing inside the gamecontroller
     public ServerHandler(int port) {
         this.port = port;
@@ -21,37 +26,46 @@ public class ServerHandler {
     }
 
     // TODO: 29/04/2022 obviously this will need to handle more than 1 client
-    public void startServer() throws IOException, InterruptedException{
-        ServerSocket serverSocket;
+    public void startServer() throws IOException{
+
         try {serverSocket = new ServerSocket(port);}
         catch (IOException e) {System.err.println(e.getMessage()); return;}
         System.out.println("Server ready");
-        while(clients.size()<3) {
-            Socket socket = serverSocket.accept();
-            clients.add(socket);
-            System.out.println("Connected!");
-        }
-        while (true) {
-            try {
-                //with this we can send stuff to 1 client only
-                PrintWriter outStream = new PrintWriter(clients.get(0).getOutputStream());
-                outStream.println("Look i'm sending the model!");
-                outStream.flush();
-                Thread.sleep(5000);
+
+        Socket socket = serverSocket.accept();
+        clients.add(socket);
+        System.out.println("Connected!");
+        try {
+            inStream = new Scanner(socket.getInputStream());
+            outStream = new PrintWriter(socket.getOutputStream());
             } catch(IOException e) {
                 e.printStackTrace();
-                break;
             }
+    }
+
+    public void lookForMorePlayers(int n) throws IOException {
+        for (int i=0; i<n ; i++){
+            Socket socket = serverSocket.accept();
+            clients.add(socket);
+            System.out.println("Connected! We are at " + (i+2) + " players out of " + (n+1));
         }
-        System.out.println("Closing the server ... ");
-        serverSocket.close();
+        System.out.println("We can start the game! ("+ (n+1) +"-player game)");
+    }
+
+    public void update(String model){
+        outStream.println(model);
+        outStream.flush();
+    }
+
+    public String getAnswer(){
+        return inStream.nextLine();
     }
 
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        ServerHandler sh = new ServerHandler(1337);
-        sh.startServer();
+        GameController gc = new GameController();
 
     }
+
 }
 
