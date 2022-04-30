@@ -36,8 +36,8 @@ public class Game {
     private static List<Player> startPlayersandOrder(int numPlayers){
         ArrayList<Player> startingOrder = new ArrayList<>();
         for (int i=0; i< numPlayers; i++){
-            PlayerController pc = new PlayerController(i+1, numPlayers);
-            startingOrder.add(pc.getPlayer());
+            Player player = Player.makePlayer(i+1,numPlayers);
+            startingOrder.add(player);
         }
         Collections.shuffle(startingOrder);
         return startingOrder;
@@ -59,9 +59,7 @@ public class Game {
         return bag;
     }
 
-    /**
-     *Constructor for GAME
-     */
+
     private Game(int numPlayers, List<Player> startingOrder, List<List<Student>> clouds,
                  Map<Student, Integer> bag, GameMap gm) {
 

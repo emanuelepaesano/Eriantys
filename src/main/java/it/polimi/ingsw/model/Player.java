@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Player {
     public final int id ;
-    private final String playerName;
+    private String playerName;
     private TowerColor towerColor;
     private Integer wizard;
     private final DiningRoom diningRoom;
@@ -18,23 +18,10 @@ public class Player {
     private boolean orEqual = false;
 
     public static Player makePlayer(int id, int numPlayers){
-        String pName = askPlayerName(id);
         Map<Assistant, Boolean> assistants = buildDeck();
         DiningRoom diningRoom = new DiningRoom();
         Entrance entrance = new Entrance(numPlayers);
-        return new Player(id, pName, assistants, (numPlayers==3? 4 : 3), (numPlayers == 3? 6 : 8), diningRoom, entrance);
-    }
-
-    private static String askPlayerName(int id)  {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Player " + id + ", enter your nickname:");
-        while (true){
-            String name = scanner.nextLine();
-            if (name.length() < 20){
-                return name;
-            }
-            System.out.println("name too long! Insert a shorter name");
-        }
+        return new Player(id, assistants, (numPlayers==3? 4 : 3), (numPlayers == 3? 6 : 8), diningRoom, entrance);
     }
 
 
@@ -47,10 +34,9 @@ public class Player {
     }
 
 
-    private Player(int id, String name, Map<Assistant, Boolean> deck,
+    private Player(int id, Map<Assistant,Boolean> deck,
                   int numActions, int numTowers, DiningRoom diningRoom, Entrance entrance) {
         this.id = id;
-        playerName = name;
         assistants = deck;
         this.numActions = numActions;
         this.numTowers = numTowers;
@@ -78,25 +64,7 @@ public class Player {
     }
 
 
-    /**
-     * @param remainingColors the remaining colors, by the game controller
-     * @return the TowerColor chosen by the player among the remaining ones
-     */
-    public TowerColor askTowerColor(List<TowerColor> remainingColors) {
-        System.out.println(this.playerName + ", please choose your tower color among the available ones: " + remainingColors);
-        while (true) {
-            try {            String input = new Scanner(System.in).nextLine();
-                TowerColor choice = TowerColor.valueOf(input.toUpperCase());
-                if (remainingColors.contains(choice)){
-                    this.towerColor = choice;
-                    return choice;
-                }
-            } catch (IllegalArgumentException ex) {
-                System.out.println("Try again!");
-            }
-            System.out.println("Not an acceptable color, available colors are: "+ remainingColors.toString());
-        }
-    }
+
 
 
     /**
@@ -223,9 +191,6 @@ public class Player {
         return assistants;
     }
 
-    public String getPlayerName() {
-        return playerName;
-    }
 
     public DiningRoom getDiningRoom() {
         return diningRoom;
@@ -258,9 +223,25 @@ public class Player {
 
     public void setBaseInfluence(int baseInfluence) { this.baseInfluence = baseInfluence;}
 
+    public int getId() {
+        return id;
+    }
+
     public void setBaseMoves(int baseMoves) {
         this.baseMoves = baseMoves;
     }
 
     public void setOrEqual(boolean orEqual) {this.orEqual = orEqual;}
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
+    public void setTowerColor(TowerColor towerColor) {
+        this.towerColor = towerColor;
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
 }

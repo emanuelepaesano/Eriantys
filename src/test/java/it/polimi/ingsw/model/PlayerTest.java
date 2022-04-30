@@ -34,13 +34,14 @@ class PlayerTest {
 //        //give all possible configurations of remaining colors and choices
 //        }
 //    }
-    @ParameterizedTest (name = "Testing: {0}")
-    @EnumSource (TowerColor.class)
-    void askTowerColor(TowerColor choice) {
-        System.setIn(new ByteArrayInputStream(choice.toString().getBytes()));
-        assertEquals(testplayer.askTowerColor(List.of(TowerColor.values())),choice);
-        assertEquals(choice, testplayer.getTowerColor());
-    }
+    // TODO: 01/05/2022 move this to controller test
+//    @ParameterizedTest (name = "Testing: {0}")
+//    @EnumSource (TowerColor.class)
+//    void askTowerColor(TowerColor choice) {
+//        System.setIn(new ByteArrayInputStream(choice.toString().getBytes()));
+//        assertEquals(testplayer.askTowerColor(List.of(TowerColor.values())),choice);
+//        assertEquals(choice, testplayer.getTowerColor());
+//    }
 
 
 

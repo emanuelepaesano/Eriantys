@@ -1,31 +1,39 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.ServerHandler;
+import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.model.*;
 
-import java.io.IOException;
 import java.util.*;
 
 public class GameController {
     private Game game;
-    private ServerHandler server;
+
+    private  List<PlayerController> controllers;
+    private List<VirtualView> views;
 
     /**
      * In the constructor we can put the methods to inizialize the game.
      * Our main will call the constructor of this class to start the game
      */
-    public GameController() throws IOException {
-        server = new ServerHandler(1337);
-        server.startServer();
-        int numplayers = askForPN();
-        server.lookForMorePlayers(numplayers-1);
-        game = Game.makeGame(numplayers); //initializes the game, because it's the first call
+    public GameController(int numplayers, List<VirtualView> views){
+
+        if (numplayers==0){
+            System.err.println("Could not start server.");
+            return;
+        }
+        System.out.println("The views in the game controller: " + views);
+
+        game = Game.makeGame(numplayers); //initializes the game
+        this.views = views;
+        //bindViewsToGame(game); the view should see the model, but it doesn't really need to
+        //update by watching all of it (and sending it all...)
+        bindPlayers(game);
+        System.out.println("finito bind players");
         askAllForTC(game);
         askAllForWiz(game);
         Boolean ad = askForAdvanced();
         game.doSetUp(ad);
 
-        // TODO: 11/04/2022 initialize the view(s)
 
     }
 
@@ -36,12 +44,18 @@ public class GameController {
     private int askForPN() {
         int input = 0;
         while ((input != 3) && (input != 2)) {
-            server.update("Welcome! Please enter number of players:");
-            input = Integer.parseInt(server.getAnswer());
         }
         return input;
     }
 
+    private void bindPlayers(Game game){
+        controllers = new ArrayList<>();
+        for (Player player: game.getTableOrder()){
+            int id = player.getId();
+            //We bind the first player to the first view in the list and so on
+            controllers.add(new PlayerController(player, views.get(id-1)));
+        }
+    }
     Boolean askForAdvanced(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Normal game or expert version? Please type \"normal\" or \"expert\".");
@@ -70,8 +84,8 @@ public class GameController {
         else{
             remainingColors = new ArrayList<>(Arrays.asList(TowerColor.WHITE,TowerColor.BLACK));
         }
-        for (Player player : game.getCurrentOrder()){
-            TowerColor c = player.askTowerColor(remainingColors);
+        for (PlayerController pc: controllers){
+            TowerColor c = pc.askTowerColor(remainingColors);
             remainingColors.remove(c);
         }
     }

@@ -3,34 +3,49 @@ package it.polimi.ingsw.CLIENT;
 import java.io.*;
 import java.net.Socket;
 
-import java.util.Scanner;
-
 public class NetworkHandler{
 
 
     final Socket socket;
     View view;
 
-    String model;
+    ViewState currentState;
+    //dobbiamo mandargli i parametri per creare il prossimo stato
 
     public NetworkHandler() throws IOException {
         socket = new Socket("localhost",1337);
         System.out.println("connected to server at 1337");
     }
 
-    public void startClient(View view) throws IOException{
-        this.view = view;
+    // TODO: 01/05/2022 Multithreading (one for every client)
+    public void startClient(View View) throws IOException, ClassNotFoundException{
+        this.view = View;
+        PrintWriter outSocket = new PrintWriter(socket.getOutputStream());
+        ObjectInputStream socketReader = new ObjectInputStream(socket.getInputStream());
+        System.out.println("arrivato a try-socket");
         try (socket) {
-            PrintWriter outSocket = new PrintWriter(socket.getOutputStream());
-            Scanner socketScanner = new Scanner(socket.getInputStream());
+            Object socketInput = socketReader.readObject();
+            View.update(new InitState(socketInput)); //ask pl. number or empty
+            if (!socketInput.equals("")){
+                outSocket.println(View.getUserInput());
+                outSocket.flush();
+                System.out.println(socketReader.readObject()); //confirmation
+            }
+            else{System.out.println("joining an existing game...");}
+            socketInput = socketReader.readObject();
+            System.out.println(socketInput); //game start
             while (true) {
-                String socketInput = socketScanner.nextLine();
-                model = socketInput;
-                view.update();
+                socketInput = socketReader.readObject(); //main client loop. we wait for objects and update the view
+                System.out.println(socketInput);
                 outSocket.println(view.getUserInput());
                 outSocket.flush();
+//                currentState = view.getCurrentView();
+//                ViewState newView = currentState.nextState(socketInput);
+//                view.update(newView);
+//                outSocket.println(view.getUserInput());
             }
         }
     }
+
 
 }

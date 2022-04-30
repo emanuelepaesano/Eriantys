@@ -1,11 +1,10 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.CLIENT.NetworkHandler;
-import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.ViewStateArgs.ViewStateArgument;
+import it.polimi.ingsw.model.Player;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.PrintWriter;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -14,58 +13,64 @@ import java.util.Scanner;
 
 public class ServerHandler {
     int port;
-    List<Socket> clients;
     String model;
     Scanner inStream;
-    PrintWriter outStream;
+    ObjectOutputStream outStream;
     ServerSocket serverSocket;
+    List<VirtualView> views;
     //To the first client we ask the number of players, which is the first thing inside the gamecontroller
     public ServerHandler(int port) {
         this.port = port;
-        clients = new ArrayList<>();
+        views = new ArrayList<>();
     }
 
     // TODO: 29/04/2022 obviously this will need to handle more than 1 client
-    public void startServer() throws IOException{
+    public int startServer() throws IOException{
 
         try {serverSocket = new ServerSocket(port);}
-        catch (IOException e) {System.err.println(e.getMessage()); return;}
+        catch (IOException e) {System.err.println(e.getMessage()); return 0;}
         System.out.println("Server ready");
 
         Socket socket = serverSocket.accept();
-        clients.add(socket);
         System.out.println("Connected!");
-        try {
-            inStream = new Scanner(socket.getInputStream());
-            outStream = new PrintWriter(socket.getOutputStream());
-            } catch(IOException e) {
-                e.printStackTrace();
-            }
+        VirtualView client1 = new VirtualView(socket,1);
+        views.add(client1);
+        client1.update("Welcome! How many players?");
+        int n = Integer.parseInt(client1.getAnswer());
+        client1.update("OK! Waiting players for a "+n+"-player game...");
+        lookForMorePlayers((n-1));
+        System.out.println(views);
+        return n;
     }
-
     public void lookForMorePlayers(int n) throws IOException {
         for (int i=0; i<n ; i++){
             Socket socket = serverSocket.accept();
-            clients.add(socket);
+            VirtualView clientView = new VirtualView(socket,i+2);
+            views.add(clientView);
+            clientView.update("");
             System.out.println("Connected! We are at " + (i+2) + " players out of " + (n+1));
         }
-        System.out.println("We can start the game! ("+ (n+1) +"-player game)");
-    }
-
-    public void update(String model){
-        outStream.println(model);
-        outStream.flush();
-    }
-
-    public String getAnswer(){
-        return inStream.nextLine();
+        updateAllViews("We can start the game! ("+ (n+1) +"-player game)");
     }
 
 
-    public static void main(String[] args) throws IOException, InterruptedException {
-        GameController gc = new GameController();
-
+    public void updateView(Player player, ViewStateArgument message) throws IOException {
+        int playerId = player.getId();
+        if (views.get(playerId-1).getPlayerId() == playerId) {
+            views.get(playerId - 1).update(message);
+        }
+        else {
+            System.err.println("Something went very wrong");
+        }
     }
+    public void updateAllViews(Object message) {
+        for(VirtualView client: views){
+            client.update(message);
+        }
+    }
+
+
+
 
 }
 

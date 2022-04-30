@@ -8,18 +8,25 @@ public class View {
     //we will read the input from the user and send it
     Scanner scanner = new Scanner(System.in);
 
+    ViewState currentView;
+
 
     public View(NetworkHandler nh) {
         this.networkHandler = nh;
     }
 
-    public void update() {
-        System.out.println(networkHandler.model);
+    public void update(ViewState newView) {
+        currentView = newView;
+        currentView.display();
     }
 
     public String getUserInput(){
         String userInput = scanner.nextLine();
         //might send this to the local controller if we do it
         return userInput;
+    }
+
+    public ViewState getCurrentView() {
+        return currentView;
     }
 }
