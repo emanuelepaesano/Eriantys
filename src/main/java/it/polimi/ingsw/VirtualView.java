@@ -1,6 +1,6 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.ViewStateArgs.ViewStateArgument;
+
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

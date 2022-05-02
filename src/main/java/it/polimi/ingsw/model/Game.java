@@ -59,7 +59,6 @@ public class Game {
         return bag;
     }
 
-
     private Game(int numPlayers, List<Player> startingOrder, List<List<Student>> clouds,
                  Map<Student, Integer> bag, GameMap gm) {
 
@@ -188,6 +187,49 @@ public class Game {
             game.characters.get(0).notifyAll();
         }
     }
+
+    public Boolean checkGameEndCondition(String condition, Player player){
+        List<Object> returnValues = new ArrayList<>();
+        switch (condition) {
+            case "towerend" -> {
+                return player.getNumTowers() == 0;
+            }
+            case "islandend" -> {
+                return gameMap.getArchipelago().size() <= 3;
+            }
+            case "studend" -> {
+                return bag.equals(Map.of(Student.RED, 0, Student.BLUE, 0, Student.YELLOW, 0, Student.PINK, 0, Student.GREEN, 0));
+            }
+            case "deckend" -> {
+                return player.getAssistants().values().equals(List.of(false, false, false, false, false, false, false, false, false, false));
+            }
+            default -> throw new RuntimeException("not a valid string as argument");
+        }
+    }
+
+    private List<Player> lookForWinner(){
+        List<Player> ties = new ArrayList<>();
+        List<Player> secondTies = new ArrayList<>();
+        List<Integer> numtowers = tableOrder.stream().map(Player::getNumTowers).toList();
+        for (Player player: tableOrder){
+            if (player.getNumTowers() == Collections.max(numtowers)){
+                ties.add(player);
+            }
+        }
+        if (ties.size()==1){
+            return ties;
+        }
+        else if (ties.size()>1){
+            List<Integer> numProfessors = tableOrder.stream().map(p->Collections.frequency(p.getDiningRoom().getProfessors().values(),true)).toList();
+            for (Player p:ties){
+                if (Collections.frequency(p.getDiningRoom().getProfessors().values(),true)==Collections.max(numProfessors)){
+                    secondTies.add(p);
+                }
+            }
+        }
+        return secondTies;
+    }
+
 
     //BELOW THIS ALL GETTER AND SETTERS
 

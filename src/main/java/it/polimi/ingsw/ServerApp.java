@@ -1,6 +1,9 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.CLIENT.GeneralViewState;
+import it.polimi.ingsw.CLIENT.ViewState;
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.model.Game;
 
 import java.io.IOException;
 
@@ -26,5 +29,8 @@ public class ServerApp {
         ServerHandler server = new ServerHandler(1337);
         int numplayers = server.startServer();
         GameController gc = new GameController(numplayers,server.views);
+        ViewState send =  new GeneralViewState(gc.getGame());
+        server.updateAllViews(send);
+
     }
 }

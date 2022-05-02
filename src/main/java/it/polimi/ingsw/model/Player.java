@@ -106,12 +106,13 @@ public class Player {
         //(movetodiningroom or movetoisland) the controller calls a different method, then updates model
         while (availableActions>0) {
             String action = askWhichAction(availableActions); //this will come from the view, so it must be in a controller
-            if (Objects.equals(action, "diningroom")) {
+            if (action.equalsIgnoreCase("diningroom")) {
                 availableActions -= entrance.moveToDiningRoom(availableActions, this.diningRoom);
                 this.diningRoom.checkProfessors(players,orEqual);
             }
-            else if (Objects.equals(action, "islands")){
+            else if (action.equalsIgnoreCase("islands")){
                 availableActions -= entrance.moveToIsland(availableActions, gm);}
+
         }
         System.out.println("After your moves: " + this.diningRoom);
     }

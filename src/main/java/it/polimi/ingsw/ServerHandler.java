@@ -1,6 +1,5 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.ViewStateArgs.ViewStateArgument;
 import it.polimi.ingsw.model.Player;
 
 import java.io.IOException;
@@ -24,7 +23,7 @@ public class ServerHandler {
         views = new ArrayList<>();
     }
 
-    // TODO: 29/04/2022 obviously this will need to handle more than 1 client
+    // TODO: 01/05/2022 Multithreading (one for every client)
     public int startServer() throws IOException{
 
         try {serverSocket = new ServerSocket(port);}
@@ -47,22 +46,13 @@ public class ServerHandler {
             Socket socket = serverSocket.accept();
             VirtualView clientView = new VirtualView(socket,i+2);
             views.add(clientView);
-            clientView.update("");
+            clientView.update("joining an existing game ... ("+(n+1)+"-player game)" );
             System.out.println("Connected! We are at " + (i+2) + " players out of " + (n+1));
         }
         updateAllViews("We can start the game! ("+ (n+1) +"-player game)");
     }
 
 
-    public void updateView(Player player, ViewStateArgument message) throws IOException {
-        int playerId = player.getId();
-        if (views.get(playerId-1).getPlayerId() == playerId) {
-            views.get(playerId - 1).update(message);
-        }
-        else {
-            System.err.println("Something went very wrong");
-        }
-    }
     public void updateAllViews(Object message) {
         for(VirtualView client: views){
             client.update(message);

@@ -23,7 +23,7 @@ public class DiningRoom {
         int oldnum = this.tables.get(student);
         int newnum = oldnum + 1;
         if (newnum > 10) {
-            System.out.println("Your diningRoom is full!");
+            System.err.println("Your diningRoom is full!");
             return;}
         if (newnum > 0 && newnum%3==0){ coins +=1; }
         this.tables.replace(student,oldnum,newnum);

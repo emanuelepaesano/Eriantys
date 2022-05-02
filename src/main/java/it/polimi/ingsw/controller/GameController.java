@@ -141,6 +141,22 @@ public class GameController {
     }
 
 
+    // TODO: 02/05/2022 remember to close sockets in the main after calling this
+    public void EndGame(String endCondition, List<Player> winner){
+        if (winner.size()==1){
+            updateAllViews(winner.get(0) + "has won the game by " + endCondition );
+            //then the main will need to close sockets and all
+        }
+        else{
+            updateAllViews("The game is a tie! Winners are " + winner);
+        }
+    }
+    public void updateAllViews(Object message) {
+        for(VirtualView client: views){
+            client.update(message);
+        }
+    }
+
 
 
 
