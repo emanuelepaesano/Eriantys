@@ -34,8 +34,7 @@ public class ServerHandler {
         System.out.println("Connected!");
         VirtualView client1 = new VirtualView(socket,1);
         views.add(client1);
-        client1.update("Welcome! How many players?");
-        int n = Integer.parseInt(client1.getAnswer());
+        int n = askForPN(client1);
         client1.update("OK! Waiting players for a "+n+"-player game...");
         lookForMorePlayers((n-1));
         System.out.println(views);
@@ -58,6 +57,15 @@ public class ServerHandler {
             client.update(message);
         }
     }
+    private int askForPN(VirtualView client)  {
+        int input = 0;
+        while ((input != 3) && (input != 2)) {
+                client.update("Welcome! How many players?");
+                input = Integer.parseInt((client.getAnswer()).toString());
+        }
+        return input;
+    }
+
 
     public void closeAll() throws IOException {
         inStream.close();

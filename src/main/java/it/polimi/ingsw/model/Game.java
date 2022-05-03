@@ -1,11 +1,12 @@
 package it.polimi.ingsw.model;
-import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.characters.Character;
 
 import java.util.*;
 
 
 public class Game {
+
+    private List<Player> winner;
     public final int numPlayers;
     private Player currentPlayer;
     private final List<Player> tableOrder;
@@ -18,7 +19,7 @@ public class Game {
     private List<Character> characters;
 
     Random randomizer = new Random();
-    private Boolean isOver = false;
+    private Boolean Over = false;
 
     public static Game makeGame(int numPlayers){
         List<Player> tableOrder = startPlayersandOrder(numPlayers);
@@ -135,63 +136,36 @@ public class Game {
     }
 
 
-    // TODO: 02/05/2022 remember to close sockets in the main after calling this
-
-
-
-    /**
-     * Lets the player choose a cloud and fills the entrance with the students of that cloud
-     */
-    // TODO: 24/04/2022 I think stuff like this should go inside a controller
-    public void fillEntranceFromClouds(Player player){
-        Scanner scanner = new Scanner(System.in);
-        //this must be shown to each player, so maybe make a player.askcloud()
-        System.out.println("Fill your entrance from a cloud.\n " + clouds +
-                "\n enter a number from 1 to " + clouds.size() + " to choose the cloud.");
-        while (true) {
-            try {
-                int choice = scanner.nextInt();
-                if (choice<= clouds.size() && choice >= 1 ){
-                    List<Student> cloud = clouds.get(choice-1);
-                    if (cloud.isEmpty()){
-                        //add those students to our entrance
-                        player.getEntrance().getStudents().addAll(cloud);
-                        cloud.clear();
-                        break;
-                    }
-                    else{System.out.println("That cloud is empty! Try again.");}
-                } else {System.out.printf("Not a valid number, type a number between 1 and %d", clouds.size());}
-            } catch (IllegalArgumentException ex) {System.out.println("Not a number, try again.");}
-        }
-    }
-
-    //fills all entrances. New way to initialize the entrances, in here instead of entrance
-    //same for this, move inside game and take player as par.
-
 
     public Boolean checkGameEndCondition(String condition, Player player){
         List<Object> returnValues = new ArrayList<>();
         switch (condition) {
             case "towerend" -> {
-                isOver = true;
+                Over = true;
                 return player.getNumTowers() == 0;
             }
             case "islandend" -> {
-                isOver = true;
+                Over = true;
                 return gameMap.getArchipelago().size() <= 3;
             }
             case "studend" -> {
-                isOver = true;
+                Over = true;
                 return bag.equals(Map.of(Student.RED, 0, Student.BLUE, 0, Student.YELLOW, 0, Student.PINK, 0, Student.GREEN, 0));
             }
             case "deckend" -> {
-                isOver = true;
-                return player.getAssistants().values().equals(List.of(false, false, false, false, false, false, false, false, false, false));
+                Over = true;
+                return player.getAssistants().values().equals(List.of(false, false, false, false, false,
+                        false, false, false, false, false));
             }
             default -> throw new RuntimeException("not a valid string as argument");
         }
     }
 
+    /**
+     *
+     * @return Looks for a winner according to the rules in case of island end, student end or deck end.<br>
+     * There might be a tie with more than 1 winner
+     */
     public List<Player> lookForWinner(){
         List<Player> ties = new ArrayList<>();
         List<Player> secondTies = new ArrayList<>();
@@ -215,7 +189,22 @@ public class Game {
         return secondTies;
     }
 
-    public void nextRound() {
+    public void newRoundOrEnd(){
+        Player anyPlayerisFine = getTableOrder().get(0);
+        Boolean cond1 = checkGameEndCondition("deckend",anyPlayerisFine);
+        Boolean cond2 = checkGameEndCondition("studend",anyPlayerisFine);
+        if (cond1){
+            setWinner(lookForWinner());
+            return;
+        }
+        else if (cond2){
+            winner= lookForWinner();
+            return;
+        }
+        nextRound();
+    }
+
+    private void nextRound() {
         round+=1;
         fillClouds();
     }
@@ -281,10 +270,13 @@ public class Game {
         return characters;
     }
 
-    public Boolean getOver() {
-        return isOver;
+    public Boolean isOver() {
+        return Over;
     }
 
+    public void setWinner(List<Player> winner) {
+        this.winner = winner;
+    }
 
 }
 

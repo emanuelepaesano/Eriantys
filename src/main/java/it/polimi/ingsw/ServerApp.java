@@ -3,6 +3,7 @@ package it.polimi.ingsw;
 import it.polimi.ingsw.CLIENT.GeneralViewState;
 import it.polimi.ingsw.CLIENT.ViewState;
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 
@@ -33,13 +34,18 @@ public class ServerApp {
         Game game = gc.getGame();
         ViewState send =  new GeneralViewState(game);
         server.updateAllViews(send);
-        while (game.getOver().equals(false)) {
+        while (!game.isOver()) {
             gc.doPlanningPhase(game);
-            for (Player p : game.getCurrentOrder()) {
-                game.setCurrentPlayer(p);
-                p.doActions(game, game.getTableOrder());
+            for (PlayerController playerturn: gc.getControllers()) {
+                Player player = playerturn.getPlayer();
+                game.setCurrentPlayer(player);
+                playerturn.doActions(game);
+                int nmoves = playerturn.askMNMoves();
+                game.getGameMap().moveMotherNatureAndCheck(playerturn.getPlayer(), game.getTableOrder(),nmoves);
+                game.checkGameEndCondition("towerend",player);
+                game.checkGameEndCondition("islandend",player);
             }
-            gc.newRoundOrEnd();
+            game.newRoundOrEnd();
         }
         server.closeAll();
 

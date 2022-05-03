@@ -1,12 +1,13 @@
 package it.polimi.ingsw.CLIENT;
 
+import it.polimi.ingsw.Message;
+
 public class LocalModel {
 
-    private GeneralViewState gameState;
 
     private ViewState currentState;
 
-    private String message;
+    private Message message;
 
     public LocalModel(){
         currentState = new InitState();
@@ -16,22 +17,16 @@ public class LocalModel {
         this.currentState = currentState;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(Message message) {
         this.message = message;
     }
 
-    public String getMessage() {
+    public Message getMessage() {
         return message;
     }
 
     public ViewState getCurrentState(){
         return currentState;
     }
-    public GeneralViewState getGameState(){
-        return gameState;
-    }
 
-    public void setGameState(GeneralViewState gameState) {
-        this.gameState = gameState;
-    }
 }

@@ -45,46 +45,46 @@ class PlayerTest {
 
 
 
-    @ParameterizedTest (name = "Testing: {0}")
-    @EnumSource (Assistant.class)
-    void playAssistant(Assistant assistant) {
-        System.setIn(new ByteArrayInputStream(assistant.toString().getBytes()));
-        Assistant choice = testplayer.playAssistant();
-        assertEquals(choice, assistant); //test that we return the chosen assistant
-        assertEquals(choice, testplayer.getCurrentAssistant()); //test that we set the choice as currentAssistant
-        assertFalse(testplayer.getAssistants().get(choice)); //test that we set the boolean to false
-        //test that we cannot play a false assistant. There might be a better way.
-        System.setIn(new ByteArrayInputStream(assistant.toString().getBytes()));
-        assertThrows(NoSuchElementException.class, ()->testplayer.playAssistant());
-
-   }
-
-    @Test
-    void doActions() {
-        //for this we need also to create a map, a diningroom and a entrance
-    }
-
-    @ParameterizedTest (name = "Testing for: Assistant {0}; {1} moves")
-    @CsvSource({ "ONE, 1",
-            "ONE, 2",
-            "FIVE, 0",
-            "FIVE, 3",
-            "TEN, 6",
-            "TEN, 4",
-            "EIGHT, -3",
-            "SEVEN, 2"
-    })
-    void askMNMoves(Assistant assistant, Integer triedMoves) {
-        System.setIn(new ByteArrayInputStream(triedMoves.toString().getBytes()));
-        //test that: works if the moves are acceptable (=returns the moves)
-        //           does not work if not acceptable (=throws nosuchelement)
-        testplayer.setCurrentAssistant(assistant);
-        if (triedMoves <= assistant.getMoves() && triedMoves > 0){
-            assertEquals(triedMoves,testplayer.askMNMoves());
-        }
-        else{assertThrows(NoSuchElementException.class, ()->testplayer.askMNMoves());}
-    }
-
+//    @ParameterizedTest (name = "Testing: {0}")
+//    @EnumSource (Assistant.class)
+//    void playAssistant(Assistant assistant) {
+//        System.setIn(new ByteArrayInputStream(assistant.toString().getBytes()));
+//        Assistant choice = testplayer.playAssistant();
+//        assertEquals(choice, assistant); //test that we return the chosen assistant
+//        assertEquals(choice, testplayer.getCurrentAssistant()); //test that we set the choice as currentAssistant
+//        assertFalse(testplayer.getAssistants().get(choice)); //test that we set the boolean to false
+//        //test that we cannot play a false assistant. There might be a better way.
+//        System.setIn(new ByteArrayInputStream(assistant.toString().getBytes()));
+//        assertThrows(NoSuchElementException.class, ()->testplayer.playAssistant());
+//
+//   }
+//
+//    @Test
+//    void doActions() {
+//        //for this we need also to create a map, a diningroom and a entrance
+//    }
+//
+//    @ParameterizedTest (name = "Testing for: Assistant {0}; {1} moves")
+//    @CsvSource({ "ONE, 1",
+//            "ONE, 2",
+//            "FIVE, 0",
+//            "FIVE, 3",
+//            "TEN, 6",
+//            "TEN, 4",
+//            "EIGHT, -3",
+//            "SEVEN, 2"
+//    })
+//    void askMNMoves(Assistant assistant, Integer triedMoves) {
+//        System.setIn(new ByteArrayInputStream(triedMoves.toString().getBytes()));
+//        //test that: works if the moves are acceptable (=returns the moves)
+//        //           does not work if not acceptable (=throws nosuchelement)
+//        testplayer.setCurrentAssistant(assistant);
+//        if (triedMoves <= assistant.getMoves() && triedMoves > 0){
+//            assertEquals(triedMoves,testplayer.askMNMoves());
+//        }
+//        else{assertThrows(NoSuchElementException.class, ()->testplayer.askMNMoves());}
+//    }
+//
 
 
     @Test

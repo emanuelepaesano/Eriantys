@@ -1,7 +1,11 @@
 package it.polimi.ingsw.CLIENT;
 
+import it.polimi.ingsw.Message;
+import it.polimi.ingsw.StringMessage;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -72,49 +76,42 @@ public class NetworkHandler{
                     //this is far from ideal. i did this because we can send 3 things which are
                     //only generalview, view, or string (message)
                     socketInput = socketReader.readObject();
-                    try {
-                        System.out.println("trying to cast 1");
-                        model.setGameState((GeneralViewState) socketInput);
-                        model.setCurrentState((ViewState) socketInput);
-                        view.update();
-                    } catch (ClassCastException notagenview) {
                         try {
-                            System.out.println("trying to cast 2");
+                            System.out.println("trying to cast");
                             model.setCurrentState((ViewState) socketInput);
                             view.update();
-
                         } catch (ClassCastException message) {
                             System.out.println("message: \n");
-                            model.setMessage(socketInput.toString());
+                            model.setMessage(new StringMessage(socketInput.toString()));
                             view.getMessage();
                         }
                     }
-                }
             }catch (IOException | ClassNotFoundException e) {throw new RuntimeException(e);}
         });
 
 
         Thread speaker = new Thread(()->{
-            PrintWriter outSocket;
+            ObjectOutputStream outSocket;
             try {
-                outSocket = new PrintWriter(socket.getOutputStream());
-            } catch (IOException e) {throw new RuntimeException(e);}
+                outSocket = new ObjectOutputStream(socket.getOutputStream());
 
             while (true){
-                String userInput = view.getUserInput();
+                Message userInput = view.getUserInput();
                 Boolean ToSend = checkString(userInput, model);
                 if (ToSend){
-                    outSocket.println(userInput);
-                    outSocket.flush();}
+                    outSocket.writeObject(userInput);
+                    outSocket.flush();
+                }
             }
+            } catch (IOException e) {throw new RuntimeException(e);}
         });
         listener.start();
         speaker.start();
     }
 
-    private Boolean checkString(String inputString, LocalModel model){
-        if (inputString.equalsIgnoreCase("view")){
-            model.getGameState().display();
+    private Boolean checkString(Message input, LocalModel model){
+        if (input.toString().equalsIgnoreCase("view")){
+            model.getCurrentState().display();
             return false;
         }
         else {return true;}

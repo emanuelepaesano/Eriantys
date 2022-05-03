@@ -52,102 +52,6 @@ public class Player {
 
 
 
-
-
-    /**
-     * asks an assistant as input from those remaining, turns it to false in the map and returns it.
-     * This way the GameController will then join all the played assistants and choose the new playerOrder
-     */
-    public Assistant playAssistant(){
-        ArrayList<Assistant> remass = new ArrayList<>(); //list of remaining assistants
-        for (Assistant key: this.assistants.keySet()){
-            if (this.assistants.get(key)){
-                remass.add(key);
-            }
-        }
-        System.out.println(this.playerName + ", play one of your remaining assistants (speed value): " + remass);
-        while (true) {
-            String input = new Scanner(System.in).nextLine();
-            // TODO: 15/04/2022 would be nice if also putting es.9 or 10 worked
-            try {
-                Assistant choice = Assistant.valueOf(input.toUpperCase());
-                if (remass.contains(choice)){
-                    this.currentAssistant = choice;
-                    System.out.println("Current assistant for "+ playerName + ": " + choice);
-                    this.assistants.replace (choice, true, false);
-                    return choice;
-                }
-            } catch (IllegalArgumentException exception) {System.out.println("Not a valid assistant, take one from the list: " + remass);}
-        }
-    }
-
-
-    // TODO: 16/04/2022 idk where to put this
-    /**
-     * This is the main method for the action phase of each player. It asks the player which action they want to do
-     * and then performs the action, until they used all of their moves.
-     */
-    public void doActions(Game game, List<Player> players){
-        int availableActions = numActions;
-        //this will be an actionlistener linked to 2 buttons. depending on the button pressed
-        //(movetodiningroom or movetoisland) the controller calls a different method, then updates model
-        while (availableActions>0) {
-            String action = askWhichAction(availableActions); //this will come from the view, so it must be in a controller
-            if (action.equalsIgnoreCase("diningroom")) {
-                availableActions -= entrance.moveToDiningRoom(availableActions, this.diningRoom);
-                this.diningRoom.checkProfessors(players,orEqual);
-            }
-            else if (action.equalsIgnoreCase("islands")){
-                availableActions -= entrance.moveToIsland(availableActions, game.getGameMap());}
-            else if (action.equalsIgnoreCase("characters")){
-                if(getCoins()!= null){
-                    playCharacters(game);
-
-                }
-                else {
-                    System.out.println("This is not an advanced game!");
-                }
-            }
-
-        }
-        System.out.println("After your moves: " + this.diningRoom);
-    }
-
-    public void playCharacters(Game game){
-        List<Character> characters = game.getCharacters();
-        // TODO: 03/05/2022 replace with user input!
-        Character chara = characters.get(0);
-        Character.play(chara, this);
-    }
-
-    private String askWhichAction(int availableActions){
-        Scanner scanner = new Scanner(System.in);
-        System.out.printf("%s, where do you want to move your students (%d moves left)? Please type \"islands\" or \"diningroom\" "
-                , playerName,availableActions);
-        return scanner.nextLine();
-    }
-
-    /**
-     *
-     * @return The number of steps the player wants to move mother Nature. This method is now only called from GameMap.moveMotherNature().
-     * This could change if we choose to move that method
-     */
-    public int askMNMoves(){
-        int possibleMoves = baseMoves + currentAssistant.getMoves();
-        Scanner scanner = new Scanner(System.in);
-        System.out.println(playerName + ", how many steps do you want to move Mother Nature? " +
-                "(At least 1, maximum " + possibleMoves + ")");
-        while (true) {
-            try {
-                int choice = scanner.nextInt();
-                if (choice >=1 && choice<= possibleMoves){
-                    return choice;
-                }
-                else{System.out.println("That choice is not allowed! Try again");}
-            } catch (IllegalArgumentException ex) {System.out.println("Not a valid number, try again");}
-        }
-    }
-
     /**
      *Method to calculate this player's influence on an island. It gets called by Island.checkOwner().
      */
@@ -179,6 +83,10 @@ public class Player {
 
 
 
+
+
+
+
     //GETTERS SETTERS
 
     public Integer getCoins(){
@@ -194,7 +102,6 @@ public class Player {
     public Map<Assistant, Boolean> getAssistants() {
         return assistants;
     }
-
 
     public DiningRoom getDiningRoom() {
         return diningRoom;
@@ -252,4 +159,21 @@ public class Player {
     public void setWizard(Integer wizard) {
         this.wizard = wizard;
     }
+
+    public int getNumActions() {
+        return numActions;
+    }
+
+    public boolean isOrEqual() {
+        return orEqual;
+    }
+
+    public int getBaseMoves() {
+        return baseMoves;
+    }
+
+    public int getBaseInfluence() {
+        return baseInfluence;
+    }
+
 }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.CLIENT.YourTurnState;
+import it.polimi.ingsw.StringMessage;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.model.*;
 
@@ -43,17 +44,6 @@ public class GameController {
 
     /**
      *
-     * @return Asks and returns the number of players for this game
-     */
-    private int askForPN() {
-        int input = 0;
-        while ((input != 3) && (input != 2)) {
-        }
-        return input;
-    }
-
-    /**
-     *
      * Binds each playerController to their player and view
      */
     private void bindPlayers(){
@@ -64,12 +54,14 @@ public class GameController {
             controllers.add(new PlayerController(player, views.get(id-1)));
         }
     }
+
+
     Boolean askForAdvanced(){
         Scanner scanner = new Scanner(System.in);
         VirtualView firstPlayer = views.get(0);
         firstPlayer.update("Normal game or expert version? Please type \"normal\" or \"expert\".");
         while (true){
-            String choice = firstPlayer.getAnswer();
+            String choice = (firstPlayer.getAnswer()).toString();
             if (choice.equalsIgnoreCase("expert")) {return true;}
             else if (choice.equalsIgnoreCase("normal")) {return false;}
 
@@ -124,7 +116,7 @@ public class GameController {
         Map<Integer, Player> playedAssistants = new TreeMap<>();
         int initialind = g.getTableOrder().indexOf(g.getCurrentOrder().get(0)); //this is the index in the tableOrder of current first
         for (int i = initialind; i<initialind+g.numPlayers;i++) {
-            Player p = g.getTableOrder().get(i%g.numPlayers);
+            PlayerController p = controllers.get(i%g.numPlayers);
             //this print should not really be here as it must be shown to each player
             System.out.println("The other players played " + playedAssistants.keySet() + ", please choose a new assistant.");
             Assistant choice = p.playAssistant();
@@ -133,11 +125,11 @@ public class GameController {
             if (playedAssistants.containsKey(choice.getPriority())){
                 //this also should be shown to one player only
                 System.out.println("Someone else played that assistant, please choose another one.");
-                p.getAssistants().replace(choice,false,true);
+                p.getPlayer().getAssistants().replace(choice,false,true);
                 i -= 1;
                 continue;
             }
-            playedAssistants.put(choice.getPriority(),p);
+            playedAssistants.put(choice.getPriority(),p.getPlayer());
         }
 
         //The second part uses the Map to make a new currentOrder
@@ -148,7 +140,6 @@ public class GameController {
         }
         System.out.println("Player order for this turn:" + newOrder);
         g.setCurrentOrder(newOrder);
-        // TODO: 16/04/2022 right now this updates the currentorder, but we are not taking care of the current player yet
     }
 
     public void setCurrentPlayer(Player player){
@@ -158,14 +149,6 @@ public class GameController {
         currentPC.updatePlayer(new YourTurnState(game,currentPC.getPlayer()));
     }
 
-    public void newRoundOrEnd(){
-        Player anyPlayerisFine = game.getTableOrder().get(0);
-        Boolean cond1 = game.checkGameEndCondition("deckend",anyPlayerisFine);
-        Boolean cond2 = game.checkGameEndCondition("studend",anyPlayerisFine);
-        if (cond1){winner = game.lookForWinner(); }
-        else if (cond2){return;}
-        game.nextRound();
-    }
 
 
     public void updateAllViews(Object message) {
@@ -183,4 +166,7 @@ public class GameController {
         return game;
     }
 
+    public List<PlayerController> getControllers() {
+        return controllers;
+    }
 }

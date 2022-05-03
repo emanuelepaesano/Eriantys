@@ -1,6 +1,9 @@
 package it.polimi.ingsw.CLIENT;
 
 
+import it.polimi.ingsw.Message;
+import it.polimi.ingsw.StringMessage;
+
 import java.util.Scanner;
 
 public class View {
@@ -23,9 +26,9 @@ public class View {
         System.out.println(model.getMessage());
     }
 
-    public String getUserInput() {
+    public Message getUserInput() {
         //might send this to the local controller if we do it
-        return scanner.nextLine();
+        return new StringMessage(scanner.nextLine());
     }
 }
 

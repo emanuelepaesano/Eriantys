@@ -12,13 +12,13 @@ import java.util.Scanner;
 public class VirtualView {
     private final int playerId;
     private final Socket socket;
-    Scanner inStream;
+    ObjectInputStream inStream;
     ObjectOutputStream outStream;
     //ONE VIRTUAL VIEW FOR EACH PLAYER. THIS IS A CLIENT HANDLER
 
     //could also work with the playername
     VirtualView(Socket socket, int id) throws IOException {
-        inStream = new Scanner(socket.getInputStream());
+        inStream = new ObjectInputStream(socket.getInputStream());
         System.out.println("input stream " +id + " ok");
         outStream = new ObjectOutputStream(socket.getOutputStream());
         System.out.println("output stream " +id + " ok");
@@ -34,8 +34,10 @@ public class VirtualView {
     }
 
 
-    public String getAnswer(){
-        return inStream.nextLine();
+    public Message getAnswer()  {
+        try {
+            return (Message) inStream.readObject();
+        }catch ( IOException| ClassNotFoundException ex ){throw new RuntimeException();}
     }
 
     public int getPlayerId() {

@@ -50,8 +50,7 @@ public class GameMap {
 
     //now this needs to take a list of players. i don't really like it.
     //Splitting it into 2 methods might be a good idea
-    public void moveMotherNatureAndCheck(Player player, List<Player> players){
-        int nmoves = player.askMNMoves();
+    public void moveMotherNatureAndCheck(Player player, List<Player> players, int nmoves){
         motherNature = (motherNature+nmoves)%(archipelago.size()); //archipelago changes in size
         Island toCheck = archipelago.get(motherNature);
         Player oldOwner = toCheck.getOwner();
@@ -93,6 +92,7 @@ public class GameMap {
                 System.err.println("Something went wrong...");
                 break;
         }
+
     }
 
     /**
