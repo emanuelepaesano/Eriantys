@@ -9,12 +9,14 @@ import it.polimi.ingsw.model.Player;
 class MoreInfluenceCharacter extends Characters {
 
     int cost;
+    Game game;
 
-    public MoreInfluenceCharacter() {
+    public MoreInfluenceCharacter(Game game) {
         this.cost = 1;
+        this.game=game;
     }
 
-    public synchronized void play(Player player, Game game) throws InterruptedException {
+    public synchronized void play(Player player) throws InterruptedException {
         //this turn +2 influence (n.b. you cant combine characters)
         if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");

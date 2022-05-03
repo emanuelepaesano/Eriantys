@@ -33,9 +33,6 @@ public class VirtualView {
         }catch (IOException ex){ex.printStackTrace();}
     }
 
-    public void update(){
-        //this just send the whole model(?)
-    }
 
     public String getAnswer(){
         return inStream.nextLine();
@@ -43,5 +40,9 @@ public class VirtualView {
 
     public int getPlayerId() {
         return playerId;
+    }
+
+    public Socket getSocket() {
+        return socket;
     }
 }

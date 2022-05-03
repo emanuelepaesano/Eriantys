@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.CLIENT.YourTurnState;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.model.*;
 
@@ -10,6 +11,10 @@ public class GameController {
 
     private  List<PlayerController> controllers;
     private List<VirtualView> views;
+
+    private List<Player> winner;
+
+
 
     /**
      * In the constructor we can put the methods to inizialize the game.
@@ -27,13 +32,12 @@ public class GameController {
         this.views = views;
         //bindViewsToGame(game); the view should see the model, but it doesn't really need to
         //update by watching all of it (and sending it all...)
-        bindPlayers(game);
+        bindPlayers();
         System.out.println("finito bind players");
-        askAllForTC(game);
-        askAllForWiz(game);
         Boolean ad = askForAdvanced();
+        askAllForTC(game);
+        askAllForWiz();
         game.doSetUp(ad);
-
 
     }
 
@@ -48,7 +52,11 @@ public class GameController {
         return input;
     }
 
-    private void bindPlayers(Game game){
+    /**
+     *
+     * Binds each playerController to their player and view
+     */
+    private void bindPlayers(){
         controllers = new ArrayList<>();
         for (Player player: game.getTableOrder()){
             int id = player.getId();
@@ -58,9 +66,10 @@ public class GameController {
     }
     Boolean askForAdvanced(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Normal game or expert version? Please type \"normal\" or \"expert\".");
+        VirtualView firstPlayer = views.get(0);
+        firstPlayer.update("Normal game or expert version? Please type \"normal\" or \"expert\".");
         while (true){
-            String choice = scanner.nextLine();
+            String choice = firstPlayer.getAnswer();
             if (choice.equalsIgnoreCase("expert")) {return true;}
             else if (choice.equalsIgnoreCase("normal")) {return false;}
 
@@ -94,13 +103,15 @@ public class GameController {
      * Cycles through players and asks them a wizard number.
      * It will be stored as an attribute of the player
      */
-    public void askAllForWiz(Game game) {
+    public void askAllForWiz() {
         ArrayList<Integer> remainingWizards = new ArrayList<>(Arrays.asList(1,2,3,4));
-        for (Player player : game.getCurrentOrder()){
-            Integer wiz = player.askWizard(remainingWizards);
+        for (PlayerController pc : controllers){
+            Integer wiz = pc.askWizard(remainingWizards);
             remainingWizards.remove(wiz);
         }
     }
+
+
 
     /**
      * I put this here for now but maybe we can do a planningPhaseController.
@@ -140,17 +151,23 @@ public class GameController {
         // TODO: 16/04/2022 right now this updates the currentorder, but we are not taking care of the current player yet
     }
 
-
-    // TODO: 02/05/2022 remember to close sockets in the main after calling this
-    public void EndGame(String endCondition, List<Player> winner){
-        if (winner.size()==1){
-            updateAllViews(winner.get(0) + "has won the game by " + endCondition );
-            //then the main will need to close sockets and all
-        }
-        else{
-            updateAllViews("The game is a tie! Winners are " + winner);
-        }
+    public void setCurrentPlayer(Player player){
+        //the controller of that player...
+        PlayerController currentPC = controllers.get(controllers.stream().map(PlayerController::getPlayer).toList().indexOf(player));
+        game.setCurrentPlayer(currentPC.getPlayer());
+        currentPC.updatePlayer(new YourTurnState(game,currentPC.getPlayer()));
     }
+
+    public void newRoundOrEnd(){
+        Player anyPlayerisFine = game.getTableOrder().get(0);
+        Boolean cond1 = game.checkGameEndCondition("deckend",anyPlayerisFine);
+        Boolean cond2 = game.checkGameEndCondition("studend",anyPlayerisFine);
+        if (cond1){winner = game.lookForWinner(); }
+        else if (cond2){return;}
+        game.nextRound();
+    }
+
+
     public void updateAllViews(Object message) {
         for(VirtualView client: views){
             client.update(message);
@@ -165,5 +182,5 @@ public class GameController {
     public Game getGame() {
         return game;
     }
-    
+
 }

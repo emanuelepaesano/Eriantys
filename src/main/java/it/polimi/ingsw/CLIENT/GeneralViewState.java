@@ -7,10 +7,16 @@ public class GeneralViewState implements it.polimi.ingsw.CLIENT.ViewState, Seria
 
     String model;
 
+
+    /**
+     *     this is updated at every player's turn and it can be also the model current state, when it's not your turn.
+     *     You can view this whenever you want by typing "view"
+     */
     public GeneralViewState(Game game){
         String string = "";
-        string += game.getGameMap().toString();
-        string += game.getCurrentOrder().stream().map(p->p.getPlayerName()+": "+ p.getDiningRoom().toString()+"\n").toList();
+        string += "GAME MAP:\n game.getGameMap().toString()";
+        string += "\n\nPLAYERS:\n";
+        string += game.getCurrentOrder().stream().map(p->p.getPlayerName()+": "+ p.getEntrance()+ "\n"+ p.getDiningRoom().toString()+"\n").toList();
         model = string;
     }
 

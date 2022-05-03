@@ -18,13 +18,14 @@ public class Game {
     private List<Character> characters;
 
     Random randomizer = new Random();
+    private Boolean isOver = false;
 
     public static Game makeGame(int numPlayers){
-        List<Player> startingOrder = startPlayersandOrder(numPlayers);
+        List<Player> tableOrder = startPlayersandOrder(numPlayers);
         List<List<Student>> clouds = makeClouds(numPlayers);
         Map<Student, Integer> bag =  makeBag();
         GameMap gm = new GameMap(); //this will start the islands
-        return new Game(numPlayers, startingOrder, clouds, bag, gm);
+        return new Game(numPlayers, tableOrder, clouds, bag, gm);
     }
 
 
@@ -39,7 +40,6 @@ public class Game {
             Player player = Player.makePlayer(i+1,numPlayers);
             startingOrder.add(player);
         }
-        Collections.shuffle(startingOrder);
         return startingOrder;
     }
 
@@ -59,15 +59,16 @@ public class Game {
         return bag;
     }
 
-    private Game(int numPlayers, List<Player> startingOrder, List<List<Student>> clouds,
+    private Game(int numPlayers, List<Player> tableOrder, List<List<Student>> clouds,
                  Map<Student, Integer> bag, GameMap gm) {
 
         this.numPlayers = numPlayers;
         this.clouds = clouds;
-        this.currentOrder = startingOrder;
+        this.tableOrder = tableOrder;
         this.bag = bag;
         this.gameMap = gm;
-        tableOrder = new ArrayList<>(this.currentOrder); //this is to make a copy
+        currentOrder = new ArrayList<>(this.tableOrder); //this is to make a copy
+        Collections.shuffle(currentOrder);
     }
 
 
@@ -77,7 +78,10 @@ public class Game {
         fillClouds();
         fillAllEntrancesBag();
         gameMap.startMNAndStudents();
-        if (ad){characters = makeAllCharacters(this);}
+        if (ad){
+            characters = makeAllCharacters(this);
+            tableOrder.forEach(p->p.setCoins(1));
+        }
     }
 
     private List<Character> makeAllCharacters(Game game){
@@ -130,10 +134,8 @@ public class Game {
         return randstud;
     }
 
-    public void newRound(){
-        round += 1;
-        fillClouds();
-    }
+
+    // TODO: 02/05/2022 remember to close sockets in the main after calling this
 
 
 
@@ -167,47 +169,30 @@ public class Game {
     //same for this, move inside game and take player as par.
 
 
-    public static void main(String[] args) {
-        //small test for wait and notify
-        Game game = Game.makeGame(3);
-        game.doSetUp(true);
-        for (Character c : game.characters)
-        {
-            System.out.println(c);
-        }
-        Character chara = game.characters.get(0);
-        game.getCurrentPlayer().setCoins(3);
-        Player user = game.currentPlayer;
-        System.out.println("current player: "+ game.getCurrentPlayer());
-        Character.play(chara,user,game);
-        game.gameMap.getArchipelago().get(0).checkOwner(game.getTableOrder());
-        synchronized (game.characters.get(0)) {
-            game.setCurrentPlayer(game.getTableOrder().get(1));
-            System.out.println("current player: "+ game.getCurrentPlayer());
-            game.characters.get(0).notifyAll();
-        }
-    }
-
     public Boolean checkGameEndCondition(String condition, Player player){
         List<Object> returnValues = new ArrayList<>();
         switch (condition) {
             case "towerend" -> {
+                isOver = true;
                 return player.getNumTowers() == 0;
             }
             case "islandend" -> {
+                isOver = true;
                 return gameMap.getArchipelago().size() <= 3;
             }
             case "studend" -> {
+                isOver = true;
                 return bag.equals(Map.of(Student.RED, 0, Student.BLUE, 0, Student.YELLOW, 0, Student.PINK, 0, Student.GREEN, 0));
             }
             case "deckend" -> {
+                isOver = true;
                 return player.getAssistants().values().equals(List.of(false, false, false, false, false, false, false, false, false, false));
             }
             default -> throw new RuntimeException("not a valid string as argument");
         }
     }
 
-    private List<Player> lookForWinner(){
+    public List<Player> lookForWinner(){
         List<Player> ties = new ArrayList<>();
         List<Player> secondTies = new ArrayList<>();
         List<Integer> numtowers = tableOrder.stream().map(Player::getNumTowers).toList();
@@ -228,6 +213,32 @@ public class Game {
             }
         }
         return secondTies;
+    }
+
+    public void nextRound() {
+        round+=1;
+        fillClouds();
+    }
+
+    public static void main(String[] args) {
+        //small test for wait and notify
+        Game game = Game.makeGame(3);
+        game.doSetUp(true);
+        for (Character c : game.characters)
+        {
+            System.out.println(c);
+        }
+        Character chara = game.characters.get(0);
+        game.getCurrentPlayer().setCoins(3);
+        Player user = game.currentPlayer;
+        System.out.println("current player: "+ game.getCurrentPlayer());
+        Character.play(chara,user);
+        game.gameMap.getArchipelago().get(0).checkOwner(game.getTableOrder());
+        synchronized (game.characters.get(0)) {
+            game.setCurrentPlayer(game.getTableOrder().get(1));
+            System.out.println("current player: "+ game.getCurrentPlayer());
+            game.characters.get(0).notifyAll();
+        }
     }
 
 
@@ -265,6 +276,16 @@ public class Game {
     public Integer getRound() {
         return round;
     }
+
+    public List<Character> getCharacters() {
+        return characters;
+    }
+
+    public Boolean getOver() {
+        return isOver;
+    }
+
+
 }
 
 

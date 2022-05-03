@@ -15,7 +15,7 @@ public class View {
     }
 
     public void update() {
-        currentView = model.getState();
+        currentView = model.getCurrentState();
         currentView.display();
     }
 
@@ -24,9 +24,8 @@ public class View {
     }
 
     public String getUserInput() {
-        String userInput = scanner.nextLine();
         //might send this to the local controller if we do it
-        return userInput;
+        return scanner.nextLine();
     }
 }
 

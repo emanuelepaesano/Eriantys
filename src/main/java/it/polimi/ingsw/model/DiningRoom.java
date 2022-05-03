@@ -9,13 +9,13 @@ public class DiningRoom {
     private Map<Student, Integer> tables;
     private Map<Student, Boolean> professors;
 
-    private int coins;
+    private Integer coins;
 
 
     public DiningRoom(){
         this.tables = Student.makeStudents();
         this.professors= makeProfessors();
-        coins = 1;
+        coins = null; //the game sets this to 1 in case it is advanced variant
     }
 
 

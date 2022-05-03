@@ -59,6 +59,17 @@ public class ServerHandler {
         }
     }
 
+    public void closeAll() throws IOException {
+        inStream.close();
+        outStream.close();
+        views.forEach(v-> {
+            try {
+                v.getSocket().close();
+            } catch (IOException e) {throw new RuntimeException("could not close sockets");}
+        });
+        serverSocket.close();
+        System.out.println("Server closed successfully");
+    }
 
 
 

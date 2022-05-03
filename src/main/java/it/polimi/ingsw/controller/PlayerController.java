@@ -55,6 +55,27 @@ public class PlayerController {
             playerView.update("Not an acceptable color, available colors are: "+ remainingColors.toString());
         }
     }
+    /**
+     *
+     * @param remainingWizards the remaining wizards, by askAllforWiz()
+     * @return the wizard chosen by the player
+     */
+    public int askWizard(List<Integer> remainingWizards) {
+        playerView.update(player.getPlayerName() + ", choose your wizard number among these: " + remainingWizards);
+        while (true) {
+            int input = Integer.parseInt(playerView.getAnswer());
+            if (remainingWizards.contains(input)){
+                Integer wiz = remainingWizards.get(remainingWizards.indexOf(input));
+                player.setWizard(wiz);
+                return wiz;
+            }
+        }
+    }
+
+    public void updatePlayer(Object model){
+        playerView.update(model);
+    }
+
 
     public Player getPlayer() {
         return player;

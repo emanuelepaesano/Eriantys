@@ -11,12 +11,14 @@ import java.util.Scanner;
  */
 class CheckOwnerCharacter extends Characters {
     int cost;
+    Game game;
 
-    public CheckOwnerCharacter() {
+    public CheckOwnerCharacter(Game game) {
         this.cost = 3;
+        this.game=game;
     }
 
-    public void play(Player player, Game game) {
+    public void play(Player player) {
         //choose an island to checkOwner() immediately
         if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");

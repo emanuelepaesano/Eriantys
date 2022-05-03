@@ -4,6 +4,7 @@ import it.polimi.ingsw.CLIENT.GeneralViewState;
 import it.polimi.ingsw.CLIENT.ViewState;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.Player;
 
 import java.io.IOException;
 
@@ -29,8 +30,19 @@ public class ServerApp {
         ServerHandler server = new ServerHandler(1337);
         int numplayers = server.startServer();
         GameController gc = new GameController(numplayers,server.views);
-        ViewState send =  new GeneralViewState(gc.getGame());
+        Game game = gc.getGame();
+        ViewState send =  new GeneralViewState(game);
         server.updateAllViews(send);
+        while (game.getOver().equals(false)) {
+            gc.doPlanningPhase(game);
+            for (Player p : game.getCurrentOrder()) {
+                game.setCurrentPlayer(p);
+                p.doActions(game, game.getTableOrder());
+            }
+            gc.newRoundOrEnd();
+        }
+        server.closeAll();
+
 
     }
 }

@@ -13,8 +13,11 @@ import java.util.Scanner;
     int cost;
     List<Student> students;
     Scanner scanner = new Scanner(System.in);
+    Game game;
+
 
     public PlaceInIslandCharacter(Game game) {
+        this.game = game;
         this.cost = 1;
         students = new ArrayList<>(
                 List.of(game.drawFromBag(), game.drawFromBag(), game.drawFromBag()));
@@ -39,7 +42,7 @@ import java.util.Scanner;
         return student;
     }
 
-    public void play(Player player, Game game) {
+    public void play(Player player) {
         Student chosenStudent = pickStudent();
         if(chosenStudent ==null){return;}
         if (!Character.enoughMoney(player,cost)){

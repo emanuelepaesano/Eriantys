@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.characters.Character;
+import it.polimi.ingsw.model.characters.Characters;
+
 import java.util.*;
 
 public class Player {
@@ -46,22 +49,6 @@ public class Player {
 
 
 
-    /**
-     *
-     * @param remainingWizards the remaining wizards, by askAllforWiz()
-     * @return the wizard chosen by the player
-     */
-    public int askWizard(List<Integer> remainingWizards) {
-        System.out.println(this.playerName + ", choose your wizard number among these: " + remainingWizards);
-        while (true) {
-            int input = Integer.parseInt(new Scanner(System.in).nextLine());
-            if (remainingWizards.contains(input)){
-                Integer wiz = remainingWizards.get(remainingWizards.indexOf(input));
-                this.wizard = wiz;
-                return wiz;
-            }
-        }
-    }
 
 
 
@@ -100,7 +87,7 @@ public class Player {
      * This is the main method for the action phase of each player. It asks the player which action they want to do
      * and then performs the action, until they used all of their moves.
      */
-    public void doActions(GameMap gm, List<Player> players){
+    public void doActions(Game game, List<Player> players){
         int availableActions = numActions;
         //this will be an actionlistener linked to 2 buttons. depending on the button pressed
         //(movetodiningroom or movetoisland) the controller calls a different method, then updates model
@@ -111,10 +98,26 @@ public class Player {
                 this.diningRoom.checkProfessors(players,orEqual);
             }
             else if (action.equalsIgnoreCase("islands")){
-                availableActions -= entrance.moveToIsland(availableActions, gm);}
+                availableActions -= entrance.moveToIsland(availableActions, game.getGameMap());}
+            else if (action.equalsIgnoreCase("characters")){
+                if(getCoins()!= null){
+                    playCharacters(game);
+
+                }
+                else {
+                    System.out.println("This is not an advanced game!");
+                }
+            }
 
         }
         System.out.println("After your moves: " + this.diningRoom);
+    }
+
+    public void playCharacters(Game game){
+        List<Character> characters = game.getCharacters();
+        // TODO: 03/05/2022 replace with user input!
+        Character chara = characters.get(0);
+        Character.play(chara, this);
     }
 
     private String askWhichAction(int availableActions){
@@ -178,7 +181,7 @@ public class Player {
 
     //GETTERS SETTERS
 
-    public int getCoins(){
+    public Integer getCoins(){
         return this.getDiningRoom().getCoins();
     }
     public void setCoins(int coins){
@@ -244,5 +247,9 @@ public class Player {
 
     public String getPlayerName() {
         return playerName;
+    }
+
+    public void setWizard(Integer wizard) {
+        this.wizard = wizard;
     }
 }

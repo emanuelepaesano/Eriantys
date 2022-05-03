@@ -8,13 +8,15 @@ import it.polimi.ingsw.model.Player;
  */
 class CheckProfCharacter extends Characters {
     int cost;
+    Game game;
 
-    public CheckProfCharacter() {
+    public CheckProfCharacter(Game game) {
         this.cost = 2;
+        this.game=game;
 
     }
 
-    public synchronized void play(Player player, Game game) throws InterruptedException {
+    public synchronized void play(Player player) throws InterruptedException {
         if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
             return;}

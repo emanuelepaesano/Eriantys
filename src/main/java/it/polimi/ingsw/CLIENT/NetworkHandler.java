@@ -1,6 +1,8 @@
 package it.polimi.ingsw.CLIENT;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 public class NetworkHandler{
@@ -66,20 +68,28 @@ public class NetworkHandler{
             Object socketInput;
             try {
                 socketReader = new ObjectInputStream(socket.getInputStream());
-                while (true){
+                while (true) {
+                    //this is far from ideal. i did this because we can send 3 things which are
+                    //only generalview, view, or string (message)
                     socketInput = socketReader.readObject();
-                    try{
-                        System.out.println("trying to cast");
-                        model.setState((GeneralViewState) socketInput);
-                        view.update();}
+                    try {
+                        System.out.println("trying to cast 1");
+                        model.setGameState((GeneralViewState) socketInput);
+                        model.setCurrentState((ViewState) socketInput);
+                        view.update();
+                    } catch (ClassCastException notagenview) {
+                        try {
+                            System.out.println("trying to cast 2");
+                            model.setCurrentState((ViewState) socketInput);
+                            view.update();
 
-                    catch (ClassCastException message){
-                        System.out.println("message: \n");
-                        model.setMessage(socketInput.toString());
-                        view.getMessage();
+                        } catch (ClassCastException message) {
+                            System.out.println("message: \n");
+                            model.setMessage(socketInput.toString());
+                            view.getMessage();
+                        }
                     }
-
-                    }
+                }
             }catch (IOException | ClassNotFoundException e) {throw new RuntimeException(e);}
         });
 
@@ -92,8 +102,8 @@ public class NetworkHandler{
 
             while (true){
                 String userInput = view.getUserInput();
-                Boolean OkSend = checkString(userInput);
-                if (OkSend){
+                Boolean ToSend = checkString(userInput, model);
+                if (ToSend){
                     outSocket.println(userInput);
                     outSocket.flush();}
             }
@@ -102,9 +112,9 @@ public class NetworkHandler{
         speaker.start();
     }
 
-    private Boolean checkString(String inputString){
+    private Boolean checkString(String inputString, LocalModel model){
         if (inputString.equalsIgnoreCase("view")){
-            view.currentView.display();
+            model.getGameState().display();
             return false;
         }
         else {return true;}

@@ -21,13 +21,13 @@ class PlayerTest {
         testplayer = Player.makePlayer(1,3);
     }
 
-    @ParameterizedTest (name = "Testing: {0}")
-    @ValueSource(ints = {1, 2, 3, 4})
-    void askWizard(Integer choice) {
-        System.setIn(new ByteArrayInputStream(choice.toString().getBytes()));
-        assertEquals(testplayer.askWizard(List.of(1,2,3,4)),choice);
-        assertEquals(choice, testplayer.getWizard());
-    }
+//    @ParameterizedTest (name = "Testing: {0}")
+//    @ValueSource(ints = {1, 2, 3, 4})
+//    void askWizard(Integer choice) {
+//        System.setIn(new ByteArrayInputStream(choice.toString().getBytes()));
+//        assertEquals(testplayer.askWizard(List.of(1,2,3,4)),choice);
+//        assertEquals(choice, testplayer.getWizard());
+//    }
 
 
 //    static Stream<Arguments> giveRemainingsandChoice(){

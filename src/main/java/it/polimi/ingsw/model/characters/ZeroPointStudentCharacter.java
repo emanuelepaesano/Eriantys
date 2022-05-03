@@ -11,10 +11,11 @@ import java.util.Scanner;
 class ZeroPointStudentCharacter extends Characters {
     int cost;
     Scanner scanner = new Scanner(System.in);
+    Game game;
 
-    public ZeroPointStudentCharacter() {
+    public ZeroPointStudentCharacter(Game game) {
         this.cost = 3;
-
+        this.game = game;
     }
 
 
@@ -31,7 +32,7 @@ class ZeroPointStudentCharacter extends Characters {
         }
         return stud;
     }
-    public synchronized void play(Player player, Game game) throws InterruptedException {
+    public synchronized void play(Player player) throws InterruptedException {
         Student student = pickStudent();
         if (student == null){return;}
         if (!Character.enoughMoney(player,cost)){

@@ -16,6 +16,7 @@ class MoveToDRCharacter extends Characters {
     int cost;
 
     List<Student> students;
+    Game game;
 
     Scanner scanner = new Scanner(System.in);
 
@@ -23,6 +24,7 @@ class MoveToDRCharacter extends Characters {
         this.cost = 2;
         students = new ArrayList<>(List.of(game.drawFromBag(), game.drawFromBag(),
                 game.drawFromBag(), game.drawFromBag()));
+        this.game = game;
     }
 
     private Student pickStudent(){
@@ -44,7 +46,7 @@ class MoveToDRCharacter extends Characters {
         return student;
     }
 
-    public void play(Player player, Game game) {
+    public void play(Player player) {
         Student chosenStudent = pickStudent();
         if (chosenStudent == null){return;}
         if (!Character.enoughMoney(player,cost)){
