@@ -1,7 +1,5 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.CLIENT.YourTurnState;
-import it.polimi.ingsw.StringMessage;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.model.*;
 
@@ -146,7 +144,6 @@ public class GameController {
         //the controller of that player...
         PlayerController currentPC = controllers.get(controllers.stream().map(PlayerController::getPlayer).toList().indexOf(player));
         game.setCurrentPlayer(currentPC.getPlayer());
-        currentPC.updatePlayer(new YourTurnState(game,currentPC.getPlayer()));
     }
 
 
