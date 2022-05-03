@@ -1,12 +1,9 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.StringMessage;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.characters.Character;
 
-import java.io.IOException;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;

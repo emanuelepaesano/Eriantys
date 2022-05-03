@@ -1,6 +1,6 @@
 package it.polimi.ingsw.CLIENT;
 
-import it.polimi.ingsw.Message;
+import it.polimi.ingsw.messages.Message;
 
 public class LocalModel {
 

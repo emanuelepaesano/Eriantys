@@ -1,7 +1,7 @@
 package it.polimi.ingsw.CLIENT;
 
-import it.polimi.ingsw.Message;
-import it.polimi.ingsw.StringMessage;
+import it.polimi.ingsw.messages.Message;
+import it.polimi.ingsw.messages.StringMessage;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

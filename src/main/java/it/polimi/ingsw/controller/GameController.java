@@ -157,7 +157,6 @@ public class GameController {
 
 
 
-
     //GETTER
     public Game getGame() {
         return game;
