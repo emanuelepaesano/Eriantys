@@ -1,12 +1,14 @@
 package it.polimi.ingsw.CLIENT;
 
+import it.polimi.ingsw.CLIENT.ViewImpls.CLIView;
+import it.polimi.ingsw.CLIENT.ViewImpls.LoginView;
 import it.polimi.ingsw.messages.Message;
-import it.polimi.ingsw.messages.StringMessage;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 
 public class NetworkHandler{
@@ -19,74 +21,67 @@ public class NetworkHandler{
     //che queste cose appaiono come popup sopra alla view che resta però allo stato attuale
 
     final Socket socket;
-    View view;
+    UserView view;
+    Boolean GUI;
+    CLIView cliView;
+    LoginView loginView;
 
-    ViewState currentState;
+    View currentState;
     //dobbiamo mandargli i parametri per creare il prossimo stato
 
     public NetworkHandler() throws IOException {
+        chooseUI();
+        try {
+            synchronized (this) { wait();}
+        }catch(InterruptedException ex){}
+        initializeViews();
         socket = new Socket("localhost",1337);
         System.out.println("connected to server at 1337");
     }
 
 
-    public void startClient(View View) throws IOException, ClassNotFoundException{
-        this.view = View;
-        PrintWriter outSocket = new PrintWriter(socket.getOutputStream());
-        ObjectInputStream socketReadr = new ObjectInputStream(socket.getInputStream());
-        System.out.println("arrivato a try-socket");
-        try (socket) {
-            Object socketInput = socketReadr.readObject();
-            //ask pl. number or empty
-            if (!socketInput.equals("")){
-                outSocket.println(View.getUserInput());
-                outSocket.flush();
-                System.out.println(socketReadr.readObject()); //confirmation
-            }
-            else{System.out.println("joining an existing game...");}
-            socketInput = socketReadr.readObject();
-            System.out.println(socketInput); //game start
-            while (true) {
-                socketInput = socketReadr.readObject(); //main client loop. we wait for objects and update the view
-                System.out.println(socketInput);
-
-                outSocket.println(view.getUserInput());
-                outSocket.flush();
-//                currentState = view.getCurrentView();
-//                ViewState newView = currentState.nextState(socketInput);
-//                view.update(newView);
-//                outSocket.println(view.getUserInput());
-            }
-        }
-
-
+    private void chooseUI(){
+        JFrame frame = new JFrame("Interface");
+        frame.setSize(300,300);
+        JButton b1 = new JButton("Graphic Interface");
+        JButton b2 = new JButton("Command Line");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.setLayout(new FlowLayout());
+        frame.add(b1);
+        frame.add(b2);
+        frame.pack();
+        b1.addActionListener(e-> {GUI =true; frame.setVisible(false);synchronized (this){notifyAll(); }});
+        b2.addActionListener(e-> {GUI =false; frame.setVisible(false);synchronized (this){notifyAll();}});
+        frame.setVisible(true);
 
     }
+    public void initializeViews(){
+        if (!GUI){
+            this.cliView = new CLIView();
+        }
+        else{
+            this.loginView = new LoginView();
+            //and all the other views for the gui
+        }
 
+    }
+    public synchronized void startClientWithThreads(UserView userView){
+        this.view = userView;
 
-    public synchronized void startClientWithThreads(View view, LocalModel model){
-        this.view = view;
-
+        //per fare cosi bisogna capire quale tipo di messaggio è in arrivo però. come lo facciamo?
         Thread listener = new Thread(()->{
             ObjectInputStream socketReader;
-            Object socketInput;
+            Message socketInput;
             try {
                 socketReader = new ObjectInputStream(socket.getInputStream());
+
                 while (true) {
-                    //this is far from ideal. i did this because we can send 3 things which are
-                    //only generalview, view, or string (message)
-                    socketInput = socketReader.readObject();
-                        try {
-                            System.out.println("trying to cast");
-                            model.setCurrentState((ViewState) socketInput);
-                            view.update();
-                        } catch (ClassCastException message) {
-                            System.out.println("message: \n");
-                            model.setMessage(new StringMessage(socketInput.toString()));
-                            view.getMessage();
-                        }
-                    }
-            }catch (IOException | ClassNotFoundException e) {throw new RuntimeException(e);}
+                    socketInput = (Message) socketReader.readObject();
+                    selectAndFillView(socketInput);
+                    userView.update();
+                }
+            }catch (IOException | ClassNotFoundException e) {throw new RuntimeException("no good");}
         });
 
 
@@ -96,12 +91,9 @@ public class NetworkHandler{
                 outSocket = new ObjectOutputStream(socket.getOutputStream());
 
             while (true){
-                Message userInput = view.getUserInput();
-                Boolean ToSend = checkString(userInput, model);
-                if (ToSend){
-                    outSocket.writeObject(userInput);
-                    outSocket.flush();
-                }
+                Message userInput = userView.getUserInput();
+                outSocket.writeObject(userInput);
+                outSocket.flush();
             }
             } catch (IOException e) {throw new RuntimeException(e);}
         });
@@ -109,11 +101,18 @@ public class NetworkHandler{
         speaker.start();
     }
 
-    private Boolean checkString(Message input, LocalModel model){
-        if (input.toString().equalsIgnoreCase("view")){
-            model.getCurrentState().display();
-            return false;
+    private void selectAndFillView(Message message){
+        if (!GUI){
+            view.getCurrentView().fillInfo(message);
         }
-        else {return true;}
+        switch (message.getView()){
+            case "loginview":
+                view.setCurrentView(new LoginView());
+                view.currentView.fillInfo(message);
+            case "planningview": //from planningphasemessage
+            case "actionview": //from actionphasemessage
+            case "generalview": //from generalviewmessage
+            case "simpleview": //from stringmessage
+        }
     }
 }

@@ -1,8 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.characters.Character;
-import it.polimi.ingsw.model.characters.Characters;
-
 import java.util.*;
 
 public class Player {

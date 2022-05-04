@@ -1,8 +1,10 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.VirtualView;
+import it.polimi.ingsw.messages.LoginMessage;
+import it.polimi.ingsw.messages.StringMessage;
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.characters.Character;
+import it.polimi.ingsw.controller.characters.Character;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,14 +36,14 @@ public class PlayerController {
     }
 
     private String askPlayerName()  {
-        playerView.update("Player " + player.getId() + ", enter your nickname:");
+        new LoginMessage("Player " + player.getId() + ", enter your nickname:").send(playerView);
         while (true){
             System.out.println("I'm asking the player name!!!!!!!!!!!!!");
             String name = (playerView.getAnswer()).toString();
             if (name.length() < 20){
                 return name;
             }
-            playerView.update("name too long! Insert a shorter name");
+            new StringMessage(Game.ANSI_RED + "name too long! Insert a shorter name" + Game.ANSI_RESET).send(playerView);
         }
     }
 
@@ -50,7 +52,8 @@ public class PlayerController {
      * @return the TowerColor chosen by the player among the remaining ones
      */
     public TowerColor askTowerColor(List<TowerColor> remainingColors) {
-        playerView.update(player.getPlayerName() + ", please choose your tower color among the available ones: " + remainingColors);
+        new StringMessage(player.getPlayerName() +
+                ", please choose your tower color among the available ones: " + remainingColors).send(playerView);
         while (true) {
             try {
                 String input = (playerView.getAnswer()).toString();
@@ -60,9 +63,10 @@ public class PlayerController {
                     return choice;
                 }
             } catch (IllegalArgumentException ex) {
-                playerView.update("Try again!");
+                new StringMessage(Game.ANSI_RED+ "Try again!"+ Game.ANSI_RESET).send(playerView);
             }
-            playerView.update("Not an acceptable color, available colors are: "+ remainingColors.toString());
+            new StringMessage(Game.ANSI_RED+ "Not an acceptable color, available colors are: "
+                    + remainingColors.toString()+ Game.ANSI_RESET).send(playerView);
         }
     }
     /**
@@ -71,7 +75,8 @@ public class PlayerController {
      * @return the wizard chosen by the player
      */
     public int askWizard(List<Integer> remainingWizards) {
-        playerView.update(player.getPlayerName() + ", choose your wizard number among these: " + remainingWizards);
+        new StringMessage(player.getPlayerName() +
+                ", choose your wizard number among these: " + remainingWizards).send(playerView);
         while (true) {
             int input = Integer.parseInt((playerView.getAnswer()).toString());
             if (remainingWizards.contains(input)){

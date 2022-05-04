@@ -1,6 +1,8 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.VirtualView;
+import it.polimi.ingsw.messages.Message;
+import it.polimi.ingsw.messages.StringMessage;
 import it.polimi.ingsw.model.*;
 
 import java.util.*;
@@ -57,13 +59,14 @@ public class GameController {
     Boolean askForAdvanced(){
         Scanner scanner = new Scanner(System.in);
         VirtualView firstPlayer = views.get(0);
-        firstPlayer.update("Normal game or expert version? Please type \"normal\" or \"expert\".");
+        new StringMessage("Normal game or expert version? Please type \"normal\" or \"expert\".").send(firstPlayer);
         while (true){
-            String choice = (firstPlayer.getAnswer()).toString();
+            String choice = Message.receive(firstPlayer).toString();
             if (choice.equalsIgnoreCase("expert")) {return true;}
             else if (choice.equalsIgnoreCase("normal")) {return false;}
 
-            System.err.println("What do you mean? Please type \"normal\" or \"expert\".");
+            new StringMessage( Game.ANSI_RED + "What do you mean? Please type \"normal\" or \"expert\"."+ Game.ANSI_RESET)
+                    .send(firstPlayer);
         }
     }
 

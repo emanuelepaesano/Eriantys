@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.characters;
+package it.polimi.ingsw.controller.characters;
 
 import it.polimi.ingsw.model.*;
 

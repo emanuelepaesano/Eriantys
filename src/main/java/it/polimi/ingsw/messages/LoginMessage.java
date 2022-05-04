@@ -1,17 +1,14 @@
 package it.polimi.ingsw.messages;
 
 import it.polimi.ingsw.VirtualView;
-import it.polimi.ingsw.messages.Message;
 
 import java.util.List;
 
-public class StringMessage implements Message {
-    final String content;
+public class LoginMessage implements Message{
 
-    String answer = "";
+    String content;
 
-
-    public StringMessage(String content) {
+    public LoginMessage(String content) {
         this.content = content;
     }
 
@@ -27,19 +24,11 @@ public class StringMessage implements Message {
 
     @Override
     public String getView() {
-        return "simpleview";
+        return "loginview";
     }
 
     @Override
     public String toString() {
-        return this.content;
-    }
-
-    public String getContent() {
         return content;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
     }
 }

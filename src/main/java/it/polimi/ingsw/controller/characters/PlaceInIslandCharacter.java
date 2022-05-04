@@ -1,36 +1,32 @@
-package it.polimi.ingsw.model.characters;
+package it.polimi.ingsw.controller.characters;
 
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.Student;
+import it.polimi.ingsw.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 /**
- * You can take 1 student from this character and move it to your diningRoom
+ * You can take 1 student from this character and move it to an island.
  */
-class MoveToDRCharacter extends Characters {
+ class PlaceInIslandCharacter extends Characters {
     int cost;
-
     List<Student> students;
+    Scanner scanner = new Scanner(System.in);
     Game game;
 
-    Scanner scanner = new Scanner(System.in);
 
-    public MoveToDRCharacter(Game game) {
-        this.cost = 2;
-        students = new ArrayList<>(List.of(game.drawFromBag(), game.drawFromBag(),
-                game.drawFromBag(), game.drawFromBag()));
+    public PlaceInIslandCharacter(Game game) {
         this.game = game;
+        this.cost = 1;
+        students = new ArrayList<>(
+                List.of(game.drawFromBag(), game.drawFromBag(), game.drawFromBag()));
     }
 
     private Student pickStudent(){
         Student student;
         while (true) {
-            System.out.println("Choose 1 student from the character to move to your dining Room.");
+            System.out.println("Choose 1 student from this character to move to an island.");
             String str = Student.askStudent(students, scanner).toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return null;}
@@ -48,23 +44,19 @@ class MoveToDRCharacter extends Characters {
 
     public void play(Player player) {
         Student chosenStudent = pickStudent();
-        if (chosenStudent == null){return;}
+        if(chosenStudent ==null){return;}
         if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
             return;}
-        students.remove(chosenStudent);
-        player.getDiningRoom().putStudent(chosenStudent);
-        player.getDiningRoom().checkProfessors(game.getTableOrder(),false);
-        if (students.size() < 3) {
-            students.add(game.drawFromBag());
-        }
-        this.cost = Character.payandUpdateCost(player,cost);
-        System.out.println("New Dining Room:\n " + player.getDiningRoom());
-    }
 
-    @Override
+        Island island = game.getGameMap().askWhichIsland(scanner);
+        students.remove(chosenStudent);
+        int oldval = island.students.get(chosenStudent);
+        island.students.replace(chosenStudent, oldval, oldval + 1);
+        students.add(game.drawFromBag());
+        this.cost = Character.payandUpdateCost(player,cost);
+    }
     public int getCost() {
         return cost;
     }
-
 }

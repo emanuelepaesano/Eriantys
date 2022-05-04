@@ -1,8 +1,7 @@
-package it.polimi.ingsw.model.characters;
+package it.polimi.ingsw.controller.characters;
 
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.Student;
 
 public interface Character {
      /////////////this factory constructs the corresponding character,
