@@ -3,7 +3,9 @@ package it.polimi.ingsw.controller.characters;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 
-public interface Character {
+import java.io.Serializable;
+
+public interface Character extends Serializable {
      /////////////this factory constructs the corresponding character,
      /////////////depending on the subtype of character that is passed.
      static Character makeCharacter(Integer chara, Game game) {

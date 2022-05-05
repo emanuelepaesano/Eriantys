@@ -112,6 +112,7 @@ public class NetworkHandler{
                 view.currentView.fillInfo(message);
             case "planningview": //from planningphasemessage
             case "actionview": //from actionphasemessage
+            case "cloudselection": //from cloudmessage
             case "generalview": //from generalviewmessage
             case "simpleview": //from stringmessage //this can just be an overlaying popup or something similar
         }

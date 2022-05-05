@@ -83,9 +83,9 @@ public class DiningRoom implements Serializable {
     public String toString() {
         StringBuilder dr = new StringBuilder("Dining Room {\n");
         for (Student student : Student.values()){
-            dr.append(student.getAnsiColor()).append(student).append(": ");
+            dr.append(student).append(": ");
             dr.append(tables.get(student));
-            dr.append(this.professors.get(student) ? " \u200D\uD83C\uDF93" : "").append(Game.ANSI_RESET).append("\n");
+            dr.append(this.professors.get(student) ? student.getAnsiColor()+" \u200D\uD83C\uDF93"+Game.ANSI_RESET : "").append("\n");
         }
         dr.append("}");
         return dr.toString();

@@ -46,6 +46,12 @@ public enum Student {
             System.out.println("Not a valid color, try again.");
             return "retry";
         }
+
+    }
+
+    @Override
+    public String toString() {
+        return this.getAnsiColor()+ this.name() + Game.ANSI_RESET;
     }
 }
 

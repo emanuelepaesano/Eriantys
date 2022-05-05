@@ -28,9 +28,10 @@ public class ServerApp {
             for (PlayerController playerturn: gc.getControllers()) {
                 Player player = playerturn.getPlayer();
                 game.setCurrentPlayer(player);
-                playerturn.doActions(game);
+                gc.doActions(playerturn);
                 int nmoves = playerturn.askMNMoves();
                 game.getGameMap().moveMotherNatureAndCheck(playerturn.getPlayer(), game.getTableOrder(),nmoves);
+                playerturn.getEntranceController().fillFromClouds(game.getClouds());
                 game.checkGameEndCondition("towerend",player);
                 game.checkGameEndCondition("islandend",player);
             }

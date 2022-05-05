@@ -1,7 +1,10 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.VirtualView;
+import it.polimi.ingsw.controller.characters.Character;
+import it.polimi.ingsw.messages.ActionPhaseMessage;
 import it.polimi.ingsw.messages.Message;
+import it.polimi.ingsw.messages.PlayCharMessage;
 import it.polimi.ingsw.messages.StringMessage;
 import it.polimi.ingsw.model.*;
 
@@ -14,6 +17,8 @@ public class GameController {
     private List<VirtualView> views;
 
     private List<Player> winner;
+
+    private Boolean advanced;
 
 
 
@@ -36,6 +41,7 @@ public class GameController {
         bindPlayers();
         System.out.println("finito bind players");
         Boolean ad = askForAdvanced();
+        this.advanced = ad;
         askAllPlayerNames();
         askAllForTC(numplayers);
         askAllForWiz();
@@ -137,6 +143,41 @@ private void askAllPlayerNames(){
         new StringMessage("Player order for this turn:" + newOrder).send(views);
         g.setCurrentOrder(newOrder);
     }
+    /**
+     * This is the main method for the action phase of each player. It asks the player which action they want to do
+     * and then performs the action, until they used all of their moves.
+     */
+    public void doActions(PlayerController pc){
+        Player player = pc.getPlayer();
+        EntranceController entranceController = pc.getEntranceController();
+        int availableActions = player.getNumActions();
+        //there will be an actionlistener in the client linked to 3 buttons. depending on the button pressed
+        //(movetodiningroom or movetoisland) the client sends a different string.
+        // the controller calls a method based on this string, updating model
+        while (availableActions>0) {
+            String action = askWhichAction(availableActions,pc);
+            if (action.equalsIgnoreCase("diningroom")) {
+                availableActions -= entranceController.moveToDiningRoom(availableActions, player.getDiningRoom());
+                player.getDiningRoom().checkProfessors(game.getTableOrder(),player.isOrEqual());
+            }
+            else if (action.equalsIgnoreCase("islands")){
+                availableActions -= entranceController.moveToIsland(availableActions, game.getGameMap());}
+            else if (action.equalsIgnoreCase("characters")){
+                if(player.getCoins()!= null){
+                    pc.playCharacters(game.getCharacters());
+                }
+                else {
+                    new StringMessage("This is not an advanced game!").send(pc.getPlayerView());
+                }
+            }
+        }
+        System.out.println("After your moves: " + player.getDiningRoom());
+    }
+    public String askWhichAction(int availableActions, PlayerController pc){
+        new ActionPhaseMessage(advanced, availableActions,pc.getPlayer(), game.getCharacters()).send(pc.getPlayerView());
+        return Message.receive(pc.getPlayerView()).toString();
+    }
+
 
     public void setCurrentPlayer(Player player){
         //the controller of that player...
@@ -144,13 +185,6 @@ private void askAllPlayerNames(){
         game.setCurrentPlayer(currentPC.getPlayer());
     }
 
-
-
-    public void updateAllViews(Object message) {
-        for(VirtualView client: views){
-            client.update(message);
-        }
-    }
 
 
 

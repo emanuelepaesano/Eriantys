@@ -36,7 +36,6 @@ public class PlayerController {
     public String askPlayerName(List<String> usedNames)  {
         new LoginMessage("Player " + player.getId() + ", enter your nickname:").send(playerView);
         while (true){
-            System.out.println("I'm asking the player name!!!!!!!!!!!!!");
             String name = (playerView.getAnswer()).toString();
             if (!usedNames.contains(name)){
                 if (name.length() < 20){
@@ -90,35 +89,6 @@ public class PlayerController {
     }
 
 
-    /**
-     * This is the main method for the action phase of each player. It asks the player which action they want to do
-     * and then performs the action, until they used all of their moves.
-     */
-    public void doActions(Game game){
-        int availableActions = player.getNumActions();
-        //there will be an actionlistener in the client linked to 3 buttons. depending on the button pressed
-        //(movetodiningroom or movetoisland) the client sends a different string.
-        // the controller calls a method based on this string, updating model
-        while (availableActions>0) {
-            String action = askWhichAction(availableActions);
-            if (action.equalsIgnoreCase("diningroom")) {
-                availableActions -= entranceController.moveToDiningRoom(availableActions, player.getDiningRoom());
-                player.getDiningRoom().checkProfessors(game.getTableOrder(),player.isOrEqual());
-            }
-            else if (action.equalsIgnoreCase("islands")){
-                availableActions -= entranceController.moveToIsland(availableActions, game.getGameMap());}
-            else if (action.equalsIgnoreCase("characters")){
-                if(player.getCoins()!= null){
-                    playCharacters(game);
-                }
-                else {
-                    System.out.println("This is not an advanced game!");
-                }
-            }
-
-        }
-        System.out.println("After your moves: " + player.getDiningRoom());
-    }
 
     /**
      * asks an assistant as input from those remaining, turns it to false in the map and returns it.
@@ -145,25 +115,21 @@ public class PlayerController {
                 }
                 // TODO: 05/05/2022 here would be the place to check if you can only play that one
                 else new StringMessage(Game.ANSI_RED+ "That assistant was already played! Try again."+ Game.ANSI_RESET).send(playerView);
-            } catch (IllegalArgumentException exception) {System.out.println("Not a valid assistant, take one from the list: " + remass);}
+            } catch (IllegalArgumentException exception) {
+                new StringMessage(Game.ANSI_RED+ "Not a valid assistant, take one from the list: "
+                        + remass+ Game.ANSI_RESET).send(playerView);}
         }
     }
 
 
-    public void playCharacters(Game game){
-        List<Character> characters = game.getCharacters();
-        // TODO: 03/05/2022 replace with user input!
-        Character chara = characters.get(0);
+    public void playCharacters(List<Character> characters){
+        new PlayCharMessage(characters,player).send(playerView);
+        int chosenChar = Integer.parseInt(Message.receive(playerView).toString());
+        Character chara = characters.get(chosenChar-1);
         Character.play(chara,player);
     }
 
-    public String askWhichAction(int availableActions){
-        Scanner scanner = new Scanner(System.in);
-        new ActionPhaseMessage();
-        System.out.printf("%s, where do you want to move your students (%d moves left)? Please type \"islands\" or \"diningroom\" "
-                , player.getPlayerName(),availableActions);
-        return scanner.nextLine();
-    }
+
 
     /**
      *
@@ -187,16 +153,15 @@ public class PlayerController {
     }
 
 
-    public void updatePlayer(Object model){
-        playerView.update(model);
-    }
-
-
     public Player getPlayer() {
         return player;
     }
 
     public EntranceController getEntranceController() {
         return entranceController;
+    }
+
+    public VirtualView getPlayerView() {
+        return playerView;
     }
 }

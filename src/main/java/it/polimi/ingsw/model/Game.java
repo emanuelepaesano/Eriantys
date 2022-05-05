@@ -1,14 +1,16 @@
 package it.polimi.ingsw.model;
 import it.polimi.ingsw.controller.characters.Character;
 
+import java.io.Serializable;
 import java.util.*;
 
 
-public class Game {
+public class Game implements Serializable {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[92m";
+    public static final String ANSI_BADGREEN = "\u001B[32m";
     public static final String ANSI_PINK = "\u001B[95m";
     public static final String ANSI_YELLOW = "\u001B[93m";
     public static final String ANSI_BLUE = "\u001B[34m";
@@ -97,19 +99,18 @@ public class Game {
     private List<Character> makeAllCharacters(Game game){
 
         characters = new ArrayList<>();
-//        List<Integer> availables = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 7));
-//        for (int i=0; i<3;i++) {
-//            Integer pickedChara;
-//            while(true) {
-//                pickedChara = 1 + randomizer.nextInt(Collections.max(availables));
-//                if (availables.contains(pickedChara)) {
-//                    availables.remove(pickedChara);
-//                    break;
-//                }
-//            }
-//            characters.add(Character.makeCharacter(pickedChara, game));
-//        }
-        characters.add(Character.makeCharacter(3,game));
+        List<Integer> availables = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 7, 8));
+        for (int i=0; i<3;i++) {
+            Integer pickedChara;
+            while(true) {
+                pickedChara = 1 + randomizer.nextInt(Collections.max(availables));
+                if (availables.contains(pickedChara)) {
+                    availables.remove(pickedChara);
+                    break;
+                }
+            }
+            characters.add(Character.makeCharacter(pickedChara, game));
+        }
         return characters;
     }
 
@@ -147,27 +148,34 @@ public class Game {
 
 
     public Boolean checkGameEndCondition(String condition, Player player){
-        List<Object> returnValues = new ArrayList<>();
         switch (condition) {
             case "towerend" -> {
-                Over = true;
-                return player.getNumTowers() == 0;
+                if (player.getNumTowers() == 0) {
+                    Over = true;
+                    return true;
+                }
             }
             case "islandend" -> {
-                Over = true;
-                return gameMap.getArchipelago().size() <= 3;
+                if (gameMap.getArchipelago().size() <= 3) {
+                    Over = true;
+                    return true;
+                }
             }
             case "studend" -> {
+                if (bag.equals(Map.of(Student.RED, 0, Student.BLUE, 0, Student.YELLOW, 0, Student.PINK, 0, Student.GREEN, 0))){
                 Over = true;
-                return bag.equals(Map.of(Student.RED, 0, Student.BLUE, 0, Student.YELLOW, 0, Student.PINK, 0, Student.GREEN, 0));
+                return true;
+                }
             }
             case "deckend" -> {
+                if (player.getAssistants().values().equals(List.of(false, false, false, false, false,
+                        false, false, false, false, false))){
                 Over = true;
-                return player.getAssistants().values().equals(List.of(false, false, false, false, false,
-                        false, false, false, false, false));
+                return true;}
             }
             default -> throw new RuntimeException("not a valid string as argument");
         }
+        return false;
     }
 
     /**
@@ -203,20 +211,17 @@ public class Game {
         Boolean cond1 = checkGameEndCondition("deckend",anyPlayerisFine);
         Boolean cond2 = checkGameEndCondition("studend",anyPlayerisFine);
         if (cond1){
-            setWinner(lookForWinner());
+            winner = lookForWinner();
             return;
         }
         else if (cond2){
             winner= lookForWinner();
             return;
         }
-        nextRound();
-    }
-
-    private void nextRound() {
-        round+=1;
+        round +=1;
         fillClouds();
     }
+
 
     public static void main(String[] args) {
         //small test for wait and notify
@@ -287,6 +292,9 @@ public class Game {
         this.winner = winner;
     }
 
+    public void setClouds(List<List<Student>> clouds) {
+        this.clouds = clouds;
+    }
 }
 
 

@@ -12,9 +12,11 @@ public class GenInfoView implements View {
 
     GameMap map;
     List<Player> players;
+
+    //screen with the map and the player schools (static)
     @Override
     public void display() {
-        //screen with the map and the player schools
+         //setVisible(true)
     }
 
     @Override

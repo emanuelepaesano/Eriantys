@@ -128,7 +128,7 @@ public class GameMap implements Serializable {
             string.append("Size=").append(island.size).append("; ");
             string.append("Owner{").append(island.owner).append("} ");
             string.append(island.getStudents()).append((archipelago.indexOf(island) == motherNature?
-                    Game.ANSI_GREEN+" 🍀"+Game.ANSI_RESET:"")).append("\n");
+                    Game.ANSI_BADGREEN+" 🍀"+Game.ANSI_RESET:"")).append("\n");
 
         }
         return string.toString();

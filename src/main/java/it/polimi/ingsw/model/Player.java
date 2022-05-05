@@ -46,10 +46,6 @@ public class Player implements Serializable {
     }
 
 
-
-
-
-
     /**
      *Method to calculate this player's influence on an island. It gets called by Island.checkOwner().
      */
@@ -65,21 +61,11 @@ public class Player implements Serializable {
     }
 
 
-
-
-    //method to check winning condition: return 1 if we have 0 towers
-    public Boolean checkNumTowers(){
-        return (numTowers == 0);
-    }
-
     @Override
     public String toString() {
         return "Player" + id +
                 ": \"" + playerName +"\"";
     }
-
-
-
 
 
 

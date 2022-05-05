@@ -28,7 +28,6 @@ public class EntranceController {
      */
     public void fillFromClouds(List<List<Student>> clouds){
         Scanner scanner = new Scanner(System.in);
-        //this must be shown to each player, so maybe make a player.askcloud()
         System.out.println("Fill your entrance from a cloud.\n " + clouds +
                 "\n enter a number from 1 to " + clouds.size() + " to choose the cloud.");
         while (true) {
@@ -36,7 +35,7 @@ public class EntranceController {
                 int choice = scanner.nextInt();
                 if (choice<= clouds.size() && choice >= 1 ){
                     List<Student> cloud = clouds.get(choice-1);
-                    if (cloud.isEmpty()){
+                    if (!cloud.isEmpty()){
                         //add those students to our entrance
                         player.getEntrance().getStudents().addAll(cloud);
                         cloud.clear();
