@@ -1,10 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.VirtualView;
-import it.polimi.ingsw.messages.LoginMessage;
-import it.polimi.ingsw.messages.Message;
-import it.polimi.ingsw.messages.PlanningPhaseMessage;
-import it.polimi.ingsw.messages.StringMessage;
+import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.controller.characters.Character;
 
@@ -99,8 +96,9 @@ public class PlayerController {
      */
     public void doActions(Game game){
         int availableActions = player.getNumActions();
-        //this will be an actionlistener linked to 2 buttons. depending on the button pressed
-        //(movetodiningroom or movetoisland) the controller calls a different method, then updates model
+        //there will be an actionlistener in the client linked to 3 buttons. depending on the button pressed
+        //(movetodiningroom or movetoisland) the client sends a different string.
+        // the controller calls a method based on this string, updating model
         while (availableActions>0) {
             String action = askWhichAction(availableActions);
             if (action.equalsIgnoreCase("diningroom")) {
@@ -146,7 +144,7 @@ public class PlayerController {
                     }
                 }
                 // TODO: 05/05/2022 here would be the place to check if you can only play that one
-                else new StringMessage(Game.ANSI_RED+ "That assistant was already played!"+ Game.ANSI_RESET).send(playerView);
+                else new StringMessage(Game.ANSI_RED+ "That assistant was already played! Try again."+ Game.ANSI_RESET).send(playerView);
             } catch (IllegalArgumentException exception) {System.out.println("Not a valid assistant, take one from the list: " + remass);}
         }
     }
@@ -161,6 +159,7 @@ public class PlayerController {
 
     public String askWhichAction(int availableActions){
         Scanner scanner = new Scanner(System.in);
+        new ActionPhaseMessage();
         System.out.printf("%s, where do you want to move your students (%d moves left)? Please type \"islands\" or \"diningroom\" "
                 , player.getPlayerName(),availableActions);
         return scanner.nextLine();

@@ -1,8 +1,9 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Entrance {
+public class Entrance implements Serializable {
 
     private final List<Student> students;
     private final int size;

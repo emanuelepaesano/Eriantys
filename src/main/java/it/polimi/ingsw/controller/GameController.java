@@ -128,7 +128,6 @@ private void askAllPlayerNames(){
             playedAssistants.add(choice);
             Priorities.put(choice.getPriority(),p.getPlayer());
         }
-
         //The second part uses the Map to make a new currentOrder
         List<Player> newOrder = new ArrayList<>();
         for (int i = 0; i< g.numPlayers;i++){

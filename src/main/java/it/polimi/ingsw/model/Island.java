@@ -1,8 +1,9 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Island {
+public class Island implements Serializable {
     public int id;
     public Map<Student,Integer> students;
     public Player owner;
@@ -15,12 +16,6 @@ public class Island {
         students = Student.makeStudents();
         owner = null;
     }
-    // TODO: 21/04/2022 a better implementation of the joins with something like a checkjoinable
-    //  that sets a bool to true for the joinable islands
-    //  then the doJoins looks for all islands that are joinable and jons them (?)
-    //  -> pros: shorter and more readable methods, less duplication (+points)
-    //  -> cons: will maybe need to store a this.joinable attribute (-design?)
-
     /**
      *
      * @return the Player who has the most influence in the island. Has to be called when mother nature lands on this

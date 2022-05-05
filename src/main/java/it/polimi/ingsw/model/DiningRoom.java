@@ -1,10 +1,11 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-public class DiningRoom {
+public class DiningRoom implements Serializable {
 
     private Map<Student, Integer> tables;
     private Map<Student, Boolean> professors;
@@ -82,8 +83,9 @@ public class DiningRoom {
     public String toString() {
         StringBuilder dr = new StringBuilder("Dining Room {\n");
         for (Student student : Student.values()){
-            dr.append(student).append(": ").append(this.tables.get(student));
-            dr.append(this.professors.get(student) ? " \u200D\uD83C\uDF93" : "").append("\n");
+            dr.append(student.getAnsiColor()).append(student).append(": ");
+            dr.append(tables.get(student));
+            dr.append(this.professors.get(student) ? " \u200D\uD83C\uDF93" : "").append(Game.ANSI_RESET).append("\n");
         }
         dr.append("}");
         return dr.toString();

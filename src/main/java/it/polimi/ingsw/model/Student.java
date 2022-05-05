@@ -20,6 +20,16 @@ public enum Student {
         return studs;
     }
 
+    public String getAnsiColor(){
+        switch (this){
+            case YELLOW -> {return Game.ANSI_YELLOW;}
+            case PINK -> {return Game.ANSI_PINK;}
+            case GREEN -> {return Game.ANSI_GREEN;}
+            case RED -> {return Game.ANSI_RED;}
+            case BLUE -> {return Game.ANSI_BLUE;}
+            default -> {return "";}
+        }
+    }
     public static String askStudent(List<Student> students, Scanner scanner){
         String str;
         try{

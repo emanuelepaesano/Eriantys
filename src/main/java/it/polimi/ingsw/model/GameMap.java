@@ -1,9 +1,10 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
 import java.util.*;
 
 
-public class GameMap {
+public class GameMap implements Serializable {
 
     private final List<Island> archipelago;
     private int motherNature;
@@ -126,7 +127,8 @@ public class GameMap {
             string.append("Island ").append(island.id).append(": ");
             string.append("Size=").append(island.size).append("; ");
             string.append("Owner{").append(island.owner).append("} ");
-            string.append(island.getStudents()).append((archipelago.indexOf(island) == motherNature? " 🍀":"")).append("\n");
+            string.append(island.getStudents()).append((archipelago.indexOf(island) == motherNature?
+                    Game.ANSI_GREEN+" 🍀"+Game.ANSI_RESET:"")).append("\n");
 
         }
         return string.toString();
@@ -175,27 +177,4 @@ public class GameMap {
         return this.motherNature;
     }
 
-    public static void main(String[] args) {
-        //TEST FOR ISLAND INITIALIZATION AND MOVEMOTHER
-//        GameController gc = new GameController ();
-//        gc.doPlanningPhase(gc.getGame()); //not complete yet, only here to set a current assistant
-//        System.out.println(gc.getGame().getGameMap());
-//        gc.getGame().getGameMap().moveMotherNatureAndCheck();
-//        System.out.println(gc.getGame().getGameMap());
-//        System.out.println("mother nature is now here: " + gc.getGame().getGameMap().motherNature);
-
-        //TEST FOR DOJOINS() change the indices as you want
-        Game game = Game.makeGame(3);
-        game.getGameMap().archipelago.get(0).setOwner(game.getCurrentPlayer());
-        game.getGameMap().archipelago.get(2).setOwner(game.getCurrentPlayer());
-        game.getGameMap().archipelago.get(3).setOwner(game.getCurrentPlayer());
-        game.getGameMap().doJoins(game.getGameMap().archipelago.get(3));
-        System.out.println(game.getGameMap());
-        //now join again the island with size 3
-//        game.getGameMap().archipelago.get(9).setOwner(game.getCurrentPlayer());
-//        game.getGameMap().archipelago.get(0).setOwner(game.getCurrentPlayer());
-//        game.getGameMap().archipelago.get(8).setOwner(game.getCurrentPlayer());
-//        game.getGameMap().doJoins(game.getGameMap().archipelago.get(9));
-//        System.out.println(game.getGameMap());
-    }
 }

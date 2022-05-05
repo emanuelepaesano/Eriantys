@@ -1,14 +1,18 @@
 package it.polimi.ingsw.messages;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.GameMap;
+import it.polimi.ingsw.model.Player;
 
 import java.io.Serializable;
 import java.util.List;
 
 public class GenInfoMessage implements Message, Serializable {
 
-    Game model;
     String content;
+    GameMap map;
+    List<Player> players;
+
 
 
     /**
@@ -16,9 +20,11 @@ public class GenInfoMessage implements Message, Serializable {
      *     You can view this whenever you want by typing "view"
      */
     public GenInfoMessage(Game game){
-        this.model = game;
+        this.map = game.getGameMap();
+        this.players = game.getTableOrder();
+
         String string = "";
-        string += "GAME MAP:\n game.getGameMap().toString()";
+        string += "GAME MAP:\n" + game.getGameMap().toString();
         string += "\n\nPLAYERS:\n";
         string += game.getCurrentOrder().stream().map(p->p.getPlayerName()+": "+ p.getEntrance()+ "\n"+ p.getDiningRoom().toString()+"\n").toList();
         content = string;
@@ -33,6 +39,14 @@ public class GenInfoMessage implements Message, Serializable {
     @Override
     public String getView() {
         return "generalview";
+    }
+
+    public GameMap getMap() {
+        return map;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
     }
 
     @Override

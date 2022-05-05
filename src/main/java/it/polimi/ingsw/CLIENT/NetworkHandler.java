@@ -89,7 +89,6 @@ public class NetworkHandler{
             ObjectOutputStream outSocket;
             try {
                 outSocket = new ObjectOutputStream(socket.getOutputStream());
-
             while (true){
                 Message userInput = userView.getUserInput();
                 outSocket.writeObject(userInput);

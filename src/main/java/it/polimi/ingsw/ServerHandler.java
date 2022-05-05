@@ -1,7 +1,6 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.messages.StringMessage;
-import it.polimi.ingsw.model.Player;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -63,7 +62,7 @@ public class ServerHandler {
     }
 
 
-    public void closeAll() throws IOException {
+    public void closeEverything() throws IOException {
         inStream.close();
         outStream.close();
         views.forEach(v-> {
