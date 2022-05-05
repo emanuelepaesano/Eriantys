@@ -21,8 +21,8 @@ public class ServerApp {
         int numplayers = server.startServer();
         GameController gc = new GameController(numplayers,server.views);
         Game game = gc.getGame();
-        Message info =  new GenInfoMessage(game);
-        info.send(server.views);
+        //Message info =  new GenInfoMessage(game);
+        //info.send(server.views);
         while (!game.isOver()) {
             gc.doPlanningPhase(game);
             for (PlayerController playerturn: gc.getControllers()) {

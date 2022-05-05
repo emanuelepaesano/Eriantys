@@ -2,6 +2,8 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.messages.LoginMessage;
+import it.polimi.ingsw.messages.Message;
+import it.polimi.ingsw.messages.PlanningPhaseMessage;
 import it.polimi.ingsw.messages.StringMessage;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.controller.characters.Character;
@@ -27,7 +29,6 @@ public class PlayerController {
         this.player = player;
         this.playerView = playerView;
         bindEntrance();
-        player.setPlayerName(askPlayerName());
     }
 
     private void bindEntrance(){
@@ -35,15 +36,19 @@ public class PlayerController {
             this.entranceController= new EntranceController(player, entrance, playerView);
     }
 
-    private String askPlayerName()  {
+    public String askPlayerName(List<String> usedNames)  {
         new LoginMessage("Player " + player.getId() + ", enter your nickname:").send(playerView);
         while (true){
             System.out.println("I'm asking the player name!!!!!!!!!!!!!");
             String name = (playerView.getAnswer()).toString();
-            if (name.length() < 20){
+            if (!usedNames.contains(name)){
+                if (name.length() < 20){
+                player.setPlayerName(name);
                 return name;
             }
-            new StringMessage(Game.ANSI_RED + "name too long! Insert a shorter name" + Game.ANSI_RESET).send(playerView);
+                else new StringMessage(Game.ANSI_RED + "Name too long! Insert a shorter name" + Game.ANSI_RESET).send(playerView);
+            }
+            else new StringMessage(Game.ANSI_RED + "Name already taken! Choose a different name." + Game.ANSI_RESET).send(playerView);
         }
     }
 
@@ -121,25 +126,27 @@ public class PlayerController {
      * asks an assistant as input from those remaining, turns it to false in the map and returns it.
      * This way the GameController will then join all the played assistants and choose the new playerOrder
      */
-    public Assistant playAssistant(){
+    public Assistant playAssistant(List<Assistant>playedAssistants){
         ArrayList<Assistant> remass = new ArrayList<>(); //list of remaining assistants
-        for (Assistant key: player.getAssistants().keySet()){
-            if (player.getAssistants().get(key)){
-                remass.add(key);
-            }
-        }
-        System.out.println(", play one of your remaining assistants (speed value): " + remass);
+        player.getAssistants().forEach((a,b)->{if(b){remass.add(a);}});
+
+        new PlanningPhaseMessage(remass,playedAssistants,"play one of your remaining assistants: " ).send(playerView);
         while (true) {
-            String input = new Scanner(System.in).nextLine();
+            Message input = Message.receive(playerView);
+            //String input = new Scanner(System.in).nextLine();
             // TODO: 15/04/2022 would be nice if also putting es.9 or 10 worked
             try {
-                Assistant choice = Assistant.valueOf(input.toUpperCase());
-                if (remass.contains(choice)){
-                    player.setCurrentAssistant(choice);
-                    System.out.println("Current assistant for "+ player.getPlayerName() + ": " + choice);
-                    player.getAssistants().replace (choice, true, false);
-                    return choice;
+                Assistant choice = Assistant.valueOf(input.toString().toUpperCase());
+                if (!playedAssistants.contains(choice)) {
+                    if (remass.contains(choice)) {
+                        player.setCurrentAssistant(choice);
+                        System.out.println("Current assistant for " + player.getPlayerName() + ": " + choice);
+                        player.getAssistants().replace(choice, true, false);
+                        return choice;
+                    }
                 }
+                // TODO: 05/05/2022 here would be the place to check if you can only play that one
+                else new StringMessage(Game.ANSI_RED+ "That assistant was already played!"+ Game.ANSI_RESET).send(playerView);
             } catch (IllegalArgumentException exception) {System.out.println("Not a valid assistant, take one from the list: " + remass);}
         }
     }

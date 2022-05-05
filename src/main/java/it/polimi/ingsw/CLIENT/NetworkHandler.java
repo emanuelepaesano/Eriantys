@@ -105,14 +105,16 @@ public class NetworkHandler{
         if (!GUI){
             view.getCurrentView().fillInfo(message);
         }
-        switch (message.getView()){
+        else switch (message.getView()){
             case "loginview":
-                view.setCurrentView(new LoginView());
+                // TODO: 05/05/2022 we should not make a new one
+                //  but use an already made one and fill it with message info
+                view.setCurrentView(this.loginView);
                 view.currentView.fillInfo(message);
             case "planningview": //from planningphasemessage
             case "actionview": //from actionphasemessage
             case "generalview": //from generalviewmessage
-            case "simpleview": //from stringmessage
+            case "simpleview": //from stringmessage //this can just be an overlaying popup or something similar
         }
     }
 }

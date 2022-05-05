@@ -36,7 +36,8 @@ public class GameController {
         bindPlayers();
         System.out.println("finito bind players");
         Boolean ad = askForAdvanced();
-        askAllForTC(game);
+        askAllPlayerNames();
+        askAllForTC(numplayers);
         askAllForWiz();
         game.doSetUp(ad);
 
@@ -71,14 +72,19 @@ public class GameController {
     }
 
 
-// TODO: 15/04/2022 maybe these methods should go in the game, not in the controller
-//  ("the model is something you ask questions to...?")
+private void askAllPlayerNames(){
+    List<String> usedNames = new ArrayList<>();
+    for (PlayerController pc : controllers){
+        String aUsedName = pc.askPlayerName(usedNames);
+        usedNames.add(aUsedName);
+    }
+}
+
     /**
      * Cycles through players and asks them a color.
      * It will be stored as an attribute of the player
      */
-    private void askAllForTC(Game game){
-        int n = game.numPlayers;
+    private void askAllForTC(int n){
         ArrayList<TowerColor> remainingColors;
         if (n==3) {
             remainingColors = new ArrayList<>(Arrays.asList(TowerColor.values()));
@@ -105,7 +111,6 @@ public class GameController {
     }
 
 
-
     /**
      * I put this here for now but maybe we can do a planningPhaseController.
      * This is a bit complicated, we might break it down somehow.
@@ -114,32 +119,23 @@ public class GameController {
         // TODO: 13/04/2022 we miss the case in which the player only has the same assistant left
         //This weird code is to start from the current first and then go clockwise, following the
         //table order. In this order, we make players play assistants, and store them in a Map
-        Map<Integer, Player> playedAssistants = new TreeMap<>();
+        Map<Integer, Player> Priorities = new TreeMap<>();
+        List<Assistant> playedAssistants = new ArrayList<>();
         int initialind = g.getTableOrder().indexOf(g.getCurrentOrder().get(0)); //this is the index in the tableOrder of current first
         for (int i = initialind; i<initialind+g.numPlayers;i++) {
             PlayerController p = controllers.get(i%g.numPlayers);
-            //this print should not really be here as it must be shown to each player
-            System.out.println("The other players played " + playedAssistants.keySet() + ", please choose a new assistant.");
-            Assistant choice = p.playAssistant();
-
-            //if 2 players try to play the same assistant, we restart this loop iteration
-            if (playedAssistants.containsKey(choice.getPriority())){
-                //this also should be shown to one player only
-                System.out.println("Someone else played that assistant, please choose another one.");
-                p.getPlayer().getAssistants().replace(choice,false,true);
-                i -= 1;
-                continue;
-            }
-            playedAssistants.put(choice.getPriority(),p.getPlayer());
+            Assistant choice = p.playAssistant(playedAssistants);
+            playedAssistants.add(choice);
+            Priorities.put(choice.getPriority(),p.getPlayer());
         }
 
         //The second part uses the Map to make a new currentOrder
         List<Player> newOrder = new ArrayList<>();
         for (int i = 0; i< g.numPlayers;i++){
-            Player first = playedAssistants.remove(Collections.min(playedAssistants.keySet()));
+            Player first = Priorities.remove(Collections.min(Priorities.keySet()));
             newOrder.add(first);
         }
-        System.out.println("Player order for this turn:" + newOrder);
+        new StringMessage("Player order for this turn:" + newOrder).send(views);
         g.setCurrentOrder(newOrder);
     }
 
