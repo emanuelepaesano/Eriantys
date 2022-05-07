@@ -1,5 +1,8 @@
-package it.polimi.ingsw.controller.characters;
+package it.polimi.ingsw.model.characters;
 
+import it.polimi.ingsw.VirtualView;
+import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.messages.StringMessage;
 import it.polimi.ingsw.model.*;
 
 import java.util.ArrayList;
@@ -12,28 +15,25 @@ import java.util.Scanner;
  class PlaceInIslandCharacter extends Characters {
     int cost;
     List<Student> students;
-    Scanner scanner = new Scanner(System.in);
-    Game game;
 
 
-    public PlaceInIslandCharacter(Game game) {
-        this.game = game;
+    public PlaceInIslandCharacter(List<Student>students) {
         this.cost = 1;
-        students = new ArrayList<>(
-                List.of(game.drawFromBag(), game.drawFromBag(), game.drawFromBag()));
+        this.students = students;
+
     }
 
-    private Student pickStudent(){
+    private Student pickStudent(VirtualView user){
         Student student;
         while (true) {
-            System.out.println("Choose 1 student from this character to move to an island.");
-            String str = Student.askStudent(students, scanner).toUpperCase();
+            new StringMessage("Choose 1 student from this character to move to an island.").send(user);
+            String str = Student.askStudent(students,user).toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return null;}
             else if (List.of(Student.values()).contains(Student.valueOf(str))) {
                 student = Student.valueOf(str);
                 if (!students.contains(student)){
-                    System.err.println("the character does not have that student! Try again");
+                    new StringMessage(Game.ANSI_RED+ "the character does not have that student! Try again"+ Game.ANSI_RESET).send(user);
                     continue;
                 }
                 break;
@@ -42,14 +42,15 @@ import java.util.Scanner;
         return student;
     }
 
-    public void play(Player player) {
-        Student chosenStudent = pickStudent();
+    public void play(Game game, PlayerController pc) {
+        Player player = pc.getPlayer();
+        Student chosenStudent = pickStudent(pc.getPlayerView());
         if(chosenStudent ==null){return;}
         if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
             return;}
 
-        Island island = game.getGameMap().askWhichIsland(scanner);
+        Island island = pc.getEntranceController().askWhichIsland(game.getGameMap());
         students.remove(chosenStudent);
         int oldval = island.students.get(chosenStudent);
         island.students.replace(chosenStudent, oldval, oldval + 1);

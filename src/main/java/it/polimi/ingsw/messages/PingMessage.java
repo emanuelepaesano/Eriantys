@@ -4,7 +4,7 @@ import it.polimi.ingsw.VirtualView;
 
 import java.util.List;
 
-public class CloudMessage implements Message{
+public class PingMessage implements Message{
     @Override
     public void send(VirtualView user) {
         user.update(this);
@@ -17,11 +17,11 @@ public class CloudMessage implements Message{
 
     @Override
     public String getView() {
-        return "cloudselection";
+        return "";
     }
 
     @Override
     public Boolean isPing() {
-        return false;
+        return true;
     }
 }

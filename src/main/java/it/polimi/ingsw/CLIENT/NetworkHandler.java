@@ -2,14 +2,19 @@ package it.polimi.ingsw.CLIENT;
 
 import it.polimi.ingsw.CLIENT.ViewImpls.CLIView;
 import it.polimi.ingsw.CLIENT.ViewImpls.LoginView;
+import it.polimi.ingsw.CLIENT.ViewImpls.WaitingView;
 import it.polimi.ingsw.messages.Message;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 public class NetworkHandler{
     //possiamo fare altrimenti una sorta di local model che si aggiorna quando arriva qualcosa.
@@ -20,23 +25,41 @@ public class NetworkHandler{
     //possiamo però lasciarci questo spazio a parte dagli stati della view. L'idea sarebbe
     //che queste cose appaiono come popup sopra alla view che resta però allo stato attuale
 
-    final Socket socket;
+    Socket socket;
     UserView view;
     Boolean GUI;
     CLIView cliView;
+    private WaitingView waitingView;
     LoginView loginView;
 
     View currentState;
     //dobbiamo mandargli i parametri per creare il prossimo stato
 
-    public NetworkHandler() throws IOException {
+    Thread listener;
+    Thread speaker;
+    ObjectInputStream inStream;
+    ObjectOutputStream outStream;
+
+    public NetworkHandler(UserView userView) throws IOException {
+        this.view = userView;
         chooseUI();
         try {
             synchronized (this) { wait();}
         }catch(InterruptedException ex){}
         initializeViews();
-        socket = new Socket("localhost",1337);
-        System.out.println("connected to server at 1337");
+        assignFirstView();
+        while(true){
+            try {
+                socket = new Socket("localhost", 1337);
+                System.out.println("connected to server at 1337");
+                this.outStream = new ObjectOutputStream(socket.getOutputStream());
+                this.inStream = new ObjectInputStream(socket.getInputStream());
+                break;
+            }catch (IOException ex){
+                System.err.println("server is not online");
+                try{Thread.sleep(3000);}catch(Exception ecc){}
+            }
+        }
     }
 
 
@@ -58,47 +81,79 @@ public class NetworkHandler{
     }
     public void initializeViews(){
         if (!GUI){
-            this.cliView = new CLIView();
+            this.cliView = new CLIView(this);
         }
         else{
-            this.loginView = new LoginView();
+            this.waitingView = new WaitingView();
+            this.loginView = new LoginView(this);
             //and all the other views for the gui
         }
 
     }
-    public synchronized void startClientWithThreads(UserView userView){
-        this.view = userView;
 
-        //per fare cosi bisogna capire quale tipo di messaggio è in arrivo però. come lo facciamo?
-        Thread listener = new Thread(()->{
-            ObjectInputStream socketReader;
-            Message socketInput;
-            try {
-                socketReader = new ObjectInputStream(socket.getInputStream());
-
-                while (true) {
-                    socketInput = (Message) socketReader.readObject();
-                    selectAndFillView(socketInput);
-                    userView.update();
-                }
-            }catch (IOException | ClassNotFoundException e) {throw new RuntimeException("no good");}
-        });
-
-
-        Thread speaker = new Thread(()->{
-            ObjectOutputStream outSocket;
-            try {
-                outSocket = new ObjectOutputStream(socket.getOutputStream());
-            while (true){
-                Message userInput = userView.getUserInput();
-                outSocket.writeObject(userInput);
-                outSocket.flush();
-            }
-            } catch (IOException e) {throw new RuntimeException(e);}
-        });
-        listener.start();
-        speaker.start();
+    private void assignFirstView(){
+        if(!GUI){view.setCurrentView(this.cliView);}
+        else {view.setCurrentView(this.waitingView);}
     }
+    public synchronized void startListenerThread(){
+        Thread listener = new Thread(()->{
+            Message message;
+            System.out.println("listener started");
+            try {
+                System.out.println("waiting for messages");
+                Timer timeout = new Timer(5000,onTimeout);
+                timeout.setRepeats(false);
+                while (true) {
+                    message = (Message) inStream.readObject();
+                    if (message.isPing()){
+                        timeout.restart();}
+                    else {
+                        selectAndFillView(message);
+                        System.out.println("filled view");
+                        view.update();
+                        System.out.println("updated view");
+                    }
+                }
+            }catch (IOException | ClassNotFoundException e) {System.err.println("Connection lost.");}
+        });
+
+
+//        Thread speaker = new Thread(()->{
+//            try {
+//                outStream = new ObjectOutputStream(socket.getOutputStream());
+//                while (true){
+//                    Message userInput = userView.getUserInput();
+//                    System.out.println("input read");
+//                    if(userInput.toString().equalsIgnoreCase("stopgame")){
+//                        System.out.println("read stopgame");
+//                        break;
+//                    }
+//                    else {
+//                    outStream.writeObject(userInput);
+//                    outStream.flush();
+//                    }
+//                }
+//            } catch (IOException e) {
+//                System.err.println("Connection lost.");
+//            }
+//        });
+        this.listener = listener;
+//        this.speaker = speaker;
+        listener.start();
+//        speaker.start();
+    }
+
+    public void sendMessage(Message message)
+    {
+        try {
+            outStream.writeObject(message);
+            outStream.flush();
+            outStream.reset();
+        } catch (IOException e) {
+            System.err.println("Could not send message...");
+        }
+    }
+
 
     private void selectAndFillView(Message message){
         if (!GUI){
@@ -117,4 +172,21 @@ public class NetworkHandler{
             case "simpleview": //from stringmessage //this can just be an overlaying popup or something similar
         }
     }
+
+    ActionListener onTimeout = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                System.err.println("Server is not responding. Closing the game...");
+                outStream.close();
+                inStream.close();
+                socket.close();
+
+
+            } catch (IOException ex) {
+                throw new RuntimeException("could not close socket");
+            }
+        }
+    };
+
 }

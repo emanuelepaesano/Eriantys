@@ -73,19 +73,19 @@ public class GameMap implements Serializable {
                 //add all students inside tojoin
                 tojoin.students.replaceAll((s,i) -> i += right.students.get(s));
                 tojoin.students.replaceAll((s,i) -> i += left.students.get(s));
-                tojoin.size += 2;
+                tojoin.size += left.size + right.size;
                 archipelago.removeAll(List.of(left,right));
                 motherNature = archipelago.indexOf(tojoin);//indices changed
                 break;
             case "left":
                 tojoin.students.replaceAll((s,i) -> i += left.getStudents().get(s));
-                tojoin.size += 1;
+                tojoin.size += left.size;
                 archipelago.remove(left);
                 motherNature = archipelago.indexOf(tojoin);
                 break;
             case "right":
                 tojoin.students.replaceAll((s,i) -> i += right.students.get(s));
-                tojoin.size += 1;
+                tojoin.size += right.size;
                 archipelago.remove(right);
                 motherNature = archipelago.indexOf(tojoin);
                 break;
@@ -123,8 +123,9 @@ public class GameMap implements Serializable {
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();
-        for (Island island : archipelago){
-            string.append("Island ").append(island.id).append(": ");
+        for (int i=0;i<archipelago.size();i++){
+            Island island = archipelago.get(i);
+            string.append("Island ").append(i).append(": ");
             string.append("Size=").append(island.size).append("; ");
             string.append("Owner{").append(island.owner).append("} ");
             string.append(island.getStudents()).append((archipelago.indexOf(island) == motherNature?
@@ -155,22 +156,7 @@ public class GameMap implements Serializable {
         return null;
     }
 
-    public Island askWhichIsland(Scanner scanner){
-        while (true){
-            System.out.println(
-                    "This is the current state of the islands:\n" + this +
-                            "\nIndicate the island by its number (0~11):") ;
-            try {
-                int index = Integer.parseInt(scanner.next());
-                if (index>=0 &&index <=11) {
-                    return this.getArchipelago().get(index);
-                }
-                System.out.println("That's not a valid index, please choose one between 0~11.\n");
-            }catch (NumberFormatException ex) {
-                System.out.println("That's not an index, please choose an index between 0~11.\n");
-            }
-        }
-    }
+
 
 
     public int getMotherNature() {

@@ -1,6 +1,8 @@
-package it.polimi.ingsw.controller.characters;
+package it.polimi.ingsw.model.characters;
 
 public abstract class Characters implements Character {
+
+
 
     @Override
     public String toString() {

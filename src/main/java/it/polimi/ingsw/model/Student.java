@@ -1,5 +1,10 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.VirtualView;
+import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.messages.Message;
+import it.polimi.ingsw.messages.PickStudMessage;
+
 import java.util.*;
 // TODO: 11/04/2022
 //  -> add abbreviations
@@ -30,12 +35,11 @@ public enum Student {
             default -> {return "";}
         }
     }
-    public static String askStudent(List<Student> students, Scanner scanner){
+    public static String askStudent(List<Student> students, VirtualView user){
         String str;
         try{
-            System.out.println("Choose a student color from the list :\n"
-                    + students + "  or type \"back\" to annull.");
-            str = scanner.nextLine();
+            new PickStudMessage(students).send(user);
+            str = Message.receive(user).toString();
             if (Objects.equals(str, "back")) {return "back";}
             else {
                 Student.valueOf(str.toUpperCase());

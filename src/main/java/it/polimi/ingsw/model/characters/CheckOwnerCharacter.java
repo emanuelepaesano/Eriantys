@@ -1,5 +1,6 @@
-package it.polimi.ingsw.controller.characters;
+package it.polimi.ingsw.model.characters;
 
+import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Island;
 import it.polimi.ingsw.model.Player;
@@ -11,21 +12,19 @@ import java.util.Scanner;
  */
 class CheckOwnerCharacter extends Characters {
     int cost;
-    Game game;
 
-    public CheckOwnerCharacter(Game game) {
+    public CheckOwnerCharacter() {
         this.cost = 3;
-        this.game=game;
     }
 
-    public void play(Player player) {
+    public void play(Game game, PlayerController pc) {
         //choose an island to checkOwner() immediately
+        Player player = pc.getPlayer();
         if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
             return;}
         System.out.println(player + ", please choose an island to resolve.");
-        Scanner scanner = new Scanner(System.in);
-        Island island = game.getGameMap().askWhichIsland(scanner);
+        Island island = pc.getEntranceController().askWhichIsland(game.getGameMap());
         island.checkOwner(game.getTableOrder());
         this.cost = Character.payandUpdateCost(player,cost);
     }

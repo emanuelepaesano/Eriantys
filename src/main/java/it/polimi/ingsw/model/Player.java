@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.controller.PlayerController;
+
 import java.io.Serializable;
 import java.util.*;
 
@@ -159,5 +161,6 @@ public class Player implements Serializable {
     public int getBaseInfluence() {
         return baseInfluence;
     }
+
 
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class GenInfoMessage implements Message, Serializable {
 
-    String content;
+    String text;
     GameMap map;
     List<Player> players;
 
@@ -26,8 +26,10 @@ public class GenInfoMessage implements Message, Serializable {
         String string = "";
         string += "GAME MAP:\n" + game.getGameMap().toString();
         string += "\n\nPLAYERS:\n";
-        string += game.getCurrentOrder().stream().map(p->p.getPlayerName()+": "+ p.getEntrance()+ "\n"+ p.getDiningRoom().toString()+"\n").toList();
-        content = string;
+        for (Player p : game.getCurrentOrder()){
+            string += p.getPlayerName() +": "+ p.getEntrance()+ "\n"+ p.getDiningRoom().toString()+"\n";
+        }
+        text = string;
     }
 
     @Override
@@ -41,6 +43,11 @@ public class GenInfoMessage implements Message, Serializable {
         return "generalview";
     }
 
+    @Override
+    public Boolean isPing() {
+        return false;
+    }
+
     public GameMap getMap() {
         return map;
     }
@@ -51,6 +58,6 @@ public class GenInfoMessage implements Message, Serializable {
 
     @Override
     public String toString() {
-        return content;
+        return text;
     }
 }

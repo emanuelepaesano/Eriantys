@@ -31,4 +31,9 @@ public class LoginMessage implements Message{
     public String toString() {
         return content;
     }
+
+    @Override
+    public Boolean isPing() {
+        return false;
+    }
 }

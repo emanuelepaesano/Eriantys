@@ -1,5 +1,6 @@
-package it.polimi.ingsw.controller.characters;
+package it.polimi.ingsw.model.characters;
 
+import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 
@@ -9,25 +10,30 @@ import it.polimi.ingsw.model.Player;
 class MoreInfluenceCharacter extends Characters {
 
     int cost;
-    Game game;
 
-    public MoreInfluenceCharacter(Game game) {
+    public MoreInfluenceCharacter() {
         this.cost = 1;
-        this.game=game;
     }
 
-    public synchronized void play(Player player) throws InterruptedException {
+    public void play(Game game, PlayerController pc) {
+        Player player = pc.getPlayer();
         //this turn +2 influence (n.b. you cant combine characters)
         if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
             return;}
         this.cost = Character.payandUpdateCost(player,cost);
         Player thisTurn = game.getCurrentPlayer();
-        while (game.getCurrentPlayer() == thisTurn) {
+        Thread t = new Thread(()->{
+            while (game.getCurrentPlayer() == thisTurn) {
             player.setBaseInfluence(2);
-            wait();
+            try{
+                synchronized (this){wait();}
+            } catch (InterruptedException ex){Thread.currentThread().interrupt();}
         }
         player.setBaseInfluence(0);
+        System.out.println("Thread finished!");
+        });
+        t.start();
     }
 
     public int getCost() {

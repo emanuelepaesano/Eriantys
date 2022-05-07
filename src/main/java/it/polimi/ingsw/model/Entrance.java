@@ -25,9 +25,12 @@ public class Entrance implements Serializable {
     }
     @Override
     public String toString() {
-        return "Entrance{" +
-                "students: " + students +
-                '}';
+        String string = "Entrance{";
+        for (Student student : this.students){
+            string += "("+student+")";
+        }
+        string += "}";
+        return string;
     }
 
     public List<Student> getStudents() {

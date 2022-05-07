@@ -1,5 +1,7 @@
-package it.polimi.ingsw.controller.characters;
+package it.polimi.ingsw.model.characters;
 
+import it.polimi.ingsw.VirtualView;
+import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.*;
 
 import java.util.List;
@@ -10,19 +12,16 @@ import java.util.Scanner;
  */
 class ZeroPointStudentCharacter extends Characters {
     int cost;
-    Scanner scanner = new Scanner(System.in);
-    Game game;
 
-    public ZeroPointStudentCharacter(Game game) {
+    public ZeroPointStudentCharacter() {
         this.cost = 3;
-        this.game = game;
     }
 
 
-    private Student pickStudent(){ //move to controller!
+    private Student pickStudent(VirtualView user){ //move to controller!
         Student stud;
         while(true) {
-            String string = Student.askStudent(List.of(Student.values()), scanner).toUpperCase();
+            String string = Student.askStudent(List.of(Student.values()),user).toUpperCase();
             if (string.equals("RETRY")){continue;}
             if (string.equals("BACK")) {return null;}
             else if (List.of(Student.values()).contains(Student.valueOf(string))) {
@@ -32,8 +31,9 @@ class ZeroPointStudentCharacter extends Characters {
         }
         return stud;
     }
-    public synchronized void play(Player player) throws InterruptedException {
-        Student student = pickStudent();
+    public synchronized void play(Game game, PlayerController pc){
+        Player player = pc.getPlayer();
+        Student student = pickStudent(pc.getPlayerView());
         if (student == null){return;}
         if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
@@ -42,15 +42,15 @@ class ZeroPointStudentCharacter extends Characters {
         List<Island> islands = game.getGameMap().getArchipelago();
         List<Integer> oldnumbers = islands.stream().map(i -> i.getStudents().get(student)).toList();
         this.cost = Character.payandUpdateCost(player,cost);
-        while (game.getCurrentPlayer() == thisTurn) {
-            islands.replaceAll(i -> {
-                i.getStudents().replace(student, 0);return i;
-            });
+        Thread t = new Thread(()->{
+            while (game.getCurrentPlayer() == thisTurn) {
+            islands.forEach(i -> i.getStudents().replace(student, 0));
             System.out.println("Game map for this turn!\n" + game.getGameMap());
-            wait();
+            try{wait();}catch(InterruptedException ex){Thread.currentThread().interrupt();}
         }
-        islands.replaceAll(i -> {i.getStudents().replace(student, oldnumbers.get(islands.indexOf(i)));return i;
+            islands.forEach(i -> i.getStudents().replace(student, oldnumbers.get(islands.indexOf(i))));
         });
+        t.start();
         System.out.println(game.getGameMap());
     }
 

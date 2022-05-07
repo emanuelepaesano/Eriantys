@@ -1,5 +1,6 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.messages.PingMessage;
 import it.polimi.ingsw.messages.StringMessage;
 
 import java.io.IOException;
@@ -38,6 +39,8 @@ public class ServerHandler {
         new StringMessage("OK! Waiting players for a "+n+"-player game...").send(client1);
         lookForMorePlayers((n-1));
         System.out.println(views);
+        Thread pingSender = new Thread(this::startPing);
+        pingSender.start();
         return n;
     }
     public void lookForMorePlayers(int n) throws IOException {
@@ -62,9 +65,17 @@ public class ServerHandler {
     }
 
 
+    private void startPing() {
+        while (true){
+            try {
+                new PingMessage().send(views);
+                Thread.sleep(2000);
+            }catch (InterruptedException ex) {
+                System.err.println("cannot send Ping!");
+            }
+        }
+    }
     public void closeEverything() throws IOException {
-        inStream.close();
-        outStream.close();
         views.forEach(v-> {
             try {
                 v.getSocket().close();

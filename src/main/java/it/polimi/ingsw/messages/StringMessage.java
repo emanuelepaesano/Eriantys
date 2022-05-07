@@ -31,6 +31,11 @@ public class StringMessage implements Message {
     }
 
     @Override
+    public Boolean isPing() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return this.content;
     }

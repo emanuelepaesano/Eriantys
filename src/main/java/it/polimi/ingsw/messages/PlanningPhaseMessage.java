@@ -40,6 +40,11 @@ public class PlanningPhaseMessage implements Message {
     }
 
     @Override
+    public Boolean isPing() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return text + "\n" + remainingAssistants + "\nThe other players played: \n" + playedByOthers;
     }

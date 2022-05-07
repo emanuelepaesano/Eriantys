@@ -1,5 +1,5 @@
 package it.polimi.ingsw.model;
-import it.polimi.ingsw.controller.characters.Character;
+import it.polimi.ingsw.model.characters.Character;
 
 import java.io.Serializable;
 import java.util.*;
@@ -99,18 +99,18 @@ public class Game implements Serializable {
     private List<Character> makeAllCharacters(Game game){
 
         characters = new ArrayList<>();
-        List<Integer> availables = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 7, 8));
-        for (int i=0; i<3;i++) {
-            Integer pickedChara;
-            while(true) {
-                pickedChara = 1 + randomizer.nextInt(Collections.max(availables));
-                if (availables.contains(pickedChara)) {
-                    availables.remove(pickedChara);
-                    break;
-                }
-            }
-            characters.add(Character.makeCharacter(pickedChara, game));
-        }
+//        List<Integer> availables = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 7, 8));
+//        for (int i=0; i<3;i++) {
+//            Integer pickedChara;
+//            while(true) {
+//                pickedChara = 1 + randomizer.nextInt(Collections.max(availables));
+//                if (availables.contains(pickedChara)) {
+//                    availables.remove(pickedChara);
+//                    break;
+//                }
+//            }
+            characters.add(Character.makeCharacter(3, this));
+//        }
         return characters;
     }
 
@@ -152,12 +152,14 @@ public class Game implements Serializable {
             case "towerend" -> {
                 if (player.getNumTowers() == 0) {
                     Over = true;
+                    winner = List.of(player);
                     return true;
                 }
             }
             case "islandend" -> {
                 if (gameMap.getArchipelago().size() <= 3) {
                     Over = true;
+                    winner = lookForWinner();
                     return true;
                 }
             }
@@ -225,23 +227,23 @@ public class Game implements Serializable {
 
     public static void main(String[] args) {
         //small test for wait and notify
-        Game game = Game.makeGame(3);
-        game.doSetUp(true);
-        for (Character c : game.characters)
-        {
-            System.out.println(c);
-        }
-        Character chara = game.characters.get(0);
-        game.getCurrentPlayer().setCoins(3);
-        Player user = game.currentPlayer;
-        System.out.println("current player: "+ game.getCurrentPlayer());
-        Character.play(chara,user);
-        game.gameMap.getArchipelago().get(0).checkOwner(game.getTableOrder());
-        synchronized (game.characters.get(0)) {
-            game.setCurrentPlayer(game.getTableOrder().get(1));
-            System.out.println("current player: "+ game.getCurrentPlayer());
-            game.characters.get(0).notifyAll();
-        }
+//        Game game = Game.makeGame(3);
+//        game.doSetUp(true);
+//        for (Character c : game.characters)
+//        {
+//            System.out.println(c);
+//        }
+//        Character chara = game.characters.get(0);
+//        game.getCurrentPlayer().setCoins(3);
+//        Player user = game.currentPlayer;
+//        System.out.println("current player: "+ game.getCurrentPlayer());
+//        Character.play(chara,game, user);
+//        game.gameMap.getArchipelago().get(0).checkOwner(game.getTableOrder());
+//        synchronized (game.characters.get(0)) {
+//            game.setCurrentPlayer(game.getTableOrder().get(1));
+//            System.out.println("current player: "+ game.getCurrentPlayer());
+//            game.characters.get(0).notifyAll();
+//        }
     }
 
 
@@ -294,6 +296,14 @@ public class Game implements Serializable {
 
     public void setClouds(List<List<Student>> clouds) {
         this.clouds = clouds;
+    }
+
+    public List<Player> getWinner() {
+        return winner;
+    }
+
+    public void setOver(Boolean over) {
+        Over = over;
     }
 }
 

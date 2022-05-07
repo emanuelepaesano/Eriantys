@@ -20,8 +20,7 @@ public class GenInfoView implements View {
     }
 
     @Override
-    public Message getReply() {
-        return null;
+    public void sendReply() {
     }
 
     @Override

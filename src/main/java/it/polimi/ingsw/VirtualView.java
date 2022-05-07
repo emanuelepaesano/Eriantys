@@ -37,7 +37,7 @@ public class VirtualView {
     public Object getAnswer()  {
         try {
             return inStream.readObject();
-        }catch ( IOException| ClassNotFoundException ex ){throw new RuntimeException();}
+        }catch ( IOException| ClassNotFoundException ex ){throw new RuntimeException("could not get answer");}
     }
 
     public int getPlayerId() {

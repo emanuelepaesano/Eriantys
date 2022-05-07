@@ -1,5 +1,6 @@
-package it.polimi.ingsw.controller.characters;
+package it.polimi.ingsw.model.characters;
 
+import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Island;
 import it.polimi.ingsw.model.Player;
@@ -11,14 +12,13 @@ import java.util.List;
  */
 class NoTowersCharacter extends Characters {
     int cost;
-    Game game;
 
-    public NoTowersCharacter(Game game) {
+    public NoTowersCharacter() {
         this.cost = 3;
-        this.game = game;
     }
 
-    public synchronized void play(Player player) throws InterruptedException {
+    public synchronized void play(Game game, PlayerController pc){
+        Player player = pc.getPlayer();
         if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
             return;}
@@ -26,18 +26,18 @@ class NoTowersCharacter extends Characters {
         Player thisTurn = game.getCurrentPlayer();
         List<Island> islands = game.getGameMap().getArchipelago();
         List<Integer> oldsizes = islands.stream().map(Island::getSize).toList();
-        while (game.getCurrentPlayer() == thisTurn) {
+        Thread t = new Thread(()->{
+            while (game.getCurrentPlayer() == thisTurn) {
             //we either make size 0 or  change the checkowner
-            islands.replaceAll(island -> {
-                island.setSize(0);
-                return island;
-            });
-            wait();
-        }
-        islands.replaceAll(island -> {
-            island.setSize(oldsizes.get(islands.indexOf(island)));
-            return island;
-        });
+            islands.forEach(island -> island.setSize(0));
+                try {
+                    wait();
+                } catch (InterruptedException e) {Thread.currentThread().interrupt();}
+            }
+            islands.forEach(island ->
+                island.setSize(oldsizes.get(islands.indexOf(island)))
+            );});
+        t.start();
     }
 
     public int getCost() {

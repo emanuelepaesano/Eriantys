@@ -1,6 +1,8 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.VirtualView;
+import it.polimi.ingsw.messages.Message;
+import it.polimi.ingsw.messages.StringMessage;
 import it.polimi.ingsw.model.*;
 
 import java.util.List;
@@ -18,9 +20,6 @@ public class EntranceController {
         this.view = view;
         this.player = player;
     }
-
-
-
 
 
     /**
@@ -65,8 +64,8 @@ public class EntranceController {
         String str;
         Student stud;
         for (int i = 0;i<nstud;i++){
-            System.out.println("For student " +(i+1) + " :\n");
-            str = Student.askStudent(students, scanner).toUpperCase();
+            System.out.println("For student " +(i+1) + " :");
+            str = Student.askStudent(students,view).toUpperCase();
             if  (str.equals("BACK")) {return i;}
             else if  (str.equals("RETRY")) {
                 i -= 1;
@@ -97,7 +96,7 @@ public class EntranceController {
         Student stud;
         for (int i = 0;i<nstud;i++){
             System.out.println("For student number " +(i+1) + " :\n");
-            str = Student.askStudent(students, scanner).toUpperCase();
+            str = Student.askStudent(students, view).toUpperCase();
             if  (str.equals("BACK")) {return i;}
             else if  (str.equals("RETRY")) {
                 i -= 1;
@@ -106,7 +105,7 @@ public class EntranceController {
             //In the 2nd part now we move it to the chosen island
             if (students.contains(stud)){
                 students.remove(stud);
-                Island island = gm.askWhichIsland(scanner);
+                Island island = askWhichIsland(gm);
                 int oldval = island.students.get(stud);
                 island.students.replace(stud, oldval,oldval+1);
             }
@@ -141,6 +140,24 @@ public class EntranceController {
             } catch (IllegalArgumentException ex) { System.out.println("not a number, try again");}
         }
         return nstud;
+    }
+
+    public Island askWhichIsland(GameMap gm){
+        while (true){
+            // TODO: 06/05/2022 probably a askIslandMessage
+            new StringMessage(
+                    "This is the current state of the islands:\n" + gm +
+                            "\nIndicate the island by its number (0~"+(gm.getArchipelago().size()-1)+"):").send(view); ;
+            try {
+                int index = Integer.parseInt(Message.receive(view).toString());
+                if (index>=0 &&index <=11) {
+                    return gm.getArchipelago().get(index);
+                }
+                new StringMessage(Game.ANSI_RED + "That's not a valid index, please choose one between 0~11.\n"+ Game.ANSI_RESET).send(view);
+            }catch (NumberFormatException ex) {
+                new StringMessage(Game.ANSI_RED+ "That's not an index, please choose an index between 0~11.\n"+ Game.ANSI_RESET).send(view);
+            }
+        }
     }
 
 

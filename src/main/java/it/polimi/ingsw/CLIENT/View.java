@@ -7,11 +7,11 @@ import java.io.Serializable;
 import java.util.Scanner;
 
 public interface View extends Serializable {
-    Scanner scanner = new Scanner(System.in);
+
 
     void display();
 
-    Message getReply();
+    void sendReply();
     void fillInfo(Message message);
 
 }

@@ -8,20 +8,14 @@ public class UserView {
     //we will read the input from the user and send it
     View currentView;
 
-    public UserView(Boolean gui) {
-        if (!gui){
-            this.currentView = new CLIView();
-        }
-    }
-
     public void update() {
         currentView.display();
     }
 
 
-    public Message getUserInput() {
+    public void getUserInput() {
         //might send this to the local controller if we do it
-        return currentView.getReply();
+        currentView.sendReply();
     }
 
     public void setCurrentView(View currentView) {

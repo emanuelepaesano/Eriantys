@@ -1,7 +1,7 @@
 package it.polimi.ingsw.messages;
 
 import it.polimi.ingsw.VirtualView;
-import it.polimi.ingsw.controller.characters.Character;
+import it.polimi.ingsw.model.characters.Character;
 import it.polimi.ingsw.model.Player;
 
 import java.util.List;
@@ -36,6 +36,11 @@ public class ActionPhaseMessage implements Message{
     @Override
     public String getView() {
         return "actionview";
+    }
+
+    @Override
+    public Boolean isPing() {
+        return false;
     }
 
     @Override

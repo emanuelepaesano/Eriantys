@@ -1,10 +1,8 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.VirtualView;
-import it.polimi.ingsw.controller.characters.Character;
 import it.polimi.ingsw.messages.ActionPhaseMessage;
 import it.polimi.ingsw.messages.Message;
-import it.polimi.ingsw.messages.PlayCharMessage;
 import it.polimi.ingsw.messages.StringMessage;
 import it.polimi.ingsw.model.*;
 
@@ -164,7 +162,7 @@ private void askAllPlayerNames(){
                 availableActions -= entranceController.moveToIsland(availableActions, game.getGameMap());}
             else if (action.equalsIgnoreCase("characters")){
                 if(player.getCoins()!= null){
-                    pc.playCharacters(game.getCharacters());
+                    pc.playCharacters(game.getCharacters(),game);
                 }
                 else {
                     new StringMessage("This is not an advanced game!").send(pc.getPlayerView());
