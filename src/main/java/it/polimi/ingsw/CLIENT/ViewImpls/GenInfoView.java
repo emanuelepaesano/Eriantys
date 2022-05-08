@@ -5,6 +5,7 @@ import it.polimi.ingsw.messages.GenInfoMessage;
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.model.GameMap;
 import it.polimi.ingsw.model.Player;
+import javafx.stage.Stage;
 
 import java.util.List;
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.messages.LoginMessage;
 import it.polimi.ingsw.messages.PingMessage;
 import it.polimi.ingsw.messages.StringMessage;
 
@@ -58,7 +59,7 @@ public class ServerHandler {
     private int askForPN(VirtualView client)  {
         int input = 0;
         while ((input != 3) && (input != 2)) {
-                new StringMessage("Welcome! How many players?").send(client);
+                new LoginMessage("Welcome! How many players?").send(client);
                 input = Integer.parseInt((client.getAnswer()).toString());
         }
         return input;

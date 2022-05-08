@@ -4,6 +4,7 @@ import it.polimi.ingsw.CLIENT.NetworkHandler;
 import it.polimi.ingsw.CLIENT.View;
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.messages.StringMessage;
+import javafx.stage.Stage;
 
 import java.util.Scanner;
 
@@ -24,6 +25,7 @@ public class CLIView implements View {
     public void display() {
         System.out.println(content);
     }
+
 
     @Override
     public void sendReply() {

@@ -16,7 +16,7 @@ public class DiningRoom implements Serializable {
     public DiningRoom(){
         this.tables = Student.makeStudents();
         this.professors= makeProfessors();
-        coins = null; //the game sets this to 1 in case it is advanced variant
+        coins = null; //the game will set this to 1 later in case of advanced variant
     }
 
 
@@ -26,9 +26,10 @@ public class DiningRoom implements Serializable {
         if (newnum > 10) {
             System.err.println("Your diningRoom is full!");
             return;}
-        if (newnum > 0 && newnum%3==0){ coins +=1; }
+        if (newnum > 0 && newnum%3==0){ if(coins!=null) {coins+=1;} }
         this.tables.replace(student,oldnum,newnum);
     }
+
     /**
      *
      * @return initializes all professors to false
