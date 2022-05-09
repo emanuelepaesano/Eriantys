@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.VirtualView;
+import it.polimi.ingsw.messages.CloudMessage;
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.messages.StringMessage;
 import it.polimi.ingsw.model.*;
@@ -27,11 +28,11 @@ public class EntranceController {
      */
     public void fillFromClouds(List<List<Student>> clouds){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Fill your entrance from a cloud.\n " + clouds +
-                "\n enter a number from 1 to " + clouds.size() + " to choose the cloud.");
+        new CloudMessage("Fill your entrance from a cloud.\n " + clouds +
+                "\n enter a number from 1 to " + clouds.size() + " to choose the cloud.").send(view);
         while (true) {
             try {
-                int choice = scanner.nextInt();
+                int choice = Integer.parseInt(Message.receive(view).toString());
                 if (choice<= clouds.size() && choice >= 1 ){
                     List<Student> cloud = clouds.get(choice-1);
                     if (!cloud.isEmpty()){
@@ -40,9 +41,9 @@ public class EntranceController {
                         cloud.clear();
                         break;
                     }
-                    else{System.out.println("That cloud is empty! Try again.");}
-                } else {System.out.printf("Not a valid number, type a number between 1 and %d", clouds.size());}
-            } catch (IllegalArgumentException ex) {System.out.println("Not a number, try again.");}
+                    else{new StringMessage(Game.ANSI_RED + "That cloud is empty! Try again." + Game.ANSI_RESET).send(view);}
+                } else {new StringMessage(Game.ANSI_RED + "Not a valid number, type a number between 1 and "+ clouds.size()+Game.ANSI_RESET).send(view);}
+            } catch (IllegalArgumentException ex) {new StringMessage(Game.ANSI_RED + "Not a number, try again." + Game.ANSI_RESET).send(view);}
         }
     }
 
@@ -127,9 +128,9 @@ public class EntranceController {
     private int askHowManyStudents(int availablemoves, Scanner scanner) {
         int nstud;
         while (true) {
-            System.out.println("How many students do you want to move (maximum " + availablemoves+ ") ?\n" +
-                    "To return to action selection, type '0' or 'back'");
-            String in = scanner.nextLine();
+            new StringMessage("How many students do you want to move (maximum " + availablemoves+ ") ?\n" +
+                    "To return to action selection, type '0' or 'back'").send(view);
+            String in = Message.receive(view).toString();
             if (Objects.equals(in, "back")) {
                 return 0; //go back to movetox and then to doActions()
             }

@@ -169,7 +169,7 @@ private void askAllPlayerNames(){
                 }
             }
         }
-        System.out.println("After your moves: " + player.getDiningRoom());
+        new StringMessage("After your moves: " + player.getDiningRoom()).send(pc.getPlayerView());
     }
     public String askWhichAction(int availableActions, PlayerController pc){
         new ActionPhaseMessage(advanced, availableActions,pc.getPlayer(), game.getCharacters()).send(pc.getPlayerView());

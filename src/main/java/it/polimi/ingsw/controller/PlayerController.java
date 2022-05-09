@@ -147,11 +147,11 @@ public class PlayerController {
     public int askMNMoves(){
         int possibleMoves = player.getBaseMoves() + player.getCurrentAssistant().getMoves();
         Scanner scanner = new Scanner(System.in);
-        System.out.println(player.getPlayerName() + ", how many steps do you want to move Mother Nature? " +
-                "(At least 1, maximum " + possibleMoves + ")");
+        new StringMessage(player.getPlayerName() + ", how many steps do you want to move Mother Nature? " +
+                "(At least 1, maximum " + possibleMoves + ")").send(playerView);
         while (true) {
             try {
-                int choice = scanner.nextInt();
+                int choice = Integer.parseInt(Message.receive(playerView).toString());
                 if (choice >=1 && choice<= possibleMoves){
                     return choice;
                 }

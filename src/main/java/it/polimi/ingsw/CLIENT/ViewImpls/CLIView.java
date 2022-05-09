@@ -4,7 +4,6 @@ import it.polimi.ingsw.CLIENT.NetworkHandler;
 import it.polimi.ingsw.CLIENT.View;
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.messages.StringMessage;
-import javafx.stage.Stage;
 
 import java.util.Scanner;
 
@@ -17,7 +16,7 @@ public class CLIView implements View {
 
     public CLIView(NetworkHandler nh) {
         this.nh = nh;
-        Thread t = new Thread(this::startSpeakerThread);
+        Thread t = new Thread(this::speakerThreadTask);
         t.start();
     }
 
@@ -33,7 +32,7 @@ public class CLIView implements View {
         nh.sendMessage(new StringMessage(reply));
     }
 
-    private void startSpeakerThread(){
+    private void speakerThreadTask(){
         while(true){
             sendReply();
         }

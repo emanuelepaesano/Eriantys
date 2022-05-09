@@ -4,22 +4,10 @@ import it.polimi.ingsw.CLIENT.ViewImpls.CLIView;
 import it.polimi.ingsw.CLIENT.ViewImpls.LoginView;
 import it.polimi.ingsw.CLIENT.ViewImpls.WaitingView;
 import it.polimi.ingsw.messages.Message;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.concurrent.Task;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -28,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class NetworkHandler extends Application {
+public class NetworkHandler{
     //possiamo fare altrimenti una sorta di local model che si aggiorna quando arriva qualcosa.
     //Come questo si aggiorna viene chiamato view.update() che fa vedere cosa c'e ora nel modello.
     //possiamo fare anche che il modello ha diversi stati, ma in qualsiasi stato può sempre ricevere
@@ -39,7 +27,7 @@ public class NetworkHandler extends Application {
 
     Socket socket;
     UserView view;
-    public static Boolean GUI;
+    Boolean GUI;
     CLIView cliView;
     private WaitingView waitingView;
     LoginView loginView;
@@ -53,46 +41,14 @@ public class NetworkHandler extends Application {
     ObjectOutputStream outStream;
     private Consumer<Message> messageArrivedObserver;
     private List<Message> delayedMessages = new ArrayList<>();
-    private GUIManager GUIManager;
+    private UIManager UIManager;
 
-    public void enableWaitingView(){
-        if (waitingView ==null){
-            waitingView = new WaitingView();
-        }
-        waitingView.display();
+
+    public NetworkHandler(Boolean GUI, UserView view) {
+        this.GUI = GUI;
+        this.view = view;
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        chooseUI();
-        view = new UserView();
-        if (GUI){
-            enableWaitingView();
-            Task<Void> task = new Task<>() {
-                @Override
-                public Void call(){
-                    startConnection();
-                    return null;
-                }
-            };
-            task.setOnSucceeded((e)->{
-                waitingView.close();
-                this.GUIManager = new GUIManager(stage);
-                startListenerThread();
-            });
-            new Thread(task).start();
-        }
-        else {cliView = new CLIView(this);
-            StartCLI();
-            startConnection();
-            startListenerThread();
-            Platform.exit();
-        }
-    }
     void startConnection(){
         while(true){
             try {
@@ -108,36 +64,6 @@ public class NetworkHandler extends Application {
         }
     }
 
-    void chooseUI(){
-        Stage stage = new Stage();
-        stage.setTitle("Choose an interface type.");
-        Button b1 = new Button("Graphic Interface");
-        Button b2 = new Button("Command Line");
-        HBox layout = new HBox();
-        layout.getChildren().addAll(b1,b2);
-        Scene scene = new Scene(layout,300,300);
-        stage.setScene(scene);
-        stage.sizeToScene();
-        b1.setOnAction(e-> {GUI =true; stage.close();});
-        b2.setOnAction(e-> {GUI =false; stage.close();});
-        stage.showAndWait();
-    }
-
-    public void initializeViews(){
-        if (!GUI){
-            this.cliView = new CLIView(this);
-        }
-        else{
-            this.waitingView = new WaitingView();
-            this.loginView = new LoginView();
-            //and all the other views for the gui
-        }
-
-    }
-    void StartCLI(){
-        if(!GUI){view.setCurrentView(this.cliView);}
-    }
-
     public synchronized void startListenerThread(){
         Thread listener = new Thread(()->{
             Message message;
@@ -146,7 +72,6 @@ public class NetworkHandler extends Application {
                 System.out.println("waiting for messages");
                 Timer timeout = new Timer(5000,onTimeout);
                 timeout.setRepeats(false);
-                if (GUI) {setMessageArrivedObserver((msg)->GUIManager.getGuiManager().selectAndFillView(msg, this));}
                 while (true) {
                     message = (Message) inStream.readObject();
                     if (message.isPing()){
@@ -163,9 +88,7 @@ public class NetworkHandler extends Application {
         });
 
         this.listener = listener;
-//        this.speaker = speaker;
         listener.start();
-//        speaker.start();
     }
 
     public void sendMessage(Message message)

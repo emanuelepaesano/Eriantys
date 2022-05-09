@@ -5,6 +5,12 @@ import it.polimi.ingsw.VirtualView;
 import java.util.List;
 
 public class CloudMessage implements Message{
+
+    String content;
+    public CloudMessage(String content) {
+        this.content = content;
+    }
+
     @Override
     public void send(VirtualView user) {
         user.update(this);
@@ -23,5 +29,10 @@ public class CloudMessage implements Message{
     @Override
     public Boolean isPing() {
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return content;
     }
 }
