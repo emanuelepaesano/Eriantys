@@ -1,5 +1,6 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.messages.FirstClientMessage;
 import it.polimi.ingsw.messages.LoginMessage;
 import it.polimi.ingsw.messages.PingMessage;
 import it.polimi.ingsw.messages.StringMessage;
@@ -38,6 +39,8 @@ public class ServerHandler {
         views.add(client1);
         int n = askForPN(client1);
         new StringMessage("OK! Waiting players for a "+n+"-player game...").send(client1);
+        new LoginMessage("Waiting players for a "+n+"-player game...").send(client1);
+
         lookForMorePlayers((n-1));
         System.out.println(views);
         Thread pingSender = new Thread(this::startPing);
@@ -49,9 +52,10 @@ public class ServerHandler {
             Socket socket = serverSocket.accept();
             VirtualView clientView = new VirtualView(socket,i+2);
             views.add(clientView);
-            new StringMessage("joining an existing game ... ("+(n+1)+"-player game)" ).send(clientView);
-            System.out.println("Connected! We are at " + (i+2) + " players out of " + (n+1));
+            new LoginMessage("joining an existing game ... ("+(n+1)+"-player game)" ).send(clientView);
+            System.out.println("Connected to client! We are at " + (i+2) + " players out of " + (n+1));
         }
+        try{Thread.sleep(100);}catch(Exception ex){}
         new StringMessage("We can start the game! ("+ (n+1) +"-player game)").send(views);
     }
 
@@ -59,7 +63,7 @@ public class ServerHandler {
     private int askForPN(VirtualView client)  {
         int input = 0;
         while ((input != 3) && (input != 2)) {
-                new LoginMessage("Welcome! How many players?").send(client);
+                new FirstClientMessage("Welcome! How many players?").send(client);
                 input = Integer.parseInt((client.getAnswer()).toString());
         }
         return input;

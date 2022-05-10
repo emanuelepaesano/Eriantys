@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -26,6 +27,7 @@ public class UIManager extends Application{
     private static NetworkHandler nh;
     private Boolean GUI;
     private static View cliView;
+    private View firstClientView;
 
     public static void main(String[] args) {
         launch(args);
@@ -77,11 +79,15 @@ public class UIManager extends Application{
         stage.showAndWait();
     }
 
-    void selectAndFillView(Message message){
+    public void selectAndFillView(Message message){
         switch (message.getView()){
+            case "firstclient":
+                getFirstClientView().display(firstClientRoot);
+                break;
             case "loginview":
                 getLoginView().fillInfo(message);
                 loginView.display(loginRoot);
+                break;
             case "planningview": //from planningphasemessage
             case "actionview": //from actionphasemessage
             case "cloudselection": //from cloudmessage
@@ -102,9 +108,21 @@ public class UIManager extends Application{
                 FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
                 loginRoot = loginLoader.load();
                 loginView = loginLoader.getController();
-            }catch(Exception ex){}
+            }catch(IOException ex){ex.printStackTrace();}
         }
         return loginView;
+    }
+
+    private Parent firstClientRoot;
+    public View getFirstClientView(){
+        if (this.firstClientView ==null){
+            try {
+                FXMLLoader firstClientLoader = new FXMLLoader(getClass().getResource("/FirstClientView.fxml"));
+                firstClientRoot = firstClientLoader.load();
+                firstClientView = firstClientLoader.getController();
+            }catch(IOException ex){ex.printStackTrace();}
+        }
+        return firstClientView;
     }
 
 

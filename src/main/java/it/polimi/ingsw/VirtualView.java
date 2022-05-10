@@ -26,17 +26,17 @@ public class VirtualView {
         this.socket = socket;
     }
 
-    public void update(Object model){
+    public void update(Message message){
         try {
-            outStream.writeObject(model);
+            outStream.writeObject(message);
             outStream.flush();
         }catch (IOException ex){ex.printStackTrace();}
     }
 
 
-    public Object getAnswer()  {
+    public Message getAnswer()  {
         try {
-            return inStream.readObject();
+            return (Message) inStream.readObject();
         }catch ( IOException| ClassNotFoundException ex ){throw new RuntimeException("could not get answer");}
     }
 

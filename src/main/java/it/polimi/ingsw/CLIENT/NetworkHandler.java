@@ -66,6 +66,7 @@ public class NetworkHandler{
                     if (message.isPing()){
                         timeout.restart();}
                     else {
+                        System.out.println("non-ping message: " +message.getView());
                         if (GUI) {notifyMessageArrived(message);}
                         else {
                             UIManager.getCliView().fillInfo(message);
@@ -115,6 +116,7 @@ public class NetworkHandler{
         public void actionPerformed(ActionEvent e) {
             try {
                 System.err.println("Server is not responding. Closing the game...");
+                if (GUI){UIManager.getMainWindow().close();}
                 outStream.close();
                 inStream.close();
                 socket.close();
