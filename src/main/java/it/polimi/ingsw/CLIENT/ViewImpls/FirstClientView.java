@@ -25,7 +25,7 @@ public class FirstClientView implements View {
 
 
     public void initialize(){
-        nh = UIManager.getNh();
+        nh = UIManager.getGuiManager().getNh();
         nh.setMessageArrivedObserver((msg)-> {
                     if (msg.getView().equals("simpleview")) {
                         textArea.appendText(""+ msg);
@@ -45,7 +45,7 @@ public class FirstClientView implements View {
 
     @Override
     public void display(Parent root) {
-        stage = UIManager.getMainWindow();
+        stage = UIManager.getGuiManager().getMainWindow();
         Scene sc = new Scene(root);
         stage.setScene(sc);
         stage.setTitle("Eriantys");

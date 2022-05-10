@@ -21,12 +21,12 @@ import java.util.function.Consumer;
 
 public class UIManager extends Application{
     private static UIManager GUIManager;
-    private static Stage mainWindow;
-    private static WaitingView waitingView;
+    private Stage mainWindow;
+    private  WaitingView waitingView;
     private View loginView;
-    private static NetworkHandler nh;
+    private NetworkHandler nh;
     private Boolean GUI;
-    private static View cliView;
+    private View cliView;
     private View firstClientView;
 
     public static void main(String[] args) {
@@ -130,19 +130,19 @@ public class UIManager extends Application{
         return GUIManager;
     }
 
-    public static Stage getMainWindow() {
+    public  Stage getMainWindow() {
         return mainWindow;
     }
 
-    public static WaitingView getWaitingView() {
+    public  WaitingView getWaitingView() {
         return waitingView;
     }
 
-    public static NetworkHandler getNh() {
+    public  NetworkHandler getNh() {
         return nh;
     }
 
-    public static View getCliView() {
+    public  View getCliView() {
         return cliView;
     }
 }

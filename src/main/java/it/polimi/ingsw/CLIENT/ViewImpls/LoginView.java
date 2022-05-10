@@ -44,8 +44,12 @@ public class LoginView implements View {
 
     @Override
     public void display(Parent root) {
-        stage = UIManager.getMainWindow();
-        Scene sc = new Scene(root);
+        Scene sc;
+        stage = UIManager.getGuiManager().getMainWindow();
+        if (root.getScene() == null) {
+            sc = new Scene(root);
+        }
+        else sc = root.getScene();
         stage.setScene(sc);
         stage.setTitle("Login");
         stage.sizeToScene();
@@ -53,7 +57,7 @@ public class LoginView implements View {
     }
 
     public void initialize(){
-        nh = UIManager.getNh();
+        nh = UIManager.getGuiManager().getNh();
         nh.setMessageArrivedObserver((msg)-> {
             Send.setDisable(false);
                 if (msg.getView().equals("simpleview")) {
