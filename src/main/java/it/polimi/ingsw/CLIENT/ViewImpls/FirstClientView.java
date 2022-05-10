@@ -30,7 +30,7 @@ public class FirstClientView implements View {
                     if (msg.getView().equals("simpleview")) {
                         textArea.appendText(""+ msg);
                     } else {
-                        Platform.runLater(()->UIManager.getGuiManager().selectAndFillView(msg));
+                        Platform.runLater(msg::switchAndFillView);
                     }
                 }
         );

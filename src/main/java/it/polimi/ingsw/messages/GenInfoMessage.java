@@ -45,6 +45,11 @@ public class GenInfoMessage implements Message, Serializable {
     }
 
     @Override
+    public void switchAndFillView() {
+
+    }
+
+    @Override
     public Boolean isPing() {
         return false;
     }

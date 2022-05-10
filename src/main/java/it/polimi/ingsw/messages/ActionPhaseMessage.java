@@ -39,6 +39,11 @@ public class ActionPhaseMessage implements Message{
     }
 
     @Override
+    public void switchAndFillView() {
+
+    }
+
+    @Override
     public Boolean isPing() {
         return false;
     }

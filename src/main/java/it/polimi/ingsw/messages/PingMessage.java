@@ -21,6 +21,11 @@ public class PingMessage implements Message{
     }
 
     @Override
+    public void switchAndFillView() {
+
+    }
+
+    @Override
     public Boolean isPing() {
         return true;
     }

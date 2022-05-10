@@ -40,6 +40,11 @@ public class PlanningPhaseMessage implements Message {
     }
 
     @Override
+    public void switchAndFillView() {
+
+    }
+
+    @Override
     public Boolean isPing() {
         return false;
     }

@@ -34,6 +34,11 @@ public class PickStudMessage implements Message {
         return "pickstudent";
     }
 
+    @Override
+    public void switchAndFillView() {
+
+    }
+
     public List<Student> getStudents() {
         return students;
     }

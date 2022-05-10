@@ -35,11 +35,11 @@ public class UIManager extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
+        GUIManager = this;
         chooseUI();
         nh = new NetworkHandler(GUI);
         if (GUI){
             Platform.setImplicitExit(false);
-            GUIManager = this;
             mainWindow = stage;
             startWaitingView();
             Task<Void> task = new Task<>() {
@@ -52,7 +52,7 @@ public class UIManager extends Application{
             task.setOnSucceeded((e)->{
                 waitingView.close();
                 nh.setMessageArrivedObserver((msg)->
-                        Platform.runLater(()->selectAndFillView(msg))
+                        Platform.runLater(msg::switchAndFillView)
                 );
                 nh.startListenerThread();
             });
@@ -79,29 +79,16 @@ public class UIManager extends Application{
         stage.showAndWait();
     }
 
-    public void selectAndFillView(Message message){
-        switch (message.getView()){
-            case "firstclient":
-                getFirstClientView().display(firstClientRoot);
-                break;
-            case "loginview":
-                getLoginView().fillInfo(message);
-                loginView.display(loginRoot);
-                break;
-            case "planningview": //from planningphasemessage
-            case "actionview": //from actionphasemessage
-            case "cloudselection": //from cloudmessage
-            case "generalview": //from generalviewmessage
-            case "simpleview": //from stringmessage //this can just be an overlaying popup or something similar
-        }
-    }
-
     public void startWaitingView(){
         waitingView = new WaitingView();
         waitingView.display();
     }
 
     private Parent loginRoot;
+    public Parent getLoginRoot() {
+        return loginRoot;
+    }
+
     public View getLoginView(){
         if (this.loginView ==null){
             try {
@@ -114,6 +101,10 @@ public class UIManager extends Application{
     }
 
     private Parent firstClientRoot;
+    public Parent getFirstClientRoot() {
+        return firstClientRoot;
+    }
+
     public View getFirstClientView(){
         if (this.firstClientView ==null){
             try {

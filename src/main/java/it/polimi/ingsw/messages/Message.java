@@ -17,6 +17,7 @@ public interface Message extends Serializable {
     void send(List<VirtualView> all);
     String getView();
 
+    void switchAndFillView(Message this);
     Boolean isPing();
 
 

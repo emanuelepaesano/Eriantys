@@ -60,10 +60,10 @@ public class LoginView implements View {
         nh = UIManager.getGuiManager().getNh();
         nh.setMessageArrivedObserver((msg)-> {
             Send.setDisable(false);
-                if (msg.getView().equals("simpleview")) {
+                if (msg.getClass().getSimpleName().equals("StringMessage")) {
                     textArea.appendText("\n"+ msg);
                 } else {
-                    Platform.runLater(()->UIManager.getGuiManager().selectAndFillView(msg));
+                    Platform.runLater(msg::switchAndFillView);
                 }
             }
         );

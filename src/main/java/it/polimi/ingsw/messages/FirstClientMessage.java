@@ -29,7 +29,18 @@ public class FirstClientMessage implements Message {
     }
 
     @Override
+    public void switchAndFillView() {
+        UIManager uim = UIManager.getGuiManager();
+        uim.getFirstClientView().display(uim.getFirstClientRoot());
+    }
+
+    @Override
     public Boolean isPing() {
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return text;
     }
 }

@@ -27,6 +27,11 @@ public class CloudMessage implements Message{
     }
 
     @Override
+    public void switchAndFillView() {
+
+    }
+
+    @Override
     public Boolean isPing() {
         return false;
     }

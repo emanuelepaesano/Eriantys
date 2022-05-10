@@ -1,5 +1,6 @@
 package it.polimi.ingsw.messages;
 
+import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.VirtualView;
 
 import java.util.List;
@@ -25,6 +26,13 @@ public class LoginMessage implements Message{
     @Override
     public String getView() {
         return "loginview";
+    }
+
+    @Override
+    public void switchAndFillView() {
+        UIManager uim = UIManager.getGuiManager();
+        uim.getLoginView().fillInfo(this);
+        uim.getLoginView().display(uim.getLoginRoot());
     }
 
     @Override

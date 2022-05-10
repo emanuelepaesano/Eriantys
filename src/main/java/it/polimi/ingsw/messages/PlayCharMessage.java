@@ -35,6 +35,11 @@ public class PlayCharMessage implements Message{
     }
 
     @Override
+    public void switchAndFillView() {
+
+    }
+
+    @Override
     public Boolean isPing() {
         return false;
     }
