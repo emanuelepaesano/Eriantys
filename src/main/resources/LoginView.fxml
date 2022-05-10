@@ -6,10 +6,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.LoginView" prefHeight="400.0" prefWidth="600.0">
+<AnchorPane fx:id="mainPane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.LoginView" prefHeight="400.0" prefWidth="600.0">
     <children>
         <TextArea fx:id="textArea" text="Please enter name" editable="false" layoutX="14.0" layoutY="14.0" prefHeight="277.0" prefWidth="289.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="14.0" />
         <TextField fx:id="textField" layoutX="100.0" layoutY="302.0" prefHeight="25.0" prefWidth="226.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="76.0" />
-        <Button fx:id="Send" text="Click Me" onAction="#doSomething"/>
+        <Button fx:id="Send" text="Send" layoutY="302.0" prefHeight="25.0" prefWidth="54.0" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="13.0" onAction="#doSomething"/>
     </children>
 </AnchorPane>

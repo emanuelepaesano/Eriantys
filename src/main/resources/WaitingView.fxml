@@ -19,6 +19,6 @@
     >
         <Image url="assets/eryantislogo.jpg" backgroundLoading="true"/>
     </ImageView>
-    <TextField fx:id="textField" text="Waiting for server . . . " editable="false" layoutX="200.0" layoutY="250.0" prefHeight="25.0" prefWidth="226.0"
-               AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="76.0" />
+    <TextField fx:id="textField"  text="Waiting for server . . . " disable="true" layoutX="200.0" layoutY="250.0" prefHeight="25.0" prefWidth="100.0"
+               AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="115" AnchorPane.rightAnchor="120" />
 </AnchorPane>

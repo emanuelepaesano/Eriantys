@@ -7,6 +7,8 @@ import it.polimi.ingsw.messages.Message;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -21,12 +23,9 @@ public class UIManager extends Application{
     private static Stage mainWindow;
     private static WaitingView waitingView;
     private View loginView;
-    private UserView view;
-    private NetworkHandler nh;
-    private Consumer<Message> messageArrivedObserver;
-    private List<Message> delayedMessages = new ArrayList<>();
+    private static NetworkHandler nh;
     private Boolean GUI;
-    private View cliView;
+    private static View cliView;
 
     public static void main(String[] args) {
         launch(args);
@@ -35,9 +34,9 @@ public class UIManager extends Application{
     @Override
     public void start(Stage stage) throws Exception {
         chooseUI();
-        view = new UserView();
-        nh = new NetworkHandler(GUI,view);
+        nh = new NetworkHandler(GUI);
         if (GUI){
+            Platform.setImplicitExit(false);
             GUIManager = this;
             mainWindow = stage;
             startWaitingView();
@@ -50,13 +49,14 @@ public class UIManager extends Application{
             };
             task.setOnSucceeded((e)->{
                 waitingView.close();
-                nh.setMessageArrivedObserver((msg)-> UIManager.getGuiManager().selectAndFillView(msg, nh));
+                nh.setMessageArrivedObserver((msg)->
+                        Platform.runLater(()->selectAndFillView(msg))
+                );
                 nh.startListenerThread();
             });
             new Thread(task).start();
         }
         else {cliView = new CLIView(nh);
-            StartCLI();
             nh.startConnection();
             nh.startListenerThread();
             Platform.exit();
@@ -76,16 +76,12 @@ public class UIManager extends Application{
         b2.setOnAction(e-> {GUI =false; stage.close();});
         stage.showAndWait();
     }
-    void StartCLI(){
-        if(!GUI){view.setCurrentView(this.cliView);}
-    }
 
-    void selectAndFillView(Message message, NetworkHandler nh){
+    void selectAndFillView(Message message){
         switch (message.getView()){
             case "loginview":
                 getLoginView().fillInfo(message);
-                System.out.println("trying to enable login view");
-                loginView.display();
+                loginView.display(loginRoot);
             case "planningview": //from planningphasemessage
             case "actionview": //from actionphasemessage
             case "cloudselection": //from cloudmessage
@@ -99,9 +95,14 @@ public class UIManager extends Application{
         waitingView.display();
     }
 
+    private Parent loginRoot;
     public View getLoginView(){
         if (this.loginView ==null){
-            loginView = new LoginView();
+            try {
+                FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
+                loginRoot = loginLoader.load();
+                loginView = loginLoader.getController();
+            }catch(Exception ex){}
         }
         return loginView;
     }
@@ -117,5 +118,13 @@ public class UIManager extends Application{
 
     public static WaitingView getWaitingView() {
         return waitingView;
+    }
+
+    public static NetworkHandler getNh() {
+        return nh;
+    }
+
+    public static View getCliView() {
+        return cliView;
     }
 }

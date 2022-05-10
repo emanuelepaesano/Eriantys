@@ -34,6 +34,10 @@ public class WaitingView implements View{
         System.out.println("fine display");
     }
 
+    @Override
+    public void display(Parent root) {
+
+    }
 
 
     @Override
@@ -41,6 +45,7 @@ public class WaitingView implements View{
 
     @Override
     public void fillInfo(Message message) {}
+
 
     public void close(){
         stage.close();

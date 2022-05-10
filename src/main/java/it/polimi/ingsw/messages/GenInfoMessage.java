@@ -24,10 +24,11 @@ public class GenInfoMessage implements Message, Serializable {
         this.players = game.getTableOrder();
 
         String string = "";
-        string += "GAME MAP:\n" + game.getGameMap().toString();
-        string += "\n\nPLAYERS:\n";
+        string += Game.ANSI_BOLD + "GAME MAP:\n" + Game.ANSI_RESET + game.getGameMap().toString();
+        string +=  Game.ANSI_BOLD + "\nPLAYERS:\n" + Game.ANSI_RESET;
         for (Player p : game.getCurrentOrder()){
-            string += p.getPlayerName() +": "+ p.getEntrance()+ "\n"+ p.getDiningRoom().toString()+"\n";
+            string += Game.ANSI_BOLD + p.getPlayerName() + Game.ANSI_RESET+": "+ p.getEntrance()+
+                    "\n"+ p.getDiningRoom().toString()+"\n";
         }
         text = string;
     }

@@ -5,8 +5,10 @@ import it.polimi.ingsw.messages.GenInfoMessage;
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.model.GameMap;
 import it.polimi.ingsw.model.Player;
+import javafx.scene.Parent;
 import javafx.stage.Stage;
 
+import java.net.URL;
 import java.util.List;
 
 public class GenInfoView implements View {
@@ -21,6 +23,11 @@ public class GenInfoView implements View {
     }
 
     @Override
+    public void display(Parent root) {
+
+    }
+
+    @Override
     public void sendReply() {
     }
 
@@ -31,4 +38,5 @@ public class GenInfoView implements View {
         players = mess.getPlayers();
 
     }
+
 }

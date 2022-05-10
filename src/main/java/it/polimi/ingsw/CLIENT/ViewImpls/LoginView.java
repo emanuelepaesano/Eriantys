@@ -6,7 +6,7 @@ import it.polimi.ingsw.CLIENT.View;
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.messages.StringMessage;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,7 +14,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class LoginView implements View {
@@ -31,16 +32,26 @@ public class LoginView implements View {
     Stage stage;
 
 
-    public LoginView() {
-    }
-
     //accessed only by the user view with update()
 
     @Override
     public void display() {
+
+    }
+
+    @Override
+    public void display(Parent root) {
+        stage = UIManager.getMainWindow();
+        Scene sc = new Scene(root);
+        stage.setScene(sc);
+        stage.setTitle("Login");
+        stage.sizeToScene();
         stage.show();
     }
 
+    public void initialize(){
+        nh = UIManager.getNh();
+    }
 
     @Override
     public void sendReply() {
@@ -50,22 +61,15 @@ public class LoginView implements View {
     @Override
     public void fillInfo(Message message) {
         //fill buttons/other component with content field info.
-        stage = UIManager.getMainWindow();
-        Parent root;
-        try {
-            root = FXMLLoader.load(getClass().getResource("/LoginView.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        }
-        Scene sc = new Scene(root);
-        stage.setScene(sc);
-        stage.setTitle("Login");
-        stage.sizeToScene();
-        textArea.setText(message.toString());
+       textArea.setText(message.toString());
     }
 
+
     public void doSomething(ActionEvent actionEvent) {
+        textArea.appendText("\nMessage sent to server.");
+        Send.setDisable(true);
         nh.sendMessage(new StringMessage(textField.getText()));
     }
+
+
 }

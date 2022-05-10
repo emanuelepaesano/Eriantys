@@ -6,6 +6,7 @@ import java.util.*;
 
 
 public class Game implements Serializable {
+    public static final String ANSI_BOLD = "\u001B[1m";
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";

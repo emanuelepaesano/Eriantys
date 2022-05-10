@@ -26,27 +26,16 @@ public class NetworkHandler{
     //che queste cose appaiono come popup sopra alla view che resta però allo stato attuale
 
     Socket socket;
-    UserView view;
     Boolean GUI;
-    CLIView cliView;
-    private WaitingView waitingView;
-    LoginView loginView;
-
-    View currentState;
-    //dobbiamo mandargli i parametri per creare il prossimo stato
-
     Thread listener;
-    Thread speaker;
     ObjectInputStream inStream;
     ObjectOutputStream outStream;
     private Consumer<Message> messageArrivedObserver;
     private List<Message> delayedMessages = new ArrayList<>();
-    private UIManager UIManager;
 
 
-    public NetworkHandler(Boolean GUI, UserView view) {
+    public NetworkHandler(Boolean GUI) {
         this.GUI = GUI;
-        this.view = view;
     }
 
     void startConnection(){
@@ -58,7 +47,7 @@ public class NetworkHandler{
                 this.inStream = new ObjectInputStream(socket.getInputStream());
                 break;
             }catch (IOException ex){
-                System.err.println("server is not online");
+                System.err.println("server is not online. Waiting for server . . . ");
                 try{Thread.sleep(3000);}catch(Exception ecc){}
             }
         }
@@ -79,8 +68,8 @@ public class NetworkHandler{
                     else {
                         if (GUI) {notifyMessageArrived(message);}
                         else {
-                            view.getCurrentView().fillInfo(message);
-                            view.update();
+                            UIManager.getCliView().fillInfo(message);
+                            UIManager.getCliView().display();
                         }
                     }
                 }
