@@ -32,7 +32,7 @@ public class EntranceController {
                 "\n enter a number from 1 to " + clouds.size() + " to choose the cloud.").send(view);
         while (true) {
             try {
-                int choice = Integer.parseInt(Message.receive(view).toString());
+                int choice = Integer.parseInt(view.getAnswer().toString());
                 if (choice<= clouds.size() && choice >= 1 ){
                     List<Student> cloud = clouds.get(choice-1);
                     if (!cloud.isEmpty()){

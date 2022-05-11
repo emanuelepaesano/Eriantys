@@ -61,8 +61,7 @@ public class GameController {
     }
 
 
-    Boolean askForAdvanced(){
-        Scanner scanner = new Scanner(System.in);
+    public Boolean askForAdvanced(){
         VirtualView firstPlayer = views.get(0);
         new StringMessage("Normal game or expert version? Please type \"normal\" or \"expert\".").send(firstPlayer);
         while (true){
@@ -74,6 +73,8 @@ public class GameController {
                     .send(firstPlayer);
         }
     }
+
+
 
 
 private void askAllPlayerNames(){
@@ -182,8 +183,6 @@ private void askAllPlayerNames(){
         PlayerController currentPC = controllers.get(controllers.stream().map(PlayerController::getPlayer).toList().indexOf(player));
         game.setCurrentPlayer(currentPC.getPlayer());
     }
-
-
 
 
 

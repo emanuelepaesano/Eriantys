@@ -1,9 +1,11 @@
 package it.polimi.ingsw.messages;
 
 import it.polimi.ingsw.VirtualView;
+import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Student;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class PickStudMessage implements Message {
 
@@ -23,6 +25,8 @@ public class PickStudMessage implements Message {
     public void send(VirtualView user) {
         user.update(this);
     }
+
+
 
     @Override
     public void send(List<VirtualView> all) {

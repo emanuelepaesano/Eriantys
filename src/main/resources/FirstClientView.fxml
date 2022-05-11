@@ -9,11 +9,10 @@
 <AnchorPane fx:id="fcPane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.FirstClientView" prefHeight="400.0" prefWidth="600.0">
     <children>
-        <TextArea fx:id="textArea" editable="false" AnchorPane.bottomAnchor="300.0" AnchorPane.rightAnchor="150" AnchorPane.leftAnchor="150" />
         <Button fx:id="two" text="2 Players" layoutY="302.0" prefHeight="25.0" prefWidth="54.0"
-            AnchorPane.bottomAnchor="180.0" AnchorPane.rightAnchor="150" AnchorPane.leftAnchor="150" onAction="#send2"/>
+            AnchorPane.bottomAnchor="266.0" AnchorPane.rightAnchor="150" AnchorPane.leftAnchor="150" onAction="#send2"/>
         <Button fx:id="three" text="3 Players" layoutY="302.0" prefHeight="25.0" prefWidth="54.0"
-                AnchorPane.bottomAnchor="130.0" AnchorPane.rightAnchor="150" AnchorPane.leftAnchor="150" onAction="#send3"/>
+                AnchorPane.bottomAnchor="133.0" AnchorPane.rightAnchor="150" AnchorPane.leftAnchor="150" onAction="#send3"/>
 
     </children>
 

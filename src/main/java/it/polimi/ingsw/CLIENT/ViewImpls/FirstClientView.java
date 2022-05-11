@@ -15,7 +15,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class FirstClientView implements View {
-    public TextArea textArea;
     public Button two;
     public Button three;
     public AnchorPane fcPane;
@@ -28,7 +27,7 @@ public class FirstClientView implements View {
         nh = UIManager.getGuiManager().getNh();
         nh.setMessageArrivedObserver((msg)-> {
                     if (msg.getView().equals("simpleview")) {
-                        textArea.appendText(""+ msg);
+
                     } else {
                         Platform.runLater(msg::switchAndFillView);
                     }
