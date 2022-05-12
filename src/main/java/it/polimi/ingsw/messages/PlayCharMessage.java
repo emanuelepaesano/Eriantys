@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.Player;
 
 import java.util.List;
 
-public class PlayCharMessage implements Message{
+public class PlayCharMessage extends Repliable implements Message{
     List<Character> characters;
     Player player;
     String text;
@@ -48,4 +48,10 @@ public class PlayCharMessage implements Message{
     public String toString() {
         return this.text;
     }
+
+    @Override
+    public Boolean isRepliable() {
+        return true;
+    }
 }
+

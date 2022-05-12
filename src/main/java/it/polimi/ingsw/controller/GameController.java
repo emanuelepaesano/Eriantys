@@ -1,9 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.VirtualView;
-import it.polimi.ingsw.messages.ActionPhaseMessage;
-import it.polimi.ingsw.messages.Message;
-import it.polimi.ingsw.messages.StringMessage;
+import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.*;
 
 import java.util.*;
@@ -16,6 +14,7 @@ public class GameController {
 
     private List<Player> winner;
 
+    VirtualView firstPlayer;
     private Boolean advanced;
 
 
@@ -25,25 +24,26 @@ public class GameController {
      * Our main will call the constructor of this class to start the game
      */
     public GameController(int numplayers, List<VirtualView> views){
-
         if (numplayers==0){
             System.err.println("Could not start server.");
             return;
         }
         System.out.println("The views in the game controller: " + views);
-
         game = Game.makeGame(numplayers); //initializes the game
         this.views = views;
+        firstPlayer = views.get(0);
         //bindViewsToGame(game); the view should see the model, but it doesn't really need to
         //update by watching all of it (and sending it all...)
         bindPlayers();
         System.out.println("finito bind players");
-        Boolean ad = askForAdvanced();
-        this.advanced = ad;
+        while (advanced == null) {
+            askForAdvanced();
+            replyToAdvanced(firstPlayer.getReply());
+        }
         askAllPlayerNames();
         askAllForTC(numplayers);
         askAllForWiz();
-        game.doSetUp(ad);
+        game.doSetUp(this.advanced);
 
     }
 
@@ -61,17 +61,15 @@ public class GameController {
     }
 
 
-    public Boolean askForAdvanced(){
-        VirtualView firstPlayer = views.get(0);
-        new StringMessage("Normal game or expert version? Please type \"normal\" or \"expert\".").send(firstPlayer);
-        while (true){
-            String choice = Message.receive(firstPlayer).toString();
-            if (choice.equalsIgnoreCase("expert")) {return true;}
-            else if (choice.equalsIgnoreCase("normal")) {return false;}
+    public void askForAdvanced(){
+        new FirstClientMessage("Normal game or expert version? Please type \"normal\" or \"expert\".").send(firstPlayer);
+    }
 
-            new StringMessage( Game.ANSI_RED + "What do you mean? Please type \"normal\" or \"expert\"."+ Game.ANSI_RESET)
+    public void replyToAdvanced(String choice){
+            if (choice.equalsIgnoreCase("expert")) {this.advanced = true;return;}
+            else if (choice.equalsIgnoreCase("normal")) {this.advanced = false;return;}
+            new NoReplyMessage( Game.ANSI_RED + "What do you mean? Please type \"normal\" or \"expert\"."+ Game.ANSI_RESET)
                     .send(firstPlayer);
-        }
     }
 
 
@@ -80,7 +78,12 @@ public class GameController {
 private void askAllPlayerNames(){
     List<String> usedNames = new ArrayList<>();
     for (PlayerController pc : controllers){
-        String aUsedName = pc.askPlayerName(usedNames);
+        String aUsedName= null;
+        while(aUsedName == null) {
+            pc.askPlayerName(usedNames);
+            String reply = pc.getPlayerView().getReply();
+            aUsedName = pc.replyToPlayerName(reply, usedNames);
+        }
         usedNames.add(aUsedName);
     }
 }
@@ -91,14 +94,15 @@ private void askAllPlayerNames(){
      */
     private void askAllForTC(int n){
         ArrayList<TowerColor> remainingColors;
-        if (n==3) {
-            remainingColors = new ArrayList<>(Arrays.asList(TowerColor.values()));
-        }
-        else{
-            remainingColors = new ArrayList<>(Arrays.asList(TowerColor.WHITE,TowerColor.BLACK));
-        }
+        if (n==3) {remainingColors = new ArrayList<>(Arrays.asList(TowerColor.values()));}
+        else{remainingColors = new ArrayList<>(Arrays.asList(TowerColor.WHITE,TowerColor.BLACK));}
         for (PlayerController pc: controllers){
-            TowerColor c = pc.askTowerColor(remainingColors);
+            TowerColor c = null;
+            while (c == null) {
+                pc.askTowerColor(remainingColors);
+                String reply = pc.getPlayerView().getReply();
+                c = pc.replyToTowerColor(reply, remainingColors);
+            }
             remainingColors.remove(c);
         }
     }
@@ -110,8 +114,14 @@ private void askAllPlayerNames(){
     public void askAllForWiz() {
         ArrayList<Integer> remainingWizards = new ArrayList<>(Arrays.asList(1,2,3,4));
         for (PlayerController pc : controllers){
-            Integer wiz = pc.askWizard(remainingWizards);
-            remainingWizards.remove(wiz);
+            Integer wiz = null;
+            while(wiz == null) {
+                pc.askWizard(remainingWizards);
+                try{Integer input = Integer.parseInt(pc.getPlayerView().getReply());
+                    wiz = pc.replyToWizard(input, remainingWizards);
+                    remainingWizards.remove(wiz);
+                }catch (Exception ignored){}
+            }
         }
     }
 
@@ -172,9 +182,11 @@ private void askAllPlayerNames(){
         }
         new StringMessage("After your moves: " + player.getDiningRoom()).send(pc.getPlayerView());
     }
+
+    // TODO: 11/05/2022 all the checks that must be done and in a separate method
     public String askWhichAction(int availableActions, PlayerController pc){
         new ActionPhaseMessage(advanced, availableActions,pc.getPlayer(), game.getCharacters()).send(pc.getPlayerView());
-        return Message.receive(pc.getPlayerView()).toString();
+        return pc.getPlayerView().getReply();
     }
 
 

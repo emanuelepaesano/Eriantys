@@ -4,10 +4,9 @@ import it.polimi.ingsw.VirtualView;
 
 import java.util.List;
 
-public class CloudMessage extends Repliable implements Message{
-
-    String content;
-    public CloudMessage(String content) {
+public class NoReplyMessage implements Message {
+    final String content;
+    public NoReplyMessage(String content) {
         this.content = content;
     }
 
@@ -23,12 +22,11 @@ public class CloudMessage extends Repliable implements Message{
 
     @Override
     public String getView() {
-        return "cloudselection";
+        return "simpledialog";
     }
 
     @Override
     public void switchAndFillView() {
-
     }
 
     @Override
@@ -38,11 +36,11 @@ public class CloudMessage extends Repliable implements Message{
 
     @Override
     public String toString() {
-        return content;
+        return this.content;
     }
 
-    @Override
     public Boolean isRepliable() {
-        return true;
+        return false;
     }
+
 }

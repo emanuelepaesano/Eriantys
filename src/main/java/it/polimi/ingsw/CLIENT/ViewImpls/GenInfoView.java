@@ -16,10 +16,8 @@ public class GenInfoView implements View {
     GameMap map;
     List<Player> players;
 
-    //screen with the map and the player schools (static)
     @Override
     public void display() {
-         //setVisible(true)
     }
 
     @Override
@@ -36,6 +34,7 @@ public class GenInfoView implements View {
         GenInfoMessage mess = (GenInfoMessage) message;
         map = mess.getMap();
         players = mess.getPlayers();
+        //Here we have to link the elements from the model to the graphic components.
 
     }
 

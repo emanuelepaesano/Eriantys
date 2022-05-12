@@ -5,9 +5,11 @@ import it.polimi.ingsw.VirtualView;
 
 import java.util.List;
 
-public class FirstClientMessage implements Message {
+public class FirstClientMessage extends Repliable implements Message{
 
     String text;
+    private String reply;
+
     public FirstClientMessage(String s) {
         text = s;
     }
@@ -30,7 +32,7 @@ public class FirstClientMessage implements Message {
 
     @Override
     public void switchAndFillView() {
-        UIManager uim = UIManager.getGuiManager();
+        UIManager uim = UIManager.getUIManager();
         uim.getFirstClientView().display(uim.getFirstClientRoot());
     }
 
@@ -42,5 +44,17 @@ public class FirstClientMessage implements Message {
     @Override
     public String toString() {
         return text;
+    }
+    @Override
+    public Boolean isRepliable(){return true;}
+
+    @Override
+    public void setReply(String s) {
+        this.reply = s;
+    }
+
+    @Override
+    public String getReply() {
+        return reply;
     }
 }

@@ -1,9 +1,6 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.messages.FirstClientMessage;
-import it.polimi.ingsw.messages.LoginMessage;
-import it.polimi.ingsw.messages.PingMessage;
-import it.polimi.ingsw.messages.StringMessage;
+import it.polimi.ingsw.messages.*;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -38,8 +35,7 @@ public class ServerHandler {
         VirtualView client1 = new VirtualView(socket,1);
         views.add(client1);
         int n = askForPN(client1);
-        new StringMessage("OK! Waiting players for a "+n+"-player game...").send(client1);
-        new LoginMessage("Waiting players for a "+n+"-player game...").send(client1);
+        new NoReplyMessage("OK! Waiting players for a "+n+"-player game...").send(client1);
 
         lookForMorePlayers((n-1));
         System.out.println(views);
@@ -56,7 +52,7 @@ public class ServerHandler {
             System.out.println("Connected to client! We are at " + (i+2) + " players out of " + (n+1));
         }
         try{Thread.sleep(100);}catch(Exception ex){}
-        new StringMessage("We can start the game! ("+ (n+1) +"-player game)").send(views);
+        new NoReplyMessage("We can start the game! ("+ (n+1) +"-player game)").send(views);
     }
 
 
@@ -64,7 +60,8 @@ public class ServerHandler {
         int input = 0;
         while ((input != 3) && (input != 2)) {
                 new FirstClientMessage("Welcome! How many players?").send(client);
-                input = Integer.parseInt((client.getAnswer()).toString());
+                input = Integer.parseInt(client.getReply());
+            System.out.println("received reply: "+ input);
         }
         return input;
     }

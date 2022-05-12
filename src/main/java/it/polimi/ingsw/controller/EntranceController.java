@@ -32,7 +32,7 @@ public class EntranceController {
                 "\n enter a number from 1 to " + clouds.size() + " to choose the cloud.").send(view);
         while (true) {
             try {
-                int choice = Integer.parseInt(view.getAnswer().toString());
+                int choice = Integer.parseInt(view.getReply().toString());
                 if (choice<= clouds.size() && choice >= 1 ){
                     List<Student> cloud = clouds.get(choice-1);
                     if (!cloud.isEmpty()){
@@ -130,7 +130,7 @@ public class EntranceController {
         while (true) {
             new StringMessage("How many students do you want to move (maximum " + availablemoves+ ") ?\n" +
                     "To return to action selection, type '0' or 'back'").send(view);
-            String in = Message.receive(view).toString();
+            String in = view.getReply();
             if (Objects.equals(in, "back")) {
                 return 0; //go back to movetox and then to doActions()
             }
@@ -150,7 +150,7 @@ public class EntranceController {
                     "This is the current state of the islands:\n" + gm +
                             "\nIndicate the island by its number (0~"+(gm.getArchipelago().size()-1)+"):").send(view); ;
             try {
-                int index = Integer.parseInt(Message.receive(view).toString());
+                int index = Integer.parseInt(view.getReply());
                 if (index>=0 &&index <=11) {
                     return gm.getArchipelago().get(index);
                 }

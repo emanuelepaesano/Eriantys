@@ -34,7 +34,7 @@ public class CLIView implements View {
     @Override
     public void sendReply() {
         reply = scanner.nextLine();
-        nh.sendMessage(new StringMessage(reply));
+        nh.sendMessage(reply);
     }
 
     private void speakerThreadTask(){

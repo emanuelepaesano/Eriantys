@@ -9,11 +9,16 @@
 <AnchorPane fx:id="fcPane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.FirstClientView" prefHeight="400.0" prefWidth="600.0">
     <children>
+        <TextField fx:id="testo" text="Welcome! Choose number of Players." editable="false" AnchorPane.bottomAnchor="200"
+                   AnchorPane.leftAnchor="150" AnchorPane.rightAnchor="150" blendMode="DARKEN"/>
         <Button fx:id="two" text="2 Players" layoutY="302.0" prefHeight="25.0" prefWidth="54.0"
             AnchorPane.bottomAnchor="266.0" AnchorPane.rightAnchor="150" AnchorPane.leftAnchor="150" onAction="#send2"/>
         <Button fx:id="three" text="3 Players" layoutY="302.0" prefHeight="25.0" prefWidth="54.0"
                 AnchorPane.bottomAnchor="133.0" AnchorPane.rightAnchor="150" AnchorPane.leftAnchor="150" onAction="#send3"/>
-
+        <Button fx:id="normal" text="Normal" disable="true" visible="false" layoutY="302.0" prefHeight="25.0" prefWidth="54.0"
+                AnchorPane.bottomAnchor="266.0" AnchorPane.rightAnchor="150" AnchorPane.leftAnchor="150" onAction="#sendNormal"/>
+        <Button fx:id="expert" text="Expert" disable="true" visible="false" layoutY="302.0" prefHeight="25.0" prefWidth="54.0"
+                AnchorPane.bottomAnchor="133.0" AnchorPane.rightAnchor="150" AnchorPane.leftAnchor="150" onAction="#sendExpert"/>
     </children>
 
 </AnchorPane>

@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.Player;
 
 import java.util.List;
 
-public class ActionPhaseMessage implements Message{
+public class ActionPhaseMessage extends Repliable implements Message{
 
     String text;
     Player player;
@@ -51,5 +51,10 @@ public class ActionPhaseMessage implements Message{
     @Override
     public String toString() {
         return text;
+    }
+
+    @Override
+    public Boolean isRepliable() {
+        return true;
     }
 }

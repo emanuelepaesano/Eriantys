@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.Student;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class PickStudMessage implements Message {
+public class PickStudMessage extends Repliable implements Message {
 
     List<Student> students;
     String text;
@@ -55,5 +55,10 @@ public class PickStudMessage implements Message {
     @Override
     public Boolean isPing() {
         return false;
+    }
+
+    @Override
+    public Boolean isRepliable() {
+        return true;
     }
 }

@@ -4,11 +4,11 @@ import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.messages.Message;
 
 import java.util.List;
+import java.util.function.Consumer;
 
-public class StringMessage implements Message {
+public class StringMessage extends Repliable implements Message {
     final String content;
-
-    String answer = "";
+    String reply = "";
 
 
     public StringMessage(String content) {
@@ -45,11 +45,18 @@ public class StringMessage implements Message {
         return this.content;
     }
 
-    public String getContent() {
-        return content;
+
+    public Boolean isRepliable() {
+        return true;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    @Override
+    public void setReply(String s) {
+        this.reply = s;
+    }
+
+    @Override
+    public String getReply() {
+        return reply;
     }
 }

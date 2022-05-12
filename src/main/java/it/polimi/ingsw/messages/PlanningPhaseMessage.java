@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.Assistant;
 
 import java.util.List;
 
-public class PlanningPhaseMessage implements Message {
+public class PlanningPhaseMessage extends Repliable implements Message  {
 
     String text;
     List<Assistant> remainingAssistants;
@@ -52,5 +52,10 @@ public class PlanningPhaseMessage implements Message {
     @Override
     public String toString() {
         return text + "\n" + remainingAssistants + "\nThe other players played: \n" + playedByOthers;
+    }
+
+    @Override
+    public Boolean isRepliable() {
+        return true;
     }
 }

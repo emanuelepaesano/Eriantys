@@ -45,9 +45,7 @@ public class GenInfoMessage implements Message, Serializable {
     }
 
     @Override
-    public void switchAndFillView() {
-
-    }
+    public void switchAndFillView() {}
 
     @Override
     public Boolean isPing() {
@@ -65,5 +63,10 @@ public class GenInfoMessage implements Message, Serializable {
     @Override
     public String toString() {
         return text;
+    }
+
+    @Override
+    public Boolean isRepliable() {
+        return false;
     }
 }

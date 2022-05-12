@@ -3,6 +3,7 @@ package it.polimi.ingsw;
 
 
 import it.polimi.ingsw.messages.Message;
+import it.polimi.ingsw.messages.Repliable;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -26,19 +27,49 @@ public class VirtualView {
         this.socket = socket;
     }
 
-    public void update(Message message){
+    public synchronized void update(Message message){
         try {
             outStream.writeObject(message);
             outStream.flush();
         }catch (IOException ex){ex.printStackTrace();}
     }
 
+    Runnable getHeartBeat = new Runnable() {
+        @Override
+        public void run() {
+            while(true){
+                try {
+                    Message pingMessage = (Message) inStream.readObject();
+                    Thread.sleep(6000);
+                } catch (ClassNotFoundException |InterruptedException e) {throw new RuntimeException(e);} catch (IOException e) {
+                    onClientDisconnection();
+                }
+            }
+        }
+    };
+    public void onClientDisconnection(){
+        //dovremmo interrompere tutto e mandare un messaggio ai client
+        //mandiamo prima quindi i messaggi che uno si è disconnesso,
+        //poi stoppiamo tutti i task sul server, una cosa del genere
+    }
 
-    public Message getAnswer()  {
+
+    public String getReply()  {
         try {
-            return (Message) inStream.readObject();
+            Message userMessage = (Message) inStream.readObject();
+            if ((userMessage).isRepliable()) {
+//                    replyTo.accept(((Repliable)userMessage).getReply());
+                    return ((Repliable)userMessage).getReply();
+            }
+            else{throw new RuntimeException("Violation of protocol");}
         }catch ( IOException| ClassNotFoundException ex ){throw new RuntimeException("could not get answer");}
     }
+
+//    public Consumer<String> replyTo;
+
+//    public void setReplyTo(Consumer<String> replyTo) {
+//        this.replyTo = replyTo;
+//    }
 
     public int getPlayerId() {
         return playerId;

@@ -29,4 +29,9 @@ public class PingMessage implements Message{
     public Boolean isPing() {
         return true;
     }
+
+    @Override
+    public Boolean isRepliable() {
+        return false;
+    }
 }

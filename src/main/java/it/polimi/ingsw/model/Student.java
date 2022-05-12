@@ -39,7 +39,7 @@ public enum Student {
         String str;
         try{
             new PickStudMessage(students).send(user);
-            str = Message.receive(user).toString();
+            str = user.getReply();
             if (Objects.equals(str, "back")) {return "back";}
             else {
                 Student.valueOf(str.toUpperCase());

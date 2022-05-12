@@ -1,9 +1,7 @@
 package it.polimi.ingsw.CLIENT;
 
 import it.polimi.ingsw.CLIENT.ViewImpls.CLIView;
-import it.polimi.ingsw.CLIENT.ViewImpls.LoginView;
 import it.polimi.ingsw.CLIENT.ViewImpls.WaitingView;
-import it.polimi.ingsw.messages.Message;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -15,12 +13,9 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
 
 public class UIManager extends Application{
-    private static UIManager GUIManager;
+    private static UIManager UIManager;
     private Stage mainWindow;
     private  WaitingView waitingView;
     private View loginView;
@@ -28,6 +23,9 @@ public class UIManager extends Application{
     private Boolean GUI;
     private View cliView;
     private View firstClientView;
+    private View genInfoView;
+
+    private View planningPhaseView;
 
     public static void main(String[] args) {
         launch(args);
@@ -35,7 +33,7 @@ public class UIManager extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
-        GUIManager = this;
+        UIManager = this;
         chooseUI();
         nh = new NetworkHandler(GUI);
         if (GUI){
@@ -99,11 +97,33 @@ public class UIManager extends Application{
         }
         return loginView;
     }
+    private Parent genInfoRoot;
+    public View getGenInfoView(){
+        if (this.genInfoView ==null){
+            try {
+                FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/GenInfoView.fxml"));
+                genInfoRoot = loginLoader.load();
+                genInfoView = loginLoader.getController();
+            }catch(IOException ex){ex.printStackTrace();}
+        }
+        return genInfoView;
+    }
+    public View getPlanningPhaseView(){
+        if (this.planningPhaseView ==null){
+            try {
+                FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/PlanningPhaseView.fxml"));
+                planningPhaseView = loginLoader.load();
+                planningPhaseView = loginLoader.getController();
+            }catch(IOException ex){ex.printStackTrace();}
+        }
+        return planningPhaseView;
+    }
 
     private Parent firstClientRoot;
     public Parent getFirstClientRoot() {
         return firstClientRoot;
     }
+
 
     public View getFirstClientView(){
         if (this.firstClientView ==null){
@@ -117,8 +137,8 @@ public class UIManager extends Application{
     }
 
 
-    public static UIManager getGuiManager(){
-        return GUIManager;
+    public static UIManager getUIManager(){
+        return UIManager;
     }
 
     public  Stage getMainWindow() {

@@ -1,9 +1,8 @@
 package it.polimi.ingsw.CLIENT;
 
-import it.polimi.ingsw.CLIENT.ViewImpls.CLIView;
-import it.polimi.ingsw.CLIENT.ViewImpls.LoginView;
-import it.polimi.ingsw.CLIENT.ViewImpls.WaitingView;
 import it.polimi.ingsw.messages.Message;
+import it.polimi.ingsw.messages.NoReplyMessage;
+import it.polimi.ingsw.messages.Repliable;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -32,6 +31,7 @@ public class NetworkHandler{
     ObjectOutputStream outStream;
     private Consumer<Message> messageArrivedObserver;
     private List<Message> delayedMessages = new ArrayList<>();
+    private Message currentMessage;
 
 
     public NetworkHandler(Boolean GUI) {
@@ -66,25 +66,40 @@ public class NetworkHandler{
                     if (message.isPing()){
                         timeout.restart();}
                     else {
-                        System.out.println("non-ping message: " +message.getView());
+                        System.out.println("last non ping message: " + message.getClass().getSimpleName());
+                        if (message.isRepliable()){
+                            this.currentMessage = message;
+                            System.out.println("current message: " +currentMessage);
+                        }
                         if (GUI) {notifyMessageArrived(message);}
                         else {
-                            UIManager.getGuiManager().getCliView().fillInfo(message);
-                            UIManager.getGuiManager().getCliView().display();
+                            UIManager.getUIManager().getCliView().fillInfo(message);
+                            UIManager.getUIManager().getCliView().display();
                         }
                     }
                 }
             }catch (IOException | ClassNotFoundException e) {System.err.println("Connection lost.");}
         });
-
         this.listener = listener;
         listener.start();
     }
 
-    public void sendMessage(Message message)
-    {
+    public void sendMessage(String message) {
+    if (currentMessage != null){sendReply(message);}
+    else try {
+            outStream.writeObject(new NoReplyMessage(message));
+            outStream.flush();
+            outStream.reset();
+        } catch (IOException e) {
+            System.err.println("Could not send message...");
+        }
+    }
+
+    public void sendReply(String reply){
         try {
-            outStream.writeObject(message);
+            ((Repliable) currentMessage).setReply(reply);
+            System.out.println("sending reply");
+            outStream.writeObject(currentMessage);
             outStream.flush();
             outStream.reset();
         } catch (IOException e) {
@@ -116,7 +131,7 @@ public class NetworkHandler{
         public void actionPerformed(ActionEvent e) {
             try {
                 System.err.println("Server is not responding. Closing the game...");
-                if (GUI){UIManager.getGuiManager().getMainWindow().close();}
+                if (GUI){UIManager.getUIManager().getMainWindow().close();}
                 outStream.close();
                 inStream.close();
                 socket.close();

@@ -2,16 +2,25 @@ package it.polimi.ingsw.messages;
 
 import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.VirtualView;
+import it.polimi.ingsw.model.TowerColor;
 
 import java.util.List;
 
-public class LoginMessage implements Message{
+public class LoginMessage extends Repliable implements Message{
 
     String content;
+    String reply;
+    List<TowerColor> availableColors;
 
     public LoginMessage(String content) {
         this.content = content;
     }
+
+    public LoginMessage(String content, List<TowerColor> availablecolors){
+        this.content = content;
+        this.availableColors = availablecolors;
+    }
+
 
     @Override
     public void send(VirtualView user) {
@@ -30,7 +39,7 @@ public class LoginMessage implements Message{
 
     @Override
     public void switchAndFillView() {
-        UIManager uim = UIManager.getGuiManager();
+        UIManager uim = UIManager.getUIManager();
         uim.getLoginView().fillInfo(this);
         uim.getLoginView().display(uim.getLoginRoot());
     }
@@ -44,4 +53,20 @@ public class LoginMessage implements Message{
     public Boolean isPing() {
         return false;
     }
+
+    @Override
+    public String getReply() {
+        return reply;
+    }
+
+    @Override
+    public void setReply(String s) {
+        this.reply = s;
+    }
+
+    @Override
+    public Boolean isRepliable() {
+            return true;
+    }
+
 }

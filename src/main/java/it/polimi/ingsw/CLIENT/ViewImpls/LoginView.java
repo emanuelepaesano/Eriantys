@@ -4,10 +4,8 @@ import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.CLIENT.NetworkHandler;
 import it.polimi.ingsw.CLIENT.View;
 import it.polimi.ingsw.messages.Message;
-import it.polimi.ingsw.messages.StringMessage;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,8 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class LoginView implements View {
@@ -45,7 +41,7 @@ public class LoginView implements View {
     @Override
     public void display(Parent root) {
         Scene sc;
-        stage = UIManager.getGuiManager().getMainWindow();
+        stage = UIManager.getUIManager().getMainWindow();
         if (root.getScene() == null) {
             sc = new Scene(root);
         }
@@ -57,7 +53,7 @@ public class LoginView implements View {
     }
 
     public void initialize(){
-        nh = UIManager.getGuiManager().getNh();
+        nh = UIManager.getUIManager().getNh();
         nh.setMessageArrivedObserver((msg)-> {
             Send.setDisable(false);
                 if (msg.getClass().getSimpleName().equals("StringMessage")) {
@@ -84,7 +80,7 @@ public class LoginView implements View {
     public void doSomething(ActionEvent actionEvent) {
         textArea.appendText("   <Message sent to server.>");
         Send.setDisable(true);
-        nh.sendMessage(new StringMessage(textField.getText()));
+        nh.sendMessage((textField.getText()));
     }
 
 
