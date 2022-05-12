@@ -6,9 +6,117 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.text.Font?>
+<GridPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.PlanningPhaseView"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+            prefHeight="400.0" prefWidth="600.0"
+          alignment="CENTER"
+>
+    <HBox
+            alignment="CENTER"
+            GridPane.rowIndex="1"
+    >
+        <Button
+                disable="true"
+        >
+            <graphic>
+                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/Assistente (1).png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button>
+            <graphic>
+                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/Assistente (2).png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button>
+            <graphic>
+                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/Assistente (3).png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button>
+            <graphic>
+                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/Assistente (4).png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button
+                disable="true"
+        >
+            <graphic>
+                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/Assistente (5).png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </HBox>
+    <HBox
+            alignment="CENTER"
+            GridPane.rowIndex="2"
+    >
+        <Button>
+            <graphic>
+                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/Assistente (6).png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button>
+            <graphic>
+                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/Assistente (7).png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button>
+            <graphic>
+                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/Assistente (8).png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button>
+            <graphic>
+                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/Assistente (9).png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button>
+            <graphic>
+                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/Assistente (10).png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </HBox>
+</GridPane>
