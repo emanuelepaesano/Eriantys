@@ -1,4 +1,5 @@
 package it.polimi.ingsw.messages;
+import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GameMap;
@@ -45,7 +46,11 @@ public class GenInfoMessage implements Message, Serializable {
     }
 
     @Override
-    public void switchAndFillView() {}
+    public void switchAndFillView() {
+        UIManager uim = UIManager.getUIManager();
+        uim.getGenInfoView().fillInfo(this);
+        uim.getGenInfoView().display(uim.getGenInfoRoot());
+    }
 
     @Override
     public Boolean isPing() {

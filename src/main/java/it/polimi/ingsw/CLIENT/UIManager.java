@@ -98,6 +98,11 @@ public class UIManager extends Application{
         return loginView;
     }
     private Parent genInfoRoot;
+
+    public Parent getGenInfoRoot() {
+        return genInfoRoot;
+    }
+
     public View getGenInfoView(){
         if (this.genInfoView ==null){
             try {
