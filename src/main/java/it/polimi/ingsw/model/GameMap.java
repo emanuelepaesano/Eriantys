@@ -108,11 +108,14 @@ public class GameMap implements Serializable {
         int left = (index==0? archipelago.size()-1:(index-1));
         if (archipelago.get(right).owner == newisland.owner){
             if (archipelago.get(left).owner == newisland.owner){
+                lastJoin = List.of(newisland.id, "both");
                 return "both";
             }
+            lastJoin = List.of(newisland.id,"right");
             return "right";
         }
         if (archipelago.get(left).owner == newisland.owner){
+            lastJoin = List.of(newisland.id,"left");
             return "left";
         }
         return "none";
@@ -151,10 +154,17 @@ public class GameMap implements Serializable {
         try {
             return islands.get(0);
         } catch (Exception e) {
-            System.out.println("island id: " + islandId + "does not exist.");
+            return null; //if that id does not exist, then it has been joined
         }
-        return null;
     }
+
+
+
+    private List<Object> lastJoin;
+    public List<Object> getLastJoin() {
+        return lastJoin;
+    }
+//se mettiamo un joinmessage che dice la newisland e la direzione, da li possiamo mettere il ponte corretto
 
 
 
