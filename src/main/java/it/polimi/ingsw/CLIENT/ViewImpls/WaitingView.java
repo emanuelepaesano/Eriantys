@@ -34,10 +34,6 @@ public class WaitingView implements View{
         System.out.println("fine display");
     }
 
-    @Override
-    public void display(Parent root) {
-
-    }
 
 
     @Override

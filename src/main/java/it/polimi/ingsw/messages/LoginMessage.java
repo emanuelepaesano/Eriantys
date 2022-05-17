@@ -41,7 +41,7 @@ public class LoginMessage extends Repliable implements Message{
     public void switchAndFillView() {
         UIManager uim = UIManager.getUIManager();
         uim.getLoginView().fillInfo(this);
-        uim.getLoginView().display(uim.getLoginRoot());
+        uim.getLoginView().display();
     }
 
     @Override

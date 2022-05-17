@@ -10,13 +10,7 @@ import java.net.URL;
 import java.util.Scanner;
 
 public interface View extends Serializable {
-
-
     void display();
-    void display(Parent root);
-
     void sendReply();
     void fillInfo(Message message);
-
-
 }

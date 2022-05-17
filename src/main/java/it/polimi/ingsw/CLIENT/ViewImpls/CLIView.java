@@ -27,11 +27,6 @@ public class CLIView implements View {
     }
 
     @Override
-    public void display(Parent root) {
-
-    }
-
-    @Override
     public void sendReply() {
         reply = scanner.nextLine();
         nh.sendMessage(reply);

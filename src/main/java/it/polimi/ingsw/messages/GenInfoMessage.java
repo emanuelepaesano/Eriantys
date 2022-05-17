@@ -49,7 +49,7 @@ public class GenInfoMessage implements Message, Serializable {
     public void switchAndFillView() {
         UIManager uim = UIManager.getUIManager();
         uim.getGenInfoView().fillInfo(this);
-        uim.getGenInfoView().display(uim.getGenInfoRoot());
+        uim.getGenInfoView().display();
     }
 
     @Override

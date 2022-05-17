@@ -21,9 +21,9 @@
       <children>
          <Pane layoutY="80.0" prefHeight="150.0" prefWidth="151.0">
             <children>
-               <ImageView fx:id="island1" fitHeight="150.0" fitWidth="150.0">
+               <ImageView fitHeight="150.0" fitWidth="150.0">
                   <image>
-                     <Image url="@assets/island3small.png" />
+                     <Image fx:id="island1" url="@assets/island3small.png" />
                   </image>
                </ImageView>
                <ImageView layoutX="8.0" layoutY="40.0">
@@ -102,7 +102,7 @@
                      </Lighting>
                   </effect>
                </Label>
-               <Label blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="0">
+               <Label fx:id="green0" blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="0">
                   <font>
                      <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
                   </font>
@@ -138,12 +138,12 @@
                </ImageView>
                <ImageView fitHeight="54.0" fitWidth="61.0" layoutX="44.0" layoutY="40.0">
                   <image>
-                     <Image url="assets/grey_tower_trimmed.png" />
+                     <Image url="@assets/grey_tower_trimmed.png" />
                   </image>
                </ImageView>
                <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="49.0" layoutY="42.0">
                   <image>
-                     <Image url="assets/black_tower_trimmed.png" />
+                     <Image url="@assets/black_tower_trimmed.png" />
                   </image>
                </ImageView>
             </children>
@@ -271,12 +271,12 @@
                </ImageView>
                <ImageView fitHeight="54.0" fitWidth="61.0" layoutX="46.0" layoutY="40.0">
                   <image>
-                     <Image url="assets/grey_tower_trimmed.png" />
+                     <Image url="@assets/grey_tower_trimmed.png" />
                   </image>
                </ImageView>
                <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="51.0" layoutY="42.0">
                   <image>
-                     <Image url="assets/black_tower_trimmed.png" />
+                     <Image url="@assets/black_tower_trimmed.png" />
                   </image>
                </ImageView>
             </children>
@@ -399,12 +399,12 @@
                </ImageView>
                <ImageView fitHeight="54.0" fitWidth="61.0" layoutX="45.0" layoutY="40.0">
                   <image>
-                     <Image url="assets/grey_tower_trimmed.png" />
+                     <Image url="@assets/grey_tower_trimmed.png" />
                   </image>
                </ImageView>
                <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="50.0" layoutY="42.0">
                   <image>
-                     <Image url="assets/black_tower_trimmed.png" />
+                     <Image url="@assets/black_tower_trimmed.png" />
                   </image>
                </ImageView>
             </children>
@@ -465,7 +465,7 @@
                      <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
                   </effect>
                </ImageView>
-               <Label blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="0">
+               <Label blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="1">
                   <font>
                      <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
                   </font>
@@ -513,7 +513,7 @@
                      </Lighting>
                   </effect>
                </Label>
-               <Label blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="0">
+               <Label blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="4">
                   <font>
                      <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
                   </font>
@@ -532,12 +532,12 @@
                </ImageView>
                <ImageView fitHeight="54.0" fitWidth="61.0" layoutX="44.0" layoutY="40.0">
                   <image>
-                     <Image url="assets/grey_tower_trimmed.png" />
+                     <Image url="@assets/grey_tower_trimmed.png" />
                   </image>
                </ImageView>
                <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="49.0" layoutY="42.0">
                   <image>
-                     <Image url="assets/black_tower_trimmed.png" />
+                     <Image url="@assets/black_tower_trimmed.png" />
                   </image>
                </ImageView>
             </children>
@@ -663,12 +663,12 @@
          </ImageView>
          <ImageView fitHeight="54.0" fitWidth="61.0" layoutX="45.0" layoutY="43.0">
             <image>
-               <Image url="assets/grey_tower_trimmed.png" />
+               <Image url="@assets/grey_tower_trimmed.png" />
             </image>
          </ImageView>
          <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="50.0" layoutY="45.0">
             <image>
-               <Image url="assets/black_tower_trimmed.png" />
+               <Image url="@assets/black_tower_trimmed.png" />
             </image>
          </ImageView>
       </children>
@@ -787,12 +787,12 @@
          </ImageView>
          <ImageView fitHeight="54.0" fitWidth="61.0" layoutX="46.0" layoutY="40.0">
             <image>
-               <Image url="assets/grey_tower_trimmed.png" />
+               <Image url="@assets/grey_tower_trimmed.png" />
             </image>
          </ImageView>
          <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="51.0" layoutY="42.0">
             <image>
-               <Image url="assets/black_tower_trimmed.png" />
+               <Image url="@assets/black_tower_trimmed.png" />
             </image>
          </ImageView>
       </children>
@@ -911,12 +911,12 @@
          </ImageView>
          <ImageView fitHeight="54.0" fitWidth="61.0" layoutX="45.0" layoutY="40.0">
             <image>
-               <Image url="assets/grey_tower_trimmed.png" />
+               <Image url="@assets/grey_tower_trimmed.png" />
             </image>
          </ImageView>
          <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="50.0" layoutY="42.0">
             <image>
-               <Image url="assets/black_tower_trimmed.png" />
+               <Image url="@assets/black_tower_trimmed.png" />
             </image>
          </ImageView>
       </children>
@@ -968,7 +968,7 @@
                <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
             </effect>
          </ImageView>
-         <Label blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="0">
+         <Label blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="1">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -992,7 +992,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="0">
+         <Label blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="2">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1004,7 +1004,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="0">
+         <Label blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="3">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1016,7 +1016,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="0">
+         <Label blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="4">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1035,12 +1035,12 @@
          </ImageView>
          <ImageView fitHeight="54.0" fitWidth="61.0" layoutX="45.0" layoutY="40.0">
             <image>
-               <Image url="assets/grey_tower_trimmed.png" />
+               <Image url="@assets/grey_tower_trimmed.png" />
             </image>
          </ImageView>
          <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="50.0" layoutY="42.0">
             <image>
-               <Image url="assets/black_tower_trimmed.png" />
+               <Image url="@assets/black_tower_trimmed.png" />
             </image>
          </ImageView>
       </children>
@@ -1159,12 +1159,12 @@
          </ImageView>
          <ImageView fitHeight="54.0" fitWidth="61.0" layoutX="47.0" layoutY="40.0">
             <image>
-               <Image url="assets/grey_tower_trimmed.png" />
+               <Image url="@assets/grey_tower_trimmed.png" />
             </image>
          </ImageView>
          <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="52.0" layoutY="42.0">
             <image>
-               <Image url="assets/black_tower_trimmed.png" />
+               <Image url="@assets/black_tower_trimmed.png" />
             </image>
          </ImageView>
       </children>
@@ -1283,12 +1283,12 @@
          </ImageView>
          <ImageView fitHeight="54.0" fitWidth="61.0" layoutX="44.0" layoutY="40.0">
             <image>
-               <Image url="assets/grey_tower_trimmed.png" />
+               <Image url="@assets/grey_tower_trimmed.png" />
             </image>
          </ImageView>
          <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="49.0" layoutY="42.0">
             <image>
-               <Image url="assets/black_tower_trimmed.png" />
+               <Image url="@assets/black_tower_trimmed.png" />
             </image>
          </ImageView>
       </children>
@@ -1407,12 +1407,12 @@
          </ImageView>
          <ImageView fitHeight="54.0" fitWidth="61.0" layoutX="45.0" layoutY="40.0">
             <image>
-               <Image url="assets/grey_tower_trimmed.png" />
+               <Image url="@assets/grey_tower_trimmed.png" />
             </image>
          </ImageView>
          <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="50.0" layoutY="42.0">
             <image>
-               <Image url="assets/black_tower_trimmed.png" />
+               <Image url="@assets/black_tower_trimmed.png" />
             </image>
          </ImageView>
       </children>
@@ -1531,12 +1531,12 @@
          </ImageView>
          <ImageView fitHeight="54.0" fitWidth="61.0" layoutX="45.0" layoutY="40.0">
             <image>
-               <Image url="assets/grey_tower_trimmed.png" />
+               <Image url="@assets/grey_tower_trimmed.png" />
             </image>
          </ImageView>
          <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="50.0" layoutY="42.0">
             <image>
-               <Image url="assets/black_tower_trimmed.png" />
+               <Image url="@assets/black_tower_trimmed.png" />
             </image>
          </ImageView>
       </children>
@@ -1637,22 +1637,22 @@
       <children>
          <ImageView fitHeight="59.0" fitWidth="75.0" layoutX="108.0" layoutY="138.0" rotate="1.2" scaleY="1.1">
             <image>
-               <Image url="assets/bridge.png" />
+               <Image url="@assets/bridge.png" />
             </image>
          </ImageView>
          <ImageView fitHeight="54.0" fitWidth="69.0" layoutX="270.0" layoutY="67.0" rotate="9.2">
             <image>
-               <Image url="assets/bridge.png" />
+               <Image url="@assets/bridge.png" />
             </image>
          </ImageView>
          <ImageView fitHeight="50.0" fitWidth="68.0" layoutX="2.0" layoutY="286.0" rotate="-33.3" scaleY="1.5">
             <image>
-               <Image url="assets/bridge.png" />
+               <Image url="@assets/bridge.png" />
             </image>
          </ImageView>
          <ImageView fitHeight="59.0" fitWidth="87.0" layoutX="115.0" layoutY="379.0" rotate="149.6">
             <image>
-               <Image url="assets/bridge.png" />
+               <Image url="@assets/bridge.png" />
             </image>
             <rotationAxis>
                <Point3D y="1.0" />
@@ -1660,7 +1660,7 @@
          </ImageView>
          <ImageView fitHeight="85.0" fitWidth="75.0" layoutX="279.0" layoutY="440.0" rotate="-175.6" scaleY="1.2">
             <image>
-               <Image url="assets/bridge.png" />
+               <Image url="@assets/bridge.png" />
             </image>
             <rotationAxis>
                <Point3D y="1.0" z="0.5" />
@@ -1668,27 +1668,27 @@
          </ImageView>
          <ImageView fitHeight="59.0" fitWidth="75.0" layoutX="427.0" layoutY="461.0" rotate="34.7" scaleX="1.06">
             <image>
-               <Image url="assets/bridge.png" />
+               <Image url="@assets/bridge.png" />
             </image>
          </ImageView>
          <ImageView fitHeight="59.0" fitWidth="75.0" layoutX="583.0" layoutY="458.0" rotate="7.7">
             <image>
-               <Image url="assets/bridge.png" />
+               <Image url="@assets/bridge.png" />
             </image>
          </ImageView>
          <ImageView fitHeight="59.0" fitWidth="75.0" layoutX="738.0" layoutY="379.0" rotate="11.3">
             <image>
-               <Image url="assets/bridge.png" />
+               <Image url="@assets/bridge.png" />
             </image>
          </ImageView>
          <ImageView fitHeight="64.0" fitWidth="75.0" layoutX="778.0" layoutY="285.0" rotate="-30.1" scaleY="1.02">
             <image>
-               <Image url="assets/bridge.png" />
+               <Image url="@assets/bridge.png" />
             </image>
          </ImageView>
          <ImageView fitHeight="66.0" fitWidth="77.0" layoutX="427.0" layoutY="-12.0" rotate="32.2">
             <image>
-               <Image url="assets/bridge.png" />
+               <Image url="@assets/bridge.png" />
             </image>
             <rotationAxis>
                <Point3D y="0.2" z="1.0" />
@@ -1696,7 +1696,7 @@
          </ImageView>
          <ImageView fitHeight="54.0" fitWidth="75.0" layoutX="596.0" layoutY="62.0" rotate="180.0" scaleY="1.02">
             <image>
-               <Image url="assets/bridge.png" />
+               <Image url="@assets/bridge.png" />
             </image>
             <rotationAxis>
                <Point3D y="1.0" />
@@ -1704,7 +1704,7 @@
          </ImageView>
          <ImageView fitHeight="59.0" fitWidth="75.0" layoutX="749.0" layoutY="138.0" rotate="180.0">
             <image>
-               <Image url="assets/bridge.png" />
+               <Image url="@assets/bridge.png" />
             </image>
             <rotationAxis>
                <Point3D y="1.0" />

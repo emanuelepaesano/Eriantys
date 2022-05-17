@@ -35,11 +35,7 @@ public class LoginView implements View {
 
     @Override
     public void display() {
-
-    }
-
-    @Override
-    public void display(Parent root) {
+        Parent root = UIManager.getUIManager().getLoginRoot();
         Scene sc;
         stage = UIManager.getUIManager().getMainWindow();
         if (root.getScene() == null) {
@@ -51,6 +47,8 @@ public class LoginView implements View {
         stage.sizeToScene();
         stage.show();
     }
+
+
 
     public void initialize(){
         nh = UIManager.getUIManager().getNh();

@@ -10,10 +10,7 @@ public class PlanningPhaseView implements View {
 
     }
 
-    @Override
-    public void display(Parent root) {
 
-    }
 
     @Override
     public void sendReply() {
