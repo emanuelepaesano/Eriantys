@@ -15,6 +15,8 @@
             prefHeight="400.0" prefWidth="600.0"
           alignment="CENTER"
 >
+    <TextField fx:id="Assistant_text" text="Choose your Assistant" editable="false" AnchorPane.bottomAnchor="200"
+               AnchorPane.leftAnchor="150" AnchorPane.rightAnchor="150" blendMode="DARKEN"/>
     <HBox
             alignment="CENTER"
             GridPane.rowIndex="1"

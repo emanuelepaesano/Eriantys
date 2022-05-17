@@ -6,45 +6,31 @@ import it.polimi.ingsw.CLIENT.View;
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.messages.PlanningPhaseMessage;
 import it.polimi.ingsw.model.Assistant;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 
 public class PlanningPhaseView implements View {
 
     public Button one;
-
     public Button two;
-
     public Button three;
-
     public Button four;
-
     public Button five;
-
     public Button six;
-
     public Button seven;
-
     public Button eight;
-
     public Button nine;
-
     public Button ten;
-
     public TextField Assistant_text;
-
-    public AnchorPane PlanningPane;
+    public GridPane gridPane;
 
     Stage stage;
-
     NetworkHandler nh;
 
     public void initialize(){
@@ -109,7 +95,6 @@ public class PlanningPhaseView implements View {
     @Override
     public void display() {
 
-
     }
 
     @Override
@@ -121,7 +106,7 @@ public class PlanningPhaseView implements View {
         }
         else sc = root.getScene();
         stage.setScene(sc);
-        stage.setTitle("Eriantys");
+        stage.setTitle("PlanningPhase");
         stage.sizeToScene();
         stage.show();
 
