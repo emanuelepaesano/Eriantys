@@ -6,9 +6,42 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<AnchorPane fx:id="PlanningPane" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.PlanningPhaseView"
             prefHeight="400.0" prefWidth="600.0">
+<children>
+    <TextField fx:id="Assistant_text" text="Choose your Assistant" editable="false" AnchorPane.bottomAnchor="200"
+               AnchorPane.leftAnchor="150" AnchorPane.rightAnchor="150" blendMode="DARKEN"/>
 
+    <Button fx:id="one" text="1-1" layoutY="302.0" prefHeight="50.0" prefWidth="50.0"
+            AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="150" onAction="#send1"/>
+
+    <Button fx:id="two" text="2-1" layoutY="302.0" prefHeight="50.0" prefWidth="50.0"
+            AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="200" onAction="#send2"/>
+
+    <Button fx:id="three" text="3-2" layoutY="302.0" prefHeight="50.0" prefWidth="50.0"
+            AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="250" onAction="#send3"/>
+
+    <Button fx:id="four" text="4-2" layoutY="302.0" prefHeight="50.0" prefWidth="50.0"
+            AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="300" onAction="#send4"/>
+
+    <Button fx:id="five" text="5-3" layoutY="302.0" prefHeight="50.0" prefWidth="50.0"
+            AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="350" onAction="#send5"/>
+
+    <Button fx:id="six" text="6-3" layoutY="302.0" prefHeight="50.0" prefWidth="50.0"
+            AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="150" onAction="#send6"/>
+
+    <Button fx:id="seven" text="7-4" layoutY="302.0" prefHeight="50.0" prefWidth="50.0"
+            AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="200" onAction="#send7"/>
+
+    <Button fx:id="eight" text="8-4" layoutY="302.0" prefHeight="50.0" prefWidth="50.0"
+            AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="250" onAction="#send8"/>
+
+    <Button fx:id="nine" text="9-5" layoutY="302.0" prefHeight="50.0" prefWidth="50.0"
+            AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="300" onAction="#send9"/>
+
+    <Button fx:id="ten" text="10-5" layoutY="302.0" prefHeight="50.0" prefWidth="50.0"
+            AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="350" onAction="#send10"/>
+</children>
 </AnchorPane>
