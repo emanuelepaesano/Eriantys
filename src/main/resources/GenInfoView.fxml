@@ -23,7 +23,7 @@
             <children>
                <ImageView fitHeight="150.0" fitWidth="150.0">
                   <image>
-                     <Image fx:id="island1" url="@assets/island3small.png" />
+                     <Image url="@assets/island3small.png" />
                   </image>
                </ImageView>
                <ImageView layoutX="8.0" layoutY="40.0">
@@ -66,7 +66,7 @@
                      <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
                   </effect>
                </ImageView>
-               <Label blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="0">
+               <Label fx:id="red0" blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="0">
                   <font>
                      <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
                   </font>
@@ -78,7 +78,7 @@
                      </Lighting>
                   </effect>
                </Label>
-               <Label blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
+               <Label fx:id="yellow0" blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
                   <font>
                      <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
                   </font>
@@ -90,7 +90,7 @@
                      </Lighting>
                   </effect>
                </Label>
-               <Label blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="0">
+               <Label fx:id="pink0" blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="0">
                   <font>
                      <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
                   </font>
@@ -114,7 +114,7 @@
                      </Lighting>
                   </effect>
                </Label>
-               <Label blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="0">
+               <Label fx:id="blue0" blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="0">
                   <font>
                      <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
                   </font>
@@ -199,7 +199,7 @@
                      <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
                   </effect>
                </ImageView>
-               <Label blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="0">
+               <Label fx:id="red1" blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="0">
                   <font>
                      <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
                   </font>
@@ -211,7 +211,7 @@
                      </Lighting>
                   </effect>
                </Label>
-               <Label blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
+               <Label fx:id="yellow1" blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
                   <font>
                      <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
                   </font>
@@ -223,7 +223,7 @@
                      </Lighting>
                   </effect>
                </Label>
-               <Label blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="0">
+               <Label fx:id="pink1" blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="0">
                   <font>
                      <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
                   </font>
@@ -235,7 +235,7 @@
                      </Lighting>
                   </effect>
                </Label>
-               <Label blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="0">
+               <Label fx:id="green1"  blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="0">
                   <font>
                      <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
                   </font>
@@ -247,7 +247,7 @@
                      </Lighting>
                   </effect>
                </Label>
-               <Label blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="0">
+               <Label fx:id="blue1"  blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="0">
                   <font>
                      <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
                   </font>
@@ -332,7 +332,7 @@
                      <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
                   </effect>
                </ImageView>
-               <Label blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="0">
+               <Label fx:id="red2" blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="0">
                   <font>
                      <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
                   </font>
@@ -344,7 +344,7 @@
                      </Lighting>
                   </effect>
                </Label>
-               <Label blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
+               <Label fx:id="yellow2" blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
                   <font>
                      <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
                   </font>
@@ -356,7 +356,7 @@
                      </Lighting>
                   </effect>
                </Label>
-               <Label blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="0">
+               <Label fx:id="pink2" blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="0">
                   <font>
                      <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
                   </font>
@@ -368,7 +368,7 @@
                      </Lighting>
                   </effect>
                </Label>
-               <Label blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="0">
+               <Label fx:id="green2" blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="0">
                   <font>
                      <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
                   </font>
@@ -380,7 +380,7 @@
                      </Lighting>
                   </effect>
                </Label>
-               <Label blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="0">
+               <Label fx:id="blue2" blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="0">
                   <font>
                      <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
                   </font>
@@ -465,7 +465,7 @@
                      <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
                   </effect>
                </ImageView>
-               <Label blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="1">
+               <Label fx:id="red3" blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="1">
                   <font>
                      <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
                   </font>
@@ -477,7 +477,7 @@
                      </Lighting>
                   </effect>
                </Label>
-               <Label blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
+               <Label fx:id="yellow3" blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
                   <font>
                      <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
                   </font>
@@ -489,7 +489,7 @@
                      </Lighting>
                   </effect>
                </Label>
-               <Label blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="0">
+               <Label fx:id="pink3" blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="0">
                   <font>
                      <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
                   </font>
@@ -501,7 +501,7 @@
                      </Lighting>
                   </effect>
                </Label>
-               <Label blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="0">
+               <Label fx:id="green3" blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="0">
                   <font>
                      <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
                   </font>
@@ -513,7 +513,7 @@
                      </Lighting>
                   </effect>
                </Label>
-               <Label blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="4">
+               <Label fx:id="blue3" blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="4">
                   <font>
                      <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
                   </font>
@@ -596,7 +596,7 @@
                <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
             </effect>
          </ImageView>
-         <Label blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="0">
+         <Label fx:id="red4" blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -608,7 +608,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
+         <Label fx:id="yellow4" blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -620,7 +620,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="0">
+         <Label fx:id="pink4" blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -632,7 +632,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="0">
+         <Label fx:id="green4" blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -644,7 +644,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="0">
+         <Label fx:id="blue4"  blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -720,7 +720,7 @@
                <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
             </effect>
          </ImageView>
-         <Label blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="0">
+         <Label fx:id="red5" blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -732,7 +732,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
+         <Label fx:id="yellow5" blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -744,7 +744,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="0">
+         <Label fx:id="pink5" blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -756,7 +756,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="0">
+         <Label fx:id="green5" blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -768,7 +768,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="0">
+         <Label fx:id="blue5"  blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -844,7 +844,7 @@
                <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
             </effect>
          </ImageView>
-         <Label blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="0">
+         <Label fx:id="red6" blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -856,7 +856,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
+         <Label fx:id="yellow6" blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -868,7 +868,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="0">
+         <Label fx:id="pink6" blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -880,7 +880,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="0">
+         <Label fx:id="green6"  blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -892,7 +892,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="0">
+         <Label fx:id="blue6"  blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -968,7 +968,7 @@
                <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
             </effect>
          </ImageView>
-         <Label blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="1">
+         <Label fx:id="red7" blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="1">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -980,7 +980,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
+         <Label fx:id="yellow7" blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -992,7 +992,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="2">
+         <Label fx:id="pink7" blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="2">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1004,7 +1004,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="3">
+         <Label fx:id="green7" blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="3">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1016,7 +1016,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="4">
+         <Label fx:id="blue7" blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="4">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1092,7 +1092,7 @@
                <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
             </effect>
          </ImageView>
-         <Label blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="0">
+         <Label fx:id="red8" blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1104,7 +1104,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
+         <Label fx:id="yellow8" blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1116,7 +1116,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="0">
+         <Label fx:id="pink8" blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1128,7 +1128,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="0">
+         <Label fx:id="green8" blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1140,7 +1140,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="0">
+         <Label fx:id="blue8"  blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1216,7 +1216,7 @@
                <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
             </effect>
          </ImageView>
-         <Label blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="0">
+         <Label fx:id="red9"  blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1228,7 +1228,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
+         <Label fx:id="yellow9" blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1240,7 +1240,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="0">
+         <Label fx:id="pink9" blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1252,7 +1252,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="0">
+         <Label fx:id="green9" blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1264,7 +1264,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="0">
+         <Label fx:id="blue9" blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1340,7 +1340,7 @@
                <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
             </effect>
          </ImageView>
-         <Label blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="0">
+         <Label fx:id="red10" blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1352,7 +1352,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
+         <Label fx:id="yellow10" blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1364,7 +1364,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="0">
+         <Label fx:id="pink10" blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1376,7 +1376,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="0">
+         <Label fx:id="green10" blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1388,7 +1388,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="0">
+         <Label fx:id="blue10" blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1464,7 +1464,7 @@
                <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
             </effect>
          </ImageView>
-         <Label blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="0">
+         <Label fx:id="red11" blendMode="SRC_ATOP" layoutX="116.0" layoutY="43.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1476,7 +1476,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
+         <Label fx:id="yellow11"  blendMode="SRC_ATOP" layoutX="67.0" layoutY="3.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1488,7 +1488,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="0">
+         <Label fx:id="pink11" blendMode="SRC_ATOP" layoutX="96.0" layoutY="91.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1500,7 +1500,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="0">
+         <Label fx:id="green11" blendMode="SRC_ATOP" layoutX="40.0" layoutY="91.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
@@ -1512,7 +1512,7 @@
                </Lighting>
             </effect>
          </Label>
-         <Label blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="0">
+         <Label fx:id="blue11" blendMode="SRC_ATOP" layoutX="20.0" layoutY="43.0" text="0">
             <font>
                <Font name="Tw Cen MT Condensed Extra Bold" size="32.0" />
             </font>
