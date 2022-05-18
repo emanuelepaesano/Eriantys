@@ -32,7 +32,7 @@ public class ServerApp {
                 game.setCurrentPlayer(player);
                 gc.doActions(pc);
                 int nmoves = pc.askMNMoves();
-                game.getGameMap().moveMotherNatureAndCheck(pc.getPlayer(), game.getTableOrder(), nmoves);
+                game.getGameMap().moveMotherNatureAndCheck(game.getTableOrder(), nmoves);
                 pc.getEntranceController().fillFromClouds(game.getClouds());
                 game.checkGameEndCondition("towerend", player);
                 game.checkGameEndCondition("islandend", player);

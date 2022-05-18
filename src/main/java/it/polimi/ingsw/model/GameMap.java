@@ -51,7 +51,7 @@ public class GameMap implements Serializable {
 
     //now this needs to take a list of players. i don't really like it.
     //Splitting it into 2 methods might be a good idea
-    public void moveMotherNatureAndCheck(Player player, List<Player> players, int nmoves){
+    public void moveMotherNatureAndCheck(List<Player> players, int nmoves){
         motherNature = (motherNature+nmoves)%(archipelago.size()); //archipelago changes in size
         Island toCheck = archipelago.get(motherNature);
         Player oldOwner = toCheck.getOwner();
@@ -118,6 +118,7 @@ public class GameMap implements Serializable {
             lastJoin = List.of(newisland.id,"left");
             return "left";
         }
+        lastJoin = null;
         return "none";
     }
 
@@ -148,13 +149,15 @@ public class GameMap implements Serializable {
     }
 
 //    return should be an island.
+private final Island zeroIsland = new Island(99);
     public Island getIslandById(int islandId) {
+        zeroIsland.setSize(0);
         List<Island> islands = archipelago.stream()
                 .filter(i -> i.id == islandId).toList();
         try {
             return islands.get(0);
-        } catch (Exception e) {
-            return null; //if that id does not exist, then it has been joined
+        } catch (NullPointerException e) {
+            return zeroIsland; //if that id does not exist, then it has been joined
         }
     }
 

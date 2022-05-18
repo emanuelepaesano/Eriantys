@@ -5,24 +5,21 @@ import it.polimi.ingsw.CLIENT.View;
 import it.polimi.ingsw.messages.GenInfoMessage;
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.model.GameMap;
-import it.polimi.ingsw.model.Island;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Student;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.util.List;
-import java.util.Map;
 
 public class GenInfoView implements View {
-    public Image island1;
+
     public Label red0; public Label yellow0; public Label pink0; public Label green0; public Label blue0;
     public Label red1; public Label yellow1; public Label pink1; public Label green1; public Label blue1;
     public Label red2; public Label yellow2; public Label pink2; public Label green2; public Label blue2;
@@ -36,77 +33,26 @@ public class GenInfoView implements View {
     public Label red10; public Label yellow10; public Label pink10; public Label green10; public Label blue10;
     public Label red11; public Label yellow11; public Label pink11; public Label green11; public Label blue11;
 
+    public ImageView mn1;public ImageView mn2;public ImageView mn3;public ImageView mn4;
+    public ImageView mn5;public ImageView mn6;public ImageView mn7;public ImageView mn8;
+    public ImageView mn9;public ImageView mn10;public ImageView mn11;public ImageView mn0;
+
+    public ImageView b01;public ImageView b12;public ImageView b23;public ImageView b34;
+    public ImageView b45;public ImageView b56;public ImageView b67;public ImageView b78;
+    public ImageView b89;public ImageView b910;public ImageView b1011;public ImageView b110;
+
+    public ImageView tow_0b;public ImageView tow_0w;public ImageView tow_0g;public ImageView tow_1b;public ImageView tow_1w;public ImageView tow_1g;
+    public ImageView tow_2b;public ImageView tow_2w;public ImageView tow_2g;public ImageView tow_3b;public ImageView tow_3w;public ImageView tow_3g;
+    public ImageView tow_4b;public ImageView tow_4w;public ImageView tow_4g;public ImageView tow_5b;public ImageView tow_5w;public ImageView tow_5g;
+    public ImageView tow_6b;public ImageView tow_6w;public ImageView tow_6g;public ImageView tow_7b;public ImageView tow_7w;public ImageView tow_7g;
+    public ImageView tow_8b;public ImageView tow_8w;public ImageView tow_8g;public ImageView tow_9b;public ImageView tow_9w;public ImageView tow_9g;
+    public ImageView tow_10w;public ImageView tow_10g;public ImageView tow_11b;public ImageView tow_11w;public ImageView tow_11g;public ImageView tow_10b;
+
+
+
     GameMap map;
     List<Player> players;
     Stage stage;
-
-    ObjectProperty<Map<Student, Integer>> island0prop = new SimpleObjectProperty<>();
-
-    public Map<Student, Integer> getIsland0prop() {
-        return island0prop.get();
-    }
-
-    public ObjectProperty<Map<Student, Integer>> island0propProperty() {
-        return island0prop;
-    }
-
-    ObjectProperty<Map<Student, Integer>> island1prop = new SimpleObjectProperty<>();
-
-    public Map<Student, Integer> getIsland1prop() {
-        return island1prop.get();
-    }
-
-    public ObjectProperty<Map<Student, Integer>> island1propProperty() {
-        return island1prop;
-    }
-
-    ObjectProperty<Map<Student, Integer>> island2prop = new SimpleObjectProperty<>();
-
-    public Map<Student, Integer> getIsland2prop() {
-        return island2prop.get();
-    }
-
-    public ObjectProperty<Map<Student, Integer>> island2propProperty() {
-        return island2prop;
-    }
-
-    ObjectProperty<Map<Student, Integer>> island3prop = new SimpleObjectProperty<>();
-
-    public Map<Student, Integer> getIsland3prop() {
-        return island3prop.get();
-    }
-
-    public ObjectProperty<Map<Student, Integer>> island3propProperty() {
-        return island3prop;
-    }
-
-    ObjectProperty<Map<Student, Integer>> island4prop = new SimpleObjectProperty<>();
-
-    public Map<Student, Integer> getIsland4prop() {
-        return island4prop.get();
-    }
-
-    public ObjectProperty<Map<Student, Integer>> island4propProperty() {
-        return island4prop;
-    }
-
-    ObjectProperty<Map<Student, Integer>> island5prop = new SimpleObjectProperty<>();
-
-    public Map<Student, Integer> getIsland5prop() {
-        return island5prop.get();
-    }
-
-    public ObjectProperty<Map<Student, Integer>> island5propProperty() {
-        return island5prop;
-    }
-
-    ObjectProperty<Map<Student, Integer>> island6prop = new SimpleObjectProperty<>();
-    ObjectProperty<Map<Student, Integer>> island7prop = new SimpleObjectProperty<>();
-    ObjectProperty<Map<Student, Integer>> island8prop = new SimpleObjectProperty<>();
-    ObjectProperty<Map<Student, Integer>> island9prop = new SimpleObjectProperty<>();
-    ObjectProperty<Map<Student, Integer>> island10prop = new SimpleObjectProperty<>();
-    ObjectProperty<Map<Student, Integer>> island11prop = new SimpleObjectProperty<>();
-
 
     @Override
     public void display() {
@@ -133,28 +79,13 @@ public class GenInfoView implements View {
         map = message.getMap();
         players = message.getPlayers();
         //Here we have to link the elements from the model to the graphic components.
-        linkIslands();
         bindAllLabels();
+        bindMotherNature();
+        addBridges();
+        showTowers();
     }
 
 
-
-    private void linkIslands() {
-        island0prop.set(map.getIslandById(0).getStudents());
-        island1prop.set(map.getIslandById(1).getStudents());
-        island2prop.set(map.getIslandById(2).getStudents());
-        island3prop.set(map.getIslandById(3).getStudents());
-        island4prop.set(map.getIslandById(4).getStudents());
-        island5prop.set(map.getIslandById(5).getStudents());
-        island6prop.set(map.getIslandById(6).getStudents());
-        island7prop.set(map.getIslandById(7).getStudents());
-        island8prop.set(map.getIslandById(8).getStudents());
-        island9prop.set(map.getIslandById(9).getStudents());
-        island10prop.set(map.getIslandById(10).getStudents());
-        island11prop.set(map.getIslandById(11).getStudents());
-
-
-    }
 
     //This thing is ugly as all hell, but at least it works
     private void bindAllLabels(){
@@ -229,5 +160,31 @@ public class GenInfoView implements View {
         pink11.textProperty().bind(new SimpleObjectProperty<>(map.getIslandById(11).getStudents().get(Student.PINK).toString()));
         green11.textProperty().bind(new SimpleObjectProperty<>(map.getIslandById(11).getStudents().get(Student.GREEN).toString()));
         blue11.textProperty().bind(new SimpleObjectProperty<>(map.getIslandById(11).getStudents().get(Student.BLUE).toString()));
+    }
+    private void bindMotherNature(){
+        List<ImageView> allmn = List.of(mn0,mn1,mn2,mn3,mn4,mn5,mn6,mn7,mn8,mn9,mn10,mn11);
+        allmn.forEach((img)->img.setVisible(false));
+        allmn.get(map.getMotherNature()).setVisible(true);
+    }
+    private void addBridges(){
+        List<Object> lastJoin = map.getLastJoin();
+        if (lastJoin!= null){
+            List<List<ImageView>> bridgesFrom = List.of(List.of(b110,b01),List.of(b01,b12),List.of(b12,b23),
+                    List.of(b23,b34),List.of(b34,b45),List.of(b45,b56),List.of(b56,b67),List.of(b67,b78),
+                    List.of(b78,b89),List.of(b89,b910),List.of(b910,b1011),List.of(b1011,b110));
+            List<ImageView> choose = bridgesFrom.get( (Integer)lastJoin.get(0) );
+            switch ((String) lastJoin.get(1)) {
+                case "left" -> choose.get(0).setVisible(true);
+                case "right" -> choose.get(1).setVisible(true);
+                case "both" -> {
+                    choose.get(0).setVisible(true);
+                    choose.get(1).setVisible(true);
+                }
+            }
+        }
+    }
+
+    private void showTowers(){
+
     }
 }
