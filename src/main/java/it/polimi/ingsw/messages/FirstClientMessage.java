@@ -33,7 +33,7 @@ public class FirstClientMessage extends Repliable implements Message{
     @Override
     public void switchAndFillView() {
         UIManager uim = UIManager.getUIManager();
-        uim.getFirstClientView().display(uim.getFirstClientRoot());
+        uim.getFirstClientView().display();
     }
 
     @Override

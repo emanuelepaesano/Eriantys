@@ -99,7 +99,7 @@ public class PlayerController {
      * This way the GameController will then join all the played assistants and choose the new playerOrder
      */
     public Assistant playAssistant(List<Assistant>playedAssistants){
-        ArrayList<Assistant> remass = new ArrayList<>(); //list of remaining assistants
+        List<Assistant> remass = new ArrayList<>(); //list of remaining assistants
         player.getAssistants().forEach((a,b)->{if(b){remass.add(a);}});
 
         new PlanningPhaseMessage(remass,playedAssistants,"play one of your remaining assistants: " ).send(playerView);
@@ -109,7 +109,7 @@ public class PlayerController {
             // TODO: 15/04/2022 would be nice if also putting es.9 or 10 worked
             try {
                 Assistant choice = Assistant.valueOf(input.toUpperCase());
-                if (!playedAssistants.contains(choice)) {
+                if (!playedAssistants.contains(choice) || playedAssistants.equals(remass)) {
                     if (remass.contains(choice)) {
                         player.setCurrentAssistant(choice);
                         System.out.println("Current assistant for " + player.getPlayerName() + ": " + choice);
@@ -117,7 +117,6 @@ public class PlayerController {
                         return choice;
                     }
                 }
-                // TODO: 05/05/2022 here would be the place to check if you can only play that one
                 else new NoReplyMessage(Game.ANSI_RED+ "That assistant was already played! Try again."+ Game.ANSI_RESET).send(playerView);
             } catch (IllegalArgumentException exception) {
                 new NoReplyMessage(Game.ANSI_RED+ "Not a valid assistant, take one from the list: "

@@ -56,7 +56,8 @@ public class FirstClientView implements View {
     }
 
     @Override
-    public void display(Parent root) {
+    public void display() {
+        Parent root = UIManager.getUIManager().getFirstClientRoot();
         stage = UIManager.getUIManager().getMainWindow();
         Scene sc;
         if (root.getScene() == null) {
@@ -67,10 +68,6 @@ public class FirstClientView implements View {
         stage.setTitle("Eriantys");
         stage.sizeToScene();
         stage.show();
-    }
-
-    @Override
-    public void display() {
     }
 
     @Override
