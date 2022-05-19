@@ -113,11 +113,19 @@ public class UIManager extends Application{
         }
         return genInfoView;
     }
+
+    private Parent planningPhaseRoot;
+
+    public Parent getPlanningPhaseRoot() {
+        return planningPhaseRoot;
+    }
+
+
     public View getPlanningPhaseView(){
         if (this.planningPhaseView ==null){
             try {
                 FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/PlanningPhaseView.fxml"));
-                planningPhaseView = loginLoader.load();
+                planningPhaseRoot = loginLoader.load();
                 planningPhaseView = loginLoader.getController();
             }catch(IOException ex){ex.printStackTrace();}
         }

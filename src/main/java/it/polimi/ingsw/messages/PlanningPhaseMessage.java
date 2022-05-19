@@ -1,5 +1,6 @@
 package it.polimi.ingsw.messages;
 
+import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.model.Assistant;
 
@@ -8,7 +9,17 @@ import java.util.List;
 public class PlanningPhaseMessage extends Repliable implements Message  {
 
     String text;
+
+    public List<Assistant> getRemainingAssistants() {
+        return remainingAssistants;
+    }
+
     List<Assistant> remainingAssistants;
+
+    public List<Assistant> getPlayedByOthers() {
+        return playedByOthers;
+    }
+
     List<Assistant> playedByOthers;
     Assistant chosenAssistant;
 
@@ -41,6 +52,9 @@ public class PlanningPhaseMessage extends Repliable implements Message  {
 
     @Override
     public void switchAndFillView() {
+        UIManager uim = UIManager.getUIManager();
+        uim.getPlanningPhaseView().fillInfo(this);
+        uim.getPlanningPhaseView().display(uim.getPlanningPhaseRoot());
 
     }
 
