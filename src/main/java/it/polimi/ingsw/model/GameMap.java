@@ -6,12 +6,15 @@ import java.util.*;
 
 public class GameMap implements Serializable {
 
-    private final List<Island> archipelago;
+    private List<Island> archipelago;
+    private final List<Island> allIslands;
     private int motherNature;
     Random randomizer = new Random();
+    private List<Object> lastJoin;
 
     public GameMap(){
         archipelago = makeIslands();
+        allIslands = new ArrayList<>(archipelago);
     }
 
     /**
@@ -52,11 +55,13 @@ public class GameMap implements Serializable {
     //now this needs to take a list of players. i don't really like it.
     //Splitting it into 2 methods might be a good idea
     public void moveMotherNatureAndCheck(List<Player> players, int nmoves){
-        motherNature = (motherNature+nmoves)%(archipelago.size()); //archipelago changes in size
-        Island toCheck = archipelago.get(motherNature);
-        Player oldOwner = toCheck.getOwner();
-        Player newOwner = toCheck.checkOwner(players);
-        if (newOwner!= null && !newOwner.equals(oldOwner)) {doJoins(toCheck);}
+        int startIndex = archipelago.indexOf(getIslandById(motherNature));
+        Island newIsland = archipelago.get((startIndex+nmoves)%(archipelago.size()));//archipelago changes in size
+        motherNature = newIsland.getId();
+        Player oldOwner = newIsland.getOwner();
+        Player newOwner = newIsland.checkOwner(players);
+        if (newOwner!= null && !newOwner.equals(oldOwner)) {doJoins(newIsland);}
+        System.out.println(this);
     }
 
 
@@ -74,20 +79,21 @@ public class GameMap implements Serializable {
                 tojoin.students.replaceAll((s,i) -> i += right.students.get(s));
                 tojoin.students.replaceAll((s,i) -> i += left.students.get(s));
                 tojoin.size += left.size + right.size;
+                right.setJoined(true);
+                left.setJoined(true);
                 archipelago.removeAll(List.of(left,right));
-                motherNature = archipelago.indexOf(tojoin);//indices changed
                 break;
             case "left":
                 tojoin.students.replaceAll((s,i) -> i += left.getStudents().get(s));
                 tojoin.size += left.size;
+                left.setJoined(true);
                 archipelago.remove(left);
-                motherNature = archipelago.indexOf(tojoin);
                 break;
             case "right":
                 tojoin.students.replaceAll((s,i) -> i += right.students.get(s));
                 tojoin.size += right.size;
+                right.setJoined(true);
                 archipelago.remove(right);
-                motherNature = archipelago.indexOf(tojoin);
                 break;
             default:
                 System.err.println("Something went wrong...");
@@ -108,14 +114,14 @@ public class GameMap implements Serializable {
         int left = (index==0? archipelago.size()-1:(index-1));
         if (archipelago.get(right).owner == newisland.owner){
             if (archipelago.get(left).owner == newisland.owner){
-                lastJoin = List.of(newisland.id, "both");
+                lastJoin = List.of(newisland.getId(), "both");
                 return "both";
             }
-            lastJoin = List.of(newisland.id,"right");
+            lastJoin = List.of(newisland.getId(),"right");
             return "right";
         }
         if (archipelago.get(left).owner == newisland.owner){
-            lastJoin = List.of(newisland.id,"left");
+            lastJoin = List.of(newisland.getId(),"left");
             return "left";
         }
         lastJoin = null;
@@ -127,13 +133,12 @@ public class GameMap implements Serializable {
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();
-        for (int i=0;i<archipelago.size();i++){
-            Island island = archipelago.get(i);
-            string.append("Island ").append(i).append(": ");
+        for (Island island : archipelago) {
+            string.append("Island ").append(island.getId()).append(": ");
             string.append("Size=").append(island.size).append("; ");
             string.append("Owner{").append(island.owner).append("} ");
-            string.append(island.getStudents()).append((archipelago.indexOf(island) == motherNature?
-                    Game.ANSI_BADGREEN+" 🍀"+Game.ANSI_RESET:"")).append("\n");
+            string.append(island.getStudents()).append((island.getId() == motherNature ?
+                    Game.ANSI_BADGREEN + " 🍀" + Game.ANSI_RESET : "")).append("\n");
 
         }
         return string.toString();
@@ -153,7 +158,7 @@ private final Island zeroIsland = new Island(99);
     public Island getIslandById(int islandId) {
         zeroIsland.setSize(0);
         List<Island> islands = archipelago.stream()
-                .filter(i -> i.id == islandId).toList();
+                .filter(i -> i.getId() == islandId).toList();
         try {
             return islands.get(0);
         } catch (NullPointerException e) {
@@ -163,17 +168,19 @@ private final Island zeroIsland = new Island(99);
 
 
 
-    private List<Object> lastJoin;
+
     public List<Object> getLastJoin() {
         return lastJoin;
     }
-//se mettiamo un joinmessage che dice la newisland e la direzione, da li possiamo mettere il ponte corretto
-
-
-
-
     public int getMotherNature() {
         return this.motherNature;
     }
 
+    public void setArchipelago(List<Island> archipelago) {
+        this.archipelago = archipelago;
+    }
+
+    public List<Island> getAllIslands() {
+        return allIslands;
+    }
 }

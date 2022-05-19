@@ -4,16 +4,18 @@ import java.io.Serializable;
 import java.util.*;
 
 public class Island implements Serializable {
-    public int id;
+    private int id;
     public Map<Student,Integer> students;
     public Player owner;
     public int size;
+    private Boolean joined;
 
 
     public Island(int id){
         this.id = id;
         size = 1;
         students = Student.makeStudents();
+        joined = false;
         owner = null;
     }
     /**
@@ -72,6 +74,16 @@ public class Island implements Serializable {
 
     public int getSize() {return size;}
 
+    public int getId() {
+        return id;
+    }
+    public Boolean isJoined() {
+        return joined;
+    }
+
+    public void setJoined(Boolean joined) {
+        this.joined = joined;
+    }
 }
 
 

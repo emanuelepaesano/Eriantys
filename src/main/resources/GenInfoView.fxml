@@ -20,76 +20,56 @@
    <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.columnSpan="6" GridPane.rowIndex="1" GridPane.rowSpan="4">
       <children>
          <ImageView fx:id="b23" fitHeight="59.0" fitWidth="75.0" layoutX="108.0" layoutY="138.0" rotate="1.2" scaleY="1.1" visible="false">
-            <image>
+
                <Image url="@assets/bridge.png" />
-            </image>
          </ImageView>
          <ImageView fx:id="b34" fitHeight="54.0" fitWidth="69.0" layoutX="270.0" layoutY="67.0" rotate="9.2" visible="false">
-            <image>
+
                <Image url="@assets/bridge.png" />
-            </image>
          </ImageView>
          <ImageView fx:id="b12" fitHeight="50.0" fitWidth="68.0" layoutX="2.0" layoutY="286.0" rotate="-33.3" scaleY="1.5" visible="false">
-            <image>
+
                <Image url="@assets/bridge.png" />
-            </image>
          </ImageView>
          <ImageView fx:id="b01" fitHeight="59.0" fitWidth="87.0" layoutX="115.0" layoutY="379.0" rotate="149.6" visible="false">
-            <image>
+
                <Image url="@assets/bridge.png" />
-            </image>
             <rotationAxis>
                <Point3D y="1.0" />
             </rotationAxis>
          </ImageView>
          <ImageView fx:id="b110" fitHeight="85.0" fitWidth="75.0" layoutX="279.0" layoutY="440.0" rotate="-175.6" scaleY="1.2" visible="false">
-            <image>
                <Image url="@assets/bridge.png" />
-            </image>
             <rotationAxis>
                <Point3D y="1.0" z="0.5" />
             </rotationAxis>
          </ImageView>
          <ImageView fx:id="b1011" fitHeight="59.0" fitWidth="75.0" layoutX="427.0" layoutY="461.0" rotate="34.7" scaleX="1.06" visible="false">
-            <image>
                <Image url="@assets/bridge.png" />
-            </image>
          </ImageView>
          <ImageView fx:id="b910" fitHeight="59.0" fitWidth="75.0" layoutX="583.0" layoutY="458.0" rotate="7.7" visible="false">
-            <image>
                <Image url="@assets/bridge.png" />
-            </image>
          </ImageView>
          <ImageView fx:id="b89" fitHeight="59.0" fitWidth="75.0" layoutX="738.0" layoutY="379.0" rotate="11.3" visible="false">
-            <image>
                <Image url="@assets/bridge.png" />
-            </image>
          </ImageView>
          <ImageView fx:id="b78" fitHeight="64.0" fitWidth="75.0" layoutX="778.0" layoutY="285.0" rotate="-30.1" scaleY="1.02" visible="false">
-            <image>
                <Image url="@assets/bridge.png" />
-            </image>
          </ImageView>
          <ImageView fx:id="b45" fitHeight="66.0" fitWidth="77.0" layoutX="427.0" layoutY="-12.0" rotate="32.2" visible="false">
-            <image>
                <Image url="@assets/bridge.png" />
-            </image>
             <rotationAxis>
                <Point3D y="0.2" z="1.0" />
             </rotationAxis>
          </ImageView>
          <ImageView fx:id="b56" fitHeight="54.0" fitWidth="75.0" layoutX="596.0" layoutY="62.0" rotate="180.0" scaleY="1.02" visible="false">
-            <image>
                <Image url="@assets/bridge.png" />
-            </image>
             <rotationAxis>
                <Point3D y="1.0" />
             </rotationAxis>
          </ImageView>
          <ImageView fx:id="b67" fitHeight="59.0" fitWidth="75.0" layoutX="749.0" layoutY="138.0" rotate="180.0" visible="false">
-            <image>
                <Image url="@assets/bridge.png" />
-            </image>
             <rotationAxis>
                <Point3D y="1.0" />
             </rotationAxis>
@@ -101,46 +81,40 @@
          <Pane layoutY="80.0" prefHeight="150.0" prefWidth="151.0">
             <children>
                <ImageView fitHeight="150.0" fitWidth="150.0">
-                  <image>
+
                      <Image url="@assets/island3small.png" />
-                  </image>
                </ImageView>
                <ImageView layoutX="8.0" layoutY="40.0">
-                  <image>
+
                      <Image url="@assets/student_blue.png" />
-                  </image>
                   <effect>
                      <ColorAdjust brightness="0.04" contrast="0.08" hue="0.16" saturation="0.24" />
                   </effect>
                </ImageView>
                <ImageView layoutX="28.0" layoutY="88.0">
-                  <image>
+
                      <Image url="@assets/student_green.png" />
-                  </image>
                   <effect>
                      <ColorAdjust contrast="0.35" hue="-0.11" saturation="1.0" />
                   </effect>
                </ImageView>
                <ImageView layoutX="84.0" layoutY="88.0">
-                  <image>
+
                      <Image url="@assets/student_pink.png" />
-                  </image>
                   <effect>
                      <ColorAdjust contrast="1.0" saturation="-0.19" />
                   </effect>
                </ImageView>
                <ImageView layoutX="104.0" layoutY="40.0">
-                  <image>
+
                      <Image url="@assets/student_red.png" />
-                  </image>
                   <effect>
                      <ColorAdjust contrast="0.04" saturation="0.35" />
                   </effect>
                </ImageView>
                <ImageView layoutX="55.0">
-                  <image>
+
                      <Image url="@assets/student_yellow.png" />
-                  </image>
                   <effect>
                      <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
                   </effect>
@@ -206,24 +180,20 @@
                   </effect>
                </Label>
                <ImageView fx:id="mn0" fitHeight="66.0" fitWidth="68.0" layoutX="-35.0" layoutY="102.0">
-                  <image>
+
                      <Image url="@assets/mother_nature.png" />
-                  </image>
                </ImageView>
                <ImageView fx:id="tow_0w" fitHeight="57.0" fitWidth="54.0" layoutX="46.5" layoutY="39.25">
-                  <image>
+
                      <Image url="@assets/white_tower.png" />
-                  </image>
                </ImageView>
                <ImageView fx:id="tow_0b" fitHeight="55.0" fitWidth="53.0" layoutX="48.0" layoutY="40.0">
-                  <image>
+
                      <Image url="@assets/black_tower_trimmed.png" />
-                  </image>
                </ImageView>
                <ImageView fx:id="tow_0g" fitHeight="56.0" fitWidth="62.0" layoutX="43.5" layoutY="39.5">
-                  <image>
+
                      <Image url="@assets/grey_tower_trimmed.png" />
-                  </image>
                </ImageView>
             </children>
          </Pane>
@@ -234,46 +204,40 @@
          <Pane layoutY="78.0">
             <children>
                <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="1.0" layoutY="1.0">
-                  <image>
+
                      <Image url="@assets/island2small.png" />
-                  </image>
                </ImageView>
                <ImageView layoutX="8.0" layoutY="40.0">
-                  <image>
+
                      <Image url="@assets/student_blue.png" />
-                  </image>
                   <effect>
                      <ColorAdjust brightness="0.04" contrast="0.08" hue="0.16" saturation="0.24" />
                   </effect>
                </ImageView>
                <ImageView layoutX="28.0" layoutY="88.0">
-                  <image>
+
                      <Image url="@assets/student_green.png" />
-                  </image>
                   <effect>
                      <ColorAdjust contrast="0.35" hue="-0.11" saturation="1.0" />
                   </effect>
                </ImageView>
                <ImageView layoutX="84.0" layoutY="88.0">
-                  <image>
+
                      <Image url="@assets/student_pink.png" />
-                  </image>
                   <effect>
                      <ColorAdjust contrast="1.0" saturation="-0.19" />
                   </effect>
                </ImageView>
                <ImageView layoutX="104.0" layoutY="40.0">
-                  <image>
+
                      <Image url="@assets/student_red.png" />
-                  </image>
                   <effect>
                      <ColorAdjust contrast="0.04" saturation="0.35" />
                   </effect>
                </ImageView>
                <ImageView layoutX="55.0">
-                  <image>
+
                      <Image url="@assets/student_yellow.png" />
-                  </image>
                   <effect>
                      <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
                   </effect>
@@ -339,24 +303,20 @@
                   </effect>
                </Label>
                <ImageView fx:id="mn9" fitHeight="66.0" fitWidth="68.0" layoutX="115.0" layoutY="100.0">
-                  <image>
+
                      <Image url="@assets/mother_nature.png" />
-                  </image>
                </ImageView>
                <ImageView fx:id="tow_9w" fitHeight="57.0" fitWidth="54.0" layoutX="48.5" layoutY="39.5">
-                  <image>
+
                      <Image url="@assets/white_tower.png" />
-                  </image>
                </ImageView>
                <ImageView fx:id="tow_9b" fitHeight="55.0" fitWidth="53.0" layoutX="50.0" layoutY="40.0">
-                  <image>
+
                      <Image url="@assets/black_tower_trimmed.png" />
-                  </image>
                </ImageView>
                <ImageView fx:id="tow_9g" fitHeight="56.0" fitWidth="62.0" layoutX="45.5" layoutY="40.0">
-                  <image>
+
                      <Image url="@assets/grey_tower_trimmed.png" />
-                  </image>
                </ImageView>
             </children>
          </Pane>
@@ -367,46 +327,40 @@
          <Pane layoutY="78.0">
             <children>
                <ImageView fitHeight="150.0" fitWidth="150.0" layoutY="3.0">
-                  <image>
+
                      <Image url="@assets/island1small.png" />
-                  </image>
                </ImageView>
                <ImageView layoutX="8.0" layoutY="40.0">
-                  <image>
+
                      <Image url="@assets/student_blue.png" />
-                  </image>
                   <effect>
                      <ColorAdjust brightness="0.04" contrast="0.08" hue="0.16" saturation="0.24" />
                   </effect>
                </ImageView>
                <ImageView layoutX="28.0" layoutY="88.0">
-                  <image>
+
                      <Image url="@assets/student_green.png" />
-                  </image>
                   <effect>
                      <ColorAdjust contrast="0.35" hue="-0.11" saturation="1.0" />
                   </effect>
                </ImageView>
                <ImageView layoutX="84.0" layoutY="88.0">
-                  <image>
+
                      <Image url="@assets/student_pink.png" />
-                  </image>
                   <effect>
                      <ColorAdjust contrast="1.0" saturation="-0.19" />
                   </effect>
                </ImageView>
                <ImageView layoutX="104.0" layoutY="40.0">
-                  <image>
+
                      <Image url="@assets/student_red.png" />
-                  </image>
                   <effect>
                      <ColorAdjust contrast="0.04" saturation="0.35" />
                   </effect>
                </ImageView>
                <ImageView layoutX="55.0">
-                  <image>
+
                      <Image url="@assets/student_yellow.png" />
-                  </image>
                   <effect>
                      <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
                   </effect>
@@ -472,26 +426,22 @@
                   </effect>
                </Label>
                <ImageView fx:id="tow_6w" fitHeight="57.0" fitWidth="54.0" layoutX="47.5" layoutY="39.5">
-                  <image>
+
                      <Image url="@assets/white_tower.png" />
-                  </image>
                </ImageView>
                <ImageView fx:id="tow_6b" fitHeight="55.0" fitWidth="53.0" layoutX="49.0" layoutY="40.0">
-                  <image>
+
                      <Image url="@assets/black_tower_trimmed.png" />
-                  </image>
                </ImageView>
                <ImageView fx:id="tow_6g" fitHeight="56.0" fitWidth="62.0" layoutX="44.5" layoutY="40.0">
-                  <image>
+
                      <Image url="@assets/grey_tower_trimmed.png" />
-                  </image>
                </ImageView>
             </children>
          </Pane>
          <ImageView fx:id="mn6" fitHeight="66.0" fitWidth="68.0" layoutX="116.0" layoutY="45.0">
-            <image>
+
                <Image url="@assets/mother_nature.png" />
-            </image>
          </ImageView>
       </children>
    </Pane>
@@ -500,46 +450,40 @@
          <Pane layoutY="78.0">
             <children>
                <ImageView fitHeight="150.0" fitWidth="150.0">
-                  <image>
+
                      <Image url="@assets/island3small.png" />
-                  </image>
                </ImageView>
                <ImageView layoutX="8.0" layoutY="40.0">
-                  <image>
+
                      <Image url="@assets/student_blue.png" />
-                  </image>
                   <effect>
                      <ColorAdjust brightness="0.04" contrast="0.08" hue="0.16" saturation="0.24" />
                   </effect>
                </ImageView>
                <ImageView layoutX="28.0" layoutY="88.0">
-                  <image>
+
                      <Image url="@assets/student_green.png" />
-                  </image>
                   <effect>
                      <ColorAdjust contrast="0.35" hue="-0.11" saturation="1.0" />
                   </effect>
                </ImageView>
                <ImageView layoutX="84.0" layoutY="88.0">
-                  <image>
+
                      <Image url="@assets/student_pink.png" />
-                  </image>
                   <effect>
                      <ColorAdjust contrast="1.0" saturation="-0.19" />
                   </effect>
                </ImageView>
                <ImageView layoutX="104.0" layoutY="40.0">
-                  <image>
+
                      <Image url="@assets/student_red.png" />
-                  </image>
                   <effect>
                      <ColorAdjust contrast="0.04" saturation="0.35" />
                   </effect>
                </ImageView>
                <ImageView layoutX="55.0">
-                  <image>
+
                      <Image url="@assets/student_yellow.png" />
-                  </image>
                   <effect>
                      <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
                   </effect>
@@ -605,72 +549,62 @@
                   </effect>
                </Label>
                <ImageView fx:id="tow_3w" fitHeight="57.0" fitWidth="54.0" layoutX="46.5" layoutY="39.5">
-                  <image>
+
                      <Image url="@assets/white_tower.png" />
-                  </image>
                </ImageView>
                <ImageView fx:id="tow_3b" fitHeight="55.0" fitWidth="53.0" layoutX="48.0" layoutY="40.0">
-                  <image>
+
                      <Image url="@assets/black_tower_trimmed.png" />
-                  </image>
                </ImageView>
                <ImageView fx:id="tow_3g" fitHeight="56.0" fitWidth="62.0" layoutX="43.5" layoutY="39.75">
-                  <image>
+
                      <Image url="@assets/grey_tower_trimmed.png" />
-                  </image>
                </ImageView>
             </children>
          </Pane>
          <ImageView fx:id="mn3" fitHeight="66.0" fitWidth="68.0" layoutX="-34.0" layoutY="45.0">
-            <image>
+
                <Image url="@assets/mother_nature.png" />
-            </image>
          </ImageView>
       </children>
    </Pane>
    <Pane GridPane.columnIndex="3" GridPane.rowIndex="3">
       <children>
          <ImageView fitHeight="150.0" fitWidth="150.0">
-            <image>
+
                <Image url="@assets/island2small.png" />
-            </image>
          </ImageView>
          <ImageView layoutX="8.0" layoutY="40.0">
-            <image>
+
                <Image url="@assets/student_blue.png" />
-            </image>
             <effect>
                <ColorAdjust brightness="0.04" contrast="0.08" hue="0.16" saturation="0.24" />
             </effect>
          </ImageView>
          <ImageView layoutX="28.0" layoutY="88.0">
-            <image>
+
                <Image url="@assets/student_green.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="0.35" hue="-0.11" saturation="1.0" />
             </effect>
          </ImageView>
          <ImageView layoutX="84.0" layoutY="88.0">
-            <image>
+
                <Image url="@assets/student_pink.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="1.0" saturation="-0.19" />
             </effect>
          </ImageView>
          <ImageView layoutX="104.0" layoutY="40.0">
-            <image>
+
                <Image url="@assets/student_red.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="0.04" saturation="0.35" />
             </effect>
          </ImageView>
          <ImageView layoutX="55.0">
-            <image>
+
                <Image url="@assets/student_yellow.png" />
-            </image>
             <effect>
                <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
             </effect>
@@ -736,65 +670,56 @@
             </effect>
          </Label>
          <ImageView fx:id="tow_1w" fitHeight="57.0" fitWidth="54.0" layoutX="47.5" layoutY="41.5">
-            <image>
+
                <Image url="@assets/white_tower.png" />
-            </image>
          </ImageView>
          <ImageView fx:id="tow_1b" fitHeight="55.0" fitWidth="53.0" layoutX="49.0" layoutY="42.0">
-            <image>
+
                <Image url="@assets/black_tower_trimmed.png" />
-            </image>
          </ImageView>
          <ImageView fx:id="tow_1g" fitHeight="56.0" fitWidth="62.0" layoutX="44.5" layoutY="42.0">
-            <image>
+
                <Image url="@assets/grey_tower_trimmed.png" />
-            </image>
          </ImageView>
       </children>
    </Pane>
    <Pane GridPane.columnIndex="5" GridPane.rowIndex="1">
       <children>
          <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="1.0">
-            <image>
+
                <Image url="@assets/island2small.png" />
-            </image>
          </ImageView>
          <ImageView layoutX="8.0" layoutY="40.0">
-            <image>
+
                <Image url="@assets/student_blue.png" />
-            </image>
             <effect>
                <ColorAdjust brightness="0.04" contrast="0.08" hue="0.16" saturation="0.24" />
             </effect>
          </ImageView>
          <ImageView layoutX="28.0" layoutY="88.0">
-            <image>
+
                <Image url="@assets/student_green.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="0.35" hue="-0.11" saturation="1.0" />
             </effect>
          </ImageView>
          <ImageView layoutX="84.0" layoutY="88.0">
-            <image>
+
                <Image url="@assets/student_pink.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="1.0" saturation="-0.19" />
             </effect>
          </ImageView>
          <ImageView layoutX="104.0" layoutY="40.0">
-            <image>
+
                <Image url="@assets/student_red.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="0.04" saturation="0.35" />
             </effect>
          </ImageView>
          <ImageView layoutX="55.0">
-            <image>
+
                <Image url="@assets/student_yellow.png" />
-            </image>
             <effect>
                <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
             </effect>
@@ -860,65 +785,56 @@
             </effect>
          </Label>
          <ImageView fx:id="tow_4w" fitHeight="57.0" fitWidth="54.0" layoutX="48.5" layoutY="38.5">
-            <image>
+
                <Image url="@assets/white_tower.png" />
-            </image>
          </ImageView>
          <ImageView fx:id="tow_4b" fitHeight="55.0" fitWidth="53.0" layoutX="50.0" layoutY="39.0">
-            <image>
+
                <Image url="@assets/black_tower_trimmed.png" />
-            </image>
          </ImageView>
          <ImageView fx:id="tow_4g" fitHeight="56.0" fitWidth="62.0" layoutX="45.5" layoutY="39.0">
-            <image>
+
                <Image url="@assets/grey_tower_trimmed.png" />
-            </image>
          </ImageView>
       </children>
    </Pane>
    <Pane GridPane.columnIndex="6" GridPane.rowIndex="1">
       <children>
          <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="4.0" layoutY="3.0">
-            <image>
+
                <Image url="@assets/island1small.png" />
-            </image>
          </ImageView>
          <ImageView layoutX="8.0" layoutY="40.0">
-            <image>
+
                <Image url="@assets/student_blue.png" />
-            </image>
             <effect>
                <ColorAdjust brightness="0.04" contrast="0.08" hue="0.16" saturation="0.24" />
             </effect>
          </ImageView>
          <ImageView layoutX="28.0" layoutY="88.0">
-            <image>
+
                <Image url="@assets/student_green.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="0.35" hue="-0.11" saturation="1.0" />
             </effect>
          </ImageView>
          <ImageView layoutX="84.0" layoutY="88.0">
-            <image>
+
                <Image url="@assets/student_pink.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="1.0" saturation="-0.19" />
             </effect>
          </ImageView>
          <ImageView layoutX="104.0" layoutY="40.0">
-            <image>
+
                <Image url="@assets/student_red.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="0.04" saturation="0.35" />
             </effect>
          </ImageView>
          <ImageView layoutX="55.0">
-            <image>
+
                <Image url="@assets/student_yellow.png" />
-            </image>
             <effect>
                <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
             </effect>
@@ -984,65 +900,56 @@
             </effect>
          </Label>
          <ImageView fx:id="tow_5w" fitHeight="57.0" fitWidth="54.0" layoutX="47.5" layoutY="39.5">
-            <image>
+
                <Image url="@assets/white_tower.png" />
-            </image>
          </ImageView>
          <ImageView fx:id="tow_5b" fitHeight="55.0" fitWidth="53.0" layoutX="49.0" layoutY="40.0">
-            <image>
+
                <Image url="@assets/black_tower_trimmed.png" />
-            </image>
          </ImageView>
          <ImageView fx:id="tow_5g" fitHeight="56.0" fitWidth="62.0" layoutX="44.5" layoutY="40.0">
-            <image>
+
                <Image url="@assets/grey_tower_trimmed.png" />
-            </image>
          </ImageView>
       </children>
    </Pane>
    <Pane GridPane.columnIndex="3" GridPane.rowIndex="2">
       <children>
          <ImageView fitHeight="150.0" fitWidth="150.0" layoutY="3.0">
-            <image>
+
                <Image url="@assets/island1small.png" />
-            </image>
          </ImageView>
          <ImageView layoutX="8.0" layoutY="40.0">
-            <image>
+
                <Image url="@assets/student_blue.png" />
-            </image>
             <effect>
                <ColorAdjust brightness="0.04" contrast="0.08" hue="0.16" saturation="0.24" />
             </effect>
          </ImageView>
          <ImageView layoutX="28.0" layoutY="88.0">
-            <image>
+
                <Image url="@assets/student_green.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="0.35" hue="-0.11" saturation="1.0" />
             </effect>
          </ImageView>
          <ImageView layoutX="84.0" layoutY="88.0">
-            <image>
+
                <Image url="@assets/student_pink.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="1.0" saturation="-0.19" />
             </effect>
          </ImageView>
          <ImageView layoutX="104.0" layoutY="40.0">
-            <image>
+
                <Image url="@assets/student_red.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="0.04" saturation="0.35" />
             </effect>
          </ImageView>
          <ImageView layoutX="55.0">
-            <image>
+
                <Image url="@assets/student_yellow.png" />
-            </image>
             <effect>
                <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
             </effect>
@@ -1108,65 +1015,56 @@
             </effect>
          </Label>
          <ImageView fx:id="tow_2w" fitHeight="57.0" fitWidth="54.0" layoutX="47.5" layoutY="39.5">
-            <image>
+
                <Image url="@assets/white_tower.png" />
-            </image>
          </ImageView>
          <ImageView fx:id="tow_2b" fitHeight="55.0" fitWidth="53.0" layoutX="49.0" layoutY="40.0">
-            <image>
+
                <Image url="@assets/black_tower_trimmed.png" />
-            </image>
          </ImageView>
          <ImageView fx:id="tow_2g" fitHeight="56.0" fitWidth="62.0" layoutX="44.5" layoutY="39.5">
-            <image>
+
                <Image url="@assets/grey_tower_trimmed.png" />
-            </image>
          </ImageView>
       </children>
    </Pane>
    <Pane GridPane.columnIndex="6" GridPane.rowIndex="4">
       <children>
          <ImageView fitHeight="150.0" fitWidth="150.0">
-            <image>
+
                <Image url="@assets/island3small.png" />
-            </image>
          </ImageView>
          <ImageView layoutX="8.0" layoutY="40.0">
-            <image>
+
                <Image url="@assets/student_blue.png" />
-            </image>
             <effect>
                <ColorAdjust brightness="0.04" contrast="0.08" hue="0.16" saturation="0.24" />
             </effect>
          </ImageView>
          <ImageView layoutX="28.0" layoutY="88.0">
-            <image>
+
                <Image url="@assets/student_green.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="0.35" hue="-0.11" saturation="1.0" />
             </effect>
          </ImageView>
          <ImageView layoutX="84.0" layoutY="88.0">
-            <image>
+
                <Image url="@assets/student_pink.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="1.0" saturation="-0.19" />
             </effect>
          </ImageView>
          <ImageView layoutX="104.0" layoutY="40.0">
-            <image>
+
                <Image url="@assets/student_red.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="0.04" saturation="0.35" />
             </effect>
          </ImageView>
          <ImageView layoutX="55.0">
-            <image>
+
                <Image url="@assets/student_yellow.png" />
-            </image>
             <effect>
                <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
             </effect>
@@ -1232,65 +1130,56 @@
             </effect>
          </Label>
          <ImageView fx:id="tow_10w" fitHeight="57.0" fitWidth="54.0" layoutX="49.5" layoutY="39.5">
-            <image>
+
                <Image url="@assets/white_tower.png" />
-            </image>
          </ImageView>
          <ImageView fx:id="tow_10b" fitHeight="55.0" fitWidth="53.0" layoutX="51.0" layoutY="40.0">
-            <image>
+
                <Image url="@assets/black_tower_trimmed.png" />
-            </image>
          </ImageView>
          <ImageView fx:id="tow_10g" fitHeight="56.0" fitWidth="62.0" layoutX="46.5" layoutY="39.5">
-            <image>
+
                <Image url="@assets/grey_tower_trimmed.png" />
-            </image>
          </ImageView>
       </children>
    </Pane>
    <Pane GridPane.columnIndex="5" GridPane.rowIndex="4">
       <children>
          <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="1.0">
-            <image>
+
                <Image url="@assets/island1small.png" />
-            </image>
          </ImageView>
          <ImageView layoutX="8.0" layoutY="40.0">
-            <image>
+
                <Image url="@assets/student_blue.png" />
-            </image>
             <effect>
                <ColorAdjust brightness="0.04" contrast="0.08" hue="0.16" saturation="0.24" />
             </effect>
          </ImageView>
          <ImageView layoutX="28.0" layoutY="88.0">
-            <image>
+
                <Image url="@assets/student_green.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="0.35" hue="-0.11" saturation="1.0" />
             </effect>
          </ImageView>
          <ImageView layoutX="84.0" layoutY="88.0">
-            <image>
+
                <Image url="@assets/student_pink.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="1.0" saturation="-0.19" />
             </effect>
          </ImageView>
          <ImageView layoutX="104.0" layoutY="40.0">
-            <image>
+
                <Image url="@assets/student_red.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="0.04" saturation="0.35" />
             </effect>
          </ImageView>
          <ImageView layoutX="55.0">
-            <image>
+
                <Image url="@assets/student_yellow.png" />
-            </image>
             <effect>
                <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
             </effect>
@@ -1356,65 +1245,56 @@
             </effect>
          </Label>
          <ImageView fx:id="tow_11w" fitHeight="57.0" fitWidth="54.0" layoutX="48.0" layoutY="40.0">
-            <image>
+
                <Image url="@assets/white_tower.png" />
-            </image>
          </ImageView>
          <ImageView fx:id="tow_11b" fitHeight="55.0" fitWidth="53.0" layoutX="50.0" layoutY="41.0">
-            <image>
+
                <Image url="@assets/black_tower_trimmed.png" />
-            </image>
          </ImageView>
          <ImageView fx:id="tow_11g" fitHeight="56.0" fitWidth="62.0" layoutX="45.5" layoutY="41.0">
-            <image>
+
                <Image url="@assets/grey_tower_trimmed.png" />
-            </image>
          </ImageView>
       </children>
    </Pane>
    <Pane layoutX="476.0" layoutY="476.0" GridPane.columnIndex="8" GridPane.rowIndex="2">
       <children>
          <ImageView fitHeight="150.0" fitWidth="150.0">
-            <image>
+
                <Image url="@assets/island3small.png" />
-            </image>
          </ImageView>
          <ImageView layoutX="8.0" layoutY="40.0">
-            <image>
+
                <Image url="@assets/student_blue.png" />
-            </image>
             <effect>
                <ColorAdjust brightness="0.04" contrast="0.08" hue="0.16" saturation="0.24" />
             </effect>
          </ImageView>
          <ImageView layoutX="28.0" layoutY="88.0">
-            <image>
+
                <Image url="@assets/student_green.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="0.35" hue="-0.11" saturation="1.0" />
             </effect>
          </ImageView>
          <ImageView layoutX="84.0" layoutY="88.0">
-            <image>
+
                <Image url="@assets/student_pink.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="1.0" saturation="-0.19" />
             </effect>
          </ImageView>
          <ImageView layoutX="104.0" layoutY="40.0">
-            <image>
+
                <Image url="@assets/student_red.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="0.04" saturation="0.35" />
             </effect>
          </ImageView>
          <ImageView layoutX="55.0">
-            <image>
+
                <Image url="@assets/student_yellow.png" />
-            </image>
             <effect>
                <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
             </effect>
@@ -1480,65 +1360,56 @@
             </effect>
          </Label>
          <ImageView fx:id="tow_7w" fitHeight="57.0" fitWidth="54.0" layoutX="47.5" layoutY="39.5">
-            <image>
+
                <Image url="@assets/white_tower.png" />
-            </image>
          </ImageView>
          <ImageView fx:id="tow_7b" fitHeight="55.0" fitWidth="53.0" layoutX="49.0" layoutY="40.0">
-            <image>
+
                <Image url="@assets/black_tower_trimmed.png" />
-            </image>
          </ImageView>
          <ImageView fx:id="tow_7g" fitHeight="56.0" fitWidth="62.0" layoutX="44.5" layoutY="39.5">
-            <image>
+
                <Image url="@assets/grey_tower_trimmed.png" />
-            </image>
          </ImageView>
       </children>
    </Pane>
    <Pane layoutX="10.0" layoutY="10.0" GridPane.columnIndex="8" GridPane.rowIndex="3">
       <children>
          <ImageView fitHeight="150.0" fitWidth="150.0">
-            <image>
+
                <Image url="@assets/island3small.png" />
-            </image>
          </ImageView>
          <ImageView layoutX="8.0" layoutY="40.0">
-            <image>
+
                <Image url="@assets/student_blue.png" />
-            </image>
             <effect>
                <ColorAdjust brightness="0.04" contrast="0.08" hue="0.16" saturation="0.24" />
             </effect>
          </ImageView>
          <ImageView layoutX="28.0" layoutY="88.0">
-            <image>
+
                <Image url="@assets/student_green.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="0.35" hue="-0.11" saturation="1.0" />
             </effect>
          </ImageView>
          <ImageView layoutX="84.0" layoutY="88.0">
-            <image>
+
                <Image url="@assets/student_pink.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="1.0" saturation="-0.19" />
             </effect>
          </ImageView>
          <ImageView layoutX="104.0" layoutY="40.0">
-            <image>
+
                <Image url="@assets/student_red.png" />
-            </image>
             <effect>
                <ColorAdjust contrast="0.04" saturation="0.35" />
             </effect>
          </ImageView>
          <ImageView layoutX="55.0">
-            <image>
+
                <Image url="@assets/student_yellow.png" />
-            </image>
             <effect>
                <ColorAdjust brightness="-0.28" contrast="1.0" hue="0.04" saturation="1.0" />
             </effect>
@@ -1604,91 +1475,80 @@
             </effect>
          </Label>
          <ImageView fx:id="tow_8w" fitHeight="57.0" fitWidth="54.0" layoutX="47.5" layoutY="39.25">
-            <image>
+
                <Image url="@assets/white_tower.png" />
-            </image>
          </ImageView>
          <ImageView fx:id="tow_8b" fitHeight="55.0" fitWidth="53.0" layoutX="49.0" layoutY="40.0">
-            <image>
+
                <Image url="@assets/black_tower_trimmed.png" />
-            </image>
          </ImageView>
          <ImageView fx:id="tow_8g" fitHeight="56.0" fitWidth="62.0" layoutX="44.5" layoutY="40.0">
-            <image>
+
                <Image url="@assets/grey_tower_trimmed.png" />
-            </image>
          </ImageView>
       </children>
    </Pane>
    <Pane prefHeight="59.0" prefWidth="151.0" GridPane.columnIndex="5">
       <children>
-         <ImageView fx:id="mn4" fitHeight="66.0" fitWidth="68.0" layoutX="42.0" layoutY="-3.0">
-            <image>
+         <ImageView fx:id="mn4" fitHeight="66.0" fitWidth="68.0" layoutY="-3.0">
+
                <Image url="@assets/mother_nature.png" />
-            </image>
          </ImageView>
       </children>
    </Pane>
    <Pane layoutX="398.0" layoutY="11.0" prefHeight="52.0" prefWidth="154.0" GridPane.columnIndex="6">
       <children>
-         <ImageView fx:id="mn5" fitHeight="66.0" fitWidth="68.0" layoutX="43.0" layoutY="-3.0">
-            <image>
+         <ImageView fx:id="mn5" fitHeight="66.0" fitWidth="68.0" layoutX="86.0" layoutY="-3.0">
+
                <Image url="@assets/mother_nature.png" />
-            </image>
          </ImageView>
       </children>
    </Pane>
    <Pane prefHeight="54.0" prefWidth="151.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
       <children>
-         <ImageView fx:id="mn11" fitHeight="66.0" fitWidth="68.0" layoutX="41.0" layoutY="-8.0">
-            <image>
+         <ImageView fx:id="mn11" fitHeight="66.0" fitWidth="68.0" layoutY="-6.0">
+
                <Image url="@assets/mother_nature.png" />
-            </image>
          </ImageView>
       </children>
    </Pane>
    <Pane prefHeight="101.0" prefWidth="52.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
       <children>
          <ImageView fx:id="mn2" fitHeight="66.0" fitWidth="68.0" layoutX="4.0" layoutY="42.0">
-            <image>
+
                <Image url="@assets/mother_nature.png" />
-            </image>
          </ImageView>
       </children>
    </Pane>
    <Pane prefHeight="101.0" prefWidth="52.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
       <children>
          <ImageView fx:id="mn1" fitHeight="66.0" fitWidth="68.0" layoutX="4.0" layoutY="42.0">
-            <image>
+
                <Image url="@assets/mother_nature.png" />
-            </image>
          </ImageView>
       </children>
    </Pane>
    <Pane prefHeight="47.0" prefWidth="154.0" GridPane.columnIndex="6" GridPane.rowIndex="5">
       <children>
-         <ImageView fx:id="mn10" fitHeight="66.0" fitWidth="68.0" layoutX="41.0" layoutY="-8.0">
-            <image>
+         <ImageView fx:id="mn10" fitHeight="66.0" fitWidth="68.0" layoutX="86.0" layoutY="-6.0">
+
                <Image url="@assets/mother_nature.png" />
-            </image>
          </ImageView>
       </children>
    </Pane>
    <Pane prefHeight="101.0" prefWidth="52.0" GridPane.columnIndex="9" GridPane.rowIndex="2">
       <children>
          <ImageView fx:id="mn7" fitHeight="66.0" fitWidth="68.0" layoutX="-14.0" layoutY="42.0">
-            <image>
+
                <Image url="@assets/mother_nature.png" />
-            </image>
          </ImageView>
       </children>
    </Pane>
    <Pane prefHeight="101.0" prefWidth="52.0" GridPane.columnIndex="9" GridPane.rowIndex="3">
       <children>
          <ImageView fx:id="mn8" fitHeight="66.0" fitWidth="68.0" layoutX="-14.0" layoutY="42.0">
-            <image>
+
                <Image url="@assets/mother_nature.png" />
-            </image>
          </ImageView>
       </children>
    </Pane>
