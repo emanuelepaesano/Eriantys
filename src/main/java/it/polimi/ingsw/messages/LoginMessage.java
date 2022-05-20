@@ -11,14 +11,25 @@ public class LoginMessage extends Repliable implements Message{
     String content;
     String reply;
     List<TowerColor> availableColors;
+    List<Integer> availableWiz;
+    String type;
 
-    public LoginMessage(String content) {
+
+    public LoginMessage(String content){
         this.content = content;
+        type = "name";
     }
 
-    public LoginMessage(String content, List<TowerColor> availablecolors){
+    public LoginMessage(String content, List<TowerColor> availableTowers){
         this.content = content;
-        this.availableColors = availablecolors;
+        this.availableColors = availableTowers;
+        this.type = "tower";
+    }
+
+    public LoginMessage(List<Integer> availableWiz, String content){
+        this.content = content;
+        this.availableWiz = availableWiz;
+        this.type = "wizard";
     }
 
 
@@ -69,4 +80,15 @@ public class LoginMessage extends Repliable implements Message{
             return true;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public List<TowerColor> getAvailableColors() {
+        return availableColors;
+    }
+
+    public List<Integer> getAvailableWiz() {
+        return availableWiz;
+    }
 }

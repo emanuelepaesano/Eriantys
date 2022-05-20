@@ -32,10 +32,7 @@ public class GameController {
         game = Game.makeGame(numplayers); //initializes the game
         this.views = views;
         firstPlayer = views.get(0);
-        //bindViewsToGame(game); the view should see the model, but it doesn't really need to
-        //update by watching all of it (and sending it all...)
         bindPlayers();
-        System.out.println("finito bind players");
         while (advanced == null) {
             askForAdvanced();
             replyToAdvanced(firstPlayer.getReply());
@@ -80,7 +77,7 @@ private void askAllPlayerNames(){
     for (PlayerController pc : controllers){
         String aUsedName= null;
         while(aUsedName == null) {
-            pc.askPlayerName(usedNames);
+            pc.askPlayerName();
             String reply = pc.getPlayerView().getReply();
             aUsedName = pc.replyToPlayerName(reply, usedNames);
         }
@@ -117,7 +114,8 @@ private void askAllPlayerNames(){
             Integer wiz = null;
             while(wiz == null) {
                 pc.askWizard(remainingWizards);
-                try{Integer input = Integer.parseInt(pc.getPlayerView().getReply());
+                try{
+                    Integer input = Integer.parseInt(pc.getPlayerView().getReply());
                     wiz = pc.replyToWizard(input, remainingWizards);
                     remainingWizards.remove(wiz);
                 }catch (Exception ignored){}

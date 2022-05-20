@@ -43,4 +43,7 @@ public class NoReplyMessage implements Message {
         return false;
     }
 
+    public String getContent() {
+        return content;
+    }
 }

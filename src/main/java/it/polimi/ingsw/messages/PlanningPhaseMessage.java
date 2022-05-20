@@ -24,16 +24,12 @@ public class PlanningPhaseMessage extends Repliable implements Message  {
     Assistant chosenAssistant;
 
 
-    public PlanningPhaseMessage(List<Assistant> remainingAssistants, List<Assistant> playedByOthers,String text){
+    public PlanningPhaseMessage(List<Assistant> remainingAssistants, List<Assistant> playedByOthers, String text){
         this.remainingAssistants = remainingAssistants;
         this.playedByOthers = playedByOthers;
         this.text = text;
     }
 
-    //this would be the constructor for the client in order to reply. But a string message is actually enough
-    public PlanningPhaseMessage(Assistant chosenAssistant) {
-        this.chosenAssistant = chosenAssistant;
-    }
 
     @Override
     public void send(VirtualView user) {
@@ -54,8 +50,7 @@ public class PlanningPhaseMessage extends Repliable implements Message  {
     public void switchAndFillView() {
         UIManager uim = UIManager.getUIManager();
         uim.getPlanningPhaseView().fillInfo(this);
-        uim.getPlanningPhaseView().display(uim.getPlanningPhaseRoot());
-
+        uim.getPlanningPhaseView().display();
     }
 
     @Override

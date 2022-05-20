@@ -34,6 +34,7 @@ public class ServerApp {
                 int nmoves = pc.askMNMoves();
                 game.getGameMap().moveMotherNatureAndCheck(game.getTableOrder(), nmoves);
                 pc.getEntranceController().fillFromClouds(game.getClouds());
+                new GenInfoMessage(game).send(server.views);
                 game.checkGameEndCondition("towerend", player);
                 game.checkGameEndCondition("islandend", player);
                 if (game.isOver()) {

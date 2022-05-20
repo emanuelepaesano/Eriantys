@@ -92,13 +92,11 @@ public class PlanningPhaseView implements View {
         disableAllAssistants();
     }
 
+
+
     @Override
     public void display() {
-
-    }
-
-    @Override
-    public void display(Parent root) {
+        Parent root = UIManager.getUIManager().getPlanningPhaseRoot();
         stage = UIManager.getUIManager().getMainWindow();
         Scene sc;
         if (root.getScene() == null) {
@@ -109,7 +107,6 @@ public class PlanningPhaseView implements View {
         stage.setTitle("PlanningPhase");
         stage.sizeToScene();
         stage.show();
-
     }
 
     @Override

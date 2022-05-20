@@ -47,11 +47,11 @@ public class FirstClientView implements View {
 
     public void sendNormal(){nh.sendReply("normal");}
     public void sendExpert(){nh.sendReply("expert");}
-    public void send2(ActionEvent actionEvent) {
+    public void send2() {
         nh.sendReply(("2"));
     }
 
-    public void send3(ActionEvent actionEvent) {
+    public void send3() {
         nh.sendReply(("3"));
     }
 

@@ -97,6 +97,17 @@ public class UIManager extends Application{
         }
         return loginView;
     }
+    private Parent wizRoot;
+    public Parent getWizRoot() {
+        try {
+            FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/Wizards.fxml"));
+            loginLoader.setController(loginView);
+            wizRoot = loginLoader.load();
+        }catch(IOException ex){ex.printStackTrace();}
+        return wizRoot;
+    }
+
+
     private Parent genInfoRoot;
 
     public Parent getGenInfoRoot() {

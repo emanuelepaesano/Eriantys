@@ -1,13 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="logPane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.LoginView" prefHeight="400.0" prefWidth="600.0">
-        <TextArea fx:id="textArea" text="Please enter name" editable="false" layoutX="14.0" layoutY="14.0" prefHeight="277.0" prefWidth="289.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="14.0" />
-        <TextField fx:id="textField" layoutX="100.0" layoutY="302.0" prefHeight="25.0" prefWidth="226.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="76.0" />
-        <Button fx:id="Send" text="Send" layoutY="302.0" prefHeight="25.0" prefWidth="54.0" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="13.0" onAction="#doSomething"/>
+<AnchorPane fx:id="logPane" prefHeight="435.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.LoginView">
+   <ImageView fx:id="pastelBack" fitHeight="435.0" fitWidth="768.0">
+      <image>
+         <Image url="@assets/pastel blue background.jpg" />
+      </image>
+   </ImageView>
+   <ImageView fx:id="eriantysLogo" fitHeight="435.0" fitWidth="769.0">
+      <image>
+         <Image url="@assets/eryantislogo.jpg" />
+      </image>
+   </ImageView>
+        <TextField fx:id="textField" layoutX="213.0" layoutY="310.0" prefHeight="30.0" prefWidth="284.0" style="-fx-background-color: a4e4ff;" AnchorPane.bottomAnchor="59.60000000000002" AnchorPane.leftAnchor="213.0" AnchorPane.rightAnchor="271.0" />
+        <Button fx:id="Send" layoutX="511.0" layoutY="310.0" onAction="#sendName" prefHeight="30.0" prefWidth="54.0" style="-fx-background-color: a4e4ff;" text="Send" textFill="#3e3e3e" underline="true" AnchorPane.bottomAnchor="59.60000000000002" AnchorPane.rightAnchor="202.60000000000002">
+      <font>
+         <Font name="System Bold" size="13.0" />
+      </font></Button>
+   <Label fx:id="enterNick" layoutX="213.0" layoutY="240.0" prefHeight="50.0" prefWidth="284.0" text="Enter your nickname" textAlignment="CENTER" textFill="#a4e4ff" wrapText="true" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="213.0" AnchorPane.rightAnchor="271.0" AnchorPane.topAnchor="240.0">
+      <font>
+         <Font name="System Bold" size="26.0" />
+      </font>
+   </Label>
+   <ImageView fx:id="greySmall" fitHeight="95.0" fitWidth="115.0" layoutX="330.0" layoutY="61.0" onMouseEntered="#mouseEnteredGrey" visible="false">
+      <image>
+         <Image url="@assets/grey_tower_trimmed.png" />
+      </image>
+   </ImageView>
+   <ImageView fx:id="whiteSmall" layoutX="481.0" layoutY="155.0" onMouseEntered="#mouseEnteredWhite" visible="false" AnchorPane.leftAnchor="481.0" AnchorPane.rightAnchor="187.0">
+      <image>
+         <Image url="@assets/white_tower.png" />
+      </image>
+   </ImageView>
+   <ImageView fx:id="blackSmall" fitHeight="100.0" fitWidth="109.0" layoutX="189.0" layoutY="155.0" onMouseEntered="#mouseEnteredBlack" visible="false" AnchorPane.bottomAnchor="180.2" AnchorPane.leftAnchor="189.0" AnchorPane.rightAnchor="470.0" AnchorPane.topAnchor="155.0">
+      <image>
+         <Image url="@assets/black_tower_trimmed.png" />
+      </image>
+   </ImageView>
+   <ImageView fx:id="blackBig" fitHeight="109.0" fitWidth="122.0" layoutX="182.0" layoutY="151.0" onMouseClicked="#sendBlack" onMouseExited="#mouseExitedBlack" visible="false">
+      <image>
+         <Image url="@assets/black_tower_trimmed.png" />
+      </image>
+      <effect>
+         <DropShadow height="19.0" radius="8.75" spread="0.15" width="18.0" />
+      </effect>
+   </ImageView>
+   <ImageView fx:id="greyBig" fitHeight="104.0" fitWidth="134.0" layoutX="320.0" layoutY="57.0" onMouseClicked="#sendGrey" onMouseExited="#mouseExitedGrey" visible="false">
+      <image>
+         <Image url="@assets/grey_tower_trimmed.png" />
+      </image>
+      <effect>
+         <DropShadow height="18.0" radius="7.0" width="12.0" />
+      </effect>
+   </ImageView>
+   <ImageView fx:id="whiteBig" fitHeight="106.0" fitWidth="113.0" layoutX="474.0" layoutY="154.0" onMouseClicked="#sendWhite" onMouseExited="#mouseExitedWhite" visible="false">
+      <image>
+         <Image url="@assets/white_tower.png" />
+      </image>
+      <effect>
+         <DropShadow height="13.5" radius="5.875" width="12.0" />
+      </effect>
+   </ImageView>
+   <Label fx:id="chooseTower" layoutX="245.0" layoutY="305.0" prefHeight="50.0" prefWidth="284.0" text=" Choose a Tower Color." textAlignment="CENTER" visible="false">
+      <font>
+         <Font name="System Bold" size="26.0" />
+      </font>
+      <effect>
+         <Blend />
+      </effect>
+   </Label>
+   <ImageView fx:id="oneSmall" fitHeight="271.0" fitWidth="204.0" layoutX="10.0" layoutY="98.0" onMouseEntered="#mouseEnteredOne" preserveRatio="true" visible="false">
+      <image>
+         <Image url="@assets/pixie_no_bg.png" />
+      </image>
+   </ImageView>
+   <ImageView fx:id="twoSmall" fitHeight="256.0" fitWidth="188.0" layoutX="208.0" layoutY="48.0" onMouseEntered="#mouseEnteredTwo" preserveRatio="true" visible="false">
+      <image>
+         <Image url="@assets/sorcerer_no_bg.png" />
+      </image>
+   </ImageView>
+   <ImageView fx:id="threeSmall" fitHeight="244.0" fitWidth="178.0" layoutX="408.0" layoutY="46.0" onMouseEntered="#mouseEnteredThree" preserveRatio="true" visible="false">
+      <image>
+         <Image url="@assets/king_no_bg.png" />
+      </image>
+   </ImageView>
+   <ImageView fx:id="fourSmall" fitHeight="284.0" fitWidth="170.0" layoutX="590.0" layoutY="100.0" onMouseEntered="#mouseEnteredFour" preserveRatio="true" visible="false">
+      <image>
+         <Image url="@assets/wizard_no_bg.png" />
+      </image>
+   </ImageView>
+   <ImageView fx:id="oneBig" fitHeight="284.0" fitWidth="224.0" layoutY="86.0" onMouseClicked="#send1" onMouseExited="#mouseExitedOne" preserveRatio="true" visible="false">
+      <image>
+         <Image url="@assets/pixie_no_bg.png" />
+      </image>
+      <effect>
+         <DropShadow>
+            <color>
+               <Color red="0.9882352948188782" green="1.0" blue="0.2666666805744171" />
+            </color>
+         </DropShadow>
+      </effect>
+   </ImageView>
+   <ImageView fx:id="twoBig" fitHeight="284.0" fitWidth="223.0" layoutX="199.0" layoutY="35.0" onMouseClicked="#send2" onMouseExited="#mouseExitedTwo" preserveRatio="true" visible="false">
+      <image>
+         <Image url="@assets/sorcerer_no_bg.png" />
+      </image>
+      <effect>
+         <DropShadow>
+            <color>
+               <Color red="0.9882352948188782" green="1.0" blue="0.2666666805744171" />
+            </color>
+         </DropShadow>
+      </effect>
+   </ImageView>
+   <ImageView fx:id="threeBig" fitHeight="270.0" fitWidth="188.0" layoutX="402.0" layoutY="35.0" onMouseClicked="#send3" onMouseExited="#mouseExitedThree" preserveRatio="true" visible="false">
+      <image>
+         <Image url="@assets/king_no_bg.png" />
+      </image>
+      <effect>
+         <DropShadow>
+            <color>
+               <Color red="0.9882352948188782" green="1.0" blue="0.2666666805744171" />
+            </color>
+         </DropShadow>
+      </effect>
+   </ImageView>
+   <ImageView fx:id="fourBig" fitHeight="291.0" fitWidth="188.0" layoutX="581.0" layoutY="86.0" onMouseClicked="#send4" onMouseExited="#mouseExitedFour" preserveRatio="true" visible="false">
+      <image>
+         <Image url="@assets/wizard_no_bg.png" />
+      </image>
+      <effect>
+         <DropShadow>
+            <color>
+               <Color red="0.9882352948188782" green="1.0" blue="0.2666666805744171" />
+            </color>
+         </DropShadow>
+      </effect>
+   </ImageView>
+   <Label fx:id="chooseWiz" layoutX="299.0" layoutY="352.0" prefHeight="18.0" prefWidth="205.0" text="Choose a Wizard." textAlignment="CENTER" textFill="WHITE" visible="false">
+      <font>
+         <Font name="System Bold" size="25.0" />
+      </font>
+   </Label>
 </AnchorPane>

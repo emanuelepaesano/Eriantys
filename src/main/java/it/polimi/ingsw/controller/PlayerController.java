@@ -33,9 +33,8 @@ public class PlayerController {
             this.entranceController= new EntranceController(player, entrance, playerView);
     }
 
-    public void askPlayerName(List<String> usedNames)  {
+    public void askPlayerName()  {
         new LoginMessage("Player " + player.getId() + ", enter your nickname:").send(playerView);
-//        playerView.setReplyTo((s)-> this.replyToPlayerName(s,usedNames));
     }
     public String replyToPlayerName(String name, List<String>usedNames){
             if (!usedNames.contains(name)){
@@ -55,8 +54,8 @@ public class PlayerController {
      * @return the TowerColor chosen by the player among the remaining ones
      */
     public void askTowerColor(List<TowerColor> remainingColors) {
-        new StringMessage(player.getPlayerName() +
-                ", please choose your tower color among the available ones: " + remainingColors).send(playerView);
+        new LoginMessage(player.getPlayerName() + ", please choose your tower color among the available ones: " + remainingColors
+       , remainingColors).send(playerView);
     }
     public TowerColor replyToTowerColor(String input, List<TowerColor> remainingColors){
             try {
@@ -79,8 +78,8 @@ public class PlayerController {
      * @return the wizard chosen by the player
      */
     public void askWizard(List<Integer> remainingWizards) {
-        new StringMessage(player.getPlayerName() +
-                ", choose your wizard number among these: " + remainingWizards).send(playerView);
+        new LoginMessage(remainingWizards,
+                player.getPlayerName() + ", choose your wizard number among these: " + remainingWizards).send(playerView);
     }
     public Integer replyToWizard(Integer input, List<Integer> remainingWizards){
         while (true) {
