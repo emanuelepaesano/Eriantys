@@ -19,7 +19,7 @@ import java.util.List;
 public class ServerApp {
     public static void main(String[] args) throws IOException {
 
-        ServerHandler server = new ServerHandler(1337);
+        ClientHandler server = new ClientHandler(1337);
         int numplayers = server.startServer();
         GameController gc = new GameController(numplayers,server.views);
         Game game = gc.getGame();

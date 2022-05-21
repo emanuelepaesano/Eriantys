@@ -27,7 +27,7 @@ import java.util.Scanner;
         Student student;
         while (true) {
             new StringMessage("Choose 1 student from this character to move to an island.").send(user);
-            String str = Student.askStudent(students,user).toUpperCase();
+            String str = Student.askStudent(students,user,"placeinislandchar").toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return null;}
             else if (List.of(Student.values()).contains(Student.valueOf(str))) {

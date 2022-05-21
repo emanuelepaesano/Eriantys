@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ServerHandler {
+public class ClientHandler {
     int port;
     String model;
     Scanner inStream;
@@ -18,7 +18,7 @@ public class ServerHandler {
     ServerSocket serverSocket;
     List<VirtualView> views;
     //To the first client we ask the number of players, which is the first thing inside the gamecontroller
-    public ServerHandler(int port) {
+    public ClientHandler(int port) {
         this.port = port;
         views = new ArrayList<>();
     }

@@ -31,17 +31,20 @@ public class VirtualView {
         try {
             outStream.writeObject(message);
             outStream.flush();
+            outStream.reset();
         }catch (IOException ex){ex.printStackTrace();}
     }
 
     Runnable getHeartBeat = new Runnable() {
+        //cosi non funzionerebbe perche l'altro thread che legge i messaggi tira una ioexception
         @Override
         public void run() {
             while(true){
                 try {
                     Message pingMessage = (Message) inStream.readObject();
                     Thread.sleep(6000);
-                } catch (ClassNotFoundException |InterruptedException e) {throw new RuntimeException(e);} catch (IOException e) {
+                } catch (ClassNotFoundException |InterruptedException e) {throw new RuntimeException(e);}
+                catch (IOException e) {
                     onClientDisconnection();
                 }
             }

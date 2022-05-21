@@ -95,53 +95,48 @@ public class LoginView implements View {
         allNodes = List.of(pastelBack,blackSmall,blackBig,whiteSmall,whiteBig,
                 greySmall,greyBig,enterNick,eriantysLogo,Send,textField,chooseTower,
                 oneSmall,oneBig,twoSmall,twoBig,threeSmall,threeBig,fourSmall,fourBig,chooseTower);
+
         nh.setMessageArrivedObserver((msg)-> {
-            Platform.runLater(()->{
                 allNodes.forEach(n->n.setDisable(false));
                 if (msg.getClass().getSimpleName().equals("NoReplyMessage")) {
                     //show a dialog with error
+                    Platform.runLater(()->{
                     NoReplyMessage noRep = (NoReplyMessage) msg;
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Invalid Name");
                     alert.setContentText(noRep.getContent());
                     alert.initModality(Modality.NONE);
                     alert.showAndWait();
+                    });
                 }
                 else if (msg.getClass().getSimpleName().equals("LoginMessage")) {
                     LoginMessage lmsg = (LoginMessage) msg;
                     if (lmsg.getType().equals("tower")){
-                        System.out.println("entrato in tower");
                         allNodes.forEach(node -> node.setVisible(false));
                         remainingColors = lmsg.getAvailableColors();
-                        System.out.println("i found this colors:" + remainingColors);
+                        Image img = new Image("assets/pastel blue background.jpg");
+                        BackgroundImage bImg = new BackgroundImage(img, BackgroundRepeat.NO_REPEAT,
+                                BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+                        Background bGround = new Background(bImg);
+                        logPane.setBackground(bGround);
                         chooseTower.setVisible(true);
-                        System.out.println("now the stuff should be visible...");
                         if (remainingColors.contains(TowerColor.WHITE)){whiteSmall.setVisible(true);}
                         if (remainingColors.contains(TowerColor.BLACK)){blackSmall.setVisible(true);}
                         if (remainingColors.contains(TowerColor.GREY)){greySmall.setVisible(true);}
                     }
                     else if (lmsg.getType().equals("wizard")){
                         allNodes.forEach(node -> node.setVisible(false));
-                        System.out.println("remaining wizards found: "+ remainingWiz);
-                        //make a new scene with wizards and set that
-                        Image img = new Image("assets/star_bg.png");
-                        BackgroundImage bImg = new BackgroundImage(img, BackgroundRepeat.NO_REPEAT,
-                                BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-                        Background bGround = new Background(bImg);
-                        logPane.setBackground(bGround);
                         remainingWiz = lmsg.getAvailableWiz();
                         List<ImageView> wizards = List.of(oneSmall,twoSmall,threeSmall,fourSmall);
-                        wizards.forEach(w->{w.setVisible(true);w.setDisable(true);});
+                        wizards.forEach(w->{w.setVisible(true);w.setDisable(true);w.setOpacity(0.7);});
                         chooseWiz.setVisible(true);
-                        if (remainingWiz.contains(1)){oneSmall.setDisable(false);}
-                        if (remainingWiz.contains(2)){twoSmall.setDisable(false);}
-                        if (remainingWiz.contains(3)){threeSmall.setDisable(false);}
-                        if (remainingWiz.contains(4)){fourSmall.setDisable(false);}
+                        if (remainingWiz.contains(1)){oneSmall.setDisable(false);oneSmall.setOpacity(1);oneBig.setOpacity(1);}
+                        if (remainingWiz.contains(2)){twoSmall.setDisable(false);twoSmall.setOpacity(1);twoBig.setOpacity(1);}
+                        if (remainingWiz.contains(3)){threeSmall.setDisable(false);threeSmall.setOpacity(1);threeBig.setOpacity(1);}
+                        if (remainingWiz.contains(4)){fourSmall.setDisable(false);fourSmall.setOpacity(1);fourBig.setOpacity(1);}
                     }
-
                 }
                 else Platform.runLater(msg::switchAndFillView);
-            });
             }
         );
     }

@@ -3,6 +3,7 @@ package it.polimi.ingsw.messages;
 import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.model.Assistant;
+import javafx.application.Platform;
 
 import java.util.List;
 
@@ -48,9 +49,11 @@ public class PlanningPhaseMessage extends Repliable implements Message  {
 
     @Override
     public void switchAndFillView() {
+        Platform.runLater(()->{
         UIManager uim = UIManager.getUIManager();
         uim.getPlanningPhaseView().fillInfo(this);
         uim.getPlanningPhaseView().display();
+        });
     }
 
     @Override

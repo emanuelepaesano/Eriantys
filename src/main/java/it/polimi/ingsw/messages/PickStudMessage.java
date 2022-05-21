@@ -1,18 +1,18 @@
 package it.polimi.ingsw.messages;
 
 import it.polimi.ingsw.VirtualView;
-import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Student;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 public class PickStudMessage extends Repliable implements Message {
 
     List<Student> students;
     String text;
+    String whereFrom; //possible values: entrance,movetodrchar,placeinislandchar,zeropointchar
 
-    public PickStudMessage(List<Student> students) {
+    public PickStudMessage(List<Student> students, String whereFrom) {
+        this.whereFrom = whereFrom;
         this.students = students;
         text ="Choose a student color from the available ones:\n{";
         for (Student student : students){
@@ -40,6 +40,7 @@ public class PickStudMessage extends Repliable implements Message {
 
     @Override
     public void switchAndFillView() {
+        //depending on wherefrom, this will do a completely different thing
 
     }
 

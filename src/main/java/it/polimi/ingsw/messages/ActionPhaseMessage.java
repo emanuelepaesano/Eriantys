@@ -11,16 +11,31 @@ public class ActionPhaseMessage extends Repliable implements Message{
     String text;
     Player player;
     List<Character> characters;
+    String type;
+    Integer availableActions;
 
     public ActionPhaseMessage(Boolean advanced, int availableActions, Player player, List<Character>characters) {
+        //we can show a popup saying that it is your turn (or something like that), and enable two (or three) buttons
+        //in the "yourentrance" screen
+        this.availableActions = availableActions;
         this.player = player;
         this.characters = characters;
+        this.type = "yourturn";
         if(advanced) {
             text = (player.getPlayerName()) + ", choose an action. (" + availableActions + " moves left)" +
                     " Please type \"islands\" or \"diningroom\" to move students, or \"characters\" to play a character. ";
         }
         else text = (player.getPlayerName()) + ", choose an action. (" + availableActions + " moves left)" +
                 " Please type \"islands\" or \"diningroom\" to move students. ";
+    }
+
+    public ActionPhaseMessage(Player player, int availableActions) {
+        //questo messaggio deve aprire un menu con una rotella per scegliere numero
+        this.availableActions = availableActions;
+        this.player = player;
+        this.type = "howmany";
+        text = "How many students do you want to move " +
+                "(maximum " + availableActions+ ") ?\n" + "To return to action selection, type '0' or 'back'";
     }
 
     @Override
@@ -57,4 +72,6 @@ public class ActionPhaseMessage extends Repliable implements Message{
     public Boolean isRepliable() {
         return true;
     }
+
+
 }

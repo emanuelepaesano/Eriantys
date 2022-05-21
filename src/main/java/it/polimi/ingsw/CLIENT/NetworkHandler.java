@@ -71,7 +71,9 @@ public class NetworkHandler{
                             this.currentMessage = message;
                             System.out.println("current message: " +currentMessage);
                         }
-                        if (GUI) {notifyMessageArrived(message);}
+                        if (GUI) {
+                            notifyMessageArrived(message);
+                        }
                         else {
                             UIManager.getUIManager().getCliView().fillInfo(message);
                             UIManager.getUIManager().getCliView().display();

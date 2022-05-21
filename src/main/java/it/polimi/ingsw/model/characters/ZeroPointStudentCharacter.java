@@ -21,7 +21,7 @@ class ZeroPointStudentCharacter extends Characters {
     private Student pickStudent(VirtualView user){ //move to controller!
         Student stud;
         while(true) {
-            String string = Student.askStudent(List.of(Student.values()),user).toUpperCase();
+            String string = Student.askStudent(List.of(Student.values()),user,"zeropointchar").toUpperCase();
             if (string.equals("RETRY")){continue;}
             if (string.equals("BACK")) {return null;}
             else if (List.of(Student.values()).contains(Student.valueOf(string))) {

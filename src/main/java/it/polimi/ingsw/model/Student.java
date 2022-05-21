@@ -35,10 +35,10 @@ public enum Student {
             default -> {return "";}
         }
     }
-    public static String askStudent(List<Student> students, VirtualView user){
+    public static String askStudent(List<Student> students, VirtualView user, String whereFrom){
         String str;
         try{
-            new PickStudMessage(students).send(user);
+            new PickStudMessage(students, whereFrom).send(user);
             str = user.getReply();
             if (Objects.equals(str, "back")) {return "back";}
             else {

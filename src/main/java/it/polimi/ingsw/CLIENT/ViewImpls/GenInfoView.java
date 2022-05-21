@@ -1,10 +1,12 @@
 package it.polimi.ingsw.CLIENT.ViewImpls;
 
+import it.polimi.ingsw.CLIENT.NetworkHandler;
 import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.CLIENT.View;
 import it.polimi.ingsw.messages.GenInfoMessage;
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.model.*;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -55,6 +57,8 @@ public class GenInfoView implements View {
     List<Player> players;
     Stage stage;
 
+    NetworkHandler nh;
+
     @Override
     public void display() {
         Parent root = UIManager.getUIManager().getGenInfoRoot();
@@ -72,6 +76,11 @@ public class GenInfoView implements View {
 
     @Override
     public void sendReply() {
+    }
+
+    public void initialize(){
+        nh = UIManager.getUIManager().getNh();
+        nh.setMessageArrivedObserver(Message::switchAndFillView);
     }
 
     @Override
@@ -116,6 +125,7 @@ public class GenInfoView implements View {
         List<ImageView> allmn = List.of(mn0,mn1,mn2,mn3,mn4,mn5,mn6,mn7,mn8,mn9,mn10,mn11);
         allmn.forEach((img)->img.setVisible(false));
         allmn.get(map.getMotherNature()).setVisible(true);
+        System.out.println("mother nature should be at "+ map.getMotherNature());
     }
     private void addBridges(){
         List<Object> lastJoin = map.getLastJoin();

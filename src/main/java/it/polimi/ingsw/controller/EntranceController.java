@@ -3,6 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.messages.CloudMessage;
 import it.polimi.ingsw.messages.Message;
+import it.polimi.ingsw.messages.PickIslandMessage;
 import it.polimi.ingsw.messages.StringMessage;
 import it.polimi.ingsw.model.*;
 
@@ -66,7 +67,7 @@ public class EntranceController {
         Student stud;
         for (int i = 0;i<nstud;i++){
             System.out.println("For student " +(i+1) + " :");
-            str = Student.askStudent(students,view).toUpperCase();
+            str = Student.askStudent(students,view,"entrance").toUpperCase();
             if  (str.equals("BACK")) {return i;}
             else if  (str.equals("RETRY")) {
                 i -= 1;
@@ -97,7 +98,7 @@ public class EntranceController {
         Student stud;
         for (int i = 0;i<nstud;i++){
             System.out.println("For student number " +(i+1) + " :\n");
-            str = Student.askStudent(students, view).toUpperCase();
+            str = Student.askStudent(students, view,"entrance").toUpperCase();
             if  (str.equals("BACK")) {return i;}
             else if  (str.equals("RETRY")) {
                 i -= 1;
@@ -145,18 +146,17 @@ public class EntranceController {
 
     public Island askWhichIsland(GameMap gm){
         while (true){
-            // TODO: 06/05/2022 probably a askIslandMessage
-            new StringMessage(
-                    "This is the current state of the islands:\n" + gm +
-                            "\nIndicate the island by its number (0~"+(gm.getArchipelago().size()-1)+"):").send(view); ;
+            new PickIslandMessage(gm).send(view);
             try {
-                int index = Integer.parseInt(view.getReply());
-                if (index>=0 &&index <=11) {
-                    return gm.getArchipelago().get(index);
+                int id = Integer.parseInt(view.getReply());
+                if (id>=0 && id<=11) {
+                    Island island = gm.getIslandById(id);
+                    if (island.getId()==99){continue;}
+                    else return island;
                 }
-                new StringMessage(Game.ANSI_RED + "That's not a valid index, please choose one between 0~11.\n"+ Game.ANSI_RESET).send(view);
+                new StringMessage(Game.ANSI_RED + "That's not a valid id, please choose one between 0~11.\n"+ Game.ANSI_RESET).send(view);
             }catch (NumberFormatException ex) {
-                new StringMessage(Game.ANSI_RED+ "That's not an index, please choose an index between 0~11.\n"+ Game.ANSI_RESET).send(view);
+                new StringMessage(Game.ANSI_RED+ "That's not an id, please choose an id between 0~11.\n"+ Game.ANSI_RESET).send(view);
             }
         }
     }

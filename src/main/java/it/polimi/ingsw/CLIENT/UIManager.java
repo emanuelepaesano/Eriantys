@@ -39,6 +39,7 @@ public class UIManager extends Application{
         if (GUI){
             Platform.setImplicitExit(false);
             mainWindow = stage;
+            mainWindow.setResizable(false);
             startWaitingView();
             Task<Void> task = new Task<>() {
                 @Override
@@ -115,8 +116,9 @@ public class UIManager extends Application{
     }
 
     public View getGenInfoView(){
-        if (this.genInfoView ==null){
+        if (genInfoView ==null){
             try {
+                System.out.println("i'm making a new controller");
                 FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/GenInfoView.fxml"));
                 genInfoRoot = loginLoader.load();
                 genInfoView = loginLoader.getController();

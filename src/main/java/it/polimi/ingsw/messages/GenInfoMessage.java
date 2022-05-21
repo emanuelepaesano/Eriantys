@@ -4,6 +4,7 @@ import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GameMap;
 import it.polimi.ingsw.model.Player;
+import javafx.application.Platform;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 public class GenInfoMessage implements Message, Serializable {
 
     String text;
-    GameMap map;
+    private final GameMap map;
     List<Player> players;
 
 
@@ -24,8 +25,9 @@ public class GenInfoMessage implements Message, Serializable {
         this.map = game.getGameMap();
         this.players = game.getTableOrder();
 
+        System.out.println("message: this is my map " + this.map);
         String string = "";
-        string += Game.ANSI_BOLD + "GAME MAP:\n" + Game.ANSI_RESET + game.getGameMap().toString();
+        string += Game.ANSI_BOLD + "GAME MAP:\n" + Game.ANSI_RESET + this.map.toString();
         string +=  Game.ANSI_BOLD + "\nPLAYERS:\n" + Game.ANSI_RESET;
         for (Player p : game.getCurrentOrder()){
             string += Game.ANSI_BOLD + p.getPlayerName() + Game.ANSI_RESET+": "+ p.getEntrance()+
@@ -47,9 +49,14 @@ public class GenInfoMessage implements Message, Serializable {
 
     @Override
     public void switchAndFillView() {
+        System.out.println("the message is filling a view with this map: " + map);
+        Platform.runLater(()->{
         UIManager uim = UIManager.getUIManager();
         uim.getGenInfoView().fillInfo(this);
+        System.out.println("geninfoview: finished filling info");
         uim.getGenInfoView().display();
+        System.out.println("geninfoview displayed");
+        });
     }
 
     @Override

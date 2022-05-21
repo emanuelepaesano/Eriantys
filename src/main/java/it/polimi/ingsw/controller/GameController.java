@@ -174,11 +174,11 @@ private void askAllPlayerNames(){
                     pc.playCharacters(game.getCharacters(),game);
                 }
                 else {
-                    new StringMessage("This is not an advanced game!").send(pc.getPlayerView());
+                    new NoReplyMessage("This is not an advanced game!").send(pc.getPlayerView());
                 }
             }
         }
-        new StringMessage("After your moves: " + player.getDiningRoom()).send(pc.getPlayerView());
+        new NoReplyMessage("After your moves: " + player.getDiningRoom()).send(pc.getPlayerView());
     }
 
     // TODO: 11/05/2022 all the checks that must be done and in a separate method

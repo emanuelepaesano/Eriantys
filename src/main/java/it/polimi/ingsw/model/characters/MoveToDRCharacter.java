@@ -30,7 +30,7 @@ class MoveToDRCharacter extends Characters {
         Student student;
         while (true) {
             new StringMessage("Choose 1 student from the character to move to your dining Room.").send(user);
-            String str = Student.askStudent(students,user).toUpperCase();
+            String str = Student.askStudent(students,user,"movetodrchar").toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return null;}
             else if (List.of(Student.values()).contains(Student.valueOf(str))) {
