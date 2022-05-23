@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -110,140 +111,146 @@
          <Image url="@assets/student_yellow.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e5b" layoutX="63.0" layoutY="336.0">
+   <ImageView fx:id="e5b" layoutX="63.0" layoutY="336.0">
       <image>
          <Image url="@assets/student_blue.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e5g" layoutX="73.0" layoutY="352.0">
+   <ImageView fx:id="e5g" layoutX="73.0" layoutY="352.0">
       <image>
          <Image url="@assets/student_green.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e5p" layoutX="66.0" layoutY="339.0">
+   <ImageView fx:id="e5p" layoutX="66.0" layoutY="339.0">
       <image>
          <Image url="@assets/student_pink.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e5r" layoutX="69.0" layoutY="337.0">
+   <ImageView fx:id="e5r" layoutX="69.0" layoutY="337.0">
       <image>
          <Image url="@assets/student_red.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e5y" layoutX="68.0" layoutY="339.0">
+   <ImageView fx:id="e5y" layoutX="68.0" layoutY="339.0">
       <image>
          <Image url="@assets/student_yellow.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e6b" layoutX="166.0" layoutY="455.0">
+   <ImageView fx:id="e6b" layoutX="166.0" layoutY="455.0">
       <image>
          <Image url="@assets/student_blue.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e6g" layoutX="176.0" layoutY="471.0">
+   <ImageView fx:id="e6g" layoutX="176.0" layoutY="471.0">
       <image>
          <Image url="@assets/student_green.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e6p" layoutX="169.0" layoutY="458.0">
+   <ImageView fx:id="e6p" layoutX="169.0" layoutY="458.0">
       <image>
          <Image url="@assets/student_pink.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e6r" layoutX="172.0" layoutY="456.0">
+   <ImageView fx:id="e6r" layoutX="172.0" layoutY="456.0">
       <image>
          <Image url="@assets/student_red.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e6y" layoutX="171.0" layoutY="458.0">
+   <ImageView fx:id="e6y" layoutX="171.0" layoutY="458.0">
       <image>
          <Image url="@assets/student_yellow.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e7b" layoutX="63.0" layoutY="463.0">
+   <ImageView fx:id="e7b" layoutX="63.0" layoutY="463.0">
       <image>
          <Image url="@assets/student_blue.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e7g" layoutX="73.0" layoutY="479.0">
+   <ImageView fx:id="e7g" layoutX="73.0" layoutY="479.0">
       <image>
          <Image url="@assets/student_green.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e7p" layoutX="66.0" layoutY="466.0">
+   <ImageView fx:id="e7p" layoutX="66.0" layoutY="466.0">
       <image>
          <Image url="@assets/student_pink.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e7r" layoutX="69.0" layoutY="464.0">
+   <ImageView fx:id="e7r" layoutX="69.0" layoutY="464.0">
       <image>
          <Image url="@assets/student_red.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e7y" layoutX="68.0" layoutY="466.0">
+   <ImageView fx:id="e7y" layoutX="68.0" layoutY="466.0">
       <image>
          <Image url="@assets/student_yellow.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e8b" layoutX="164.0" layoutY="574.0">
+   <ImageView fx:id="e8b" layoutX="164.0" layoutY="574.0">
       <image>
          <Image url="@assets/student_blue.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e8g" layoutX="174.0" layoutY="590.0">
+   <ImageView fx:id="e8g" layoutX="174.0" layoutY="590.0">
       <image>
          <Image url="@assets/student_green.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e8p" layoutX="167.0" layoutY="577.0">
+   <ImageView fx:id="e8p" layoutX="167.0" layoutY="577.0">
       <image>
          <Image url="@assets/student_pink.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e8r" layoutX="170.0" layoutY="575.0">
+   <ImageView fx:id="e8r" layoutX="170.0" layoutY="575.0">
       <image>
          <Image url="@assets/student_red.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e8y" layoutX="169.0" layoutY="577.0">
+   <ImageView fx:id="e8y" layoutX="169.0" layoutY="577.0">
       <image>
          <Image url="@assets/student_yellow.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e9b" layoutX="66.0" layoutY="569.0">
+   <ImageView fx:id="e9b" layoutX="66.0" layoutY="569.0">
       <image>
          <Image url="@assets/student_blue.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e9g" layoutX="76.0" layoutY="585.0">
+   <ImageView fx:id="e9g" layoutX="76.0" layoutY="585.0">
       <image>
          <Image url="@assets/student_green.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e9p" layoutX="69.0" layoutY="572.0">
+   <ImageView fx:id="e9p" layoutX="69.0" layoutY="572.0">
       <image>
          <Image url="@assets/student_pink.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e9r" layoutX="72.0" layoutY="570.0">
+   <ImageView fx:id="e9r" layoutX="72.0" layoutY="570.0">
       <image>
          <Image url="@assets/student_red.png" />
       </image>
    </ImageView>
-   <ImageView  fx:id="e9y" layoutX="71.0" layoutY="572.0">
+   <ImageView fx:id="e9y" layoutX="71.0" layoutY="572.0">
       <image>
          <Image url="@assets/student_yellow.png" />
       </image>
    </ImageView>
-   <ImageView fx:id="dg1" layoutX="328.0" layoutY="108.0">
+   <ImageView fx:id="dg1" fitHeight="45.0" fitWidth="45.0" layoutX="325.0" layoutY="106.0" preserveRatio="true">
       <image>
          <Image url="@assets/student_green.png" />
       </image>
+      <effect>
+         <DropShadow height="10.0" radius="7.25" spread="0.1" />
+      </effect>
    </ImageView>
-   <ImageView fx:id="dg2" layoutX="408.0" layoutY="107.0">
+   <ImageView fx:id="dg2" fitHeight="45.0" fitWidth="45.0" layoutX="407.0" layoutY="106.0">
       <image>
          <Image url="@assets/student_green.png" />
       </image>
+      <effect>
+         <DropShadow height="10.0" radius="7.25" spread="0.1" />
+      </effect>
    </ImageView>
    <ImageView fx:id="dg3" layoutX="487.0" layoutY="107.0">
       <image>
@@ -430,7 +437,7 @@
          <Image url="@assets/student_pink.png" />
       </image>
    </ImageView>
-   <ImageView fx:id="dp10"  layoutX="1046.0" layoutY="463.0">
+   <ImageView fx:id="dp10" layoutX="1046.0" layoutY="463.0">
       <image>
          <Image url="@assets/student_pink.png" />
       </image>

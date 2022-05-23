@@ -120,6 +120,7 @@ public class SchoolView implements View {
     public void bindEntrance() {
         setEntranceInvisible();
         int index = 0;
+        entranceImageViewList.forEach(list->list.forEach(s->s.setVisible(false)));
         for (Student s: player.getEntrance().getStudents()) {
             if (s == Student.BLUE) {
                 entranceImageViewList.get(index).get(0).setVisible(true);
