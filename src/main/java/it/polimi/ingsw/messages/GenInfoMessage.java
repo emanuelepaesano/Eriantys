@@ -54,7 +54,9 @@ public class GenInfoMessage implements Message, Serializable {
         UIManager uim = UIManager.getUIManager();
         uim.getGenInfoView().fillInfo(this);
         System.out.println("geninfoview: finished filling info");
-        uim.getGenInfoView().display();
+//        uim.getGenInfoView().display();
+        uim.getSwitcher().toIslands();
+        uim.getSwitcher().display();
         System.out.println("geninfoview displayed");
         });
     }

@@ -13,4 +13,5 @@ public interface View extends Serializable {
     void display();
     void sendReply();
     void fillInfo(Message message);
+
 }

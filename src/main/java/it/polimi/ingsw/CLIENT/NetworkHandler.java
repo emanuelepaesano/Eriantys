@@ -86,10 +86,10 @@ public class NetworkHandler{
         listener.start();
     }
 
-    public void sendMessage(String message) {
-    if (currentMessage != null){sendReply(message);}
+    public void sendMessage(String content) {
+    if (currentMessage != null){sendReply(content);}
     else try {
-            outStream.writeObject(new NoReplyMessage(message));
+            outStream.writeObject(new NoReplyMessage(content));
             outStream.flush();
             outStream.reset();
         } catch (IOException e) {
@@ -102,6 +102,7 @@ public class NetworkHandler{
             ((Repliable) currentMessage).setReply(reply);
             System.out.println("sending reply");
             outStream.writeObject(currentMessage);
+            currentMessage = null;
             outStream.flush();
             outStream.reset();
         } catch (IOException e) {

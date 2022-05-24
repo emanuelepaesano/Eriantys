@@ -1,6 +1,7 @@
 package it.polimi.ingsw.CLIENT;
 
 import it.polimi.ingsw.CLIENT.ViewImpls.CLIView;
+import it.polimi.ingsw.CLIENT.ViewImpls.Switcher;
 import it.polimi.ingsw.CLIENT.ViewImpls.WaitingView;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -169,6 +170,24 @@ public class UIManager extends Application{
         return actionPhaseView;
     }
 
+
+    private Switcher switcher;
+    private Parent switcherRoot;
+
+    public Parent getSwitcherRoot() {
+        return switcherRoot;
+    }
+
+    public Switcher getSwitcher() {
+        if (this.switcher ==null){
+            try {
+                FXMLLoader switcherLoader = new FXMLLoader(getClass().getResource("/Switcher.fxml"));
+                switcherRoot = switcherLoader.load();
+                switcher = switcherLoader.getController();
+            }catch(IOException ex){ex.printStackTrace();}
+        }
+        return switcher;
+    }
 
     public static UIManager getUIManager(){
         return UIManager;

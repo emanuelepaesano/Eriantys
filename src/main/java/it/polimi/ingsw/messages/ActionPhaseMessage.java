@@ -71,7 +71,8 @@ public class ActionPhaseMessage extends Repliable implements Message{
         UIManager uim = UIManager.getUIManager();
         View apv = uim.getActionPhaseView();
         apv.fillInfo(this);
-        apv.display();
+//        apv.display();
+        uim.getSwitcher().toSchool();
     }
 
     @Override
