@@ -1,6 +1,9 @@
 package it.polimi.ingsw.messages;
 
+import it.polimi.ingsw.CLIENT.UIManager;
+import it.polimi.ingsw.CLIENT.View;
 import it.polimi.ingsw.VirtualView;
+import it.polimi.ingsw.model.Student;
 import it.polimi.ingsw.model.characters.Character;
 import it.polimi.ingsw.model.Player;
 
@@ -38,6 +41,16 @@ public class ActionPhaseMessage extends Repliable implements Message{
                 "(maximum " + availableActions+ ") ?\n" + "To return to action selection, type '0' or 'back'";
     }
 
+    public ActionPhaseMessage(Player player) {
+        this.player = player;
+        this.type = "studselect";
+        text ="Choose a student color from the available ones:\n{";
+        for (Student student : player.getEntrance().getStudents()){
+            text += "("+student+")";
+        }
+        text += "} or type \"back\" to annull.";
+    }
+
     @Override
     public void send(VirtualView user) {
         user.update(this);
@@ -55,7 +68,10 @@ public class ActionPhaseMessage extends Repliable implements Message{
 
     @Override
     public void switchAndFillView() {
-
+        UIManager uim = UIManager.getUIManager();
+        View apv = uim.getActionPhaseView();
+        apv.fillInfo(this);
+        apv.display();
     }
 
     @Override
@@ -73,5 +89,15 @@ public class ActionPhaseMessage extends Repliable implements Message{
         return true;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
 
+    public String getType() {
+        return type;
+    }
+
+    public Integer getAvailableActions() {
+        return availableActions;
+    }
 }

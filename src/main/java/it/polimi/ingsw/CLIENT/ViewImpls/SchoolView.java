@@ -1,17 +1,25 @@
 package it.polimi.ingsw.CLIENT.ViewImpls;
 
+import it.polimi.ingsw.CLIENT.NetworkHandler;
 import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.CLIENT.View;
+import it.polimi.ingsw.messages.ActionPhaseMessage;
 import it.polimi.ingsw.messages.GenInfoMessage;
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.model.*;
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class SchoolView implements View {
 
@@ -46,51 +54,76 @@ public class SchoolView implements View {
     public ImageView t6w; public ImageView t6b; public ImageView t6g;
     public ImageView t7w; public ImageView t7b; public ImageView t7g;
     public ImageView t8w; public ImageView t8b; public ImageView t8g;
+    public Button moveToIsland ; public Button moveToDR; public Button back;
+    public AnchorPane mainPane;
 
-    GameMap map;
     Player player;
-    List<Player> players;
     Stage stage;
 
-    List<List<ImageView>> entranceImageViewList =
-            List.of(List.of(e1b, e1g, e1p, e1r, e1y), List.of(e2b, e2g, e2p, e2r, e2y),
-                    List.of(e3b, e3g, e3p, e3r, e3y), List.of(e4b, e4g, e4p, e4r, e4y),
-                    List.of(e5b, e5g, e5p, e5r, e5y), List.of(e6b, e6g, e6p, e6r, e6y),
-                    List.of(e7b, e7g, e7p, e7r, e7y), List.of(e8b, e8g, e8p, e8r, e8y),
-                    List.of(e9b, e9g, e9p, e9r, e9y));
+    NetworkHandler nh;
 
-    Map<Student, List<ImageView>> diningRoomImageViewMap =
-            Map.of(Student.GREEN, List.of(dg1, dg2, dg3, dg4, dg5, dg6, dg7, dg8, dg9, dg10),
-                    Student.RED, List.of(dr1, dr2, dr3, dr4, dr5, dr6, dr7, dr8, dr9, dr10),
-                    Student.YELLOW, List.of(dy1, dy2, dy3, dy4, dy5, dy6, dy7, dy8, dy9, dy10),
-                    Student.PINK, List.of(dp1, dp2, dp3, dp4, dp5, dp6, dp7, dp8, dp9, dp10),
-                    Student.BLUE, List.of(db1, db2, db3, db4, db5, db6, db7, db8, db9, db10));
+    List<List<ImageView>> entranceImageViewList;
 
-    Map<Student, ImageView> professorsImageViewList =
-            Map.of(Student.GREEN, pg,
-                    Student.RED, pr,
-                    Student.YELLOW, py,
-                    Student.PINK, pp,
-                    Student.BLUE, pb);
 
-    Map<TowerColor, List<ImageView>> towersImageViewList =
-            Map.of(TowerColor.WHITE, List.of(t1w, t2w, t3w, t4w, t5w, t6w, t7w, t8w),
-                    TowerColor.BLACK, List.of(t1b, t2b, t3b, t4b, t5b, t6b, t7b, t8b),
-                    TowerColor.GREY, List.of(t1g, t2g, t3g, t4g, t5g, t6g, t7g, t8g));
+    Map<Student, List<ImageView>> diningRoomImageViewMap;
+
+
+    Map<Student, ImageView> professorsImageViewList;
+
+
+    Map<TowerColor, List<ImageView>> towersImageViewList;
+
 
     @Override
     public void display() {
-        Parent root = UIManager.getUIManager().getGenInfoRoot();
+        Parent root = UIManager.getUIManager().getActionPhaseRoot();
         Scene sc;
         stage = UIManager.getUIManager().getMainWindow();
         if (root.getScene() == null) {
             sc = new Scene(root);
         } else sc = root.getScene();
+        Platform.runLater(()->{
         stage.setScene(sc);
         stage.setTitle("School");
         stage.sizeToScene();
         stage.show();
+        });
     }
+
+    public void initialize(){
+        entranceImageViewList =
+                List.of(List.of(e1b, e1g, e1p, e1r, e1y), List.of(e2b, e2g, e2p, e2r, e2y),
+                List.of(e3b, e3g, e3p, e3r, e3y), List.of(e4b, e4g, e4p, e4r, e4y),
+                List.of(e5b, e5g, e5p, e5r, e5y), List.of(e6b, e6g, e6p, e6r, e6y),
+                List.of(e7b, e7g, e7p, e7r, e7y), List.of(e8b, e8g, e8p, e8r, e8y),
+                List.of(e9b, e9g, e9p, e9r, e9y));
+        diningRoomImageViewMap =
+                Map.of(Student.GREEN, List.of(dg1, dg2, dg3, dg4, dg5, dg6, dg7, dg8, dg9, dg10),
+                Student.RED, List.of(dr1, dr2, dr3, dr4, dr5, dr6, dr7, dr8, dr9, dr10),
+                Student.YELLOW, List.of(dy1, dy2, dy3, dy4, dy5, dy6, dy7, dy8, dy9, dy10),
+                Student.PINK, List.of(dp1, dp2, dp3, dp4, dp5, dp6, dp7, dp8, dp9, dp10),
+                Student.BLUE, List.of(db1, db2, db3, db4, db5, db6, db7, db8, db9, db10));
+        professorsImageViewList =
+                Map.of(Student.GREEN, pg, Student.RED, pr, Student.YELLOW, py, Student.PINK, pp, Student.BLUE, pb);
+        towersImageViewList=
+                Map.of(TowerColor.WHITE, List.of(t1w, t2w, t3w, t4w, t5w, t6w, t7w, t8w),
+                TowerColor.BLACK, List.of(t1b, t2b, t3b, t4b, t5b, t6b, t7b, t8b),
+                TowerColor.GREY, List.of(t1g, t2g, t3g, t4g, t5g, t6g, t7g, t8g));
+
+        this.nh = UIManager.getUIManager().getNh();
+        moveToDR.setDisable(true);
+        moveToIsland.setDisable(true);
+        back.setVisible(false);
+        entranceImageViewList.forEach(list->{
+            list.get(0).setOnMouseClicked(this::blueSelected);
+            list.get(1).setOnMouseClicked(this::greenSelected);
+            list.get(2).setOnMouseClicked(this::pinkSelected);
+            list.get(3).setOnMouseClicked(this::redSelected);
+            list.get(4).setOnMouseClicked(this::yellowSelected);
+            list.forEach(img->img.setDisable(true));
+        });
+    }
+
 
     @Override
     public void sendReply() {
@@ -98,9 +131,21 @@ public class SchoolView implements View {
 
     @Override
     public void fillInfo(Message mes) {
-        GenInfoMessage message = (GenInfoMessage) mes;
-        map = message.getMap();
-        players = message.getPlayers();
+        ActionPhaseMessage message = (ActionPhaseMessage) mes;
+        this.player = message.getPlayer();
+        switch (message.getType()) {
+            case "yourturn":
+                moveToDR.setDisable(false);
+                moveToIsland.setDisable(false);
+                break;
+            case "howmany":
+                //show a popup with how many selection
+                break;
+            case "studselect":
+                entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(false)));
+                back.setVisible(true);
+                break;
+        }
 
         //Here we have to link the elements from the model to the graphic components.
         bindEntrance();
@@ -197,4 +242,36 @@ public class SchoolView implements View {
             towersImageView.get(i).setVisible(true);
         }
     }
+
+
+    private void yellowSelected(MouseEvent mouseEvent) {
+        nh.sendMessage("yellow");
+    }
+
+    private void redSelected(MouseEvent mouseEvent) {
+        nh.sendMessage("red");
+    }
+
+    private void pinkSelected(MouseEvent mouseEvent) {
+        nh.sendMessage("pink");
+    }
+
+    private void greenSelected(MouseEvent mouseEvent) {
+        nh.sendMessage("green");
+    }
+
+    private void blueSelected(MouseEvent mouseEvent) {
+        nh.sendMessage("blue");
+    }
+
+    public void dRSelected(){
+        nh.sendMessage("diningroom");
+    }
+    public void islandSelected(){
+        nh.sendMessage("islands");
+    }
+    public void sendBack(){
+        nh.sendMessage("back");
+    }
+
 }

@@ -98,16 +98,6 @@ public class UIManager extends Application{
         }
         return loginView;
     }
-    private Parent wizRoot;
-    public Parent getWizRoot() {
-        try {
-            FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/Wizards.fxml"));
-            loginLoader.setController(loginView);
-            wizRoot = loginLoader.load();
-        }catch(IOException ex){ex.printStackTrace();}
-        return wizRoot;
-    }
-
 
     private Parent genInfoRoot;
 
@@ -160,6 +150,23 @@ public class UIManager extends Application{
             }catch(IOException ex){ex.printStackTrace();}
         }
         return firstClientView;
+    }
+
+    private View actionPhaseView;
+    private Parent actionPhaseRoot;
+
+    public Parent getActionPhaseRoot() {
+        return actionPhaseRoot;
+    }
+    public View getActionPhaseView(){
+        if (this.actionPhaseView ==null){
+            try {
+                FXMLLoader actionPhaseLoader = new FXMLLoader(getClass().getResource("/SchoolView.fxml"));
+                actionPhaseRoot = actionPhaseLoader.load();
+                actionPhaseView = actionPhaseLoader.getController();
+            }catch(IOException ex){ex.printStackTrace();}
+        }
+        return actionPhaseView;
     }
 
 

@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.messages.ActionPhaseMessage;
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.messages.PickStudMessage;
 
@@ -53,6 +54,23 @@ public enum Student {
 
     }
 
+    public static String askStudent(Player player, VirtualView user){
+        String str;
+        try{
+            new ActionPhaseMessage(player).send(user);
+            str = user.getReply();
+            if (Objects.equals(str, "back")) {return "back";}
+            else {
+                Student.valueOf(str.toUpperCase());
+                return str;
+            }
+        }
+        catch (IllegalArgumentException ex) {
+            System.out.println("Not a valid color, try again.");
+            return "retry";
+        }
+
+    }
     @Override
     public String toString() {
         return this.getAnsiColor()+ this.name() + Game.ANSI_RESET;
