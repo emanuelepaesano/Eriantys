@@ -4,6 +4,8 @@ import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.model.Assistant;
 import javafx.application.Platform;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import java.util.List;
 

@@ -9,9 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Switcher implements View {
@@ -22,6 +21,7 @@ public class Switcher implements View {
     public Button school;
     public Button islands;
     public SubScene gameScene;
+    public Button assistants;
 
     private Stage stage;
     private View schoolView;
@@ -54,7 +54,6 @@ public class Switcher implements View {
         schoolView = uim.getActionPhaseView();
         planningPhaseView = uim.getPlanningPhaseView();
         genInfoView = uim.getGenInfoView();
-        gameScene.setDepthTest(DepthTest.DISABLE);
     }
     @Override
     public void fillInfo(Message message) {

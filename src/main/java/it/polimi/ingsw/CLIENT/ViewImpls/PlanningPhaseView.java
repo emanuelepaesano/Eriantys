@@ -116,16 +116,7 @@ public class PlanningPhaseView implements View {
 
     @Override
     public void fillInfo(Message message) {
-        if (message.getClass().getSimpleName().equals("PlanningPhaseMessage")){
-            System.out.println("Received message in fillinfo method");
             PlanningPhaseMessage mess = (PlanningPhaseMessage) message;
-            System.out.println("Message Cast to PlanningPhaseMessage");
-            for (int i = 0; i<mess.getRemainingAssistants().size(); i++){
-                System.out.println(mess.getRemainingAssistants().get(i).toString());
-            }
-            for (int i = 0; i<mess.getPlayedByOthers().size(); i++){
-                System.out.println(mess.getPlayedByOthers().get(i).toString());
-            }
             for (int i = 0; i<mess.getRemainingAssistants().size(); i++) {
                 switch (mess.getRemainingAssistants().get(i)){
                     case ONE:
@@ -190,7 +181,5 @@ public class PlanningPhaseView implements View {
                         break;
                 }
             }
-        }
-
     }
 }
