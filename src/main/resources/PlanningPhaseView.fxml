@@ -27,7 +27,7 @@
                 onAction="#send1"
         >
             <graphic>
-                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@assets/Assistente (1).png" />
                     </image>
@@ -40,7 +40,7 @@
                 onAction="#send2"
         >
             <graphic>
-                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@assets/Assistente (2).png" />
                     </image>
@@ -53,7 +53,7 @@
                 onAction="#send3"
         >
             <graphic>
-                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@assets/Assistente (3).png" />
                     </image>
@@ -66,7 +66,7 @@
                 onAction="#send4"
         >
             <graphic>
-                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@assets/Assistente (4).png" />
                     </image>
@@ -79,7 +79,7 @@
                 onAction="#send5"
         >
             <graphic>
-                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@assets/Assistente (5).png" />
                     </image>
@@ -97,7 +97,7 @@
                 onAction="#send6"
         >
             <graphic>
-                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@assets/Assistente (6).png" />
                     </image>
@@ -110,7 +110,7 @@
                 onAction="#send7"
         >
             <graphic>
-                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@assets/Assistente (7).png" />
                     </image>
@@ -123,7 +123,7 @@
                 onAction="#send8"
         >
             <graphic>
-                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@assets/Assistente (8).png" />
                     </image>
@@ -136,7 +136,7 @@
                 onAction="#send9"
         >
             <graphic>
-                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@assets/Assistente (9).png" />
                     </image>
@@ -149,7 +149,7 @@
                 onAction="#send10"
         >
             <graphic>
-                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@assets/Assistente (10).png" />
                     </image>
