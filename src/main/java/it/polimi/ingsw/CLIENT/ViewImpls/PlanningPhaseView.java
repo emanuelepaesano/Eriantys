@@ -11,8 +11,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+
+import java.util.List;
+
+import static it.polimi.ingsw.model.Assistant.*;
 
 
 public class PlanningPhaseView implements View {
@@ -28,28 +31,81 @@ public class PlanningPhaseView implements View {
     public Button nine;
     public Button ten;
     public TextField Assistant_text;
-    public GridPane gridPane;
 
     Stage stage;
     NetworkHandler nh;
 
+    List<Assistant> allAssistants;
+    private List<Assistant> remainingAssistants;
+    private List<Assistant> playedByOthers;
+    List<Button> buttons;
+
     public void initialize(){
         disableAllAssistants();
         nh = UIManager.getUIManager().getNh();
+        allAssistants = List.of(ONE,TWO,THREE,FOUR,FIVE,SIX,SEVEN,EIGHT,NINE,TEN);
+        buttons = List.of(one,two,three,four,five,six,seven,eight,nine,ten);
+    }
+
+
+
+
+
+
+    @Override
+    public void display() {
+        Parent root = UIManager.getUIManager().getPlanningPhaseRoot();
+        stage = UIManager.getUIManager().getMainWindow();
+        Scene sc;
+        if (root.getScene() == null) {
+            sc = new Scene(root);
+        }
+        else sc = root.getScene();
+        stage.setScene(sc);
+        stage.setTitle("PlanningPhase");
+        stage.sizeToScene();
+        stage.show();
+    }
+
+    @Override
+    public void sendReply() {
+
+    }
+
+    @Override
+    public void fillInfo(Message message) {
+            PlanningPhaseMessage mess = (PlanningPhaseMessage) message;
+            this.remainingAssistants = mess.getRemainingAssistants();
+            this.playedByOthers = mess.getPlayedByOthers();
+            bindAssistants();
+
+    }
+
+    private void bindAssistants(){
+        for (int i=0; i<10;i++){
+            Assistant assistant = allAssistants.get(i);
+            if (remainingAssistants.contains(assistant)){
+                if (!playedByOthers.contains(assistant)||playedByOthers.equals(remainingAssistants)){
+                    buttons.get(i).setDisable(false);
+                }
+            }
+        }
     }
 
     public void disableAllAssistants(){
-        one.setDisable(true); one.setVisible(false);
-        two.setDisable(true); two.setVisible(false);
-        three.setDisable(true); three.setVisible(false);
-        four.setDisable(true); four.setVisible(false);
-        five.setDisable(true); five.setVisible(false);
-        six.setDisable(true); six.setVisible(false);
-        seven.setDisable(true); seven.setVisible(false);
-        eight.setDisable(true); eight.setVisible(false);
-        nine.setDisable(true); nine.setVisible(false);
-        ten.setDisable(true); ten.setVisible(false);
+        one.setDisable(true);
+        two.setDisable(true);
+        three.setDisable(true);
+        four.setDisable(true);
+        five.setDisable(true);
+        six.setDisable(true);
+        seven.setDisable(true);
+        eight.setDisable(true);
+        nine.setDisable(true);
+        ten.setDisable(true);
     }
+
+
 
     public void send1(ActionEvent actionEvent) {
         nh.sendReply(("one"));
@@ -90,96 +146,5 @@ public class PlanningPhaseView implements View {
     public void send10(ActionEvent actionEvent) {
         nh.sendReply(("ten"));
         disableAllAssistants();
-    }
-
-
-
-    @Override
-    public void display() {
-        Parent root = UIManager.getUIManager().getPlanningPhaseRoot();
-        stage = UIManager.getUIManager().getMainWindow();
-        Scene sc;
-        if (root.getScene() == null) {
-            sc = new Scene(root);
-        }
-        else sc = root.getScene();
-        stage.setScene(sc);
-        stage.setTitle("PlanningPhase");
-        stage.sizeToScene();
-        stage.show();
-    }
-
-    @Override
-    public void sendReply() {
-
-    }
-
-    @Override
-    public void fillInfo(Message message) {
-            PlanningPhaseMessage mess = (PlanningPhaseMessage) message;
-            for (int i = 0; i<mess.getRemainingAssistants().size(); i++) {
-                switch (mess.getRemainingAssistants().get(i)){
-                    case ONE:
-                        if (mess.getPlayedByOthers().contains(Assistant.ONE)){
-                            break;
-                        }
-                        one.setDisable(false); one.setVisible(true);
-                        break;
-                    case TWO:
-                        if (mess.getPlayedByOthers().contains(Assistant.TWO)){
-                            break;
-                        }
-                        two.setDisable(false); two.setVisible(true);
-                        break;
-                    case THREE:
-                        if (mess.getPlayedByOthers().contains(Assistant.THREE)){
-                            break;
-                        }
-                        three.setDisable(false); three.setVisible(true);
-                        break;
-                    case FOUR:
-                        if (mess.getPlayedByOthers().contains(Assistant.FOUR)){
-                            break;
-                        }
-                        four.setDisable(false); four.setVisible(true);
-
-                    case FIVE:
-                        if (mess.getPlayedByOthers().contains(Assistant.FIVE)){
-                            break;
-                        }
-                        five.setDisable(false); five.setVisible(true);
-                        break;
-                    case SIX:
-                        if (mess.getPlayedByOthers().contains(Assistant.SIX)){
-                            break;
-                        }
-                        six.setDisable(false); six.setVisible(true);
-                        break;
-                    case SEVEN:
-                        if (mess.getPlayedByOthers().contains(Assistant.SEVEN)){
-                            break;
-                        }
-                        seven.setDisable(false); seven.setVisible(true);
-                        break;
-                    case EIGHT:
-                        if (mess.getPlayedByOthers().contains(Assistant.EIGHT)){
-                            break;
-                        }
-                        eight.setDisable(false); eight.setVisible(true);
-                        break;
-                    case NINE:
-                        if (mess.getPlayedByOthers().contains(Assistant.NINE)){
-                            break;
-                        }
-                        nine.setDisable(false); nine.setVisible(true);
-                        break;
-                    case TEN:
-                        if (mess.getPlayedByOthers().contains(Assistant.TEN)){
-                            break;
-                        }
-                        ten.setDisable(false); ten.setVisible(true);
-                        break;
-                }
-            }
     }
 }

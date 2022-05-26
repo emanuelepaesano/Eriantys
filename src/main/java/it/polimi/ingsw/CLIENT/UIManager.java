@@ -123,8 +123,6 @@ public class UIManager extends Application{
     public Parent getPlanningPhaseRoot() {
         return planningPhaseRoot;
     }
-
-
     public View getPlanningPhaseView(){
         if (this.planningPhaseView ==null){
             try {
@@ -153,21 +151,21 @@ public class UIManager extends Application{
         return firstClientView;
     }
 
-    private View actionPhaseView;
-    private Parent actionPhaseRoot;
+    private View schoolView;
+    private Parent schoolRoot;
 
-    public Parent getActionPhaseRoot() {
-        return actionPhaseRoot;
+    public Parent getSchoolRoot() {
+        return schoolRoot;
     }
-    public View getActionPhaseView(){
-        if (this.actionPhaseView ==null){
+    public View getSchoolView(){
+        if (this.schoolView ==null){
             try {
                 FXMLLoader actionPhaseLoader = new FXMLLoader(getClass().getResource("/SchoolView.fxml"));
-                actionPhaseRoot = actionPhaseLoader.load();
-                actionPhaseView = actionPhaseLoader.getController();
+                schoolRoot = actionPhaseLoader.load();
+                schoolView = actionPhaseLoader.getController();
             }catch(IOException ex){ex.printStackTrace();}
         }
-        return actionPhaseView;
+        return schoolView;
     }
 
 

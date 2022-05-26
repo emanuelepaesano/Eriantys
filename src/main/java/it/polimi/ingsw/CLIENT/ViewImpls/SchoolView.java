@@ -8,12 +8,14 @@ import it.polimi.ingsw.messages.GenInfoMessage;
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.model.*;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import javax.swing.*;
@@ -55,6 +57,8 @@ public class SchoolView implements View {
     public ImageView t7w; public ImageView t7b; public ImageView t7g;
     public ImageView t8w; public ImageView t8b; public ImageView t8g;
     public Button moveToIsland ; public Button moveToDR; public Button back;
+
+    public Label towLabel;
     public AnchorPane mainPane;
 
     Player player;
@@ -76,7 +80,7 @@ public class SchoolView implements View {
 
     @Override
     public void display() {
-        Parent root = UIManager.getUIManager().getActionPhaseRoot();
+        Parent root = UIManager.getUIManager().getSchoolRoot();
         Scene sc;
         stage = UIManager.getUIManager().getMainWindow();
         if (root.getScene() == null) {
@@ -133,17 +137,41 @@ public class SchoolView implements View {
     public void fillInfo(Message mes) {
         ActionPhaseMessage message = (ActionPhaseMessage) mes;
         this.player = message.getPlayer();
+        back.setVisible(false);
         switch (message.getType()) {
-            case "yourturn":
+            case yourturn:
                 moveToDR.setDisable(false);
                 moveToIsland.setDisable(false);
                 break;
-            case "howmany":
+            case howmany:
                 //show a popup with how many selection
+                Platform.runLater(()->{
+                Spinner<Integer> numberSel = new Spinner<>(0,message.getAvailableActions(),0);
+                numberSel.setEditable(true);
+                Dialog<Integer> dialog = new Dialog<>();
+                dialog.setTitle("How Many");
+                dialog.setHeaderText("Choose the number of students to move.");
+                GridPane grid = new GridPane();
+                dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
+                grid.setHgap(10);grid.setVgap(10);
+                grid.setPadding(new Insets(20, 150, 10, 10));
+                Button send = new Button();
+                send.setText("Send");
+                send.setOnAction((e)->{
+                    nh.sendMessage(numberSel.getValue().toString());
+                    dialog.close();
+                });
+                grid.add(numberSel,0,0);
+                grid.add(send,0,1);
+                dialog.getDialogPane().setContent(grid);
+                dialog.showAndWait();
+                });
                 break;
-            case "studselect":
+            case studselect:
                 entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(false)));
                 back.setVisible(true);
+                break;
+            case update:
                 break;
         }
 
@@ -235,6 +263,8 @@ public class SchoolView implements View {
 
     public void bindTowers() {
         setTowersInvisible();
+        towLabel.setText("Towers: " + player.getNumTowers().toString());
+
         TowerColor towerColor = player.getTowerColor();
         Integer towerNum = player.getNumTowers();
         List<ImageView> towersImageView = towersImageViewList.get(towerColor);
@@ -272,6 +302,7 @@ public class SchoolView implements View {
     }
     public void sendBack(){
         nh.sendMessage("back");
+        back.setVisible(false);
     }
 
 }

@@ -102,7 +102,6 @@ public class NetworkHandler{
             ((Repliable) currentMessage).setReply(reply);
             System.out.println("sending reply");
             outStream.writeObject(currentMessage);
-            currentMessage = null;
             outStream.flush();
             outStream.reset();
         } catch (IOException e) {

@@ -3,14 +3,11 @@ package it.polimi.ingsw.CLIENT.ViewImpls;
 import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.CLIENT.View;
 import it.polimi.ingsw.messages.Message;
-import it.polimi.ingsw.messages.PlanningPhaseMessage;
-import javafx.scene.DepthTest;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Switcher implements View {
@@ -51,7 +48,7 @@ public class Switcher implements View {
 
     public void initialize(){
         uim = UIManager.getUIManager();
-        schoolView = uim.getActionPhaseView();
+        schoolView = uim.getSchoolView();
         planningPhaseView = uim.getPlanningPhaseView();
         genInfoView = uim.getGenInfoView();
     }
@@ -67,7 +64,7 @@ public class Switcher implements View {
     }
 
     public void toSchool() {
-        gameScene.setRoot(uim.getActionPhaseRoot());
+        gameScene.setRoot(uim.getSchoolRoot());
     }
 
     public void toAssistants() {

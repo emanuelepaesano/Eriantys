@@ -18,8 +18,7 @@ public class GenInfoMessage implements Message, Serializable {
 
 
     /**
-     *     this is updated at every player's turn and it can be also the model current state, when it's not your turn.
-     *     You can view this whenever you want by typing "view"
+     *     this is updated at every player's turn
      */
     public GenInfoMessage(Game game){
         this.map = game.getGameMap();
@@ -51,12 +50,12 @@ public class GenInfoMessage implements Message, Serializable {
     public void switchAndFillView() {
         System.out.println("the message is filling a view with this map: " + map);
         Platform.runLater(()->{
-        UIManager uim = UIManager.getUIManager();
-        uim.getGenInfoView().fillInfo(this);
-        System.out.println("geninfoview: finished filling info");
+            UIManager uim = UIManager.getUIManager();
+            uim.getSwitcher().display();
+            uim.getGenInfoView().fillInfo(this);
+            System.out.println("geninfoview: finished filling info");
 //        uim.getGenInfoView().display();
-        uim.getSwitcher().toIslands();
-        uim.getSwitcher().display();
+            uim.getSwitcher().toIslands();
         System.out.println("geninfoview displayed");
         });
     }

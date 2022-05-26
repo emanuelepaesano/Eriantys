@@ -1,10 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.VirtualView;
-import it.polimi.ingsw.messages.CloudMessage;
-import it.polimi.ingsw.messages.Message;
-import it.polimi.ingsw.messages.PickIslandMessage;
-import it.polimi.ingsw.messages.StringMessage;
+import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.*;
 
 import java.util.List;
@@ -57,10 +54,13 @@ public class EntranceController {
      * @return Method for moving students to dining room. Returns the number of moves used, for doActions()
      *
      */
-    public int moveToDiningRoom(int availablemoves, DiningRoom diningRoom){
+    public int moveToDiningRoom(int availablemoves, DiningRoom diningRoom, List<Player> players){
         //First part: we ask how many students to move, maximum availablemoves
-        Scanner scanner = new Scanner(System.in);
-        int nstud = askHowManyStudents(availablemoves, scanner);
+        int nstud;
+        if (availablemoves>1) {
+            nstud = askHowManyStudents(availablemoves);
+        }
+        else nstud = 1;
         //Now we ask to move the students
         List<Student> students = entrance.getStudents();
         String str;
@@ -77,6 +77,7 @@ public class EntranceController {
             if (students.contains(stud)){
                 students.remove(stud);
                 diningRoom.putStudent(stud);
+                player.getDiningRoom().checkProfessors(players,player.isOrEqual());
             }
             else{
                 System.out.println("You don't have this student in your entrance!");
@@ -88,35 +89,34 @@ public class EntranceController {
 
 
 
-    public int moveToIsland(int availablemoves, GameMap gm){
+    public int moveToIsland(GameMap gm){
 
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Current map:\n" + gm);
-        int nstud = askHowManyStudents(availablemoves, scanner);
         List<Student> students = entrance.getStudents();
         String str;
         Student stud;
-        for (int i = 0;i<nstud;i++){
-            System.out.println("For student number " +(i+1) + " :\n");
-            str = Student.askStudent(students, view,"entrance").toUpperCase();
-            if  (str.equals("BACK")) {return i;}
-            else if  (str.equals("RETRY")) {
-                i -= 1;
-                continue;}
-            else {stud = Student.valueOf(str);}
+        while(true) {
+            str = Student.askStudent(player,view).toUpperCase();
+            if (str.equals("BACK")) {
+                return 0;
+            }
+            else if (str.equals("RETRY")) {
+                continue;
+            }
+            else {
+                stud = Student.valueOf(str);
+            }
             //In the 2nd part now we move it to the chosen island
             if (students.contains(stud)){
                 students.remove(stud);
                 Island island = askWhichIsland(gm);
                 int oldval = island.students.get(stud);
                 island.students.replace(stud, oldval,oldval+1);
+                break;
             }
-            else{
-                System.out.println("You don't have this student in your entrance!");
-                i-=1;
-            }
+            else{new NoReplyMessage("You don't have this student in your entrance!").send(view);}
         }
-        return nstud; //doActions() needs this
+        return 1; //doActions() needs this
     }
 
 
@@ -126,11 +126,10 @@ public class EntranceController {
      * @param availablemoves you can move at most this number of students
      * @return asks how many students one wants to move. it's used by movetoDiningRoom and movetoIsland
      */
-    private int askHowManyStudents(int availablemoves, Scanner scanner) {
+    private int askHowManyStudents(int availablemoves) {
         int nstud;
         while (true) {
-            new StringMessage("How many students do you want to move (maximum " + availablemoves+ ") ?\n" +
-                    "To return to action selection, type '0' or 'back'").send(view);
+            new ActionPhaseMessage(player,availablemoves).send(view);
             String in = view.getReply();
             if (Objects.equals(in, "back")) {
                 return 0; //go back to movetox and then to doActions()

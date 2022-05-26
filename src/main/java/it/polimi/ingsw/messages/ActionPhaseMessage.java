@@ -9,12 +9,14 @@ import it.polimi.ingsw.model.Player;
 
 import java.util.List;
 
+import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.*;
+
 public class ActionPhaseMessage extends Repliable implements Message{
 
     String text;
     Player player;
     List<Character> characters;
-    String type;
+    ActionPhaseType type;
     Integer availableActions;
 
     public ActionPhaseMessage(Boolean advanced, int availableActions, Player player, List<Character>characters) {
@@ -23,7 +25,7 @@ public class ActionPhaseMessage extends Repliable implements Message{
         this.availableActions = availableActions;
         this.player = player;
         this.characters = characters;
-        this.type = "yourturn";
+        this.type = yourturn;
         if(advanced) {
             text = (player.getPlayerName()) + ", choose an action. (" + availableActions + " moves left)" +
                     " Please type \"islands\" or \"diningroom\" to move students, or \"characters\" to play a character. ";
@@ -33,22 +35,31 @@ public class ActionPhaseMessage extends Repliable implements Message{
     }
 
     public ActionPhaseMessage(Player player, int availableActions) {
-        //questo messaggio deve aprire un menu con una rotella per scegliere numero
         this.availableActions = availableActions;
         this.player = player;
-        this.type = "howmany";
+        this.type = howmany;
         text = "How many students do you want to move " +
                 "(maximum " + availableActions+ ") ?\n" + "To return to action selection, type '0' or 'back'";
     }
 
-    public ActionPhaseMessage(Player player) {
+    public ActionPhaseMessage(Player player, ActionPhaseType type) {
         this.player = player;
-        this.type = "studselect";
-        text ="Choose a student color from the available ones:\n{";
-        for (Student student : player.getEntrance().getStudents()){
-            text += "("+student+")";
+        this.type = type;
+        if (type.equals(studselect)){
+            text = "Choose a student color from the available ones:\n{";
+            for (Student student : player.getEntrance().getStudents()) {
+                text += "(" + student + ")";
+            }
+            text += "} or type \"back\" to annull.";
         }
-        text += "} or type \"back\" to annull.";
+        else {text = player.getEntrance().toString();}
+    }
+
+    public enum ActionPhaseType {
+        yourturn,
+        howmany,
+        update,
+        studselect;
     }
 
     @Override
@@ -69,7 +80,7 @@ public class ActionPhaseMessage extends Repliable implements Message{
     @Override
     public void switchAndFillView() {
         UIManager uim = UIManager.getUIManager();
-        View apv = uim.getActionPhaseView();
+        View apv = uim.getSchoolView();
         apv.fillInfo(this);
 //        apv.display();
         uim.getSwitcher().toSchool();
@@ -94,7 +105,7 @@ public class ActionPhaseMessage extends Repliable implements Message{
         return player;
     }
 
-    public String getType() {
+    public ActionPhaseType getType() {
         return type;
     }
 

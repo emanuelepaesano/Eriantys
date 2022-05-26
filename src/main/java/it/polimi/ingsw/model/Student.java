@@ -1,12 +1,12 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.VirtualView;
-import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.messages.ActionPhaseMessage;
-import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.messages.PickStudMessage;
 
 import java.util.*;
+
+import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.studselect;
 // TODO: 11/04/2022
 //  -> add abbreviations
 
@@ -57,7 +57,7 @@ public enum Student {
     public static String askStudent(Player player, VirtualView user){
         String str;
         try{
-            new ActionPhaseMessage(player).send(user);
+            new ActionPhaseMessage(player, studselect).send(user);
             str = user.getReply();
             if (Objects.equals(str, "back")) {return "back";}
             else {

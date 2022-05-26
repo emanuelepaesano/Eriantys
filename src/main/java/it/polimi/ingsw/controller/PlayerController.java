@@ -101,11 +101,9 @@ public class PlayerController {
         List<Assistant> remass = new ArrayList<>(); //list of remaining assistants
         player.getAssistants().forEach((a,b)->{if(b){remass.add(a);}});
 
-        new PlanningPhaseMessage(remass,playedAssistants,"play one of your remaining assistants: " ).send(playerView);
         while (true) {
+            new PlanningPhaseMessage(remass,playedAssistants,"play one of your remaining assistants: " ).send(playerView);
             String input = playerView.getReply();
-            //String input = new Scanner(System.in).nextLine();
-            // TODO: 15/04/2022 would be nice if also putting es.9 or 10 worked
             try {
                 Assistant choice = Assistant.valueOf(input.toUpperCase());
                 if (!playedAssistants.contains(choice) || playedAssistants.equals(remass)) {
@@ -148,7 +146,6 @@ public class PlayerController {
      */
     public int askMNMoves(){
         int possibleMoves = player.getBaseMoves() + player.getCurrentAssistant().getMoves();
-        Scanner scanner = new Scanner(System.in);
         new StringMessage(player.getPlayerName() + ", how many steps do you want to move Mother Nature? " +
                 "(At least 1, maximum " + possibleMoves + ")").send(playerView);
         while (true) {

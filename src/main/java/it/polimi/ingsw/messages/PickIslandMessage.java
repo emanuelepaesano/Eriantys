@@ -1,5 +1,7 @@
 package it.polimi.ingsw.messages;
 
+import it.polimi.ingsw.CLIENT.UIManager;
+import it.polimi.ingsw.CLIENT.ViewImpls.GenInfoView;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.model.GameMap;
 
@@ -27,7 +29,10 @@ public class PickIslandMessage extends Repliable{
 
     @Override
     public void switchAndFillView() {
-        //show a screen where you can interact with the islands (only case in game)
+        //show a screen where you can interact with the islands
+        UIManager uim = UIManager.getUIManager();
+        uim.getSwitcher().toIslands();
+        ((GenInfoView)uim.getGenInfoView()).enableIslands();
 
     }
 

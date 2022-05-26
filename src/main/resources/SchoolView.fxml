@@ -1020,6 +1020,6 @@
    </ImageView>
    <Label layoutX="421.0" layoutY="671.0" prefHeight="51.0" prefWidth="59.0" text="Your coins:" />
    <Label layoutX="486.0" layoutY="688.0" text="&lt;N&gt;" />
-   <Label layoutX="1085.0" layoutY="94.0" prefHeight="51.0" prefWidth="82.0" style="-fx-background-color: white;" text="&lt;numTowers&gt;" />
+   <Label fx:id="towLabel" layoutX="1085.0" layoutY="94.0" prefHeight="51.0" prefWidth="82.0" style="-fx-background-color: white;" text="&lt;numTowers&gt;" />
    <Button fx:id="back" layoutX="14.0" layoutY="131.0" mnemonicParsing="false" onAction="#sendBack" prefHeight="66.0" prefWidth="97.0" text="BACK" />
 </AnchorPane>

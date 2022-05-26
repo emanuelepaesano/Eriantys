@@ -52,7 +52,6 @@ public class ClientHandler {
             System.out.println("Connected to client! We are at " + (i+2) + " players out of " + (n+1));
         }
         try{Thread.sleep(100);}catch(Exception ex){}
-        new NoReplyMessage("We can start the game! ("+ (n+1) +"-player game)").send(views);
     }
 
 

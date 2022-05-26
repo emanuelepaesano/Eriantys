@@ -6,6 +6,8 @@ import it.polimi.ingsw.model.*;
 
 import java.util.*;
 
+import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.update;
+
 public class GameController {
     private Game game;
 
@@ -129,7 +131,6 @@ private void askAllPlayerNames(){
      * This is a bit complicated, we might break it down somehow.
      */
     public void doPlanningPhase(Game g){
-        // TODO: 13/04/2022 we miss the case in which the player only has the same assistant left
         //This weird code is to start from the current first and then go clockwise, following the
         //table order. In this order, we make players play assistants, and store them in a Map
         Map<Integer, Player> Priorities = new TreeMap<>();
@@ -158,17 +159,19 @@ private void askAllPlayerNames(){
         Player player = pc.getPlayer();
         EntranceController entranceController = pc.getEntranceController();
         int availableActions = player.getNumActions();
-        //there will be an actionlistener in the client linked to 3 buttons. depending on the button pressed
-        //(movetodiningroom or movetoisland) the client sends a different string.
-        // the controller calls a method based on this string, updating model
         while (availableActions>0) {
             String action = askWhichAction(availableActions,pc);
             if (action.equalsIgnoreCase("diningroom")) {
-                availableActions -= entranceController.moveToDiningRoom(availableActions, player.getDiningRoom());
-                player.getDiningRoom().checkProfessors(game.getTableOrder(),player.isOrEqual());
+                availableActions -= entranceController.moveToDiningRoom(availableActions, player.getDiningRoom(), game.getTableOrder());
+                new ActionPhaseMessage(player,update).send(pc.getPlayerView());
             }
             else if (action.equalsIgnoreCase("islands")){
-                availableActions -= entranceController.moveToIsland(availableActions, game.getGameMap());}
+                int didMove = entranceController.moveToIsland(game.getGameMap());
+                if (didMove == 1){
+                    new GenInfoMessage(game).send(pc.getPlayerView());
+                    availableActions -= didMove;
+                }
+            }
             else if (action.equalsIgnoreCase("characters")){
                 if(player.getCoins()!= null){
                     pc.playCharacters(game.getCharacters(),game);

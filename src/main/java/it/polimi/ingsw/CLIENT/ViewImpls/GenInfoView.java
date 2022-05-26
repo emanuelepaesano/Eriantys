@@ -13,6 +13,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Effect;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -51,8 +53,12 @@ public class GenInfoView implements View {
     public ImageView tow_9w;public ImageView tow_9g;public ImageView tow_10w;public ImageView tow_10g;
     public ImageView tow_11b;public ImageView tow_11w;public ImageView tow_11g;public ImageView tow_10b;
 
+    public ImageView island0; public ImageView island1; public ImageView island2; public ImageView island3;
+    public ImageView island4; public ImageView island5; public ImageView island6; public ImageView island7;
+    public ImageView island8; public ImageView island9; public ImageView island10; public ImageView island11;
 
 
+    private List<ImageView> islands;
     GameMap map;
     List<Player> players;
     Stage stage;
@@ -81,6 +87,9 @@ public class GenInfoView implements View {
     public void initialize(){
         nh = UIManager.getUIManager().getNh();
         nh.setMessageArrivedObserver(Message::switchAndFillView);
+        islands = List.of(island0,island1,island2,island3, island4, island5,
+                island6,island7, island8,island9,island10,island11);
+        islands.forEach(i->i.setDisable(true));
     }
 
     @Override
@@ -96,7 +105,13 @@ public class GenInfoView implements View {
         showTowers();
     }
 
-
+    public void enableIslands(){
+        for(int i = 0; i<12;i++){
+            if (!map.getAllIslands().get(i).isJoined()){
+                islands.get(i).setDisable(false);
+            }
+        }
+    }
 
     private void bindAllLabels(){
         List<List<Label>> allStudentList =
@@ -169,6 +184,142 @@ public class GenInfoView implements View {
             }
         }
     }
+
+
+    //space for fxml commands
+    public void enter0(){
+        island0.setEffect(new DropShadow());
+    }
+    public void exit0(){
+        island0.setEffect(null);
+    }
+    public void send0(){
+        nh.sendMessage("0");
+        islands.forEach((i)->i.setDisable(true));
+    }
+
+    public void enter1(){
+        island1.setEffect(new DropShadow());
+    }
+    public void exit1(){
+        island1.setEffect(null);
+    }
+    public void send1(){
+        nh.sendMessage("1");
+        islands.forEach((i)->i.setDisable(true));
+    }
+
+    public void enter2(){
+        island2.setEffect(new DropShadow());
+    }
+    public void exit2(){
+        island2.setEffect(null);
+    }
+    public void send2(){
+        nh.sendMessage("2");
+        islands.forEach((i)->i.setDisable(true));
+    }
+
+    public void enter3(){
+        island3.setEffect(new DropShadow());
+    }
+    public void exit3(){
+        island3.setEffect(null);
+    }
+    public void send3(){
+        nh.sendMessage("3");
+        islands.forEach((i)->i.setDisable(true));
+    }
+
+    public void enter4(){
+        island4.setEffect(new DropShadow());
+    }
+    public void exit4(){
+        island4.setEffect(null);
+    }
+    public void send4() {
+        nh.sendMessage("4");
+        islands.forEach((i)->i.setDisable(true));
+    }
+
+    public void enter5(){
+        island5.setEffect(new DropShadow());
+    }
+    public void exit5(){
+        island5.setEffect(null);
+    }
+    public void send5(){
+        nh.sendMessage("5");
+        islands.forEach((i)->i.setDisable(true));
+    }
+
+    public void enter6(){
+        island6.setEffect(new DropShadow());
+    }
+    public void exit6(){
+        island6.setEffect(null);
+    }
+    public void send6(){
+        nh.sendMessage("6");
+        islands.forEach((i)->i.setDisable(true));
+    }
+
+    public void enter7(){
+        island7.setEffect(new DropShadow());
+    }
+    public void exit7(){
+        island7.setEffect(null);
+    }
+    public void send7(){
+        nh.sendMessage("7");
+        islands.forEach((i)->i.setDisable(true));
+    }
+
+    public void enter8(){
+        island8.setEffect(new DropShadow());
+    }
+    public void exit8(){
+        island8.setEffect(null);
+    }
+    public void send8(){
+        nh.sendMessage("8");
+        islands.forEach((i)->i.setDisable(true));
+    }
+
+    public void enter9(){
+        island9.setEffect(new DropShadow());
+    }
+    public void exit9(){
+        island9.setEffect(null);
+    }
+    public void send9(){
+        nh.sendMessage("9");
+        islands.forEach((i)->i.setDisable(true));
+    }
+
+    public void enter10(){
+        island10.setEffect(new DropShadow());
+    }
+    public void exit10(){
+        island10.setEffect(null);
+    }
+    public void send10(){
+        nh.sendMessage("10");
+        islands.forEach((i)->i.setDisable(true));
+    }
+
+    public void enter11(){
+        island11.setEffect(new DropShadow());
+    }
+    public void exit11(){
+        island11.setEffect(null);
+    }
+    public void send11(){
+        nh.sendMessage("11");
+        islands.forEach((i)->i.setDisable(true));
+    }
+
+
 
 
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.messages.ActionPhaseMessage;
 import it.polimi.ingsw.messages.GenInfoMessage;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.PlayerController;
@@ -10,6 +11,8 @@ import it.polimi.ingsw.model.Player;
 
 import java.io.IOException;
 import java.util.List;
+
+import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.update;
 
 
 /**
@@ -24,6 +27,9 @@ public class ServerApp {
         GameController gc = new GameController(numplayers,server.views);
         Game game = gc.getGame();
         Message info =  new GenInfoMessage(game);
+        for (PlayerController pc: gc.getControllers()){
+            new ActionPhaseMessage(pc.getPlayer(), update).send(pc.getPlayerView());
+        }
         info.send(server.views);
         while (!game.isOver()) {
             gc.doPlanningPhase(game);
