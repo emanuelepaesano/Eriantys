@@ -3,24 +3,25 @@ package it.polimi.ingsw.CLIENT.ViewImpls;
 import it.polimi.ingsw.CLIENT.NetworkHandler;
 import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.CLIENT.View;
-import it.polimi.ingsw.messages.GenInfoMessage;
+import it.polimi.ingsw.messages.IslandMessage;
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.model.*;
 import javafx.application.Platform;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Effect;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.util.List;
 
-public class GenInfoView implements View {
+import static it.polimi.ingsw.messages.IslandMessage.IslandMessageType.moveMN;
+import static it.polimi.ingsw.messages.IslandMessage.IslandMessageType.update;
+
+public class IslandView implements View {
 
     public Label red0; public Label yellow0; public Label pink0; public Label green0; public Label blue0;
     public Label red1; public Label yellow1; public Label pink1; public Label green1; public Label blue1;
@@ -94,16 +95,26 @@ public class GenInfoView implements View {
 
     @Override
     public void fillInfo(Message mes) {
-        GenInfoMessage message = (GenInfoMessage) mes;
-        map = message.getMap();
-        players = message.getPlayers();
+        IslandMessage message = (IslandMessage) mes;
+        if (message.getType().equals(update)) {
+            map = message.getMap();
+            players = message.getPlayers();
 
-        //Here we have to link the elements from the model to the graphic components.
-        bindAllLabels();
-        bindMotherNature();
-        addBridges();
-        showTowers();
+            //Here we have to link the elements from the model to the graphic components.
+            bindAllLabels();
+            bindMotherNature();
+            addBridges();
+            showTowers();
+        }
+        else if (message.getType().equals(moveMN)){
+            Platform.runLater(()->{
+                Spinner<Integer> numberSel = new Spinner<>(1,message.getMaxMoves(),1);
+                View.makeSpinnerDialog(numberSel, nh, "Move Mother Nature", "How many steps?");
+            });
+        }
     }
+
+
 
     public void enableIslands(){
         for(int i = 0; i<12;i++){

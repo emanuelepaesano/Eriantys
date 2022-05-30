@@ -4,24 +4,21 @@ import it.polimi.ingsw.CLIENT.NetworkHandler;
 import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.CLIENT.View;
 import it.polimi.ingsw.messages.ActionPhaseMessage;
-import it.polimi.ingsw.messages.GenInfoMessage;
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.model.*;
 import javafx.application.Platform;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.Bloom;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class SchoolView implements View {
 
@@ -147,24 +144,7 @@ public class SchoolView implements View {
                 //show a popup with how many selection
                 Platform.runLater(()->{
                 Spinner<Integer> numberSel = new Spinner<>(0,message.getAvailableActions(),0);
-                numberSel.setEditable(true);
-                Dialog<Integer> dialog = new Dialog<>();
-                dialog.setTitle("How Many");
-                dialog.setHeaderText("Choose the number of students to move.");
-                GridPane grid = new GridPane();
-                dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CANCEL);
-                grid.setHgap(10);grid.setVgap(10);
-                grid.setPadding(new Insets(20, 150, 10, 10));
-                Button send = new Button();
-                send.setText("Send");
-                send.setOnAction((e)->{
-                    nh.sendMessage(numberSel.getValue().toString());
-                    dialog.close();
-                });
-                grid.add(numberSel,0,0);
-                grid.add(send,0,1);
-                dialog.getDialogPane().setContent(grid);
-                dialog.showAndWait();
+                    View.makeSpinnerDialog(numberSel, nh, "How many", "Choose the number of students to move.");
                 });
                 break;
             case studselect:
@@ -271,6 +251,16 @@ public class SchoolView implements View {
         for (int i=0; i<towerNum; i++) {
             towersImageView.get(i).setVisible(true);
         }
+    }
+
+    public void enteredStudent(MouseEvent event){
+        ImageView student = (ImageView) event.getSource();
+        student.setEffect(new Bloom());
+    }
+
+    public void exitedStudent(MouseEvent event){
+        ImageView student = (ImageView) event.getSource();
+        student.setEffect(new DropShadow());
     }
 
 

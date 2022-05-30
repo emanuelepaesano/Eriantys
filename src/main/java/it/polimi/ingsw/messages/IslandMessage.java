@@ -9,20 +9,27 @@ import javafx.application.Platform;
 import java.io.Serializable;
 import java.util.List;
 
-public class GenInfoMessage implements Message, Serializable {
+import static it.polimi.ingsw.messages.IslandMessage.IslandMessageType.moveMN;
+import static it.polimi.ingsw.messages.IslandMessage.IslandMessageType.update;
 
+public class IslandMessage implements Message, Serializable {
+
+    private int maxMoves;
     String text;
-    private final GameMap map;
+    private GameMap map;
     List<Player> players;
+
+    IslandMessageType type;
 
 
 
     /**
      *     this is updated at every player's turn
      */
-    public GenInfoMessage(Game game){
+    public IslandMessage(Game game){
         this.map = game.getGameMap();
         this.players = game.getTableOrder();
+        this.type = update;
 
         System.out.println("message: this is my map " + this.map);
         String string = "";
@@ -35,6 +42,16 @@ public class GenInfoMessage implements Message, Serializable {
         text = string;
     }
 
+    public IslandMessage(Player player, int maxMoves){
+        this.maxMoves = maxMoves;
+        this.type = moveMN;
+        text = player.getPlayerName() + ", how many steps do you want to move Mother Nature? " +
+                "(At least 1, maximum " + maxMoves + ")";
+    }
+    public enum IslandMessageType{
+        update,
+        moveMN;
+    }
     @Override
     public void send(VirtualView user) { user.update(this);}
 
@@ -52,10 +69,9 @@ public class GenInfoMessage implements Message, Serializable {
         Platform.runLater(()->{
             UIManager uim = UIManager.getUIManager();
             uim.getSwitcher().display();
+            uim.getSwitcher().toIslands();
             uim.getGenInfoView().fillInfo(this);
             System.out.println("geninfoview: finished filling info");
-//        uim.getGenInfoView().display();
-            uim.getSwitcher().toIslands();
         System.out.println("geninfoview displayed");
         });
     }
@@ -81,5 +97,13 @@ public class GenInfoMessage implements Message, Serializable {
     @Override
     public Boolean isRepliable() {
         return false;
+    }
+
+    public IslandMessageType getType() {
+        return type;
+    }
+
+    public int getMaxMoves() {
+        return maxMoves;
     }
 }

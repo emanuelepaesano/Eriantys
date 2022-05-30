@@ -146,8 +146,7 @@ public class PlayerController {
      */
     public int askMNMoves(){
         int possibleMoves = player.getBaseMoves() + player.getCurrentAssistant().getMoves();
-        new StringMessage(player.getPlayerName() + ", how many steps do you want to move Mother Nature? " +
-                "(At least 1, maximum " + possibleMoves + ")").send(playerView);
+        new IslandMessage(player,possibleMoves).send(playerView);
         while (true) {
             try {
                 int choice = Integer.parseInt(playerView.getReply());
