@@ -255,7 +255,9 @@ public class SchoolView implements View {
 
     public void enteredStudent(MouseEvent event){
         ImageView student = (ImageView) event.getSource();
-        student.setEffect(new Bloom());
+        Bloom effect = new Bloom();
+        effect.setInput(new DropShadow());
+        student.setEffect(effect);
     }
 
     public void exitedStudent(MouseEvent event){

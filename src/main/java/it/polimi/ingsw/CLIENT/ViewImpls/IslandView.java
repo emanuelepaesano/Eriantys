@@ -7,19 +7,21 @@ import it.polimi.ingsw.messages.IslandMessage;
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.model.*;
 import javafx.application.Platform;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.Bloom;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Effect;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
 
-import static it.polimi.ingsw.messages.IslandMessage.IslandMessageType.moveMN;
-import static it.polimi.ingsw.messages.IslandMessage.IslandMessageType.update;
+import static it.polimi.ingsw.messages.IslandMessage.IslandMessageType.*;
 
 public class IslandView implements View {
 
@@ -35,6 +37,22 @@ public class IslandView implements View {
     public Label red9; public Label yellow9; public Label pink9; public Label green9; public Label blue9;
     public Label red10; public Label yellow10; public Label pink10; public Label green10; public Label blue10;
     public Label red11; public Label yellow11; public Label pink11; public Label green11; public Label blue11;
+
+    public ImageView c1y1; public ImageView c1y2; public ImageView c1y3; public ImageView c1y4;
+    public ImageView c2y1; public ImageView c2y2; public ImageView c2y3; public ImageView c2y4;
+    public ImageView c3y1; public ImageView c3y2; public ImageView c3y3; public ImageView c3y4;
+    public ImageView c1r1; public ImageView c1r2; public ImageView c1r3; public ImageView c1r4;
+    public ImageView c2r1; public ImageView c2r2; public ImageView c2r3; public ImageView c2r4;
+    public ImageView c3r1; public ImageView c3r2; public ImageView c3r3; public ImageView c3r4;
+    public ImageView c1p1; public ImageView c1p2; public ImageView c1p3; public ImageView c1p4;
+    public ImageView c2p1; public ImageView c2p2; public ImageView c2p3; public ImageView c2p4;
+    public ImageView c3p1; public ImageView c3p2; public ImageView c3p3; public ImageView c3p4;
+    public ImageView c1g1; public ImageView c1g2; public ImageView c1g3; public ImageView c1g4;
+    public ImageView c2g1; public ImageView c2g2; public ImageView c2g3; public ImageView c2g4;
+    public ImageView c3g1; public ImageView c3g2; public ImageView c3g3; public ImageView c3g4;
+    public ImageView c1b1; public ImageView c1b2; public ImageView c1b3; public ImageView c1b4;
+    public ImageView c2b1; public ImageView c2b2; public ImageView c2b3; public ImageView c2b4;
+    public ImageView c3b1; public ImageView c3b2; public ImageView c3b3; public ImageView c3b4;
 
     public ImageView mn1;public ImageView mn2;public ImageView mn3;public ImageView mn4;
     public ImageView mn5;public ImageView mn6;public ImageView mn7;public ImageView mn8;
@@ -57,14 +75,19 @@ public class IslandView implements View {
     public ImageView island0; public ImageView island1; public ImageView island2; public ImageView island3;
     public ImageView island4; public ImageView island5; public ImageView island6; public ImageView island7;
     public ImageView island8; public ImageView island9; public ImageView island10; public ImageView island11;
+    public ImageView c3;
 
 
     private List<ImageView> islands;
+    private int numClouds;
     GameMap map;
+    List<List<Student>> clouds;
     List<Player> players;
     Stage stage;
-
     NetworkHandler nh;
+    int numPlayers;
+
+    List<List<List<ImageView>>> cloudStuds;
 
     @Override
     public void display() {
@@ -96,13 +119,28 @@ public class IslandView implements View {
     @Override
     public void fillInfo(Message mes) {
         IslandMessage message = (IslandMessage) mes;
-        if (message.getType().equals(update)) {
+        if (message.getType().equals(init)){
+            numPlayers = message.getNumPlayers();
+            clouds = message.getClouds();
+            numClouds = clouds.size();
+            initCloudStuds();
             map = message.getMap();
             players = message.getPlayers();
+            bindAllLabels();
+            bindMotherNature();
+            bindClouds();
+            addBridges();
+            showTowers();
+        }
+        else if (message.getType().equals(updateMap)) {
+            map = message.getMap();
+            players = message.getPlayers();
+            clouds = message.getClouds();
 
             //Here we have to link the elements from the model to the graphic components.
             bindAllLabels();
             bindMotherNature();
+            bindClouds();
             addBridges();
             showTowers();
         }
@@ -120,6 +158,82 @@ public class IslandView implements View {
         for(int i = 0; i<12;i++){
             if (!map.getAllIslands().get(i).isJoined()){
                 islands.get(i).setDisable(false);
+            }
+        }
+    }
+
+    private void initCloudStuds(){
+        cloudStuds = new ArrayList<>(
+                List.of(
+                    //cloud 1
+                    new ArrayList<>(List.of(
+                                List.of(c1y1, c1r1, c1p1, c1g1, c1b1), List.of(c1y2, c1r2, c1p2, c1g2, c1b2),
+                                List.of(c1y3, c1r3, c1p3, c1g3, c1b3), List.of(c1y4, c1r4, c1p4, c1g4, c1b4)
+                        )
+                    ),
+                    //cloud 2
+                    new ArrayList<>(List.of(
+                                List.of(c2y1, c2r1, c2p1, c2g1, c2b1), List.of(c2y2, c2r2, c2p2, c2g2, c2b2),
+                                List.of(c2y3, c2r3, c2p3, c2g3, c2b3), List.of(c2y4, c2r4, c2p4, c2g4, c2b4)
+                        )
+                    ),
+                    //cloud 3
+                    new ArrayList<>(List.of(
+                                List.of(c3y1, c3r1, c3p1, c3g1, c3b1), List.of(c3y2, c3r2, c3p2, c3g2, c3b2),
+                                List.of(c3y3, c3r3, c3p3, c3g3, c3b3), List.of(c3y4, c3r4, c3p4, c3g4, c3b4)
+                        )
+                    )
+                )
+        );
+        if (numClouds == 2) {
+            cloudStuds.remove(2);
+            cloudStuds.forEach(cloud->cloud.remove(2));
+            c3.setVisible(false);
+        }
+        cloudStuds.forEach((cloud)->cloud.forEach((pos)->{
+            pos.get(0).setOnMouseClicked(this::sendYellow);
+            pos.get(1).setOnMouseClicked(this::sendRed);
+            pos.get(2).setOnMouseClicked(this::sendPink);
+            pos.get(3).setOnMouseClicked(this::sendGreen);
+            pos.get(4).setOnMouseClicked(this::sendBlue);
+            pos.forEach(img->img.setDisable(true));
+        }));
+
+    }
+
+    private void sendBlue(MouseEvent mouseEvent) {
+        nh.sendMessage("blue");
+    }
+
+    private void sendGreen(MouseEvent mouseEvent) {
+        nh.sendMessage("green");
+    }
+
+    private void sendPink(MouseEvent mouseEvent) {
+        nh.sendMessage("pink");
+    }
+
+    private void sendRed(MouseEvent mouseEvent) {
+        nh.sendMessage("red");
+    }
+
+    private void sendYellow(MouseEvent mouseEvent) {
+        nh.sendMessage("yellow");
+    }
+
+    private void bindClouds(){
+        for (int i = 0; i<numClouds; i++){
+            List<Student> cloud = clouds.get(i);
+            List<List<ImageView>> toBind = cloudStuds.get(i);
+            int maxPos = numPlayers ==3? 4:3;
+            for (int pos = 0; pos<maxPos; pos++) {
+                    switch (cloud.get(pos)) {
+                        case YELLOW -> toBind.get(pos).get(0).setVisible(true);
+                        case RED -> toBind.get(pos).get(1).setVisible(true);
+                        case PINK -> toBind.get(pos).get(2).setVisible(true);
+                        case GREEN -> toBind.get(pos).get(3).setVisible(true);
+                        case BLUE -> toBind.get(pos).get(4).setVisible(true);
+                    }
             }
         }
     }
@@ -195,6 +309,7 @@ public class IslandView implements View {
             }
         }
     }
+
 
 
     //space for fxml commands
@@ -331,8 +446,15 @@ public class IslandView implements View {
     }
 
 
+    public void enteredStudent(MouseEvent event) {
+        ImageView student = (ImageView) event.getSource();
+        Bloom effect = new Bloom();
+        effect.setInput(new DropShadow());
+        student.setEffect(effect);
+    }
 
-
-
-
+    public void exitedStudent(MouseEvent event) {
+        ImageView student = (ImageView) event.getSource();
+        student.setEffect(new DropShadow());
+    }
 }

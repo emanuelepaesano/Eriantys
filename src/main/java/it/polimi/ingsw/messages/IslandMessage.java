@@ -4,21 +4,22 @@ import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GameMap;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.Student;
 import javafx.application.Platform;
 
 import java.io.Serializable;
 import java.util.List;
 
 import static it.polimi.ingsw.messages.IslandMessage.IslandMessageType.moveMN;
-import static it.polimi.ingsw.messages.IslandMessage.IslandMessageType.update;
 
 public class IslandMessage implements Message, Serializable {
 
+    private int numPlayers;
+    private List<List<Student>> clouds;
     private int maxMoves;
     String text;
     private GameMap map;
     List<Player> players;
-
     IslandMessageType type;
 
 
@@ -26,10 +27,12 @@ public class IslandMessage implements Message, Serializable {
     /**
      *     this is updated at every player's turn
      */
-    public IslandMessage(Game game){
-        this.map = game.getGameMap();
+    public IslandMessage(Game game, IslandMessageType type){
         this.players = game.getTableOrder();
-        this.type = update;
+        this.numPlayers = players.size();
+        this.map = game.getGameMap();
+        this.clouds = game.getClouds();
+        this.type = type;
 
         System.out.println("message: this is my map " + this.map);
         String string = "";
@@ -49,7 +52,8 @@ public class IslandMessage implements Message, Serializable {
                 "(At least 1, maximum " + maxMoves + ")";
     }
     public enum IslandMessageType{
-        update,
+        updateMap,
+        init,
         moveMN;
     }
     @Override
@@ -87,6 +91,12 @@ public class IslandMessage implements Message, Serializable {
 
     public List<Player> getPlayers() {
         return players;
+    }
+
+    public List<List<Student>> getClouds() {return clouds;}
+
+    public int getNumPlayers() {
+        return numPlayers;
     }
 
     @Override

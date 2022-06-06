@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.List;
 
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.update;
+import static it.polimi.ingsw.messages.IslandMessage.IslandMessageType.init;
+import static it.polimi.ingsw.messages.IslandMessage.IslandMessageType.updateMap;
 
 
 /**
@@ -26,7 +28,7 @@ public class ServerApp {
         int numplayers = server.startServer();
         GameController gc = new GameController(numplayers,server.views);
         Game game = gc.getGame();
-        Message info =  new IslandMessage(game);
+        Message info =  new IslandMessage(game, init);
         for (PlayerController pc: gc.getControllers()){
             new ActionPhaseMessage(pc.getPlayer(), update).send(pc.getPlayerView());
         }
@@ -39,9 +41,9 @@ public class ServerApp {
                 gc.doActions(pc);
                 int nmoves = pc.askMNMoves();
                 game.getGameMap().moveMotherNatureAndCheck(game.getTableOrder(), nmoves);
-                new IslandMessage(game).send(pc.getPlayerView());
+                new IslandMessage(game, updateMap).send(pc.getPlayerView());
                 pc.getEntranceController().fillFromClouds(game.getClouds());
-                new IslandMessage(game).send(server.views);
+                new IslandMessage(game, updateMap).send(server.views);
                 game.checkGameEndCondition("towerend", player);
                 game.checkGameEndCondition("islandend", player);
                 if (game.isOver()) {

@@ -168,7 +168,7 @@ private void askAllPlayerNames(){
             else if (action.equalsIgnoreCase("islands")){
                 int didMove = entranceController.moveToIsland(game.getGameMap());
                 if (didMove == 1){
-                    new IslandMessage(game).send(pc.getPlayerView());
+                    new IslandMessage(game, IslandMessage.IslandMessageType.updateMap).send(pc.getPlayerView());
                     availableActions -= didMove;
                 }
             }
