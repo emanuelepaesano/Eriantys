@@ -10,9 +10,8 @@ import javafx.application.Platform;
 import java.io.Serializable;
 import java.util.List;
 
-import static it.polimi.ingsw.messages.IslandMessage.IslandMessageType.moveMN;
 
-public class IslandMessage implements Message, Serializable {
+public class IslandInfoMessage implements Message, Serializable {
 
     private int numPlayers;
     private List<List<Student>> clouds;
@@ -20,21 +19,20 @@ public class IslandMessage implements Message, Serializable {
     String text;
     private GameMap map;
     List<Player> players;
-    IslandMessageType type;
+    IslandInfoType type;
 
 
 
     /**
      *     this is updated at every player's turn
      */
-    public IslandMessage(Game game, IslandMessageType type){
+    public IslandInfoMessage(Game game, IslandInfoType type){
         this.players = game.getTableOrder();
         this.numPlayers = players.size();
         this.map = game.getGameMap();
         this.clouds = game.getClouds();
         this.type = type;
 
-        System.out.println("message: this is my map " + this.map);
         String string = "";
         string += Game.ANSI_BOLD + "GAME MAP:\n" + Game.ANSI_RESET + this.map.toString();
         string +=  Game.ANSI_BOLD + "\nPLAYERS:\n" + Game.ANSI_RESET;
@@ -45,16 +43,11 @@ public class IslandMessage implements Message, Serializable {
         text = string;
     }
 
-    public IslandMessage(Player player, int maxMoves){
-        this.maxMoves = maxMoves;
-        this.type = moveMN;
-        text = player.getPlayerName() + ", how many steps do you want to move Mother Nature? " +
-                "(At least 1, maximum " + maxMoves + ")";
-    }
-    public enum IslandMessageType{
+
+
+    public enum IslandInfoType {
         updateMap,
         init,
-        moveMN;
     }
     @Override
     public void send(VirtualView user) { user.update(this);}
@@ -109,7 +102,7 @@ public class IslandMessage implements Message, Serializable {
         return false;
     }
 
-    public IslandMessageType getType() {
+    public IslandInfoType getType() {
         return type;
     }
 

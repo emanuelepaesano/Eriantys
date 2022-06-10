@@ -3,25 +3,25 @@ package it.polimi.ingsw.CLIENT.ViewImpls;
 import it.polimi.ingsw.CLIENT.NetworkHandler;
 import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.CLIENT.View;
-import it.polimi.ingsw.messages.IslandMessage;
+import it.polimi.ingsw.messages.IslandActionMessage;
+import it.polimi.ingsw.messages.IslandInfoMessage;
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.model.*;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.effect.Bloom;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Effect;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static it.polimi.ingsw.messages.IslandMessage.IslandMessageType.*;
+import static it.polimi.ingsw.messages.IslandActionMessage.IslandActionType.cloudSel;
+import static it.polimi.ingsw.messages.IslandActionMessage.IslandActionType.moveMN;
+import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.*;
 
 public class IslandView implements View {
 
@@ -75,7 +75,7 @@ public class IslandView implements View {
     public ImageView island0; public ImageView island1; public ImageView island2; public ImageView island3;
     public ImageView island4; public ImageView island5; public ImageView island6; public ImageView island7;
     public ImageView island8; public ImageView island9; public ImageView island10; public ImageView island11;
-    public ImageView c3;
+    public ImageView c3;public ImageView c2;public ImageView c1;
 
 
     private List<ImageView> islands;
@@ -118,37 +118,47 @@ public class IslandView implements View {
 
     @Override
     public void fillInfo(Message mes) {
-        IslandMessage message = (IslandMessage) mes;
-        if (message.getType().equals(init)){
-            numPlayers = message.getNumPlayers();
-            clouds = message.getClouds();
-            numClouds = clouds.size();
-            initCloudStuds();
-            map = message.getMap();
-            players = message.getPlayers();
-            bindAllLabels();
-            bindMotherNature();
-            bindClouds();
-            addBridges();
-            showTowers();
-        }
-        else if (message.getType().equals(updateMap)) {
-            map = message.getMap();
-            players = message.getPlayers();
-            clouds = message.getClouds();
+        if (mes.isRepliable()){
+            IslandActionMessage message = (IslandActionMessage) mes;
 
-            //Here we have to link the elements from the model to the graphic components.
-            bindAllLabels();
-            bindMotherNature();
-            bindClouds();
-            addBridges();
-            showTowers();
+            if (message.getType().equals(moveMN)) {
+                Platform.runLater(() -> {
+                    Spinner<Integer> numberSel = new Spinner<>(1, message.getMaxMoves(), 1);
+                    View.makeSpinnerDialog(numberSel, nh, "Move Mother Nature", "How many steps?");
+                });
+            }
+
+            else if (message.getType().equals(cloudSel)) {
+                enableClouds(numClouds);
+
+            }
         }
-        else if (message.getType().equals(moveMN)){
-            Platform.runLater(()->{
-                Spinner<Integer> numberSel = new Spinner<>(1,message.getMaxMoves(),1);
-                View.makeSpinnerDialog(numberSel, nh, "Move Mother Nature", "How many steps?");
-            });
+        else {
+            IslandInfoMessage message = (IslandInfoMessage) mes;
+            if (message.getType().equals(init)) {
+                numPlayers = message.getNumPlayers();
+                clouds = message.getClouds();
+                numClouds = clouds.size();
+                initCloudStuds();
+                map = message.getMap();
+                players = message.getPlayers();
+                bindAllLabels();
+                bindMotherNature();
+                bindClouds();
+                addBridges();
+                showTowers();
+            } else if (message.getType().equals(updateMap)) {
+                map = message.getMap();
+                players = message.getPlayers();
+                clouds = message.getClouds();
+
+                //Here we have to link the elements from the model to the graphic components.
+                bindAllLabels();
+                bindMotherNature();
+                bindClouds();
+                addBridges();
+                showTowers();
+            }
         }
     }
 
@@ -159,6 +169,14 @@ public class IslandView implements View {
             if (!map.getAllIslands().get(i).isJoined()){
                 islands.get(i).setDisable(false);
             }
+        }
+    }
+
+    public void enableClouds(int numClouds){
+        c1.setDisable(false);
+        c2.setDisable(false);
+        if (numClouds>2) {
+            c3.setDisable(false);
         }
     }
 
@@ -190,35 +208,8 @@ public class IslandView implements View {
             cloudStuds.forEach(cloud->cloud.remove(2));
             c3.setVisible(false);
         }
-        cloudStuds.forEach((cloud)->cloud.forEach((pos)->{
-            pos.get(0).setOnMouseClicked(this::sendYellow);
-            pos.get(1).setOnMouseClicked(this::sendRed);
-            pos.get(2).setOnMouseClicked(this::sendPink);
-            pos.get(3).setOnMouseClicked(this::sendGreen);
-            pos.get(4).setOnMouseClicked(this::sendBlue);
-            pos.forEach(img->img.setDisable(true));
-        }));
 
-    }
 
-    private void sendBlue(MouseEvent mouseEvent) {
-        nh.sendMessage("blue");
-    }
-
-    private void sendGreen(MouseEvent mouseEvent) {
-        nh.sendMessage("green");
-    }
-
-    private void sendPink(MouseEvent mouseEvent) {
-        nh.sendMessage("pink");
-    }
-
-    private void sendRed(MouseEvent mouseEvent) {
-        nh.sendMessage("red");
-    }
-
-    private void sendYellow(MouseEvent mouseEvent) {
-        nh.sendMessage("yellow");
     }
 
     private void bindClouds(){
@@ -446,15 +437,32 @@ public class IslandView implements View {
     }
 
 
-    public void enteredStudent(MouseEvent event) {
-        ImageView student = (ImageView) event.getSource();
-        Bloom effect = new Bloom();
-        effect.setInput(new DropShadow());
-        student.setEffect(effect);
+    public void sendC1(MouseEvent mouseEvent) {
+        nh.sendMessage("1");
+        c1.setDisable(true);
+        c2.setDisable(true);
+        c3.setDisable(true);
+    }
+    public void sendC2(MouseEvent mouseEvent) {
+        nh.sendMessage("2");
+        c1.setDisable(true);
+        c2.setDisable(true);
+        c3.setDisable(true);
+    }
+    public void sendC3(MouseEvent mouseEvent) {
+        nh.sendMessage("3");
+        c1.setDisable(true);
+        c2.setDisable(true);
+        c3.setDisable(true);
     }
 
-    public void exitedStudent(MouseEvent event) {
-        ImageView student = (ImageView) event.getSource();
-        student.setEffect(new DropShadow());
+    public void enterCloud(MouseEvent mouseEvent) {
+        ImageView cloud = (ImageView) mouseEvent.getSource();
+        cloud.setEffect(new DropShadow());
+    }
+
+    public void exitCloud(MouseEvent mouseEvent) {
+        ImageView cloud = (ImageView) mouseEvent.getSource();
+        cloud.setEffect(null);
     }
 }
