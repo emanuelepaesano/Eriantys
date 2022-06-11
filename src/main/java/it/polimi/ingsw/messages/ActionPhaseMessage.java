@@ -59,7 +59,8 @@ public class ActionPhaseMessage extends Repliable implements Message{
         yourturn,
         howmany,
         update,
-        studselect;
+        studselect,
+        endActions;
     }
 
     @Override

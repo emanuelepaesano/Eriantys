@@ -25,8 +25,8 @@ public class EntranceController {
      * Lets the player choose a cloud and fills the entrance with the students of that cloud
      */
     public void fillFromClouds(List<List<Student>> clouds){
-        new IslandActionMessage(clouds).send(view);
         while (true) {
+            new IslandActionMessage(clouds).send(view);
             try {
                 int choice = Integer.parseInt(view.getReply());
                 if (choice<= clouds.size() && choice >= 1 ){

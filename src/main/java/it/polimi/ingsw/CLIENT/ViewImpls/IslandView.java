@@ -88,6 +88,9 @@ public class IslandView implements View {
     int numPlayers;
 
     List<List<List<ImageView>>> cloudStuds;
+    List<List<ImageView>> allTowers;
+    List<List<Label>> allStudentList;
+    List<List<ImageView>> bridgesFrom;
 
     @Override
     public void display() {
@@ -114,6 +117,26 @@ public class IslandView implements View {
         islands = List.of(island0,island1,island2,island3, island4, island5,
                 island6,island7, island8,island9,island10,island11);
         islands.forEach(i->i.setDisable(true));
+        allTowers =
+                List.of(List.of(tow_0b,tow_0w,tow_0g),List.of(tow_1b,tow_1w,tow_1g), List.of(tow_2b,tow_2w,tow_2g),
+                        List.of(tow_3b,tow_3w,tow_3g), List.of(tow_4b,tow_4w,tow_4g), List.of(tow_5b,tow_5w,tow_5g),
+                        List.of(tow_6b,tow_6w,tow_6g),List.of(tow_7b,tow_7w,tow_7g), List.of(tow_8b,tow_8w,tow_8g),
+                        List.of(tow_9b,tow_9w,tow_9g), List.of(tow_10b,tow_10w,tow_10g), List.of(tow_11b,tow_11w,tow_11g)
+                );
+
+        allStudentList =
+                List.of(List.of(red0,yellow0,pink0,green0,blue0),List.of(red1,yellow1,pink1,green1,blue1),
+                        List.of(red2,yellow2,pink2,green2,blue2), List.of(red3,yellow3,pink3,green3,blue3),
+                        List.of(red4,yellow4,pink4,green4,blue4),List.of(red5,yellow5,pink5,green5,blue5),
+                        List.of(red6,yellow6,pink6,green6,blue6), List.of(red7,yellow7,pink7,green7,blue7),
+                        List.of(red8,yellow8,pink8,green8,blue8), List.of(red9,yellow9,pink9,green9,blue9),
+                        List.of(red10,yellow10,pink10,green10,blue10), List.of(red11,yellow11,pink11,green11,blue11)
+                );
+
+        bridgesFrom = List.of(List.of(b110,b01),List.of(b01,b12),List.of(b12,b23),
+                List.of(b23,b34),List.of(b34,b45),List.of(b45,b56),List.of(b56,b67),List.of(b67,b78),
+                List.of(b78,b89),List.of(b89,b910),List.of(b910,b1011),List.of(b1011,b110));
+
     }
 
     @Override
@@ -161,8 +184,6 @@ public class IslandView implements View {
             }
         }
     }
-
-
 
     public void enableIslands(){
         for(int i = 0; i<12;i++){
@@ -213,6 +234,7 @@ public class IslandView implements View {
     }
 
     private void bindClouds(){
+        cloudStuds.forEach((cloud)->cloud.forEach((pos)->pos.forEach(img->img.setVisible(false))));
         for (int i = 0; i<numClouds; i++){
             List<Student> cloud = clouds.get(i);
             List<List<ImageView>> toBind = cloudStuds.get(i);
@@ -232,14 +254,6 @@ public class IslandView implements View {
     }
 
     private void bindAllLabels(){
-        List<List<Label>> allStudentList =
-                List.of(List.of(red0,yellow0,pink0,green0,blue0),List.of(red1,yellow1,pink1,green1,blue1),
-                List.of(red2,yellow2,pink2,green2,blue2), List.of(red3,yellow3,pink3,green3,blue3),
-                List.of(red4,yellow4,pink4,green4,blue4),List.of(red5,yellow5,pink5,green5,blue5),
-                List.of(red6,yellow6,pink6,green6,blue6), List.of(red7,yellow7,pink7,green7,blue7),
-                List.of(red8,yellow8,pink8,green8,blue8), List.of(red9,yellow9,pink9,green9,blue9),
-                List.of(red10,yellow10,pink10,green10,blue10), List.of(red11,yellow11,pink11,green11,blue11));
-
         for (Island island: map.getAllIslands()){
             List<Label> listOfIsland = allStudentList.get(island.getId());
             if(island.isJoined()){
@@ -263,9 +277,6 @@ public class IslandView implements View {
     private void addBridges(){
         List<Object> lastJoin = map.getLastJoin();
         if (lastJoin!= null){
-            List<List<ImageView>> bridgesFrom = List.of(List.of(b110,b01),List.of(b01,b12),List.of(b12,b23),
-                    List.of(b23,b34),List.of(b34,b45),List.of(b45,b56),List.of(b56,b67),List.of(b67,b78),
-                    List.of(b78,b89),List.of(b89,b910),List.of(b910,b1011),List.of(b1011,b110));
             List<ImageView> choose = bridgesFrom.get( (Integer)lastJoin.get(0) );
             switch ((String) lastJoin.get(1)) {
                 case "left" -> choose.get(0).setVisible(true);
@@ -279,12 +290,6 @@ public class IslandView implements View {
     }
 
     private void showTowers(){
-        List<List<ImageView>> allTowers =
-                List.of(List.of(tow_0b,tow_0w,tow_0g),List.of(tow_1b,tow_1w,tow_1g), List.of(tow_2b,tow_2w,tow_2g),
-                List.of(tow_3b,tow_3w,tow_3g), List.of(tow_4b,tow_4w,tow_4g), List.of(tow_5b,tow_5w,tow_5g),
-                List.of(tow_6b,tow_6w,tow_6g),List.of(tow_7b,tow_7w,tow_7g), List.of(tow_8b,tow_8w,tow_8g),
-                List.of(tow_9b,tow_9w,tow_9g), List.of(tow_10b,tow_10w,tow_10g), List.of(tow_11b,tow_11w,tow_11g));
-
         for (Island island: map.getAllIslands()){
             List<ImageView> listOfIsland = allTowers.get(island.getId());
             listOfIsland.forEach((img)->img.setVisible(false));

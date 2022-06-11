@@ -15,7 +15,7 @@ public class VirtualView {
     private final Socket socket;
     ObjectInputStream inStream;
     ObjectOutputStream outStream;
-    //ONE VIRTUAL VIEW FOR EACH PLAYER. THIS IS A CLIENT HANDLER
+    //ONE VIRTUAL VIEW FOR EACH PLAYER
 
     //could also work with the playername
     VirtualView(Socket socket, int id) throws IOException {
@@ -32,7 +32,6 @@ public class VirtualView {
             outStream.writeObject(message);
             outStream.flush();
             outStream.reset();
-            System.out.println("last message sent: " + message);
         }catch (IOException ex){ex.printStackTrace();}
     }
 

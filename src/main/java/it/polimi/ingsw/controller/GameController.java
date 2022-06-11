@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.*;
 
 import java.util.*;
 
+import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.endActions;
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.update;
 
 public class GameController {
@@ -181,10 +182,10 @@ private void askAllPlayerNames(){
                 }
             }
         }
+        new ActionPhaseMessage(player,endActions).send(pc.getPlayerView());
         new NoReplyMessage("After your moves: " + player.getDiningRoom()).send(pc.getPlayerView());
     }
 
-    // TODO: 11/05/2022 all the checks that must be done and in a separate method
     public String askWhichAction(int availableActions, PlayerController pc){
         new ActionPhaseMessage(advanced, availableActions,pc.getPlayer(), game.getCharacters()).send(pc.getPlayerView());
         return pc.getPlayerView().getReply();

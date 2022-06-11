@@ -151,6 +151,12 @@ public class SchoolView implements View {
                 entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(false)));
                 back.setVisible(true);
                 break;
+
+            case endActions:
+                back.setVisible(false);
+                moveToIsland.setDisable(true);
+                moveToDR.setDisable(true);
+
             case update:
                 break;
         }
