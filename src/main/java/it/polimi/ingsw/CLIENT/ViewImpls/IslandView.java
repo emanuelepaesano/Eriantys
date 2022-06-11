@@ -217,7 +217,8 @@ public class IslandView implements View {
             List<Student> cloud = clouds.get(i);
             List<List<ImageView>> toBind = cloudStuds.get(i);
             int maxPos = numPlayers ==3? 4:3;
-            for (int pos = 0; pos<maxPos; pos++) {
+            if (cloud.size() >0) {
+                for (int pos = 0; pos < maxPos; pos++) {
                     switch (cloud.get(pos)) {
                         case YELLOW -> toBind.get(pos).get(0).setVisible(true);
                         case RED -> toBind.get(pos).get(1).setVisible(true);
@@ -225,6 +226,7 @@ public class IslandView implements View {
                         case GREEN -> toBind.get(pos).get(3).setVisible(true);
                         case BLUE -> toBind.get(pos).get(4).setVisible(true);
                     }
+                }
             }
         }
     }
@@ -442,18 +444,21 @@ public class IslandView implements View {
         c1.setDisable(true);
         c2.setDisable(true);
         c3.setDisable(true);
+        cloudStuds.get(0).forEach((l->l.forEach(img->img.setVisible(false))));
     }
     public void sendC2(MouseEvent mouseEvent) {
         nh.sendMessage("2");
         c1.setDisable(true);
         c2.setDisable(true);
         c3.setDisable(true);
+        cloudStuds.get(1).forEach((l->l.forEach(img->img.setVisible(false))));
     }
     public void sendC3(MouseEvent mouseEvent) {
         nh.sendMessage("3");
         c1.setDisable(true);
         c2.setDisable(true);
         c3.setDisable(true);
+        cloudStuds.get(2).forEach((l->l.forEach(img->img.setVisible(false))));
     }
 
     public void enterCloud(MouseEvent mouseEvent) {

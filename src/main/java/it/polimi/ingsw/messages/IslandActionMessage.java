@@ -3,10 +3,12 @@ package it.polimi.ingsw.messages;
 import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.Student;
 import javafx.application.Platform;
 
 import java.util.List;
 
+import static it.polimi.ingsw.messages.IslandActionMessage.IslandActionType.cloudSel;
 import static it.polimi.ingsw.messages.IslandActionMessage.IslandActionType.moveMN;
 
 public class IslandActionMessage extends Repliable {
@@ -21,6 +23,12 @@ public class IslandActionMessage extends Repliable {
         this.type = moveMN;
         text = player.getPlayerName() + ", how many steps do you want to move Mother Nature? " +
                 "(At least 1, maximum " + maxMoves + ")";
+    }
+
+    public IslandActionMessage(List<List<Student>> clouds){
+        this.type = cloudSel;
+        text = "Fill your entrance from a cloud.\n " + clouds +
+                "\n enter a number from 1 to " + clouds.size() + " to choose the cloud.";
     }
 
     @Override

@@ -32,6 +32,7 @@ public class VirtualView {
             outStream.writeObject(message);
             outStream.flush();
             outStream.reset();
+            System.out.println("last message sent: " + message);
         }catch (IOException ex){ex.printStackTrace();}
     }
 

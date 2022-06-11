@@ -37,6 +37,7 @@ public class ServerApp {
             gc.doPlanningPhase(game);
             for (Player player : game.getCurrentOrder()) {
                 PlayerController pc = gc.getControllers().get(game.getTableOrder().indexOf(player));
+                new IslandInfoMessage(game, updateMap).send(pc.getPlayerView());
                 game.setCurrentPlayer(player);
                 gc.doActions(pc);
                 int nmoves = pc.askMNMoves();
@@ -44,6 +45,7 @@ public class ServerApp {
                 new IslandInfoMessage(game, updateMap).send(pc.getPlayerView());
                 pc.getEntranceController().fillFromClouds(game.getClouds());
                 new IslandInfoMessage(game, updateMap).send(server.views);
+                new ActionPhaseMessage(pc.getPlayer(),update).send(pc.getPlayerView());
                 game.checkGameEndCondition("towerend", player);
                 game.checkGameEndCondition("islandend", player);
                 if (game.isOver()) {
