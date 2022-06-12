@@ -51,11 +51,9 @@ public class PlanningPhaseMessage extends Repliable implements Message  {
 
     @Override
     public void switchAndFillView() {
-        Platform.runLater(()->{
         UIManager uim = UIManager.getUIManager();
         uim.getPlanningPhaseView().fillInfo(this);
         uim.getSwitcher().toAssistants();
-        });
     }
 
     @Override

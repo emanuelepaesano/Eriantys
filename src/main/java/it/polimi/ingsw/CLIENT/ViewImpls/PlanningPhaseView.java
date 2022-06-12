@@ -6,6 +6,7 @@ import it.polimi.ingsw.CLIENT.View;
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.messages.PlanningPhaseMessage;
 import it.polimi.ingsw.model.Assistant;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -77,7 +78,8 @@ public class PlanningPhaseView implements View {
             PlanningPhaseMessage mess = (PlanningPhaseMessage) message;
             this.remainingAssistants = mess.getRemainingAssistants();
             this.playedByOthers = mess.getPlayedByOthers();
-            bindAssistants();
+            Platform.runLater(this::bindAssistants);
+
 
     }
 
