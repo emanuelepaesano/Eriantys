@@ -15,7 +15,7 @@
     <HBox alignment="CENTER" GridPane.rowIndex="1">
         <Button fx:id="one" onAction="#send1">
             <graphic>
-                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@assets/Assistente (1).png" />
                     </image>
@@ -24,7 +24,7 @@
         </Button>
         <Button fx:id="two" disable="false" onAction="#send2">
             <graphic>
-                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@assets/Assistente (2).png" />
                     </image>
@@ -33,7 +33,7 @@
         </Button>
         <Button fx:id="three" disable="false" onAction="#send3">
             <graphic>
-                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@assets/Assistente (3).png" />
                     </image>
@@ -42,7 +42,7 @@
         </Button>
         <Button fx:id="four" disable="false" onAction="#send4">
             <graphic>
-                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@assets/Assistente (4).png" />
                     </image>
@@ -51,7 +51,7 @@
         </Button>
         <Button fx:id="five" disable="false" onAction="#send5">
             <graphic>
-                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@assets/Assistente (5).png" />
                     </image>
@@ -62,7 +62,7 @@
     <HBox alignment="CENTER" GridPane.rowIndex="2">
         <Button fx:id="six" disable="false" onAction="#send6">
             <graphic>
-                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@assets/Assistente (6).png" />
                     </image>
@@ -71,7 +71,7 @@
         </Button>
         <Button fx:id="seven" disable="false" onAction="#send7">
             <graphic>
-                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@assets/Assistente (7).png" />
                     </image>
@@ -80,7 +80,7 @@
         </Button>
         <Button fx:id="eight" disable="false" onAction="#send8">
             <graphic>
-                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@assets/Assistente (8).png" />
                     </image>
@@ -89,7 +89,7 @@
         </Button>
         <Button fx:id="nine" disable="false" onAction="#send9">
             <graphic>
-                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@assets/Assistente (9).png" />
                     </image>
@@ -98,7 +98,7 @@
         </Button>
         <Button fx:id="ten" disable="false" onAction="#send10">
             <graphic>
-                <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@assets/Assistente (10).png" />
                     </image>
