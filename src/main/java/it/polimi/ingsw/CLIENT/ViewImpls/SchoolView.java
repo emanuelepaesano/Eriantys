@@ -56,7 +56,7 @@ public class SchoolView implements View {
     public Button moveToIsland ; public Button moveToDR; public Button back;
 
     public Label towLabel;
-    public AnchorPane mainPane;
+    public Parent schoolRoot;
 
     Player player;
     Stage stage;
@@ -89,6 +89,10 @@ public class SchoolView implements View {
         stage.sizeToScene();
         stage.show();
         });
+    }
+
+    public Parent getSchoolRoot() {
+        return schoolRoot;
     }
 
     public void initialize(){
@@ -274,22 +278,28 @@ public class SchoolView implements View {
 
     private void yellowSelected(MouseEvent mouseEvent) {
         nh.sendMessage("yellow");
+        entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(true)));
+
     }
 
     private void redSelected(MouseEvent mouseEvent) {
         nh.sendMessage("red");
+        entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(true)));
     }
 
     private void pinkSelected(MouseEvent mouseEvent) {
         nh.sendMessage("pink");
+        entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(true)));
     }
 
     private void greenSelected(MouseEvent mouseEvent) {
         nh.sendMessage("green");
+        entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(true)));
     }
 
     private void blueSelected(MouseEvent mouseEvent) {
         nh.sendMessage("blue");
+        entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(true)));
     }
 
     public void dRSelected(){

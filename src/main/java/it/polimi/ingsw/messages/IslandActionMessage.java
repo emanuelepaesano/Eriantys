@@ -50,8 +50,8 @@ public class IslandActionMessage extends Repliable {
     public void switchAndFillView() {
         Platform.runLater(()->{
             UIManager uim = UIManager.getUIManager();
-            uim.getSwitcher().toIslands();
             uim.getGenInfoView().fillInfo(this);
+            uim.getSwitcher().toIslands();
         });
     }
 

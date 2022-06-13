@@ -65,8 +65,6 @@ public class IslandInfoMessage implements Message, Serializable {
         System.out.println("the message is filling a view with this map: " + map);
         Platform.runLater(()->{
             UIManager uim = UIManager.getUIManager();
-            uim.getSwitcher().display();
-            uim.getSwitcher().toIslands();
             uim.getGenInfoView().fillInfo(this);
             System.out.println("geninfoview: finished filling info");
         System.out.println("geninfoview displayed");

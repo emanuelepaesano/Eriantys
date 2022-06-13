@@ -10,10 +10,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.PlanningPhaseView">
+<GridPane fx:id="planningPhaseRoot" alignment="CENTER" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.PlanningPhaseView">
     <TextField fx:id="Assistant_text" blendMode="DARKEN" editable="false" text="Choose your Assistant" AnchorPane.bottomAnchor="200" AnchorPane.leftAnchor="150" AnchorPane.rightAnchor="150" />
     <HBox alignment="CENTER" GridPane.rowIndex="1">
-        <Button fx:id="one" disable="false" onAction="#send1">
+        <Button fx:id="one" onAction="#send1">
             <graphic>
                 <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>

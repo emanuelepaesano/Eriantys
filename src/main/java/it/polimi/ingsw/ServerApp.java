@@ -1,11 +1,8 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.messages.ActionPhaseMessage;
-import it.polimi.ingsw.messages.IslandInfoMessage;
+import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.PlayerController;
-import it.polimi.ingsw.messages.Message;
-import it.polimi.ingsw.messages.StringMessage;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 
@@ -28,6 +25,7 @@ public class ServerApp {
         int numplayers = server.startServer();
         GameController gc = new GameController(numplayers,server.views);
         Game game = gc.getGame();
+        new StartGameMessage().send(server.views);
         Message info =  new IslandInfoMessage(game, init);
         for (PlayerController pc: gc.getControllers()){
             new ActionPhaseMessage(pc.getPlayer(), update).send(pc.getPlayerView());
@@ -56,9 +54,9 @@ public class ServerApp {
         }
         List<Player> winners = game.getWinner();
         if (winners.size()>1){
-            new StringMessage("Game is a tie!" + winners + "win.").send(server.views);
+            new StringMessage("Game is a tie! " + winners + " win.").send(server.views);
         }
-        else new StringMessage("Game Over!!!" + winners.get(0)+ "wins!");
+        else new StringMessage("Game Over!!! " + winners.get(0)+ " wins!");
         server.closeEverything();
     }
 }

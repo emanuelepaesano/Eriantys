@@ -3,6 +3,7 @@ package it.polimi.ingsw.CLIENT.ViewImpls;
 import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.CLIENT.View;
 import it.polimi.ingsw.messages.Message;
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
@@ -12,18 +13,13 @@ import javafx.stage.Stage;
 
 public class Switcher implements View {
     public AnchorPane container;
-    public GridPane islandTab;
-    public AnchorPane schoolTab;
-    public GridPane assistantTab;
     public Button school;
     public Button islands;
     public SubScene gameScene;
     public Button assistants;
 
     private Stage stage;
-    private View schoolView;
-    private View planningPhaseView;
-    private View genInfoView;
+
 
     private UIManager uim;
 
@@ -38,6 +34,7 @@ public class Switcher implements View {
         stage.setScene(sc);
         stage.setTitle("Eriantys");
         stage.sizeToScene();
+        gameScene.setVisible(true);
         stage.show();
     }
 
@@ -48,9 +45,10 @@ public class Switcher implements View {
 
     public void initialize(){
         uim = UIManager.getUIManager();
-        schoolView = uim.getSchoolView();
-        planningPhaseView = uim.getPlanningPhaseView();
-        genInfoView = uim.getGenInfoView();
+        uim.getGenInfoView();
+        uim.getSchoolView();
+        uim.getPlanningPhaseView();
+
     }
     @Override
     public void fillInfo(Message message) {
@@ -58,16 +56,17 @@ public class Switcher implements View {
     }
 
     public void toIslands() {
-        gameScene.setRoot(uim.getGenInfoRoot());
-        gameScene.setVisible(true);
 
+        Platform.runLater(()->gameScene.setRoot(uim.getGenInfoRoot()));
     }
 
     public void toSchool() {
-        gameScene.setRoot(uim.getSchoolRoot());
+
+        Platform.runLater(()->gameScene.setRoot(uim.getSchoolRoot()));
     }
 
     public void toAssistants() {
-        gameScene.setRoot(uim.getPlanningPhaseRoot());
+
+        Platform.runLater(()->gameScene.setRoot(uim.getPlanningPhaseRoot()));
     }
 }

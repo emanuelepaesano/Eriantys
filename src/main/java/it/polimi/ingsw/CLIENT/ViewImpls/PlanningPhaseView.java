@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class PlanningPhaseView implements View {
     public Button nine;
     public Button ten;
     public TextField Assistant_text;
+    public Parent planningPhaseRoot;
 
     Stage stage;
     NetworkHandler nh;
@@ -49,9 +51,9 @@ public class PlanningPhaseView implements View {
     }
 
 
-
-
-
+    public Parent getPlanningPhaseRoot() {
+        return planningPhaseRoot;
+    }
 
     @Override
     public void display() {
