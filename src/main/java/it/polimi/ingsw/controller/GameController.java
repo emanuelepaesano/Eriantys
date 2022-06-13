@@ -19,6 +19,7 @@ public class GameController {
 
     VirtualView firstPlayer;
     private Boolean advanced;
+    private Map<Player,PlayerController> controllerMap;
 
 
 
@@ -53,10 +54,13 @@ public class GameController {
      */
     private void bindPlayers(){
         controllers = new ArrayList<>();
+        controllerMap = new HashMap<>();
         for (Player player: game.getTableOrder()){
             int id = player.getId();
             //We bind the first player to the first view in the list and so on
-            controllers.add(new PlayerController(player, views.get(id-1)));
+            PlayerController pc = new PlayerController(player, views.get(id-1));
+            controllers.add(pc);
+            controllerMap.put(player,pc);
         }
     }
 
@@ -207,5 +211,9 @@ private void askAllPlayerNames(){
 
     public List<PlayerController> getControllers() {
         return controllers;
+    }
+
+    public Map<Player, PlayerController> getControllerMap() {
+        return controllerMap;
     }
 }

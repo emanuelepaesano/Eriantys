@@ -15,7 +15,7 @@
    <ImageView fitHeight="555.0" fitWidth="1287.0" layoutX="367.5" layoutY="493.0" preserveRatio="true" AnchorPane.bottomAnchor="186.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="54.0">
       <Image url="@assets/Plancia_DEF2.png" />
    </ImageView>
-   <ImageView fx:id="e1b" layoutX="126.0" layoutY="130.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e1b" layoutX="126.0" layoutY="130.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_blue.png" />
       </image>
@@ -23,7 +23,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e1g" layoutX="126.0" layoutY="130.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e1g" layoutX="126.0" layoutY="130.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_green.png" />
       </image>
@@ -31,7 +31,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e1p" layoutX="126.0" layoutY="130.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e1p" layoutX="126.0" layoutY="130.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_pink.png" />
       </image>
@@ -39,7 +39,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e1r" layoutX="126.0" layoutY="130.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e1r" layoutX="126.0" layoutY="130.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_red.png" />
       </image>
@@ -47,7 +47,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e1y" layoutX="126.0" layoutY="130.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e1y" layoutX="126.0" layoutY="130.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_yellow.png" />
       </image>
@@ -55,7 +55,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="dg1" fitHeight="40.0" fitWidth="40.0" layoutX="245.0" layoutY="130.0" preserveRatio="true">
+   <ImageView fx:id="dg1" fitHeight="40.0" fitWidth="40.0" layoutX="245.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@assets/student_green.png" />
       </image>
@@ -63,7 +63,7 @@
          <DropShadow height="10.0" radius="7.25" spread="0.1" />
       </effect>
    </ImageView>
-   <ImageView fx:id="dr1" fitHeight="40.0" fitWidth="40.0" layoutX="246.0" layoutY="221.0" preserveRatio="true">
+   <ImageView fx:id="dr1" fitHeight="40.0" fitWidth="40.0" layoutX="246.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@assets/student_red.png" />
       </image>
@@ -71,7 +71,7 @@
          <DropShadow height="10.0" radius="7.25" spread="0.1" />
       </effect>
    </ImageView>
-   <ImageView fx:id="db1" layoutX="245.0" layoutY="493.0">
+   <ImageView fx:id="db1" layoutX="245.0" layoutY="493.0" pickOnBounds="true">
       <image>
          <Image url="@assets/student_blue.png" />
       </image>
@@ -79,7 +79,7 @@
          <DropShadow height="10.0" radius="7.25" spread="0.1" />
       </effect>
    </ImageView>
-   <ImageView fx:id="dp1" fitHeight="40.0" fitWidth="40.0" layoutX="245.0" layoutY="402.0">
+   <ImageView fx:id="dp1" fitHeight="40.0" fitWidth="40.0" layoutX="245.0" layoutY="402.0" pickOnBounds="true">
       <image>
          <Image url="@assets/student_pink.png" />
       </image>
@@ -91,7 +91,7 @@
          </DropShadow>
       </effect>
    </ImageView>
-   <ImageView fx:id="dy1" layoutX="245.0" layoutY="312.0">
+   <ImageView fx:id="dy1" layoutX="245.0" layoutY="312.0" pickOnBounds="true">
       <image>
          <Image url="@assets/student_yellow.png" />
       </image>
@@ -99,7 +99,7 @@
          <DropShadow height="10.0" radius="7.25" spread="0.1" />
       </effect>
    </ImageView>
-   <ImageView fx:id="pb" fitHeight="60.0" fitWidth="60.0" layoutX="905.0" layoutY="483.0">
+   <ImageView fx:id="pb" fitHeight="60.0" fitWidth="60.0" layoutX="905.0" layoutY="483.0" pickOnBounds="true">
       <image>
          <Image url="@assets/teacher_blue.png" />
       </image>
@@ -115,7 +115,7 @@
          </Bloom>
       </effect>
    </ImageView>
-   <ImageView fx:id="pg" fitHeight="60.0" fitWidth="60.0" layoutX="904.0" layoutY="120.0">
+   <ImageView fx:id="pg" fitHeight="60.0" fitWidth="60.0" layoutX="904.0" layoutY="120.0" pickOnBounds="true">
       <image>
          <Image url="@assets/teacher_green.png" />
       </image>
@@ -131,7 +131,7 @@
          </Bloom>
       </effect>
    </ImageView>
-   <ImageView fx:id="pr" fitHeight="60.0" fitWidth="60.0" layoutX="904.0" layoutY="212.0">
+   <ImageView fx:id="pr" fitHeight="60.0" fitWidth="60.0" layoutX="904.0" layoutY="212.0" pickOnBounds="true">
       <image>
          <Image url="@assets/teacher_red.png" />
       </image>
@@ -147,7 +147,7 @@
          </Bloom>
       </effect>
    </ImageView>
-   <ImageView fx:id="py" fitHeight="60.0" fitWidth="60.0" layoutX="905.0" layoutY="302.0">
+   <ImageView fx:id="py" fitHeight="60.0" fitWidth="60.0" layoutX="905.0" layoutY="302.0" pickOnBounds="true">
       <image>
          <Image url="@assets/teacher_yellow.png" />
       </image>
@@ -163,7 +163,7 @@
          </Bloom>
       </effect>
    </ImageView>
-   <ImageView fx:id="pp" fitHeight="60.0" fitWidth="60.0" layoutX="905.0" layoutY="392.0">
+   <ImageView fx:id="pp" fitHeight="60.0" fitWidth="60.0" layoutX="905.0" layoutY="392.0" pickOnBounds="true">
       <image>
          <Image url="@assets/teacher_pink.png" />
       </image>
@@ -698,7 +698,7 @@
          <Image url="@assets/grey_tower_trimmed.png" />
       </image>
    </ImageView>
-   <ImageView fx:id="e3b" layoutX="50.0" layoutY="222.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e3b" layoutX="50.0" layoutY="222.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_blue.png" />
       </image>
@@ -706,7 +706,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e3g" layoutX="50.0" layoutY="222.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e3g" layoutX="50.0" layoutY="222.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_green.png" />
       </image>
@@ -714,7 +714,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e3p" layoutX="50.0" layoutY="222.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e3p" layoutX="50.0" layoutY="222.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_pink.png" />
       </image>
@@ -722,7 +722,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e3r" layoutX="50.0" layoutY="222.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e3r" layoutX="50.0" layoutY="222.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_red.png" />
       </image>
@@ -730,7 +730,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e3y" layoutX="50.0" layoutY="222.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e3y" layoutX="50.0" layoutY="222.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_yellow.png" />
       </image>
@@ -738,7 +738,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e2b" layoutX="126.0" layoutY="222.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e2b" layoutX="126.0" layoutY="222.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_blue.png" />
       </image>
@@ -746,7 +746,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e2g" layoutX="126.0" layoutY="222.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e2g" layoutX="126.0" layoutY="222.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_green.png" />
       </image>
@@ -754,7 +754,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e2p" layoutX="126.0" layoutY="222.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e2p" layoutX="126.0" layoutY="222.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_pink.png" />
       </image>
@@ -762,7 +762,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e2r" layoutX="126.0" layoutY="222.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e2r" layoutX="126.0" layoutY="222.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_red.png" />
       </image>
@@ -770,7 +770,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e2y" layoutX="126.0" layoutY="222.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e2y" layoutX="126.0" layoutY="222.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_yellow.png" />
       </image>
@@ -778,7 +778,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e5b" layoutX="50.0" layoutY="313.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e5b" layoutX="50.0" layoutY="313.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_blue.png" />
       </image>
@@ -786,7 +786,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e5g" layoutX="50.0" layoutY="313.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e5g" layoutX="50.0" layoutY="313.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_green.png" />
       </image>
@@ -794,7 +794,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e5p" layoutX="50.0" layoutY="313.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e5p" layoutX="50.0" layoutY="313.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_pink.png" />
       </image>
@@ -802,7 +802,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e5r" layoutX="50.0" layoutY="313.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e5r" layoutX="50.0" layoutY="313.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_red.png" />
       </image>
@@ -810,7 +810,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e5y" layoutX="50.0" layoutY="313.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e5y" layoutX="50.0" layoutY="313.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_yellow.png" />
       </image>
@@ -818,7 +818,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e4b" layoutX="126.0" layoutY="313.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e4b" layoutX="126.0" layoutY="313.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_blue.png" />
       </image>
@@ -826,7 +826,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e4g" layoutX="126.0" layoutY="313.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e4g" layoutX="126.0" layoutY="313.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_green.png" />
       </image>
@@ -834,7 +834,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e4p" layoutX="126.0" layoutY="313.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e4p" layoutX="126.0" layoutY="313.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_pink.png" />
       </image>
@@ -842,7 +842,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e4r" layoutX="126.0" layoutY="313.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e4r" layoutX="126.0" layoutY="313.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_red.png" />
       </image>
@@ -850,7 +850,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e4y" layoutX="126.0" layoutY="313.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e4y" layoutX="126.0" layoutY="313.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_yellow.png" />
       </image>
@@ -858,7 +858,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e7b" layoutX="50.0" layoutY="402.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e7b" layoutX="50.0" layoutY="402.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_blue.png" />
       </image>
@@ -866,7 +866,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e7g" layoutX="50.0" layoutY="402.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e7g" layoutX="50.0" layoutY="402.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_green.png" />
       </image>
@@ -874,7 +874,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e7p" layoutX="50.0" layoutY="402.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e7p" layoutX="50.0" layoutY="402.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_pink.png" />
       </image>
@@ -882,7 +882,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e7r" layoutX="50.0" layoutY="402.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e7r" layoutX="50.0" layoutY="402.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_red.png" />
       </image>
@@ -890,7 +890,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e7y" layoutX="50.0" layoutY="402.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" >
+   <ImageView fx:id="e7y" layoutX="50.0" layoutY="402.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_yellow.png" />
       </image>
@@ -898,7 +898,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e6b" layoutX="126.0" layoutY="403.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e6b" layoutX="126.0" layoutY="403.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_blue.png" />
       </image>
@@ -906,7 +906,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e6g" layoutX="126.0" layoutY="403.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e6g" layoutX="126.0" layoutY="403.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_green.png" />
       </image>
@@ -914,7 +914,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e6p" layoutX="126.0" layoutY="403.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e6p" layoutX="126.0" layoutY="403.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_pink.png" />
       </image>
@@ -922,7 +922,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e6r" layoutX="126.0" layoutY="403.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e6r" layoutX="126.0" layoutY="403.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_red.png" />
       </image>
@@ -930,7 +930,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e6y" layoutX="126.0" layoutY="403.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e6y" layoutX="126.0" layoutY="403.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_yellow.png" />
       </image>
@@ -938,7 +938,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e9b" layoutX="50.0" layoutY="493.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e9b" layoutX="50.0" layoutY="493.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_blue.png" />
       </image>
@@ -946,7 +946,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e9g" layoutX="50.0" layoutY="493.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e9g" layoutX="50.0" layoutY="493.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_green.png" />
       </image>
@@ -954,7 +954,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e9p" layoutX="50.0" layoutY="493.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e9p" layoutX="50.0" layoutY="493.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_pink.png" />
       </image>
@@ -962,7 +962,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e9r" layoutX="50.0" layoutY="493.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e9r" layoutX="50.0" layoutY="493.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_red.png" />
       </image>
@@ -970,7 +970,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e9y" layoutX="50.0" layoutY="493.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e9y" layoutX="50.0" layoutY="493.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_yellow.png" />
       </image>
@@ -978,7 +978,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e8b" layoutX="126.0" layoutY="493.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e8b" layoutX="126.0" layoutY="493.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_blue.png" />
       </image>
@@ -986,7 +986,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e8g" layoutX="126.0" layoutY="493.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e8g" layoutX="126.0" layoutY="493.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_green.png" />
       </image>
@@ -994,7 +994,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e8p" layoutX="126.0" layoutY="493.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e8p" layoutX="126.0" layoutY="493.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_pink.png" />
       </image>
@@ -1002,7 +1002,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e8r" layoutX="126.0" layoutY="493.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e8r" layoutX="126.0" layoutY="493.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_red.png" />
       </image>
@@ -1010,7 +1010,7 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <ImageView fx:id="e8y" layoutX="126.0" layoutY="493.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent">
+   <ImageView fx:id="e8y" layoutX="126.0" layoutY="493.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
       <image>
          <Image url="@assets/student_yellow.png" />
       </image>

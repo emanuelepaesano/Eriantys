@@ -31,7 +31,7 @@ public class Game implements Serializable {
     private List<Character> characters;
 
     Random randomizer = new Random();
-    private Boolean Over = false;
+    private Boolean over = false;
 
     public static Game makeGame(int numPlayers){
         List<Player> tableOrder = startPlayersandOrder(numPlayers);
@@ -152,28 +152,28 @@ public class Game implements Serializable {
         switch (condition) {
             case "towerend" -> {
                 if (player.getNumTowers() == 0) {
-                    Over = true;
+                    over = true;
                     winner = List.of(player);
                     return true;
                 }
             }
             case "islandend" -> {
                 if (gameMap.getArchipelago().size() <= 3) {
-                    Over = true;
+                    over = true;
                     winner = lookForWinner();
                     return true;
                 }
             }
             case "studend" -> {
                 if (bag.equals(Map.of(Student.RED, 0, Student.BLUE, 0, Student.YELLOW, 0, Student.PINK, 0, Student.GREEN, 0))){
-                Over = true;
+                over = true;
                 return true;
                 }
             }
             case "deckend" -> {
                 if (player.getAssistants().values().equals(List.of(false, false, false, false, false,
                         false, false, false, false, false))){
-                Over = true;
+                over = true;
                 return true;}
             }
             default -> throw new RuntimeException("not a valid string as argument");
@@ -210,15 +210,20 @@ public class Game implements Serializable {
     }
 
     public void newRoundOrEnd(){
+        if (this.isOver()){
+            return;
+        }
         Player anyPlayerisFine = getTableOrder().get(0);
         Boolean cond1 = checkGameEndCondition("deckend",anyPlayerisFine);
         Boolean cond2 = checkGameEndCondition("studend",anyPlayerisFine);
         if (cond1){
             winner = lookForWinner();
+            over = true;
             return;
         }
         else if (cond2){
             winner= lookForWinner();
+            over = true;
             return;
         }
         round +=1;
@@ -288,7 +293,7 @@ public class Game implements Serializable {
     }
 
     public Boolean isOver() {
-        return Over;
+        return over;
     }
 
     public void setWinner(List<Player> winner) {
@@ -304,7 +309,7 @@ public class Game implements Serializable {
     }
 
     public void setOver(Boolean over) {
-        Over = over;
+        this.over = over;
     }
 }
 

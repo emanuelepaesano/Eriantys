@@ -1,24 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.WaitingView" prefHeight="400.0" prefWidth="600.0">
-    <ImageView
-            fx:id="imageView"
-            pickOnBounds="true"
-            preserveRatio="true"
-            fitHeight="400"
-            fitWidth="600"
-    >
-        <Image url="assets/eryantislogo.jpg" backgroundLoading="true"/>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.WaitingView">
+    <ImageView fx:id="imageView" fitHeight="400" fitWidth="600" pickOnBounds="true" preserveRatio="true">
+        <Image backgroundLoading="true" url="@assets/eryantislogo.jpg" />
     </ImageView>
-    <TextField fx:id="textField"  text="Waiting for server . . . " disable="true" layoutX="200.0" layoutY="250.0" prefHeight="25.0" prefWidth="100.0"
-               AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="115" AnchorPane.rightAnchor="120" />
+    <TextField fx:id="waitingText" disable="true" layoutX="200.0" layoutY="250.0" prefHeight="25.0" prefWidth="100.0" text="Waiting for server . . . " visible="false" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="115" AnchorPane.rightAnchor="120" />
+   <Text fx:id="ipText" fill="#a4e4ff" layoutX="109.0" layoutY="202.0" lineSpacing="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome! &#10;Please enter server IP address. " textAlignment="CENTER" wrappingWidth="403.73681640625">
+      <font>
+         <Font name="System Bold" size="26.0" />
+      </font>
+      <effect>
+         <DropShadow />
+      </effect>
+   </Text>
+   <TextField fx:id="textInputField" layoutX="125.0" layoutY="310.0" prefHeight="30.0" prefWidth="308.0" promptText="Type &quot;localhost&quot; or leave blank for a local game." style="-fx-background-color: a4e4ff;">
+      <font>
+         <Font name="System Italic" size="14.0" />
+      </font>
+   </TextField>
+   <Button fx:id="sendButton" layoutX="442.0" layoutY="310.0" mnemonicParsing="false" onAction="#write" prefHeight="30.0" prefWidth="52.0" style="-fx-background-color: a4e4ff;" text="Send" underline="true">
+      <font>
+         <Font name="System Bold" size="14.0" />
+      </font>
+   </Button>
+   <Text fx:id="portText" fill="#a4e4ff" layoutX="125.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose server port number to connect. &#10;(Default is 1337)" textAlignment="CENTER" visible="false" wrappingWidth="337.3367919921875">
+      <font>
+         <Font name="System Bold" size="26.0" />
+      </font>
+      <effect>
+         <DropShadow />
+      </effect>
+   </Text>
 </AnchorPane>

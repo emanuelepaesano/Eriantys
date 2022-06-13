@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.update;
@@ -53,10 +54,20 @@ public class ServerApp {
             game.newRoundOrEnd();
         }
         List<Player> winners = game.getWinner();
-        if (winners.size()>1){
-            new StringMessage("Game is a tie! " + winners + " win.").send(server.views);
+        for (Player player: game.getTableOrder()){
+            VirtualView pView = gc.getControllerMap().get(player).getPlayerView();
+            if (winners.contains(player)) {
+                if (winners.size()>1) {
+                    List<Player> otherWins = new ArrayList<>(winners);
+                    winners.remove(player);
+                    new EndGameMessage(otherWins, EndGameMessage.EndGameType.TIE).send(pView);
+                }
+                else {new EndGameMessage(winners, EndGameMessage.EndGameType.WIN).send(pView);}
+            }
+            else {
+                new EndGameMessage(winners, EndGameMessage.EndGameType.LOSE).send(pView);
+            }
         }
-        else new StringMessage("Game Over!!! " + winners.get(0)+ " wins!");
-        server.closeEverything();
+//        server.closeEverything();
     }
 }

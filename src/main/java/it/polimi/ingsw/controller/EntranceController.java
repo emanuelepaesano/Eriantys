@@ -106,8 +106,9 @@ public class EntranceController {
             }
             //In the 2nd part now we move it to the chosen island
             if (students.contains(stud)){
-                students.remove(stud);
                 Island island = askWhichIsland(gm);
+                if (island.getId()==99){return 0;}
+                students.remove(stud);
                 int oldval = island.students.get(stud);
                 island.students.replace(stud, oldval,oldval+1);
                 break;
@@ -145,11 +146,16 @@ public class EntranceController {
         while (true){
             new PickIslandMessage(gm).send(view);
             try {
-                int id = Integer.parseInt(view.getReply());
-                if (id>=0 && id<=11) {
-                    Island island = gm.getIslandById(id);
-                    if (island.getId()==99){continue;}
-                    else return island;
+                String str = view.getReply();
+                if (str.equalsIgnoreCase("back")){return new Island(99);}
+                else {
+                    int id = Integer.parseInt(str);
+                    if (id >= 0 && id <= 11) {
+                        Island island = gm.getIslandById(id);
+                        if (island.getId() == 99) {
+                            continue;
+                        } else return island;
+                    }
                 }
                 new StringMessage(Game.ANSI_RED + "That's not a valid id, please choose one between 0~11.\n"+ Game.ANSI_RESET).send(view);
             }catch (NumberFormatException ex) {

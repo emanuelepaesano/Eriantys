@@ -38,11 +38,11 @@ public class NetworkHandler{
         this.GUI = GUI;
     }
 
-    void startConnection(){
+    void startConnection(String ip, int port){
         while(true){
             try {
-                socket = new Socket("localhost", 1337);
-                System.out.println("connected to server at 1337");
+                socket = new Socket(ip, port);
+                System.out.println("connected to server at " + port);
                 this.outStream = new ObjectOutputStream(socket.getOutputStream());
                 this.inStream = new ObjectInputStream(socket.getInputStream());
                 break;

@@ -53,7 +53,6 @@ public class LoginView implements View {
     public ImageView threeBig;
     public ImageView fourBig;
     public Label chooseWiz;
-    public AnchorPane wizPane;
     private List<Node> allNodes;
 
 
@@ -68,8 +67,6 @@ public class LoginView implements View {
 
     Stage stage;
 
-
-    //accessed only by the user view with update()
 
     @Override
     public void display() {

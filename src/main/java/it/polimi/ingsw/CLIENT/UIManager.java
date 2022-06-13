@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class UIManager extends Application{
     private static UIManager UIManager;
@@ -27,6 +28,8 @@ public class UIManager extends Application{
     private View genInfoView;
 
     private View planningPhaseView;
+
+    private final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         launch(args);
@@ -45,7 +48,22 @@ public class UIManager extends Application{
             Task<Void> task = new Task<>() {
                 @Override
                 public Void call(){
-                    nh.startConnection();
+                    String ip = null;
+                    Integer port = null;
+                    System.out.println("inizio a provare");
+                    while (ip==null){
+                        try{ip = waitingView.getIp();
+                            System.out.println("");}
+                        catch (Exception ignored){}
+                    }
+                    waitingView.askPort();
+                    while (port==null){
+                        try{port = waitingView.getPort();
+                            System.out.println("");}
+                        catch (Exception ignored){}
+                    }
+                    waitingView.startWaiting();
+                    nh.startConnection(ip,port);
                     return null;
                 }
             };
@@ -58,10 +76,16 @@ public class UIManager extends Application{
             });
             new Thread(task).start();
         }
-        else {cliView = new CLIView(nh);
-            nh.startConnection();
-            nh.startListenerThread();
+        else {
             Platform.exit();
+            System.out.println("Starting connection to game server.\n" +
+            "Please insert server ip address, or type \"localhost\" for local game.");
+            String ip = scanner.nextLine();
+            System.out.println("Insert server connection port (default is 1337).");
+            int port = Integer.parseInt(scanner.nextLine());
+            cliView = new CLIView(nh);
+            nh.startConnection(ip ,port);
+            nh.startListenerThread();
         }
     }
 
@@ -79,9 +103,11 @@ public class UIManager extends Application{
         stage.showAndWait();
     }
 
-    public void startWaitingView(){
-        waitingView = new WaitingView();
-        waitingView.display();
+    public void startWaitingView() throws IOException {
+        FXMLLoader waitLoader = new FXMLLoader(getClass().getResource("/WaitingView.fxml"));
+        Parent waitingRoot = waitLoader.load();
+        waitingView = waitLoader.getController();
+        waitingView.display(waitingRoot);
     }
 
     private Parent loginRoot;
@@ -168,7 +194,22 @@ public class UIManager extends Application{
         return schoolView;
     }
 
+    private View endGameView;
+    private Parent endGameRoot;
 
+    public Parent getEndGameRoot() {
+        return endGameRoot;
+    }
+    public View getEndGameView(){
+        if (this.endGameView ==null){
+            try {
+                FXMLLoader actionPhaseLoader = new FXMLLoader(getClass().getResource("/EndGameView.fxml"));
+                endGameRoot = actionPhaseLoader.load();
+                endGameView = actionPhaseLoader.getController();
+            }catch(IOException ex){ex.printStackTrace();}
+        }
+        return endGameView;
+    }
     private Switcher switcher;
     private Parent switcherRoot;
 

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.EndGameView">
+   <children>
+      <Text fill="#0a00c7" layoutX="151.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game is over!" textAlignment="CENTER" wrappingWidth="297.33673095703125">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="0.892522394657135" green="0.9263157844543457" blue="0.2504483461380005" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Text>
+      <Text fx:id="endText" layoutX="151.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="def&#10;" textAlignment="CENTER" wrappingWidth="297.33673095703125">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="224.0" fitWidth="162.0" layoutX="14.0" layoutY="80.0" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/king_no_bg.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="224.0" fitWidth="173.0" layoutX="12.0" layoutY="88.0" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/sorcerer_no_bg.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="224.0" fitWidth="184.0" layoutX="14.0" layoutY="88.0" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/pixie_no_bg.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="224.0" fitWidth="162.0" layoutX="27.0" layoutY="88.0" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/wizard_no_bg.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
