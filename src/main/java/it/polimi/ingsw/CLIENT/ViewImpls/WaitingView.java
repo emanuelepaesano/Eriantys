@@ -33,6 +33,7 @@ public class WaitingView{
 
     public void initialize(){
         what = false;
+        textInputField.setFocusTraversable(false);
     }
 
     public void display(Parent root) {

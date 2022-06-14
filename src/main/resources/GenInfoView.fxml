@@ -15,572 +15,6 @@
 <?import javafx.scene.text.Font?>
 
 <GridPane fx:id="islandRoot" alignment="CENTER" hgap="5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" vgap="5" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.IslandView">
-   <Pane pickOnBounds="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="6" GridPane.rowIndex="1" GridPane.rowSpan="4">
-      <children>
-         <ImageView fx:id="b23" fitHeight="59.0" fitWidth="75.0" layoutX="108.0" layoutY="138.0" rotate="1.2" scaleY="1.1" visible="false">
-
-                     <Image url="@assets/bridge.png" />
-         </ImageView>
-         <ImageView fx:id="b34" fitHeight="59.0" fitWidth="75.0" layoutX="282.0" layoutY="49.0" rotate="9.2" visible="false">
-
-                     <Image url="@assets/bridge.png" />
-         </ImageView>
-         <ImageView fx:id="b12" fitHeight="53.0" fitWidth="68.0" layoutX="-15.0" layoutY="312.0" rotate="-52.8" scaleY="1.5" visible="false">
-
-                     <Image url="@assets/bridge.png" />
-         </ImageView>
-         <ImageView fx:id="b01" fitHeight="59.0" fitWidth="87.0" layoutX="147.0" layoutY="408.0" rotate="149.6" visible="false">
-
-                     <Image url="@assets/bridge.png" />
-            <rotationAxis>
-               <Point3D y="1.0" />
-            </rotationAxis>
-         </ImageView>
-         <ImageView fx:id="b110" fitHeight="85.0" fitWidth="75.0" layoutX="310.0" layoutY="487.0" rotate="-175.6" scaleY="1.2" visible="false">
-               <Image url="@assets/bridge.png" />
-            <rotationAxis>
-               <Point3D y="1.0" z="0.5" />
-            </rotationAxis>
-         </ImageView>
-         <ImageView fx:id="b1011" fitHeight="64.0" fitWidth="76.0" layoutX="483.0" layoutY="506.0" rotate="34.7" scaleX="1.06" visible="false">
-               <Image url="@assets/bridge.png" />
-         </ImageView>
-         <ImageView fx:id="b910" fitHeight="64.0" fitWidth="78.0" layoutX="670.0" layoutY="498.0" rotate="18.4" visible="false">
-               <Image url="@assets/bridge.png" />
-         </ImageView>
-         <ImageView fx:id="b89" fitHeight="58.0" fitWidth="78.0" layoutX="833.0" layoutY="416.0" rotate="11.3" visible="false">
-               <Image url="@assets/bridge.png" />
-         </ImageView>
-         <ImageView fx:id="b78" fitHeight="70.0" fitWidth="75.0" layoutX="889.0" layoutY="309.0" rotate="-30.1" scaleY="1.02" visible="false">
-               <Image url="@assets/bridge.png" />
-         </ImageView>
-         <ImageView fx:id="b45" fitHeight="73.0" fitWidth="98.0" layoutX="472.0" layoutY="-22.0" rotate="33.1" visible="false">
-               <Image url="@assets/bridge.png" />
-            <rotationAxis>
-               <Point3D y="0.2" z="1.0" />
-            </rotationAxis>
-         </ImageView>
-         <ImageView fx:id="b56" fitHeight="59.0" fitWidth="75.0" layoutX="695.0" layoutY="65.0" rotate="180.0" scaleY="1.02" visible="false">
-               <Image url="@assets/bridge.png" />
-            <rotationAxis>
-               <Point3D y="1.0" />
-            </rotationAxis>
-         </ImageView>
-         <ImageView fx:id="b67" fitHeight="59.0" fitWidth="75.0" layoutX="854.0" layoutY="160.0" rotate="180.0" visible="false">
-               <Image url="@assets/bridge.png" />
-            <rotationAxis>
-               <Point3D y="1.0" />
-            </rotationAxis>
-         </ImageView>
-         <AnchorPane layoutX="450.0" layoutY="346.0">
-            <children>
-               <ImageView fx:id="c3" fitHeight="178.0" fitWidth="154.0" onMouseClicked="#sendC3" onMouseEntered="#enterCloud" onMouseExited="#exitCloud" preserveRatio="true">
-                  <image>
-                     <Image url="@assets/cloud_card.png" />
-                  </image>
-               </ImageView>
-               <ImageView fx:id="c3b1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_blue.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c3g1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_green.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c3p1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_pink.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c3r1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_red.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c3y1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_yellow.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c3b4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_blue.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c3g4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_green.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c3p4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_pink.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c3r4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_red.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c3y4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_yellow.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c3b3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_blue.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c3g3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_green.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c3p3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_pink.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c3r3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_red.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c3y3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_yellow.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c3b2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_blue.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c3g2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_green.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c3p2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_pink.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c3r2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_red.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c3y2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_yellow.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-            </children>
-         </AnchorPane>
-         <AnchorPane layoutX="571.0" layoutY="183.0">
-            <children>
-               <ImageView fx:id="c2" fitHeight="178.0" fitWidth="154.0" layoutX="-6.0" onMouseClicked="#sendC2" onMouseEntered="#enterCloud" onMouseExited="#exitCloud" preserveRatio="true">
-                  <image>
-                     <Image url="@assets/cloud_card.png" />
-                  </image>
-               </ImageView>
-               <ImageView fx:id="c2b1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_blue.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c2g1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_green.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c2p1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_pink.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c2r1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_red.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c2y1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_yellow.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c2b4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_blue.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c2g4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_green.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c2p4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_pink.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c2r4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_red.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c2y4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_yellow.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c2b3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_blue.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c2g3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_green.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c2p3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_pink.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c2r3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_red.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c2y3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_yellow.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c2b2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_blue.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c2g2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_green.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c2p2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_pink.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c2r2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_red.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c2y2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_yellow.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-            </children>
-         </AnchorPane>
-         <AnchorPane layoutX="338.0" layoutY="183.0">
-            <children>
-               <ImageView fx:id="c1" fitHeight="178.0" fitWidth="154.0" onMouseClicked="#sendC1" onMouseEntered="#enterCloud" onMouseExited="#exitCloud" preserveRatio="true">
-                  <image>
-                     <Image url="@assets/cloud_card.png" />
-                  </image>
-               </ImageView>
-               <ImageView fx:id="c1b1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_blue.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c1g1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_green.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c1p1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_pink.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c1r1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_red.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c1y1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_yellow.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c1b4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_blue.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c1g4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_green.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c1p4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_pink.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c1r4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_red.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c1y4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_yellow.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c1b3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_blue.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c1g3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_green.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c1p3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_pink.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c1r3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_red.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c1y3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_yellow.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c1b2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_blue.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c1g2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_green.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c1p2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_pink.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c1r2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_red.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-               <ImageView fx:id="c1y2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
-                  <image>
-                     <Image url="@assets/student_yellow.png" />
-                  </image>
-                  <effect>
-                     <DropShadow />
-                  </effect>
-               </ImageView>
-            </children>
-         </AnchorPane>
-      </children>
-   </Pane>
    <Pane prefHeight="200.0" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.rowSpan="2">
       <children>
          <Pane layoutY="80.0" prefHeight="150.0" prefWidth="151.0">
@@ -2351,6 +1785,572 @@
 
                <Image url="@assets/mother_nature.png" />
          </ImageView>
+      </children>
+   </Pane>
+   <Pane pickOnBounds="false" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="6" GridPane.rowIndex="1" GridPane.rowSpan="4">
+      <children>
+         <ImageView fx:id="b23" fitHeight="59.0" fitWidth="75.0" layoutX="108.0" layoutY="138.0" rotate="1.2" scaleY="1.1" visible="false">
+
+                     <Image url="@assets/bridge.png" />
+         </ImageView>
+         <ImageView fx:id="b34" fitHeight="59.0" fitWidth="75.0" layoutX="282.0" layoutY="49.0" rotate="9.2" visible="false">
+
+                     <Image url="@assets/bridge.png" />
+         </ImageView>
+         <ImageView fx:id="b12" fitHeight="53.0" fitWidth="68.0" layoutX="-15.0" layoutY="312.0" rotate="-52.8" scaleY="1.5" visible="false">
+
+                     <Image url="@assets/bridge.png" />
+         </ImageView>
+         <ImageView fx:id="b01" fitHeight="59.0" fitWidth="87.0" layoutX="147.0" layoutY="408.0" rotate="149.6" visible="false">
+
+                     <Image url="@assets/bridge.png" />
+            <rotationAxis>
+               <Point3D y="1.0" />
+            </rotationAxis>
+         </ImageView>
+         <ImageView fx:id="b110" fitHeight="85.0" fitWidth="75.0" layoutX="310.0" layoutY="487.0" rotate="-175.6" scaleY="1.2" visible="false">
+               <Image url="@assets/bridge.png" />
+            <rotationAxis>
+               <Point3D y="1.0" z="0.5" />
+            </rotationAxis>
+         </ImageView>
+         <ImageView fx:id="b1011" fitHeight="64.0" fitWidth="76.0" layoutX="483.0" layoutY="506.0" rotate="34.7" scaleX="1.06" visible="false">
+               <Image url="@assets/bridge.png" />
+         </ImageView>
+         <ImageView fx:id="b910" fitHeight="64.0" fitWidth="78.0" layoutX="670.0" layoutY="498.0" rotate="18.4" visible="false">
+               <Image url="@assets/bridge.png" />
+         </ImageView>
+         <ImageView fx:id="b89" fitHeight="58.0" fitWidth="78.0" layoutX="833.0" layoutY="416.0" rotate="11.3" visible="false">
+               <Image url="@assets/bridge.png" />
+         </ImageView>
+         <ImageView fx:id="b78" fitHeight="70.0" fitWidth="75.0" layoutX="889.0" layoutY="309.0" rotate="-30.1" scaleY="1.02" visible="false">
+               <Image url="@assets/bridge.png" />
+         </ImageView>
+         <ImageView fx:id="b45" fitHeight="73.0" fitWidth="98.0" layoutX="472.0" layoutY="-22.0" rotate="33.1" visible="false">
+               <Image url="@assets/bridge.png" />
+            <rotationAxis>
+               <Point3D y="0.2" z="1.0" />
+            </rotationAxis>
+         </ImageView>
+         <ImageView fx:id="b56" fitHeight="59.0" fitWidth="75.0" layoutX="695.0" layoutY="65.0" rotate="180.0" scaleY="1.02" visible="false">
+               <Image url="@assets/bridge.png" />
+            <rotationAxis>
+               <Point3D y="1.0" />
+            </rotationAxis>
+         </ImageView>
+         <ImageView fx:id="b67" fitHeight="59.0" fitWidth="75.0" layoutX="854.0" layoutY="160.0" rotate="180.0" visible="false">
+               <Image url="@assets/bridge.png" />
+            <rotationAxis>
+               <Point3D y="1.0" />
+            </rotationAxis>
+         </ImageView>
+         <AnchorPane layoutX="450.0" layoutY="346.0">
+            <children>
+               <ImageView fx:id="c3" fitHeight="178.0" fitWidth="154.0" onMouseClicked="#sendC3" onMouseEntered="#enterCloud" onMouseExited="#exitCloud" preserveRatio="true">
+                  <image>
+                     <Image url="@assets/cloud_card.png" />
+                  </image>
+               </ImageView>
+               <ImageView fx:id="c3b1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_blue.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c3g1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_green.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c3p1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_pink.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c3r1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_red.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c3y1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_yellow.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c3b4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_blue.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c3g4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_green.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c3p4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_pink.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c3r4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_red.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c3y4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_yellow.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c3b3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_blue.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c3g3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_green.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c3p3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_pink.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c3r3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_red.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c3y3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_yellow.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c3b2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_blue.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c3g2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_green.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c3p2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_pink.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c3r2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_red.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c3y2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_yellow.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+            </children>
+         </AnchorPane>
+         <AnchorPane layoutX="571.0" layoutY="183.0">
+            <children>
+               <ImageView fx:id="c2" fitHeight="178.0" fitWidth="154.0" layoutX="-6.0" onMouseClicked="#sendC2" onMouseEntered="#enterCloud" onMouseExited="#exitCloud" preserveRatio="true">
+                  <image>
+                     <Image url="@assets/cloud_card.png" />
+                  </image>
+               </ImageView>
+               <ImageView fx:id="c2b1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_blue.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c2g1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_green.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c2p1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_pink.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c2r1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_red.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c2y1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_yellow.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c2b4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_blue.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c2g4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_green.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c2p4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_pink.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c2r4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_red.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c2y4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_yellow.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c2b3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_blue.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c2g3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_green.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c2p3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_pink.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c2r3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_red.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c2y3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_yellow.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c2b2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_blue.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c2g2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_green.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c2p2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_pink.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c2r2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_red.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c2y2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_yellow.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+            </children>
+         </AnchorPane>
+         <AnchorPane layoutX="338.0" layoutY="183.0">
+            <children>
+               <ImageView fx:id="c1" fitHeight="178.0" fitWidth="154.0" onMouseClicked="#sendC1" onMouseEntered="#enterCloud" onMouseExited="#exitCloud" preserveRatio="true">
+                  <image>
+                     <Image url="@assets/cloud_card.png" />
+                  </image>
+               </ImageView>
+               <ImageView fx:id="c1b1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_blue.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c1g1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_green.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c1p1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_pink.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c1r1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_red.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c1y1" layoutX="51.0" layoutY="27.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_yellow.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c1b4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_blue.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c1g4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_green.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c1p4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_pink.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c1r4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_red.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c1y4" layoutX="20.0" layoutY="68.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_yellow.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c1b3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_blue.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c1g3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_green.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c1p3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_pink.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c1r3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_red.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c1y3" layoutX="61.0" layoutY="97.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_yellow.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c1b2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_blue.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c1g2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_green.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c1p2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_pink.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c1r2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_red.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <ImageView fx:id="c1y2" layoutX="96.0" layoutY="57.0" mouseTransparent="true" visible="false">
+                  <image>
+                     <Image url="@assets/student_yellow.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+            </children>
+         </AnchorPane>
       </children>
    </Pane>
    <columnConstraints>

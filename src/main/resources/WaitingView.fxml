@@ -32,7 +32,7 @@
          <Font name="System Bold" size="14.0" />
       </font>
    </Button>
-   <Text fx:id="portText" fill="#a4e4ff" layoutX="125.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose server port number to connect. &#10;(Default is 1337)" textAlignment="CENTER" visible="false" wrappingWidth="337.3367919921875">
+   <Text fx:id="portText" fill="#a4e4ff" layoutX="125.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose server port number to connect. " textAlignment="CENTER" visible="false" wrappingWidth="337.3367919921875">
       <font>
          <Font name="System Bold" size="26.0" />
       </font>
