@@ -10,7 +10,9 @@ import it.polimi.ingsw.model.TowerColor;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -20,6 +22,7 @@ import java.util.Scanner;
 public class EndGameView implements View {
 
     public Text endText;
+    public AnchorPane endRoot;
     Stage stage;
     @Override
     public void display() {
@@ -38,6 +41,14 @@ public class EndGameView implements View {
         });
     }
 
+
+    public void initialize(){
+        Image img = new Image("assets/pastel blue background.jpg");
+        BackgroundImage bImg = new BackgroundImage(img, BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        Background bGround = new Background(bImg);
+        endRoot.setBackground(bGround);
+    }
     @Override
     public void sendReply() {
 
@@ -57,7 +68,12 @@ public class EndGameView implements View {
     }
 
     private void showLoseScreen(List<Player> otherWinners) {
-        endText.setText("You lose ... Better luck next time :) \n" + otherWinners + "won the game.");
+        String text = "You lose ... Better luck next time :) \n";
+        for (Player player : otherWinners){
+            text += player.toString() + " ";
+        }
+        text += "won the game.";
+        endText.setText(text);
     }
 
     private void showWinScreen() {
@@ -66,6 +82,10 @@ public class EndGameView implements View {
     }
 
     private void showTieScreen(List<Player> otherWinners) {
-        endText.setText("You tied! You won together with \n" + otherWinners);
+        String text = "You tied! You won together with \n";
+        for (Player player : otherWinners){
+            text += player.toString() + " ";
+        }
+        endText.setText(text);
     }
 }

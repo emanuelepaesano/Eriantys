@@ -50,16 +50,15 @@ public class UIManager extends Application{
                 public Void call(){
                     String ip = null;
                     Integer port = null;
-                    System.out.println("inizio a provare");
                     while (ip==null){
                         try{ip = waitingView.getIp();
-                            System.out.println("");}
+                            Thread.sleep(10);}
                         catch (Exception ignored){}
                     }
                     waitingView.askPort();
                     while (port==null){
                         try{port = waitingView.getPort();
-                            System.out.println("");}
+                            Thread.sleep(10);}
                         catch (Exception ignored){}
                     }
                     waitingView.startWaiting();

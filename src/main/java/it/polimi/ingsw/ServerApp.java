@@ -17,7 +17,6 @@ import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.updateMa
 
 /**
  * this will be the main to play the game.
- * it creates the game controller to start. For now only a test
  */
 public class ServerApp {
     public static void main(String[] args) throws IOException {

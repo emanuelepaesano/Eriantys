@@ -35,6 +35,8 @@ public class Switcher implements View {
         stage.setTitle("Eriantys");
         stage.sizeToScene();
         gameScene.setVisible(true);
+        stage.setX(0);
+        stage.setY(0);
         stage.show();
     }
 

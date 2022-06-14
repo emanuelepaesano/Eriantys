@@ -171,8 +171,7 @@ public class Game implements Serializable {
                 }
             }
             case "deckend" -> {
-                if (player.getAssistants().values().equals(List.of(false, false, false, false, false,
-                        false, false, false, false, false))){
+                if (!player.getAssistants().containsValue(true)){
                 over = true;
                 return true;}
             }

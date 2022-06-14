@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.EndGameView">
+<AnchorPane fx:id="endRoot" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.EndGameView">
    <children>
       <Text fill="#0a00c7" layoutX="151.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game is over!" textAlignment="CENTER" wrappingWidth="297.33673095703125">
          <font>

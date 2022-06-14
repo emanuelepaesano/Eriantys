@@ -12,8 +12,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -76,6 +78,7 @@ public class IslandView implements View {
     public ImageView island4; public ImageView island5; public ImageView island6; public ImageView island7;
     public ImageView island8; public ImageView island9; public ImageView island10; public ImageView island11;
     public ImageView c3;public ImageView c2;public ImageView c1;
+    public GridPane islandRoot;
 
 
     private List<ImageView> islands;
@@ -136,6 +139,7 @@ public class IslandView implements View {
         bridgesFrom = List.of(List.of(b110,b01),List.of(b01,b12),List.of(b12,b23),
                 List.of(b23,b34),List.of(b34,b45),List.of(b45,b56),List.of(b56,b67),List.of(b67,b78),
                 List.of(b78,b89),List.of(b89,b910),List.of(b910,b1011),List.of(b1011,b110));
+
 
     }
 
