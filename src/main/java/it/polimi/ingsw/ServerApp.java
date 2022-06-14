@@ -29,12 +29,22 @@ public class ServerApp {
         Message info =  new IslandInfoMessage(game, init);
         for (PlayerController pc: gc.getControllers()){
             new ActionPhaseMessage(pc.getPlayer(), update).send(pc.getPlayerView());
+            //  to update other players' school
+            List<Player> otherPlayers = new ArrayList<Player>(game.getTableOrder());
+            otherPlayers.remove(pc.getPlayer());
+            new SwitcherMessage(otherPlayers).send(pc.getPlayerView());
         }
         info.send(server.views);
+        new SwitcherMessage(game.getTableOrder());
         while (!game.isOver()) {
             gc.doPlanningPhase(game);
             for (Player player : game.getCurrentOrder()) {
                 PlayerController pc = gc.getControllers().get(game.getTableOrder().indexOf(player));
+                //  to update other players' school
+                List<Player> otherPlayers = new ArrayList<Player>(game.getTableOrder());
+                otherPlayers.remove(player);
+                new SwitcherMessage(otherPlayers).send(pc.getPlayerView());
+
                 new IslandInfoMessage(game, updateMap).send(pc.getPlayerView());
                 game.setCurrentPlayer(player);
                 gc.doActions(pc);
