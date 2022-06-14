@@ -81,8 +81,6 @@ public class PlanningPhaseView implements View {
             this.remainingAssistants = mess.getRemainingAssistants();
             this.playedByOthers = mess.getPlayedByOthers();
             Platform.runLater(this::bindAssistants);
-
-
     }
 
     private void bindAssistants(){

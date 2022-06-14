@@ -5,6 +5,7 @@ import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.CLIENT.View;
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.messages.SwitcherMessage;
+import it.polimi.ingsw.model.Assistant;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Student;
 import it.polimi.ingsw.model.TowerColor;
@@ -22,6 +23,9 @@ import javafx.stage.Stage;
 
 import java.util.List;
 import java.util.Map;
+
+import static it.polimi.ingsw.model.Assistant.*;
+import static it.polimi.ingsw.model.Assistant.TEN;
 
 public class OtherPlayerView implements View {
 
@@ -57,6 +61,17 @@ public class OtherPlayerView implements View {
     public ImageView t7w; public ImageView t7b; public ImageView t7g;
     public ImageView t8w; public ImageView t8b; public ImageView t8g;
 
+    public ImageView one;
+    public ImageView two;
+    public ImageView three;
+    public ImageView four;
+    public ImageView five;
+    public ImageView six;
+    public ImageView seven;
+    public ImageView eight;
+    public ImageView nine;
+    public ImageView ten;
+
     public Label towLabel;
 
     public Text playerName;
@@ -66,11 +81,14 @@ public class OtherPlayerView implements View {
 
     NetworkHandler nh;
 
+    List<ImageView> assistantImageViewList;
     List<List<ImageView>> entranceImageViewList;
     Map<Student, List<ImageView>> diningRoomImageViewMap;
     Map<Student, ImageView> professorsImageViewList;
     Map<TowerColor, List<ImageView>> towersImageViewList;
 
+    List<Assistant> allAssistants;
+    Map<Assistant, Boolean> playersAssistants;
 
     @Override
     public void display() {
@@ -117,6 +135,10 @@ public class OtherPlayerView implements View {
             list.get(4).setOnMouseClicked(this::yellowSelected);
             list.forEach(img->img.setDisable(true));
         });
+
+//        show remaining assistants
+        allAssistants = List.of(ONE,TWO,THREE,FOUR,FIVE,SIX,SEVEN,EIGHT,NINE,TEN);
+        assistantImageViewList = List.of(one, two, three, four, five, six, seven, eight, nine, ten);
     }
 
 
@@ -131,12 +153,14 @@ public class OtherPlayerView implements View {
     public void fillInfoWithPlayer(Player player) {
         this.player = player;
         playerName.setText(this.player.getPlayerName());
+        playersAssistants = this.player.getAssistants();
 
         //Here we have to link the elements from the model to the graphic components.
         bindEntrance();
         bindDiningRoom();
         bindProfessors();
         bindTowers();
+        bindAssistants();
     }
 
     public void setEntranceInvisible() {
@@ -267,6 +291,15 @@ public class OtherPlayerView implements View {
     private void blueSelected(MouseEvent mouseEvent) {
         nh.sendMessage("blue");
         entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(true)));
+    }
+
+    private void bindAssistants(){
+        for (int i=0; i<10;i++){
+            Assistant assistant = allAssistants.get(i);
+            if (playersAssistants.get(assistant) == false){
+                assistantImageViewList.get(i).setVisible(false);
+            }
+        }
     }
 
 }
