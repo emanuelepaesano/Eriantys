@@ -1028,5 +1028,55 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Text>
+      <ImageView fx:id="one" fitHeight="200.0" fitWidth="90.0" layoutX="140.0" layoutY="670.0" preserveRatio="true">
+         <image>
+            <Image url="@assets/Assistente%20(1).png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="three" fitHeight="200.0" fitWidth="90.0" layoutX="340.0" layoutY="670.0" preserveRatio="true">
+         <image>
+            <Image url="@assets/Assistente%20(3).png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="two" fitHeight="200.0" fitWidth="90.0" layoutX="240.0" layoutY="670.0" preserveRatio="true">
+         <image>
+            <Image url="@assets/Assistente%20(2).png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="ten" fitHeight="200.0" fitWidth="90.0" layoutX="1040.0" layoutY="670.0" preserveRatio="true">
+         <image>
+            <Image url="@assets/Assistente%20(10).png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="seven" fitHeight="200.0" fitWidth="90.0" layoutX="740.0" layoutY="670.0" preserveRatio="true">
+         <image>
+            <Image url="@assets/Assistente%20(7).png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="nine" fitHeight="200.0" fitWidth="90.0" layoutX="940.0" layoutY="670.0" preserveRatio="true">
+         <image>
+            <Image url="@assets/Assistente%20(9).png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="eight" fitHeight="200.0" fitWidth="90.0" layoutX="840.0" layoutY="670.0" preserveRatio="true">
+         <image>
+            <Image url="@assets/Assistente%20(8).png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="four" fitHeight="200.0" fitWidth="90.0" layoutX="440.0" layoutY="670.0" preserveRatio="true">
+         <image>
+            <Image url="@assets/Assistente%20(4).png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="five" fitHeight="200.0" fitWidth="90.0" layoutX="540.0" layoutY="670.0" preserveRatio="true">
+         <image>
+            <Image url="@assets/Assistente%20(5).png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="six" fitHeight="200.0" fitWidth="90.0" layoutX="640.0" layoutY="670.0" preserveRatio="true">
+         <image>
+            <Image url="@assets/Assistente%20(6).png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
