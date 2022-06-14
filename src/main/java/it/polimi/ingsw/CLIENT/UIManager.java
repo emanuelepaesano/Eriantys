@@ -178,7 +178,6 @@ public class UIManager extends Application{
 
     private View schoolView;
     private Parent schoolRoot;
-
     public Parent getSchoolRoot() {
         return schoolRoot;
     }
@@ -191,6 +190,41 @@ public class UIManager extends Application{
             }catch(IOException ex){ex.printStackTrace();}
         }
         return schoolView;
+    }
+
+    private View p1SchoolView;
+    private Parent p1SchoolRoot;
+
+    public Parent getP1SchoolRoot() {
+        return p1SchoolRoot;
+    }
+
+    public View getP1SchoolView(){
+        if (this.p1SchoolView ==null){
+            try {
+                FXMLLoader actionPhaseLoader = new FXMLLoader(getClass().getResource("/OtherPlayerView.fxml"));
+                p1SchoolRoot = actionPhaseLoader.load();
+                p1SchoolView = actionPhaseLoader.getController();
+            }catch(IOException ex){ex.printStackTrace();}
+        }
+        return p1SchoolView;
+    }
+
+    private View p2SchoolView;
+    private Parent p2SchoolRoot;
+
+    public Parent getP2SchoolRoot() {
+        return p2SchoolRoot;
+    }
+    public View getP2SchoolView(){
+        if (this.p2SchoolRoot ==null){
+            try {
+                FXMLLoader actionPhaseLoader = new FXMLLoader(getClass().getResource("/OtherPlayerView.fxml"));
+                p2SchoolRoot = actionPhaseLoader.load();
+                p2SchoolView = actionPhaseLoader.getController();
+            }catch(IOException ex){ex.printStackTrace();}
+        }
+        return p2SchoolView;
     }
 
     private View endGameView;

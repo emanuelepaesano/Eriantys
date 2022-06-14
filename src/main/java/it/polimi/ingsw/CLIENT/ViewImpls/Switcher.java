@@ -2,7 +2,11 @@ package it.polimi.ingsw.CLIENT.ViewImpls;
 
 import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.CLIENT.View;
+import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.messages.ActionPhaseMessage;
 import it.polimi.ingsw.messages.Message;
+import it.polimi.ingsw.messages.SwitcherMessage;
+import it.polimi.ingsw.model.Player;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,15 +15,21 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Switcher implements View {
     public AnchorPane container;
     public Button school;
     public Button islands;
     public StackPane gameScene;
     public Button assistants;
+    public Button player1;
+    public Button player2;
 
     private Stage stage;
 
+    List<Player> players;
 
     private UIManager uim;
 
@@ -53,8 +63,25 @@ public class Switcher implements View {
 
     }
     @Override
-    public void fillInfo(Message message) {
-
+    public void fillInfo(Message mes) {
+        SwitcherMessage message = (SwitcherMessage) mes;
+        this.players = message.getOtherPlayers();
+        if (this.players.size() == 1) {
+            player1.setText(this.players.get(0).getPlayerName());
+            player1.setVisible(true);
+            player2.setVisible(false);
+            OtherPlayerView p1View = (OtherPlayerView) uim.getP1SchoolView();
+            p1View.fillInfoWithPlayer(this.players.get(0));
+        } else {
+            player1.setText(this.players.get(0).getPlayerName());
+            player2.setText(this.players.get(1).getPlayerName());
+            player1.setVisible(true);
+            player2.setVisible(true);
+            OtherPlayerView p1View = (OtherPlayerView) uim.getP1SchoolView();
+            OtherPlayerView p2View = (OtherPlayerView) uim.getP2SchoolView();
+            p1View.fillInfoWithPlayer(this.players.get(0));
+            p2View.fillInfoWithPlayer(this.players.get(1));
+        }
     }
 
     public void toIslands() {
@@ -62,11 +89,18 @@ public class Switcher implements View {
     }
 
     public void toSchool() {
-
         Platform.runLater(()->gameScene.getChildren().setAll(uim.getSchoolRoot()));
     }
 
     public void toAssistants() {
         Platform.runLater(()->gameScene.getChildren().setAll(uim.getPlanningPhaseRoot()));
+    }
+
+    public void toPlayer1() {
+        Platform.runLater(()->gameScene.getChildren().setAll(uim.getP1SchoolRoot()));
+    }
+
+    public void toPlayer2() {
+        Platform.runLater(()->gameScene.getChildren().setAll(uim.getP2SchoolRoot()));
     }
 }
