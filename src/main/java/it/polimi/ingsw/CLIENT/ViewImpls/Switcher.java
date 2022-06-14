@@ -15,7 +15,7 @@ public class Switcher implements View {
     public AnchorPane container;
     public Button school;
     public Button islands;
-    public SubScene gameScene;
+    public StackPane gameScene;
     public Button assistants;
 
     private Stage stage;
@@ -58,17 +58,15 @@ public class Switcher implements View {
     }
 
     public void toIslands() {
-
-        Platform.runLater(()->gameScene.setRoot(uim.getGenInfoRoot()));
+        Platform.runLater(()->gameScene.getChildren().setAll(uim.getGenInfoRoot()));
     }
 
     public void toSchool() {
 
-        Platform.runLater(()->gameScene.setRoot(uim.getSchoolRoot()));
+        Platform.runLater(()->gameScene.getChildren().setAll(uim.getSchoolRoot()));
     }
 
     public void toAssistants() {
-
-        Platform.runLater(()->gameScene.setRoot(uim.getPlanningPhaseRoot()));
+        Platform.runLater(()->gameScene.getChildren().setAll(uim.getPlanningPhaseRoot()));
     }
 }

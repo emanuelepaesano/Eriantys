@@ -10,11 +10,8 @@
 <AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.Switcher" >
     <AnchorPane fx:id="container" layoutX="162.0" prefHeight="800.0" prefWidth="1280.0" AnchorPane.leftAnchor="162.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
         <children>
-         <SubScene fx:id="gameScene" height="800.0" width="1280.0">
-           <root>
-             <Region />
-           </root>
-         </SubScene>
+         <StackPane fx:id="gameScene" prefHeight="800.0" prefWidth="1280.0">
+         </StackPane>
         </children>
     </AnchorPane>
    <VBox layoutX="6.0" layoutY="7.0" prefHeight="598.0" prefWidth="141.0">
