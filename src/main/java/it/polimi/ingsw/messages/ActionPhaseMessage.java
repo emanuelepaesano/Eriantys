@@ -4,7 +4,7 @@ import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.CLIENT.View;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.model.Student;
-import it.polimi.ingsw.model.characters.Character;
+import it.polimi.ingsw.model.characters.Characters;
 import it.polimi.ingsw.model.Player;
 
 import java.util.List;
@@ -15,11 +15,11 @@ public class ActionPhaseMessage extends Repliable implements Message{
 
     String text;
     Player player;
-    List<Character> characters;
+    List<Characters> characters;
     ActionPhaseType type;
     Integer availableActions;
 
-    public ActionPhaseMessage(Boolean advanced, int availableActions, Player player, List<Character>characters) {
+    public ActionPhaseMessage(Boolean advanced, int availableActions, Player player, List<Characters>characters) {
         //we can show a popup saying that it is your turn (or something like that), and enable two (or three) buttons
         //in the "yourentrance" screen
         this.availableActions = availableActions;

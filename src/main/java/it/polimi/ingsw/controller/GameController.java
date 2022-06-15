@@ -19,6 +19,7 @@ public class GameController {
 
     VirtualView firstPlayer;
     private Boolean advanced;
+    private List<Boolean> playedCharacters;
     private Map<Player,PlayerController> controllerMap;
 
 
@@ -40,6 +41,12 @@ public class GameController {
         while (advanced == null) {
             askForAdvanced();
             replyToAdvanced(firstPlayer.getReply());
+        }
+        if (advanced){
+            playedCharacters = new ArrayList<Boolean>();
+            playedCharacters.add(false);
+            playedCharacters.add(false);
+            playedCharacters.add(false);
         }
         askAllPlayerNames();
         askAllForTC(numplayers);
@@ -179,7 +186,7 @@ private void askAllPlayerNames(){
             }
             else if (action.equalsIgnoreCase("characters")){
                 if(player.getCoins()!= null){
-                    pc.playCharacters(game.getCharacters(),game);
+                    playedCharacters = pc.playCharacters(game.getCharacters(),game, playedCharacters);
                 }
                 else {
                     new NoReplyMessage("This is not an advanced game!").send(pc.getPlayerView());
@@ -200,6 +207,16 @@ private void askAllPlayerNames(){
         //the controller of that player...
         PlayerController currentPC = controllers.get(controllers.stream().map(PlayerController::getPlayer).toList().indexOf(player));
         game.setCurrentPlayer(currentPC.getPlayer());
+    }
+    
+    public void resetCharacters(Game game, PlayerController pc){
+        for (int i = 0; i<playedCharacters.size(); i++) {
+            if (playedCharacters.get(i)){
+                game.getCharacters().get(i).reset(game, pc);
+                playedCharacters.set(i, false);
+            }
+            
+        }
     }
 
 

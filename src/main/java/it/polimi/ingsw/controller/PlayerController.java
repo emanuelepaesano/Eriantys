@@ -3,7 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.characters.Character;
+import it.polimi.ingsw.model.characters.Characters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,19 +121,23 @@ public class PlayerController {
     }
 
 
-    public void playCharacters(List<Character> characters, Game game){
+    public List<Boolean> playCharacters(List<Characters> characters, Game game, List<Boolean> playedCharacters){
         int chosenChar;
         new PlayCharMessage(characters,player).send(playerView);
         while(true) {
             String str = playerView.getReply();
-            if (str.equalsIgnoreCase("back")){return;}
+            if (str.equalsIgnoreCase("back")){
+                return playedCharacters;
+            }
             else try{
                 chosenChar = Integer.parseInt(str);
                 break;
             } catch (Exception ex){new NoReplyMessage("Not a correct number, retry.").send(playerView);}
         }
-        Character chara = characters.get(chosenChar-1);
-        Character.play(chara,game, this);
+        Characters chara = characters.get(chosenChar-1);
+        playedCharacters.set(chosenChar-1 , true);
+        chara.play(game, this);
+        return playedCharacters;
     }
 
 

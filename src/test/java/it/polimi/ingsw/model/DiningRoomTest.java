@@ -70,4 +70,30 @@ class DiningRoomTest {
 
         assertEquals(expected, testDiningRoom.getProfessors());
     }
+
+    @Test
+    @DisplayName("Test the correct placement of a student")
+    void putStudent(){
+        Student student = Student.GREEN;
+        testDiningRoom.putStudent(student);
+
+        Map<Student,Integer> expected = Map.of(Student.BLUE,0,Student.GREEN,1,
+                Student.RED,0,Student.YELLOW,0, Student.PINK, 0);
+
+        assertEquals(expected, testDiningRoom.getTables());
+    }
+
+    @Test
+    @DisplayName("Test the correct placement of a student, when the dining room is already full")
+    void putStudentFull(){
+        Student student = Student.GREEN;
+        testDiningRoom.getTables().putAll(
+                Map.of(  Student.BLUE,3,  Student.PINK,3,  Student.GREEN,10,  Student.RED,3, Student.YELLOW,3  ));
+        testDiningRoom.putStudent(student);
+        Map<Student,Integer> expected = Map.of(Student.BLUE,3,Student.GREEN,10,
+                Student.RED,3,Student.YELLOW,3, Student.PINK, 3);
+
+        assertEquals(expected, testDiningRoom.getTables());
+    }
+
 }

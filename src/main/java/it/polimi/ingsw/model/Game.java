@@ -1,5 +1,5 @@
 package it.polimi.ingsw.model;
-import it.polimi.ingsw.model.characters.Character;
+import it.polimi.ingsw.model.characters.Characters;
 
 import java.io.Serializable;
 import java.util.*;
@@ -28,7 +28,7 @@ public class Game implements Serializable {
     private List<List<Student>> clouds;
     private GameMap gameMap;
 
-    private List<Character> characters;
+    private List<Characters> characters;
 
     Random randomizer = new Random();
     private Boolean over = false;
@@ -97,7 +97,7 @@ public class Game implements Serializable {
         }
     }
 
-    private List<Character> makeAllCharacters(Game game){
+    private List<Characters> makeAllCharacters(Game game){
 
         characters = new ArrayList<>();
 //        List<Integer> availables = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 7, 8));
@@ -110,7 +110,7 @@ public class Game implements Serializable {
 //                    break;
 //                }
 //            }
-            characters.add(Character.makeCharacter(3, this));
+            characters.add(Characters.makeCharacter(3, this));
 //        }
         return characters;
     }
@@ -287,7 +287,7 @@ public class Game implements Serializable {
         return round;
     }
 
-    public List<Character> getCharacters() {
+    public List<Characters> getCharacters() {
         return characters;
     }
 

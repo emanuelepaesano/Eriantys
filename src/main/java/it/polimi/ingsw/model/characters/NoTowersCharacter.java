@@ -12,34 +12,33 @@ import java.util.List;
  */
 class NoTowersCharacter extends Characters {
     int cost;
+    int maxCost;
+    List<Integer> oldsizes;
 
     public NoTowersCharacter() {
         this.cost = 3;
+        this.maxCost = 4;
     }
 
-    public synchronized void play(Game game, PlayerController pc){
+    public void play(Game game, PlayerController pc){
         Player player = pc.getPlayer();
-        if (!Character.enoughMoney(player,cost)){
+        if (!Characters.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
             return;}
-        this.cost = Character.payandUpdateCost(player,cost);
-        Player thisTurn = game.getCurrentPlayer();
+        this.cost = Characters.payandUpdateCost(player,cost,maxCost);
         List<Island> islands = game.getGameMap().getArchipelago();
-        List<Integer> oldsizes = islands.stream().map(Island::getSize).toList();
-        Thread t = new Thread(()->{
-            while (game.getCurrentPlayer() == thisTurn) {
+        oldsizes = islands.stream().map(Island::getSize).toList();
             //we either make size 0 or  change the checkowner
-            islands.forEach(island -> island.setSize(0));
-                try {
-                    wait();
-                } catch (InterruptedException e) {Thread.currentThread().interrupt();}
-            }
-            islands.forEach(island ->
-                island.setSize(oldsizes.get(islands.indexOf(island)))
-            );});
-        t.start();
+        islands.forEach(island -> island.setSize(0));
     }
 
+    public void reset(Game game, PlayerController pc){
+        List<Island> islands = game.getGameMap().getArchipelago();
+        islands.forEach(island ->
+                island.setSize(oldsizes.get(islands.indexOf(island)))
+        );
+        oldsizes.clear();
+    }
     public int getCost() {
         return cost;
     }

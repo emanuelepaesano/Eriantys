@@ -5,9 +5,7 @@ import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.messages.StringMessage;
 import it.polimi.ingsw.model.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * You can take 1 student from this character and move it to an island.
@@ -15,11 +13,13 @@ import java.util.Scanner;
  class PlaceInIslandCharacter extends Characters {
     int cost;
     List<Student> students;
+    int maxCost;
 
 
     public PlaceInIslandCharacter(List<Student>students) {
         this.cost = 1;
         this.students = students;
+        this.maxCost = 2;
 
     }
 
@@ -46,7 +46,7 @@ import java.util.Scanner;
         Player player = pc.getPlayer();
         Student chosenStudent = pickStudent(pc.getPlayerView());
         if(chosenStudent ==null){return;}
-        if (!Character.enoughMoney(player,cost)){
+        if (!Characters.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
             return;}
 
@@ -55,7 +55,7 @@ import java.util.Scanner;
         int oldval = island.students.get(chosenStudent);
         island.students.replace(chosenStudent, oldval, oldval + 1);
         students.add(game.drawFromBag());
-        this.cost = Character.payandUpdateCost(player,cost);
+        this.cost = Characters.payandUpdateCost(player,cost,maxCost);
     }
     public int getCost() {
         return cost;

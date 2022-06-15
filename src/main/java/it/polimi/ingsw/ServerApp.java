@@ -52,6 +52,7 @@ public class ServerApp {
                 game.getGameMap().moveMotherNatureAndCheck(game.getTableOrder(), nmoves);
                 new IslandInfoMessage(game, updateMap).send(pc.getPlayerView());
                 pc.getEntranceController().fillFromClouds(game.getClouds());
+                gc.resetCharacters(game, pc);
                 new IslandInfoMessage(game, updateMap).send(server.views);
                 new ActionPhaseMessage(pc.getPlayer(),update).send(pc.getPlayerView());
                 game.checkGameEndCondition("towerend", player);

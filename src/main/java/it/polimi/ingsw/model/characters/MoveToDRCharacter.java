@@ -9,13 +9,13 @@ import it.polimi.ingsw.model.Student;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * You can take 1 student from this character and move it to your diningRoom
  */
 class MoveToDRCharacter extends Characters {
     int cost;
+    int maxCost;
 
     List<Student> students;
 
@@ -23,6 +23,7 @@ class MoveToDRCharacter extends Characters {
     public MoveToDRCharacter(List<Student> students) {
         this.cost = 2;
         this.students = new ArrayList<>(students);
+        this.maxCost = 3;
 
     }
 
@@ -49,7 +50,7 @@ class MoveToDRCharacter extends Characters {
         Player player = pc.getPlayer();
         Student chosenStudent = pickStudent(pc.getPlayerView());
         if (chosenStudent == null){return;}
-        if (!Character.enoughMoney(player,cost)){
+        if (!Characters.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
             return;}
         students.remove(chosenStudent);
@@ -58,7 +59,7 @@ class MoveToDRCharacter extends Characters {
         if (students.size() < 3) {
             students.add(game.drawFromBag());
         }
-        this.cost = Character.payandUpdateCost(player,cost);
+        this.cost = Characters.payandUpdateCost(player,cost,maxCost);
         System.out.println("New Dining Room:\n " + player.getDiningRoom());
     }
 
