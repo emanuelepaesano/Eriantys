@@ -2,6 +2,7 @@ package it.polimi.ingsw.CLIENT;
 
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.messages.NoReplyMessage;
+import it.polimi.ingsw.messages.PingMessage;
 import it.polimi.ingsw.messages.Repliable;
 
 import javax.swing.*;
@@ -64,7 +65,11 @@ public class NetworkHandler{
                 while (true) {
                     message = (Message) inStream.readObject();
                     if (message.isPing()){
-                        timeout.restart();}
+                        timeout.restart();
+                        outStream.writeObject(new PingMessage());
+                        outStream.flush();
+                    }
+
                     else {
                         System.out.println("last non ping message: " + message.getClass().getSimpleName());
                         if (message.isRepliable()){

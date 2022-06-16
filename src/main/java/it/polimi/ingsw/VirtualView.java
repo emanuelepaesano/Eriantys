@@ -3,8 +3,12 @@ package it.polimi.ingsw;
 
 
 import it.polimi.ingsw.messages.Message;
+import it.polimi.ingsw.messages.PingMessage;
 import it.polimi.ingsw.messages.Repliable;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -15,6 +19,8 @@ public class VirtualView {
     private final Socket socket;
     ObjectInputStream inStream;
     ObjectOutputStream outStream;
+
+    Timer timeOut;
     //ONE VIRTUAL VIEW FOR EACH PLAYER
 
     //could also work with the playername
@@ -68,11 +74,35 @@ public class VirtualView {
         }catch ( IOException| ClassNotFoundException ex ){throw new RuntimeException("could not get answer");}
     }
 
-//    public Consumer<String> replyTo;
+    private void startConnection(){
+        timeOut = new Timer(7000, onTimeout);
+        Timer forPing = new Timer(100, sendPing);
+        forPing.start();
 
-//    public void setReplyTo(Consumer<String> replyTo) {
-//        this.replyTo = replyTo;
-//    }
+    }
+
+    ActionListener onTimeout = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("there was a disconnection");
+            //send message to other clients
+        }
+    };
+
+    ActionListener sendPing = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            update(new PingMessage());
+            try {
+                Message ping = (Message)inStream.readObject();
+                if (ping.isPing()){
+                    timeOut.restart();
+                }
+            } catch (IOException | ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+    };
 
     public int getPlayerId() {
         return playerId;
