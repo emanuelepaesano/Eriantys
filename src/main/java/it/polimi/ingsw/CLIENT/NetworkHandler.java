@@ -25,11 +25,11 @@ public class NetworkHandler{
     //possiamo però lasciarci questo spazio a parte dagli stati della view. L'idea sarebbe
     //che queste cose appaiono come popup sopra alla view che resta però allo stato attuale
 
-    Socket socket;
-    Boolean GUI;
+    private Socket socket;
+    private final Boolean GUI;
     Thread listener;
-    ObjectInputStream inStream;
-    ObjectOutputStream outStream;
+    private ObjectInputStream inStream;
+    private ObjectOutputStream outStream;
     private Consumer<Message> messageArrivedObserver;
     private List<Message> delayedMessages = new ArrayList<>();
     private Message currentMessage;
@@ -49,7 +49,7 @@ public class NetworkHandler{
                 break;
             }catch (IOException ex){
                 System.err.println("server is not online. Waiting for server . . . ");
-                try{Thread.sleep(3000);}catch(Exception ecc){}
+                try{Thread.sleep(3000);}catch(Exception exception){exception.printStackTrace();}
             }
         }
     }

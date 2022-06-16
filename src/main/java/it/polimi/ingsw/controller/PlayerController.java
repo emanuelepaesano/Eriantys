@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.*;
@@ -52,11 +53,11 @@ public class PlayerController {
      * @param remainingColors the remaining colors, by the game controller
      * @return the TowerColor chosen by the player among the remaining ones
      */
-    public void askTowerColor(List<TowerColor> remainingColors) {
+    public void askTowerColor(List<TowerColor> remainingColors)  {
         new LoginMessage(player.getPlayerName() + ", please choose your tower color among the available ones: " + remainingColors
        , remainingColors).send(playerView);
     }
-    public TowerColor replyToTowerColor(String input, List<TowerColor> remainingColors){
+    public TowerColor replyToTowerColor(String input, List<TowerColor> remainingColors) {
             try {
                 TowerColor choice = TowerColor.valueOf(input.toUpperCase());
                 if (remainingColors.contains(choice)){
@@ -64,7 +65,7 @@ public class PlayerController {
                     return choice;
                 }
             } catch (IllegalArgumentException ex) {
-                new NoReplyMessage(Game.ANSI_RED+ "Try again!"+ Game.ANSI_RESET).send(playerView);
+                new NoReplyMessage("Try again!").send(playerView);
                 return null;
             }
             new NoReplyMessage(Game.ANSI_RED+ "Not an acceptable color, available colors are: "

@@ -4,26 +4,12 @@ import it.polimi.ingsw.VirtualView;
 
 import java.util.List;
 
-public class NoReplyMessage implements Message {
+public class NoReplyMessage extends Message {
     final String content;
     public NoReplyMessage(String content) {
         this.content = content;
     }
 
-    @Override
-    public void send(VirtualView user) {
-        user.update(this);
-    }
-
-    @Override
-    public void send(List<VirtualView> all) {
-        all.forEach(v->v.update(this));
-    }
-
-    @Override
-    public String getView() {
-        return "simpledialog";
-    }
 
     @Override
     public void switchAndFillView() {

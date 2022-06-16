@@ -16,16 +16,6 @@ public class PickIslandMessage extends Repliable{
                 "\nIndicate the island by its number (0~"+(gm.getArchipelago().size()-1)+"):";
     }
 
-    @Override
-    public void send(VirtualView user) {user.update(this);}
-
-    @Override
-    public void send(List<VirtualView> all) {all.forEach((u)->u.update(this));}
-
-    @Override
-    public String getView() {
-        return "";
-    }
 
     @Override
     public void switchAndFillView() {

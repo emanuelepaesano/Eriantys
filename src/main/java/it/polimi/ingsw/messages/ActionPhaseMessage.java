@@ -11,7 +11,7 @@ import java.util.List;
 
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.*;
 
-public class ActionPhaseMessage extends Repliable implements Message{
+public class ActionPhaseMessage extends Repliable{
 
     String text;
     Player player;
@@ -63,20 +63,7 @@ public class ActionPhaseMessage extends Repliable implements Message{
         endActions;
     }
 
-    @Override
-    public void send(VirtualView user) {
-        user.update(this);
-    }
 
-    @Override
-    public void send(List<VirtualView> all) {
-        all.forEach(v->v.update(this));
-    }
-
-    @Override
-    public String getView() {
-        return "actionview";
-    }
 
     @Override
     public void switchAndFillView() {

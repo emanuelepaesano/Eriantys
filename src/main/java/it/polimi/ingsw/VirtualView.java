@@ -24,6 +24,8 @@ public class VirtualView {
     ServerStarter server;
     Timer timeOut;
     private String reply = "wait";
+
+    private Boolean disconnected = false;
     //ONE VIRTUAL VIEW FOR EACH PLAYER
 
     //could also work with the playername
@@ -78,7 +80,8 @@ public class VirtualView {
                 else {if (message.isPing()){
                     timeOut.restart();
                 }}
-            } catch (Exception exc){}
+            } catch (IOException | ClassNotFoundException exc){ throw new RuntimeException("IO Exception !!! ");
+            }
         }
 
     }
@@ -91,6 +94,10 @@ public class VirtualView {
                     outStream.flush();
                 }
                 Thread.sleep(2000);
+                //se la view è disconnessa, per fortuna continuiamo a mandare i ping, ma
+                //gli arriveranno tutti insieme quando si riconnette. amen? oppure aspettiamo
+                //a mandare finche non si riconnette?
+
             }catch (IOException | InterruptedException ex) {
                 System.err.println("cannot send Ping!");
                 break;
@@ -106,6 +113,8 @@ public class VirtualView {
         }
     };
 
+    //this is only for the ActionListener.
+    private VirtualView getThis(){return this;}
 
     public int getPlayerId() {
         return playerId;
@@ -115,5 +124,10 @@ public class VirtualView {
         return socket;
     }
 
-    private VirtualView getThis(){return this;}
+    public synchronized Boolean isDisconnected(){
+        return disconnected;
+    }
+    public synchronized void setDisconnected(Boolean disconnected) {
+        this.disconnected = disconnected;
+    }
 }

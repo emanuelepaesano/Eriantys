@@ -15,6 +15,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -55,7 +56,7 @@ public class SchoolView implements View {
     public ImageView t8w; public ImageView t8b; public ImageView t8g;
     public Button moveToIsland ; public Button moveToDR; public Button back;
 
-    public Label towLabel;
+    public Text towLabel;
     public Parent schoolRoot;
 
     Player player;

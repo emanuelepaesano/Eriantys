@@ -6,27 +6,13 @@ import it.polimi.ingsw.VirtualView;
 
 import java.util.List;
 
-public class CloudMessage extends Repliable implements Message{
+public class CloudMessage extends Repliable{
 
     String content;
     public CloudMessage(String content) {
         this.content = content;
     }
 
-    @Override
-    public void send(VirtualView user) {
-        user.update(this);
-    }
-
-    @Override
-    public void send(List<VirtualView> all) {
-        all.forEach(v->v.update(this));
-    }
-
-    @Override
-    public String getView() {
-        return "cloudselection";
-    }
 
     @Override
     public void switchAndFillView() {

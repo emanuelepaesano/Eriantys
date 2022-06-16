@@ -80,6 +80,16 @@ public class ServerStarter {
         List<VirtualView> otherViews = new ArrayList<>(views);
         otherViews.remove(view);
         new NoReplyMessage("Player "+ view.getPlayerId() +"disconnected. The game will stop. ").send(otherViews);
+        //aspettiamo che quella view si riconnetta. nel frattempo la marchiamo come disconnessa e
+        //il gioco andrà avanti senza di lei
+        view.setDisconnected(true);
+        //this thing must be synchronized with getDisconnected, since main and other thread(this) will access it
+
+
+
+
+
+
 
     }
 }

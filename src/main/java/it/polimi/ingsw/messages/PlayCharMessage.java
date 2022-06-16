@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.Player;
 
 import java.util.List;
 
-public class PlayCharMessage extends Repliable implements Message{
+public class PlayCharMessage extends Repliable{
     List<Character> characters;
     Player player;
     String text;
@@ -19,20 +19,6 @@ public class PlayCharMessage extends Repliable implements Message{
                 "Enter a number between 1~3 to choose, or type \"back\".";
     }
 
-    @Override
-    public void send(VirtualView user) {
-        user.update(this);
-    }
-
-    @Override
-    public void send(List<VirtualView> all) {
-        all.forEach(v->v.update(this));
-    }
-
-    @Override
-    public String getView() {
-        return "playcharview";
-    }
 
     @Override
     public void switchAndFillView() {
