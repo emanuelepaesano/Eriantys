@@ -66,8 +66,10 @@ public class NetworkHandler{
                     message = (Message) inStream.readObject();
                     if (message.isPing()){
                         timeout.restart();
-                        outStream.writeObject(new PingMessage());
-                        outStream.flush();
+                        synchronized (socket) {
+                            outStream.writeObject(new PingMessage());
+                            outStream.flush();
+                        }
                     }
 
                     else {
@@ -106,9 +108,11 @@ public class NetworkHandler{
         try {
             ((Repliable) currentMessage).setReply(reply);
             System.out.println("sending reply");
-            outStream.writeObject(currentMessage);
-            outStream.flush();
-            outStream.reset();
+            synchronized (socket) {
+                outStream.writeObject(currentMessage);
+                outStream.flush();
+                outStream.reset();
+            }
         } catch (IOException e) {
             System.err.println("Could not send message...");
         }

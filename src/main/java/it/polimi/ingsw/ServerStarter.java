@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ClientHandler {
+public class ServerStarter {
     int port;
     String model;
     Scanner inStream;
@@ -18,7 +18,7 @@ public class ClientHandler {
     ServerSocket serverSocket;
     List<VirtualView> views;
     //To the first client we ask the number of players, which is the first thing inside the gamecontroller
-    public ClientHandler(int port) {
+    public ServerStarter(int port) {
         this.port = port;
         views = new ArrayList<>();
     }
@@ -32,21 +32,19 @@ public class ClientHandler {
 
         Socket socket = serverSocket.accept();
         System.out.println("Connected!");
-        VirtualView client1 = new VirtualView(socket,1);
+        VirtualView client1 = new VirtualView(this, socket,1);
         views.add(client1);
         int n = askForPN(client1);
         new NoReplyMessage("OK! Waiting players for a "+n+"-player game...").send(client1);
 
         lookForMorePlayers((n-1));
         System.out.println(views);
-        Thread pingSender = new Thread(this::startPing);
-        pingSender.start();
         return n;
     }
     public void lookForMorePlayers(int n) throws IOException {
         for (int i=0; i<n ; i++){
             Socket socket = serverSocket.accept();
-            VirtualView clientView = new VirtualView(socket,i+2);
+            VirtualView clientView = new VirtualView(this, socket,i+2);
             views.add(clientView);
             new LoginMessage("joining an existing game ... ("+(n+1)+"-player game)" ).send(clientView);
             System.out.println("Connected to client! We are at " + (i+2) + " players out of " + (n+1));
@@ -66,16 +64,7 @@ public class ClientHandler {
     }
 
 
-    private void startPing() {
-        while (true){
-            try {
-                new PingMessage().send(views);
-                Thread.sleep(2000);
-            }catch (InterruptedException ex) {
-                System.err.println("cannot send Ping!");
-            }
-        }
-    }
+
     public void closeEverything() throws IOException {
         views.forEach(v-> {
             try {
@@ -87,6 +76,11 @@ public class ClientHandler {
     }
 
 
+    public void aViewDisconnected(VirtualView view) {
+        List<VirtualView> otherViews = new ArrayList<>(views);
+        otherViews.remove(view);
+        new NoReplyMessage("Player "+ view.getPlayerId() +"disconnected. The game will stop. ").send(otherViews);
 
+    }
 }
 

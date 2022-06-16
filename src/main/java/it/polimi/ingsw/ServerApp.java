@@ -21,7 +21,7 @@ import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.updateMa
 public class ServerApp {
     public static void main(String[] args) throws IOException {
 
-        ClientHandler server = new ClientHandler(1337);
+        ServerStarter server = new ServerStarter(1337);
         int numplayers = server.startServer();
         GameController gc = new GameController(numplayers,server.views);
         Game game = gc.getGame();
