@@ -13,10 +13,16 @@ import java.util.List;
 class CheckOwnerCharacter extends Characters {
     int cost;
     int maxCost;
+    Island chosenIsland;
 
     public CheckOwnerCharacter() {
         this.cost = 3;
         this.maxCost = 4;
+    }
+
+    private void setUp(PlayerController pc, Game game){
+        Island island = pc.getEntranceController().askWhichIsland(game.getGameMap());
+        chosenIsland = island;
     }
 
     public void play(Game game, PlayerController pc) {
@@ -26,8 +32,13 @@ class CheckOwnerCharacter extends Characters {
             System.err.println("You don't have enough money!");
             return;}
         System.out.println(player + ", please choose an island to resolve.");
-        Island island = pc.getEntranceController().askWhichIsland(game.getGameMap());
-        island.checkOwner(game.getTableOrder());
+        if (chosenIsland == null){
+            setUp(pc, game);
+            if(chosenIsland == null){
+                return;
+            }
+        }
+        chosenIsland.checkOwner(game.getTableOrder());
         this.cost = Characters.payandUpdateCost(player,cost, maxCost);
     }
 

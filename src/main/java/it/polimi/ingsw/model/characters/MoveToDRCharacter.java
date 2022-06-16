@@ -19,6 +19,8 @@ class MoveToDRCharacter extends Characters {
 
     List<Student> students;
 
+    Student chosenStudent;
+
 
     public MoveToDRCharacter(List<Student> students) {
         this.cost = 2;
@@ -27,13 +29,13 @@ class MoveToDRCharacter extends Characters {
 
     }
 
-    private Student pickStudent(VirtualView user){
+    private void pickStudent(VirtualView user){
         Student student;
         while (true) {
             new StringMessage("Choose 1 student from the character to move to your dining Room.").send(user);
             String str = Student.askStudent(students,user,"movetodrchar").toUpperCase();
             if (str.equals("RETRY")){continue;}
-            if (str.equals("BACK")){return null;}
+            if (str.equals("BACK")){return;}
             else if (List.of(Student.values()).contains(Student.valueOf(str))) {
                 student = Student.valueOf(str);
                 if (!students.contains(student)){
@@ -43,13 +45,17 @@ class MoveToDRCharacter extends Characters {
                 break;
             }
         }
-        return student;
+        chosenStudent = student;
     }
 
     public void play(Game game, PlayerController pc) {
         Player player = pc.getPlayer();
-        Student chosenStudent = pickStudent(pc.getPlayerView());
-        if (chosenStudent == null){return;}
+        if (chosenStudent == null){
+            pickStudent(pc.getPlayerView());
+            if (chosenStudent == null){
+                return;
+            }
+        }
         if (!Characters.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
             return;}
@@ -68,4 +74,8 @@ class MoveToDRCharacter extends Characters {
         return cost;
     }
 
+    @Override
+    public void reset(Game game, PlayerController pc) {
+        chosenStudent = null;
+    }
 }

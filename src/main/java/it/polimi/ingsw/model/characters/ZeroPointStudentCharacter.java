@@ -21,7 +21,7 @@ class ZeroPointStudentCharacter extends Characters {
         this.maxCost = 4;
     }
 
-    public void Setup(VirtualView user, Game game){
+    private void setUp(VirtualView user, Game game){
         Student stud;
         while(true) {
             String string = Student.askStudent(List.of(Student.values()),user,"zeropointchar").toUpperCase();
@@ -52,11 +52,15 @@ class ZeroPointStudentCharacter extends Characters {
     }
     public synchronized void play(Game game, PlayerController pc){
         Player player = pc.getPlayer();
-        if (chosenStudent == null){return;}
+        if (chosenStudent == null){
+            setUp(pc.getPlayerView(), game);
+            if (chosenStudent == null){
+                return;
+            }
+        }
         if (!Characters.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
             return;}
-        Player thisTurn = game.getCurrentPlayer();
         this.cost = Characters.payandUpdateCost(player,cost,maxCost);
         islands.forEach(i -> i.getStudents().replace(chosenStudent, 0));
         System.out.println("Game map for this turn!\n" + game.getGameMap());

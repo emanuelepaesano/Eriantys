@@ -210,12 +210,14 @@ private void askAllPlayerNames(){
     }
     
     public void resetCharacters(Game game, PlayerController pc){
-        for (int i = 0; i<playedCharacters.size(); i++) {
-            if (playedCharacters.get(i)){
-                game.getCharacters().get(i).reset(game, pc);
-                playedCharacters.set(i, false);
+        if (advanced) {
+            for (int i = 0; i<playedCharacters.size(); i++) {
+                if (playedCharacters.get(i)){
+                    game.getCharacters().get(i).reset(game, pc);
+                    playedCharacters.set(i, false);
+                }
+
             }
-            
         }
     }
 
