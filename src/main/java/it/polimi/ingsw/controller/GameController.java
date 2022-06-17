@@ -111,11 +111,10 @@ private void askAllPlayerNames() {
             TowerColor c = null;
             while (c == null) {
                 pc.askTowerColor(remainingColors);
-                String reply = "";
                 try {
-                    reply = pc.getPlayerView().getReply();
+                    String reply = pc.getPlayerView().getReply();
+                    c = pc.replyToTowerColor(reply, remainingColors);
                 }catch (DisconnectedException ex){ServerStarter.stopGame();}
-                c = pc.replyToTowerColor(reply, remainingColors);
             }
             remainingColors.remove(c);
         }
@@ -135,7 +134,7 @@ private void askAllPlayerNames() {
                     Integer input = Integer.parseInt(pc.getPlayerView().getReply());
                     wiz = pc.replyToWizard(input, remainingWizards);
                     remainingWizards.remove(wiz);
-                }catch (Exception ignored){}
+                }catch (DisconnectedException ex){ServerStarter.stopGame();}
             }
         }
     }
@@ -150,6 +149,7 @@ private void askAllPlayerNames() {
         //table order. In this order, we make players play assistants, and store them in a Map
         Map<Integer, Player> Priorities = new TreeMap<>();
         List<Assistant> playedAssistants = new ArrayList<>();
+        System.out.println("current order: " + g.getCurrentOrder());
         int initialind = g.getTableOrder().indexOf(g.getCurrentOrder().get(0)); //this is the index in the tableOrder of current first
         for (int i = initialind; i<initialind+g.numPlayers;i++) {
             PlayerController p = controllers.get(i%g.numPlayers);
@@ -169,6 +169,7 @@ private void askAllPlayerNames() {
             newOrder.add(first);
         }
         new StringMessage("Player order for this turn:" + newOrder).send(views);
+        if (newOrder.size() == 0){ServerStarter.stopGame();}
         g.setCurrentOrder(newOrder);
     }
     /**

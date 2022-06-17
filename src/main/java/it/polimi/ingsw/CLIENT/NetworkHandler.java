@@ -67,7 +67,7 @@ public class NetworkHandler{
                     if (message.isPing()){
                         timeout.restart();
                         synchronized (socket) {
-                            outStream.writeObject(new PingMessage());
+                            outStream.writeObject(message);
                             outStream.flush();
                         }
                     }
@@ -154,4 +154,7 @@ public class NetworkHandler{
         }
     };
 
+    public Thread getListener() {
+        return listener;
+    }
 }

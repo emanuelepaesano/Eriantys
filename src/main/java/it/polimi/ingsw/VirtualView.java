@@ -73,15 +73,20 @@ public class VirtualView {
         while (true){
             Message message;
             try {
-                synchronized (socket){message = (Message) inStream.readObject();}
+                message = (Message) inStream.readObject();
                 if (message.isRepliable()){
                     this.reply = ((Repliable) message).getReply();
                     synchronized (this){notifyAll();}
                 }
                 else {if (message.isPing()){
+                    if (disconnected) {
+                        setDisconnected(false);
+                        server.aViewReconnected(this);
+                    }
                     timeOut.restart();
                 }}
-            } catch (IOException | ClassNotFoundException exc){ throw new RuntimeException("IO Exception !!! ");
+            } catch (IOException | ClassNotFoundException exc){
+                System.out.println("From connection thread: the stream was closed");
             }
         }
 
@@ -91,13 +96,16 @@ public class VirtualView {
         while (true){
             try {
                 synchronized (this) {
-                    outStream.writeObject(new PingMessage());
-                    outStream.flush();
+                    if(!disconnected) {
+                        outStream.writeObject(new PingMessage());
+                        outStream.flush();
+                    }
                 }
-                Thread.sleep(2000);
+                Thread.sleep(1000);
                 //se la view è disconnessa, per fortuna continuiamo a mandare i ping, ma
-                //gli arriveranno tutti insieme quando si riconnette. amen? oppure aspettiamo
-                //a mandare finche non si riconnette?
+                //gli arriveranno tutti insieme quando si riconnette. quindi aspettiamo
+                //a mandare finche non si riconnette, tanto avrà già i ping di prima a cui
+                //rispondere (?)
 
             }catch (IOException | InterruptedException ex) {
                 System.err.println("cannot send Ping!");

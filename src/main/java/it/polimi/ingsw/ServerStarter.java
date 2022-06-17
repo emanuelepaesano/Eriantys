@@ -18,14 +18,31 @@ public class ServerStarter {
     ObjectOutputStream outStream;
     ServerSocket serverSocket;
     List<VirtualView> views;
+
+    private static ServerStarter server;
     //To the first client we ask the number of players, which is the first thing inside the gamecontroller
     public ServerStarter(int port) {
         this.port = port;
         views = new ArrayList<>();
+        server = this;
     }
 
     public static void stopGame() {
+        System.out.println("Something went wrong. Either all player disconnected\n" +
+                "or someone disconnected before the game started. The game will stop.");
+        new NoReplyMessage("Something went wrong. Either all player disconnected\n" +
+                "or someone disconnected before the game started. The game will stop.").send(server.views);
+        try {
+            for (VirtualView view: server.views){
+                view.getSocket().close();
+            }
+        server.serverSocket.close();
+        System.out.println("all sockets closed.");
+        } catch (IOException e) {e.printStackTrace();}
+        System.exit(0);
     }
+
+
 
     // TODO: 01/05/2022 Multithreading (one for every client)
     public int startServer() throws IOException{
@@ -85,12 +102,19 @@ public class ServerStarter {
     public void aViewDisconnected(VirtualView view) {
         List<VirtualView> otherViews = new ArrayList<>(views);
         otherViews.remove(view);
-        new NoReplyMessage("Player "+ view.getPlayerId() +"disconnected. The game will stop. ").send(otherViews);
+        new NoReplyMessage("Player "+ view.getPlayerId() +"disconnected. The game will continue without that player.\n" +
+                "Players may wait for reconnection or keep playing.").send(otherViews);
         //aspettiamo che quella view si riconnetta. nel frattempo la marchiamo come disconnessa e
         //il gioco andrà avanti senza di lei
 
+    }
 
-
+    public void aViewReconnected(VirtualView view) {
+        System.out.println("a view: " + view + "reconnected.");
+        List<VirtualView> otherViews = new ArrayList<>(views);
+        otherViews.remove(view);
+        new NoReplyMessage("Player "+ view.getPlayerId() + "is back online.\n" +
+                "They will resume playing from the next Planning Phase.").send(otherViews);
     }
 }
 
