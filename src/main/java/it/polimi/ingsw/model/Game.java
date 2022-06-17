@@ -116,6 +116,7 @@ public class Game implements Serializable {
     }
 
     private void fillClouds(){
+        clouds.forEach(List::clear);
         for(List<Student> cloud : clouds){
             for (int i = 0; i<(numPlayers==3?4:3); i++) {
                 Student randstud = drawFromBag();
