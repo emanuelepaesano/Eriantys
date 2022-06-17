@@ -87,6 +87,7 @@ public class VirtualView {
                 }}
             } catch (IOException | ClassNotFoundException exc){
                 System.out.println("From connection thread: the stream was closed");
+                break;
             }
         }
 
