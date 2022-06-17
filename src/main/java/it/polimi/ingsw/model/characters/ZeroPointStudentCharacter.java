@@ -12,6 +12,11 @@ import java.util.List;
 class ZeroPointStudentCharacter extends Characters {
     int cost;
     int maxCost;
+
+    public void setChosenStudent(Student chosenStudent) {
+        this.chosenStudent = chosenStudent;
+    }
+
     Student chosenStudent;
     List<Island> islands;
     List<Integer> oldnumbers;
@@ -33,10 +38,8 @@ class ZeroPointStudentCharacter extends Characters {
             }
         }
         this.chosenStudent = stud;
-        islands = game.getGameMap().getArchipelago();
-        oldnumbers = islands.stream().map(i -> i.getStudents().get(chosenStudent)).toList();
     }
-
+/*
     private Student pickStudent(VirtualView user){ //move to controller!
         Student stud;
         while(true) {
@@ -50,6 +53,7 @@ class ZeroPointStudentCharacter extends Characters {
         }
         return stud;
     }
+ */
     public synchronized void play(Game game, PlayerController pc){
         Player player = pc.getPlayer();
         if (chosenStudent == null){
@@ -62,14 +66,16 @@ class ZeroPointStudentCharacter extends Characters {
             System.err.println("You don't have enough money!");
             return;}
         this.cost = Characters.payandUpdateCost(player,cost,maxCost);
+        islands = game.getGameMap().getArchipelago();
+        oldnumbers = islands.stream().map(i -> i.getStudents().get(chosenStudent)).toList();
         islands.forEach(i -> i.getStudents().replace(chosenStudent, 0));
         System.out.println("Game map for this turn!\n" + game.getGameMap());
     }
 
     public void reset(Game game, PlayerController pc){
         islands.forEach(i -> i.getStudents().replace(chosenStudent, oldnumbers.get(islands.indexOf(i))));
-        islands.clear();
-        oldnumbers.clear();
+        islands = null;
+        oldnumbers = null;
         chosenStudent = null;
         System.out.println(game.getGameMap());
     }

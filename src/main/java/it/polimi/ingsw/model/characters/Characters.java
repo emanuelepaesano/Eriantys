@@ -9,20 +9,19 @@ import java.io.Serializable;
 
 public abstract class Characters implements Serializable {
 
-    int cost = -1;
+    int cost = 999;
 
     public static Characters makeCharacter(Integer chara, Game game) {
         return switch (chara) {
-            case 1 -> new CheckOwnerCharacter();    //NEEDS ISLAND
+            case 1 -> new CheckOwnerCharacter();
             case 2 -> new CheckProfCharacter();
             case 3 -> new MoreInfluenceCharacter();
             case 4 -> new MoreMovementsCharacter();
             case 5 -> new MoveToDRCharacter(List.of(game.drawFromBag(),
-                    game.drawFromBag(),game.drawFromBag(),game.drawFromBag()));        //NEEDS STUDENT
+                    game.drawFromBag(),game.drawFromBag(),game.drawFromBag()));
             case 6 -> new NoTowersCharacter();
             case 7 -> new PlaceInIslandCharacter(List.of(game.drawFromBag(),game.drawFromBag(),game.drawFromBag()));
-            //NEEDS ISLAND AND STUDENT
-            case 8 -> new ZeroPointStudentCharacter();   //NEEDS STUDENT
+            case 8 -> new ZeroPointStudentCharacter();
             default -> null;
         };
     }

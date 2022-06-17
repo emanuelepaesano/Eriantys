@@ -78,4 +78,21 @@ class MoveToDRCharacter extends Characters {
     public void reset(Game game, PlayerController pc) {
         chosenStudent = null;
     }
+
+    //FOR TESTING ONLY
+    //Makes the first student red, and returns it
+    public Student getFirstStudent(){
+        students.set(0, Student.RED);
+        return students.get(0);
+    }
+    public void setChosenStudent(Student stud){
+        chosenStudent = stud;
+    }
+
+    public Student getChosenStudent(){
+        return chosenStudent;
+    }
+    public List<Student> getStudents(){
+        return students;
+    }
 }

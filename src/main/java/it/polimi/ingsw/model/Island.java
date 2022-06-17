@@ -45,6 +45,10 @@ public class Island implements Serializable {
         return newOwner;
     }
 
+    public void replaceStudent(Student stud, Integer value){
+        students.replace(stud, value);
+    }
+
 
 
     //GETTERS SETTERS

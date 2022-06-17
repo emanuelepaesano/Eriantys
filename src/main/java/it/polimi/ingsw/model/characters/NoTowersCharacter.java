@@ -13,13 +13,17 @@ import java.util.List;
 class NoTowersCharacter extends Characters {
     int cost;
     int maxCost;
+
+    public List<Integer> getOldsizes() {
+        return oldsizes;
+    }
+
     List<Integer> oldsizes;
 
     public NoTowersCharacter() {
         this.cost = 3;
         this.maxCost = 4;
     }
-
     public void play(Game game, PlayerController pc){
         Player player = pc.getPlayer();
         if (!Characters.enoughMoney(player,cost)){
@@ -37,7 +41,7 @@ class NoTowersCharacter extends Characters {
         islands.forEach(island ->
                 island.setSize(oldsizes.get(islands.indexOf(island)))
         );
-        oldsizes.clear();
+        oldsizes = null;
     }
     public int getCost() {
         return cost;

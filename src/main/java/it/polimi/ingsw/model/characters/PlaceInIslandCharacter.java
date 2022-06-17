@@ -5,7 +5,9 @@ import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.messages.StringMessage;
 import it.polimi.ingsw.model.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * You can take 1 student from this character and move it to an island.
@@ -14,13 +16,27 @@ import java.util.List;
     int cost;
     List<Student> students;
     int maxCost;
+
+    public Student getChosenStudent() {
+        return chosenStudent;
+    }
+
     Student chosenStudent;
+
+    public Island getChosenIsland() {
+        return chosenIsland;
+    }
+
+    public void setChosenIsland(Island chosenIsland) {
+        this.chosenIsland = chosenIsland;
+    }
+
     Island chosenIsland;
 
 
     public PlaceInIslandCharacter(List<Student>students) {
         this.cost = 1;
-        this.students = students;
+        this.students = new ArrayList<>(students);
         this.maxCost = 2;
 
     }
@@ -47,6 +63,7 @@ import java.util.List;
         chosenIsland = island;
     }
 
+    /*
     private Student pickStudent(VirtualView user){
         Student student;
         while (true) {
@@ -65,7 +82,7 @@ import java.util.List;
         }
         return student;
     }
-
+*/
     public void play(Game game, PlayerController pc) {
         Player player = pc.getPlayer();
         if(chosenStudent == null || chosenIsland == null){
@@ -80,8 +97,8 @@ import java.util.List;
 
 
         students.remove(chosenStudent);
-        int oldval = chosenIsland.students.get(chosenStudent);
-        chosenIsland.students.replace(chosenStudent, oldval, oldval + 1);
+        int oldval = chosenIsland.getStudents().get(chosenStudent);
+        chosenIsland.getStudents().replace(chosenStudent, oldval, oldval + 1);
         students.add(game.drawFromBag());
         this.cost = Characters.payandUpdateCost(player,cost,maxCost);
     }
@@ -92,5 +109,16 @@ import java.util.List;
     public void reset (Game game, PlayerController pc){
         chosenIsland = null;
         chosenStudent = null;
+    }
+
+    //FOR TESTING ONLY
+    //Makes the first student red, and returns it
+    public Student getFirstStudent(){
+        students.set(0, Student.RED);
+        return students.get(0);
+    }
+
+    public void setChosenStudent(Student stud){
+        chosenStudent = stud;
     }
 }

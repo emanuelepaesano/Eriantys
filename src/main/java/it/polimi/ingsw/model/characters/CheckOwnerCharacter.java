@@ -13,6 +13,13 @@ import java.util.List;
 class CheckOwnerCharacter extends Characters {
     int cost;
     int maxCost;
+
+    public Island getChosenIsland() {
+        return chosenIsland;
+    }
+    public void setChosenIsland(Island chosenIsland) {
+        this.chosenIsland = chosenIsland;
+    }
     Island chosenIsland;
 
     public CheckOwnerCharacter() {
