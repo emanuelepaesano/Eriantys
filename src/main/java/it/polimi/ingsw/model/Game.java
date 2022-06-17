@@ -231,28 +231,6 @@ public class Game implements Serializable {
     }
 
 
-    public static void main(String[] args) {
-        //small test for wait and notify
-//        Game game = Game.makeGame(3);
-//        game.doSetUp(true);
-//        for (Character c : game.characters)
-//        {
-//            System.out.println(c);
-//        }
-//        Character chara = game.characters.get(0);
-//        game.getCurrentPlayer().setCoins(3);
-//        Player user = game.currentPlayer;
-//        System.out.println("current player: "+ game.getCurrentPlayer());
-//        Character.play(chara,game, user);
-//        game.gameMap.getArchipelago().get(0).checkOwner(game.getTableOrder());
-//        synchronized (game.characters.get(0)) {
-//            game.setCurrentPlayer(game.getTableOrder().get(1));
-//            System.out.println("current player: "+ game.getCurrentPlayer());
-//            game.characters.get(0).notifyAll();
-//        }
-    }
-
-
     //BELOW THIS ALL GETTER AND SETTERS
 
     public void setCurrentOrder(List<Player> currentOrder) {

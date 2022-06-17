@@ -54,12 +54,9 @@ public class IslandInfoMessage extends Message {
 
     @Override
     public void switchAndFillView() {
-        System.out.println("the message is filling a view with this map: " + map);
         Platform.runLater(()->{
             UIManager uim = UIManager.getUIManager();
             uim.getGenInfoView().fillInfo(this);
-            System.out.println("geninfoview: finished filling info");
-        System.out.println("geninfoview displayed");
         });
     }
 

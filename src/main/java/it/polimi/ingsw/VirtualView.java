@@ -106,7 +106,13 @@ public class VirtualView {
                 //se la view è disconnessa, per fortuna continuiamo a mandare i ping, ma
                 //gli arriveranno tutti insieme quando si riconnette. quindi aspettiamo
                 //a mandare finche non si riconnette, tanto avrà già i ping di prima a cui
-                //rispondere (?)
+                //rispondere.
+
+                //Praticamente noi mandiamo 7 ping a cui la view non riesce a rispondere prima di
+                //accorgerci che è disconnessa (quando scade il timeout).
+                //Il problema è che oltre a questi ping ci sarà (almeno) un messaggio di gioco
+                //che era stato scritto nella socket. Il client dovrà ignorare questo
+                //perchè il gioco ormai è andato avanti, però rispondere ai ping.
 
             }catch (IOException | InterruptedException ex) {
                 System.err.println("cannot send Ping!");

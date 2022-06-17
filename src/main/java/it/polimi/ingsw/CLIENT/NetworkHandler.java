@@ -1,9 +1,6 @@
 package it.polimi.ingsw.CLIENT;
 
-import it.polimi.ingsw.messages.Message;
-import it.polimi.ingsw.messages.NoReplyMessage;
-import it.polimi.ingsw.messages.PingMessage;
-import it.polimi.ingsw.messages.Repliable;
+import it.polimi.ingsw.messages.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -15,6 +12,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+
+import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.TEST;
 
 public class NetworkHandler{
     //possiamo fare altrimenti una sorta di local model che si aggiorna quando arriva qualcosa.
@@ -33,6 +32,8 @@ public class NetworkHandler{
     private Consumer<Message> messageArrivedObserver;
     private List<Message> delayedMessages = new ArrayList<>();
     private Message currentMessage;
+
+    private Boolean disconnected = false;
 
 
     public NetworkHandler(Boolean GUI) {
@@ -56,27 +57,39 @@ public class NetworkHandler{
 
     public synchronized void startListenerThread(){
         Thread listener = new Thread(()->{
+            int pingCounter = 0;
             Message message;
             System.out.println("listener started");
             try {
                 System.out.println("waiting for messages");
-                Timer timeout = new Timer(5000,onTimeout);
+                Timer timeout = new Timer(6000,onTimeout);
                 timeout.setRepeats(false);
                 while (true) {
                     message = (Message) inStream.readObject();
                     if (message.isPing()){
                         timeout.restart();
+                        if (disconnected){
+                            pingCounter++;
+                            System.out.println("ping for reconnection number: " + pingCounter);
+                            if (pingCounter>=5){pingCounter=0;setDisconnected(false);
+                                System.out.println("reconnected.");}
+                        }
+                        else{
                         synchronized (socket) {
-                            outStream.writeObject(message);
-                            outStream.flush();
+                            //and send again the same ping message.
+                                outStream.writeObject(message);
+                                outStream.flush();
+                            }
                         }
                     }
 
                     else {
                         System.out.println("last non ping message: " + message.getClass().getSimpleName());
                         if (message.isRepliable()){
-                            this.currentMessage = message;
-                            System.out.println("current message: " +currentMessage);
+                            if(!disconnected) {
+                                this.currentMessage = message;
+                                System.out.println("current message: " + currentMessage);
+                            }
                         }
                         if (GUI) {
                             notifyMessageArrived(message);
@@ -127,12 +140,26 @@ public class NetworkHandler{
         delayedMessages.clear();
     }
 
-    synchronized public void notifyMessageArrived(Message msg)
-    {
-        if (messageArrivedObserver != null)
+    synchronized public void notifyMessageArrived(Message msg) {
+        if (disconnected){return;}
+        if (messageArrivedObserver != null) {
+            // TODO: 17/06/2022 REMOVE THIS!!!
+            if (msg.getClass().getSimpleName().equals("ActionPhaseMessage")) {
+                ActionPhaseMessage message = (ActionPhaseMessage) msg;
+                if (message.getPlayer().getId() == 1 && message.getType().equals(TEST)) {
+                    System.out.println("stopping connection");
+                    try {
+                        Thread.sleep(15000);
+                    } catch (Exception exc) {
+                        System.out.println("sleep problem");
+                    }
+                    System.out.println("now i will resume connection");
+                }
+            }
+            //until here
             messageArrivedObserver.accept(msg);
-        else
-            delayedMessages.add(msg);
+        }
+        else {delayedMessages.add(msg);}
     }
 
 
@@ -140,21 +167,19 @@ public class NetworkHandler{
     ActionListener onTimeout = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            try {
-                System.err.println("Server is not responding. Closing the game...");
-                if (GUI){UIManager.getUIManager().getMainWindow().close();}
-                outStream.close();
-                inStream.close();
-                socket.close();
-
-
-            } catch (IOException ex) {
-                throw new RuntimeException("could not close socket");
-            }
+                System.err.println("Server is not responding. ");
+                setDisconnected(true);
+//                outStream.close();
+//                inStream.close();
+//                socket.close();
         }
     };
 
     public Thread getListener() {
         return listener;
+    }
+
+    public void setDisconnected(Boolean disconnected) {
+        this.disconnected = disconnected;
     }
 }

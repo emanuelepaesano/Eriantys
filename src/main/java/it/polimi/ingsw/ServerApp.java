@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.TEST;
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.update;
 import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.init;
 import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.updateMap;
@@ -27,9 +28,11 @@ public class ServerApp {
         Game game = gc.getGame();
         new StartGameMessage().send(server.views);
         Message info =  new IslandInfoMessage(game, init);
-        for (PlayerController pc: gc.getControllers()){
-            new ActionPhaseMessage(pc.getPlayer(), update).send(pc.getPlayerView());
-        }
+        try {
+            for (PlayerController pc: gc.getControllers()){
+                    new ActionPhaseMessage(pc.getPlayer(), update).sendAndCheck(pc.getPlayerView());
+            }
+        }catch (DisconnectedException ex){ServerStarter.stopGame();}
         info.send(server.views);
         while (!game.isOver()) {
             gc.doPlanningPhase(game);
@@ -38,7 +41,7 @@ public class ServerApp {
                 try {
                     PlayerController pc = gc.getControllerMap().get(player);
                     System.out.println("it's the turn of " + player);
-                    System.out.println("Its view is disconnected? " + pc.getPlayerView().isDisconnected());
+                    new ActionPhaseMessage(pc.getPlayer(), TEST).sendAndCheck(pc.getPlayerView());
                     new IslandInfoMessage(game, updateMap).sendAndCheck(pc.getPlayerView());
                     game.setCurrentPlayer(player);
                     gc.doActions(pc);

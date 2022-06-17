@@ -138,12 +138,7 @@ public class SchoolView implements View {
     @Override
     public void fillInfo(Message mes) {
         ActionPhaseMessage message = (ActionPhaseMessage) mes;
-        // TODO: 17/06/2022 REMOVE THIS!!!
-        if (message.getPlayer().getId() == 1){
-            nh.getListener().suspend();
-            try{Thread.sleep(20000);}catch (Exception exc){}
-            nh.getListener().resume();
-        }
+
         this.player = message.getPlayer();
         back.setVisible(false);
         switch (message.getType()) {
@@ -167,9 +162,11 @@ public class SchoolView implements View {
                 back.setVisible(false);
                 moveToIsland.setDisable(true);
                 moveToDR.setDisable(true);
+                break;
 
             case update:
                 break;
+
         }
 
         //Here we have to link the elements from the model to the graphic components.

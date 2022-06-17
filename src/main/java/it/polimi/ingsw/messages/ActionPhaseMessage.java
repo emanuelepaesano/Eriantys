@@ -60,7 +60,9 @@ public class ActionPhaseMessage extends Repliable{
         howmany,
         update,
         studselect,
-        endActions;
+        endActions,
+
+        TEST;
     }
 
 
