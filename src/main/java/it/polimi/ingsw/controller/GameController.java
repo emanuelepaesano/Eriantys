@@ -163,7 +163,9 @@ private void askAllPlayerNames() {
         }
         //The second part uses the Map to make a new currentOrder
         List<Player> newOrder = new ArrayList<>();
-        for (int i = 0; i<Priorities.keySet().size();i++){
+        System.out.println("Priorities: " + Priorities);
+        System.out.println("values().size: "+ Priorities.values().size());
+        for (int i = 0; i<Priorities.values().size();i++){
             Player first = Priorities.remove(Collections.min(Priorities.keySet()));
             newOrder.add(first);
         }

@@ -37,6 +37,8 @@ public class ServerApp {
             for (Player player : game.getCurrentOrder()) {
                 try {
                     PlayerController pc = gc.getControllerMap().get(player);
+                    System.out.println("it's the turn of " + player);
+                    System.out.println("Its view is disconnected? " + pc.getPlayerView().isDisconnected());
                     new IslandInfoMessage(game, updateMap).sendAndCheck(pc.getPlayerView());
                     game.setCurrentPlayer(player);
                     gc.doActions(pc);
@@ -48,7 +50,9 @@ public class ServerApp {
                     new ActionPhaseMessage(pc.getPlayer(), update).sendAndCheck(pc.getPlayerView());
                     game.checkGameEndCondition("towerend", player);
                     game.checkGameEndCondition("islandend", player);
-                }catch (DisconnectedException disconnectedView) {continue;}
+                }catch (DisconnectedException disconnectedView) {
+                    System.out.println("Disconnected exception thrown");
+                    continue;}
                 if (game.isOver()) {
                     break;
                 }
