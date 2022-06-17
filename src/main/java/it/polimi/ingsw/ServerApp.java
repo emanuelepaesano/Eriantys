@@ -33,19 +33,22 @@ public class ServerApp {
         info.send(server.views);
         while (!game.isOver()) {
             gc.doPlanningPhase(game);
+            //main game loop. We will skip one player if they are disconnected
             for (Player player : game.getCurrentOrder()) {
-                PlayerController pc = gc.getControllers().get(game.getTableOrder().indexOf(player));
-                new IslandInfoMessage(game, updateMap).send(pc.getPlayerView());
-                game.setCurrentPlayer(player);
-                gc.doActions(pc);
-                int nmoves = pc.askMNMoves();
-                game.getGameMap().moveMotherNatureAndCheck(game.getTableOrder(), nmoves);
-                new IslandInfoMessage(game, updateMap).send(pc.getPlayerView());
-                pc.getEntranceController().fillFromClouds(game.getClouds());
-                new IslandInfoMessage(game, updateMap).send(server.views);
-                new ActionPhaseMessage(pc.getPlayer(),update).send(pc.getPlayerView());
-                game.checkGameEndCondition("towerend", player);
-                game.checkGameEndCondition("islandend", player);
+                try {
+                    PlayerController pc = gc.getControllerMap().get(player);
+                    new IslandInfoMessage(game, updateMap).sendAndCheck(pc.getPlayerView());
+                    game.setCurrentPlayer(player);
+                    gc.doActions(pc);
+                    int nmoves = pc.askMNMoves();
+                    game.getGameMap().moveMotherNatureAndCheck(game.getTableOrder(), nmoves);
+                    new IslandInfoMessage(game, updateMap).sendAndCheck(pc.getPlayerView());
+                    pc.getEntranceController().fillFromClouds(game.getClouds());
+                    new IslandInfoMessage(game, updateMap).send(server.views);
+                    new ActionPhaseMessage(pc.getPlayer(), update).sendAndCheck(pc.getPlayerView());
+                    game.checkGameEndCondition("towerend", player);
+                    game.checkGameEndCondition("islandend", player);
+                }catch (DisconnectedException disconnectedView) {continue;}
                 if (game.isOver()) {
                     break;
                 }

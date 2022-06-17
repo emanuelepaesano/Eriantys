@@ -57,8 +57,9 @@ public class VirtualView {
     }
 
 
-    public String getReply()  {
+    public String getReply() throws DisconnectedException {
         while (reply.equals("wait")){
+            if (isDisconnected()){throw new DisconnectedException();}
             try{wait();}catch (Exception ex){}
         }
         String str = reply;
@@ -108,8 +109,15 @@ public class VirtualView {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("there was a disconnection");
+            //this thing must be synchronized with isDisconnected, since main and other thread(this) will access it
+            setDisconnected(true);
+
             //send message to other clients
             server.aViewDisconnected(getThis());
+
+            //we must tell the thread that was waiting that nothing will arrive.
+            //So it can raise an exception
+            synchronized (this){notifyAll();}
         }
     };
 

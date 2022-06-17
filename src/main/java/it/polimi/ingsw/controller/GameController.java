@@ -1,5 +1,7 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.DisconnectedException;
+import it.polimi.ingsw.ServerStarter;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.*;
@@ -39,7 +41,9 @@ public class GameController {
         bindPlayers();
         while (advanced == null) {
             askForAdvanced();
-            replyToAdvanced(firstPlayer.getReply());
+            try {
+                replyToAdvanced(firstPlayer.getReply());
+            }catch (DisconnectedException ex){ServerStarter.stopGame();}
         }
         askAllPlayerNames();
         askAllForTC(numplayers);
@@ -79,13 +83,16 @@ public class GameController {
 
 
 
-private void askAllPlayerNames(){
+private void askAllPlayerNames() {
     List<String> usedNames = new ArrayList<>();
     for (PlayerController pc : controllers){
         String aUsedName= null;
         while(aUsedName == null) {
             pc.askPlayerName();
-            String reply = pc.getPlayerView().getReply();
+            String reply = "";
+            try {
+                reply = pc.getPlayerView().getReply();
+            }catch (DisconnectedException ex){ServerStarter.stopGame();}
             aUsedName = pc.replyToPlayerName(reply, usedNames);
         }
         usedNames.add(aUsedName);
@@ -104,7 +111,10 @@ private void askAllPlayerNames(){
             TowerColor c = null;
             while (c == null) {
                 pc.askTowerColor(remainingColors);
-                String reply = pc.getPlayerView().getReply();
+                String reply = "";
+                try {
+                    reply = pc.getPlayerView().getReply();
+                }catch (DisconnectedException ex){ServerStarter.stopGame();}
                 c = pc.replyToTowerColor(reply, remainingColors);
             }
             remainingColors.remove(c);
@@ -143,13 +153,17 @@ private void askAllPlayerNames(){
         int initialind = g.getTableOrder().indexOf(g.getCurrentOrder().get(0)); //this is the index in the tableOrder of current first
         for (int i = initialind; i<initialind+g.numPlayers;i++) {
             PlayerController p = controllers.get(i%g.numPlayers);
-            Assistant choice = p.playAssistant(playedAssistants);
+            Assistant choice;
+            //also here, we just skip that player if he is disconnected
+            try {
+                choice = p.playAssistant(playedAssistants);
+            }catch (DisconnectedException disconnected ) {continue;}
             playedAssistants.add(choice);
             Priorities.put(choice.getPriority(),p.getPlayer());
         }
         //The second part uses the Map to make a new currentOrder
         List<Player> newOrder = new ArrayList<>();
-        for (int i = 0; i< g.numPlayers;i++){
+        for (int i = 0; i<Priorities.keySet().size();i++){
             Player first = Priorities.remove(Collections.min(Priorities.keySet()));
             newOrder.add(first);
         }
@@ -160,7 +174,7 @@ private void askAllPlayerNames(){
      * This is the main method for the action phase of each player. It asks the player which action they want to do
      * and then performs the action, until they used all of their moves.
      */
-    public void doActions(PlayerController pc){
+    public void doActions(PlayerController pc) throws DisconnectedException {
         Player player = pc.getPlayer();
         EntranceController entranceController = pc.getEntranceController();
         int availableActions = player.getNumActions();
@@ -168,12 +182,12 @@ private void askAllPlayerNames(){
             String action = askWhichAction(availableActions,pc);
             if (action.equalsIgnoreCase("diningroom")) {
                 availableActions -= entranceController.moveToDiningRoom(availableActions, player.getDiningRoom(), game.getTableOrder());
-                new ActionPhaseMessage(player,update).send(pc.getPlayerView());
+                new ActionPhaseMessage(player,update).sendAndCheck(pc.getPlayerView());
             }
             else if (action.equalsIgnoreCase("islands")){
                 int didMove = entranceController.moveToIsland(game.getGameMap());
                 if (didMove == 1){
-                    new IslandInfoMessage(game, IslandInfoMessage.IslandInfoType.updateMap).send(pc.getPlayerView());
+                    new IslandInfoMessage(game, IslandInfoMessage.IslandInfoType.updateMap).sendAndCheck(pc.getPlayerView());
                     availableActions -= didMove;
                 }
             }
@@ -186,12 +200,12 @@ private void askAllPlayerNames(){
                 }
             }
         }
-        new ActionPhaseMessage(player,endActions).send(pc.getPlayerView());
+        new ActionPhaseMessage(player,endActions).sendAndCheck(pc.getPlayerView());
         new NoReplyMessage("After your moves: " + player.getDiningRoom()).send(pc.getPlayerView());
     }
 
-    public String askWhichAction(int availableActions, PlayerController pc){
-        new ActionPhaseMessage(advanced, availableActions,pc.getPlayer(), game.getCharacters()).send(pc.getPlayerView());
+    public String askWhichAction(int availableActions, PlayerController pc) throws DisconnectedException {
+        new ActionPhaseMessage(advanced, availableActions,pc.getPlayer(), game.getCharacters()).sendAndCheck(pc.getPlayerView());
         return pc.getPlayerView().getReply();
     }
 

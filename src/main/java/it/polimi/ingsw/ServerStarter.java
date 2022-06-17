@@ -1,6 +1,7 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.messages.*;
+import it.polimi.ingsw.model.Game;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -21,6 +22,9 @@ public class ServerStarter {
     public ServerStarter(int port) {
         this.port = port;
         views = new ArrayList<>();
+    }
+
+    public static void stopGame() {
     }
 
     // TODO: 01/05/2022 Multithreading (one for every client)
@@ -57,7 +61,9 @@ public class ServerStarter {
         int input = 0;
         while ((input != 3) && (input != 2)) {
                 new FirstClientMessage("Welcome! How many players?").send(client);
-                input = Integer.parseInt(client.getReply());
+                try {
+                    input = Integer.parseInt(client.getReply());
+                }catch (DisconnectedException ex){stopGame();}
             System.out.println("received reply: "+ input);
         }
         return input;
@@ -82,12 +88,6 @@ public class ServerStarter {
         new NoReplyMessage("Player "+ view.getPlayerId() +"disconnected. The game will stop. ").send(otherViews);
         //aspettiamo che quella view si riconnetta. nel frattempo la marchiamo come disconnessa e
         //il gioco andrà avanti senza di lei
-        view.setDisconnected(true);
-        //this thing must be synchronized with getDisconnected, since main and other thread(this) will access it
-
-
-
-
 
 
 

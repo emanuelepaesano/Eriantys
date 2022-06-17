@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.characters;
 
+import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Island;
@@ -24,7 +25,10 @@ class CheckOwnerCharacter extends Characters {
             System.err.println("You don't have enough money!");
             return;}
         System.out.println(player + ", please choose an island to resolve.");
-        Island island = pc.getEntranceController().askWhichIsland(game.getGameMap());
+        Island island = null;
+        try {
+            island = pc.getEntranceController().askWhichIsland(game.getGameMap());
+        } catch (DisconnectedException ex){}
         island.checkOwner(game.getTableOrder());
         this.cost = Character.payandUpdateCost(player,cost);
     }

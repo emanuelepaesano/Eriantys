@@ -1,6 +1,8 @@
 package it.polimi.ingsw.controller;
 
 
+import it.polimi.ingsw.DisconnectedException;
+import it.polimi.ingsw.ServerStarter;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.*;
@@ -97,12 +99,12 @@ public class PlayerController {
      * asks an assistant as input from those remaining, turns it to false in the map and returns it.
      * This way the GameController will then join all the played assistants and choose the new playerOrder
      */
-    public Assistant playAssistant(List<Assistant>playedAssistants){
+    public Assistant playAssistant(List<Assistant>playedAssistants) throws DisconnectedException {
         List<Assistant> remass = new ArrayList<>(); //list of remaining assistants
         player.getAssistants().forEach((a,b)->{if(b){remass.add(a);}});
 
         while (true) {
-            new PlanningPhaseMessage(remass,playedAssistants,"play one of your remaining assistants: " ).send(playerView);
+            new PlanningPhaseMessage(remass,playedAssistants,"play one of your remaining assistants: " ).sendAndCheck(playerView);
             String input = playerView.getReply();
             try {
                 Assistant choice = Assistant.valueOf(input.toUpperCase());
@@ -126,7 +128,10 @@ public class PlayerController {
         int chosenChar;
         new PlayCharMessage(characters,player).send(playerView);
         while(true) {
-            String str = playerView.getReply();
+            String str = "";
+            try {
+                str = playerView.getReply();
+            }catch (DisconnectedException ex){ServerStarter.stopGame();}
             if (str.equalsIgnoreCase("back")){return;}
             else try{
                 chosenChar = Integer.parseInt(str);
@@ -144,9 +149,9 @@ public class PlayerController {
      * @return The number of steps the player wants to move mother Nature. This method is now only called from GameMap.moveMotherNature().
      * This could change if we choose to move that method
      */
-    public int askMNMoves(){
+    public int askMNMoves() throws DisconnectedException{
         int possibleMoves = player.getBaseMoves() + player.getCurrentAssistant().getMoves();
-        new IslandActionMessage(player,possibleMoves).send(playerView);
+        new IslandActionMessage(player,possibleMoves).sendAndCheck(playerView);
         while (true) {
             try {
                 int choice = Integer.parseInt(playerView.getReply());

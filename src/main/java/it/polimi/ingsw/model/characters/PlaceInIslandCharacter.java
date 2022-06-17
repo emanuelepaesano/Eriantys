@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.characters;
 
+import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.messages.StringMessage;
@@ -50,7 +51,9 @@ import java.util.Scanner;
             System.err.println("You don't have enough money!");
             return;}
 
-        Island island = pc.getEntranceController().askWhichIsland(game.getGameMap());
+        Island island = null;
+        try{island = pc.getEntranceController().askWhichIsland(game.getGameMap());}
+        catch (DisconnectedException ex){}
         students.remove(chosenStudent);
         int oldval = island.students.get(chosenStudent);
         island.students.replace(chosenStudent, oldval, oldval + 1);
