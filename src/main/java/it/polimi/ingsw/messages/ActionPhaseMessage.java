@@ -52,7 +52,7 @@ public class ActionPhaseMessage extends Repliable{
             }
             text += "} or type \"back\" to annull.";
         }
-        else {text = player.getEntrance().toString();}
+        else {text = "Your entrance: "+ player.getEntrance().toString();}
     }
 
     public enum ActionPhaseType {

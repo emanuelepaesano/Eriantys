@@ -203,7 +203,6 @@ private void askAllPlayerNames() {
             }
         }
         new ActionPhaseMessage(player,endActions).sendAndCheck(pc.getPlayerView());
-        new NoReplyMessage("After your moves: " + player.getDiningRoom()).send(pc.getPlayerView());
     }
 
     public String askWhichAction(int availableActions, PlayerController pc) throws DisconnectedException {
