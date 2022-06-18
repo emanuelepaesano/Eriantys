@@ -20,8 +20,8 @@ class ReturnThreeStudentsCharacter extends Characters {
     Student chosenStudent;
 
     public ReturnThreeStudentsCharacter() {
-        this.cost = 2;
-        this.maxCost = 3;
+        this.cost = 3;
+        this.maxCost = 999;
     }
 
     private void pickStudent(VirtualView user){
