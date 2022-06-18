@@ -3,28 +3,43 @@ package it.polimi.ingsw;
 
 
 import it.polimi.ingsw.messages.Message;
+import it.polimi.ingsw.messages.PingMessage;
 import it.polimi.ingsw.messages.Repliable;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class VirtualView {
     private final int playerId;
     private final Socket socket;
     ObjectInputStream inStream;
     ObjectOutputStream outStream;
+
+    ServerStarter server;
+    Timer timeOut;
+    private String reply = "wait";
+
+    private Boolean disconnected = false;
     //ONE VIRTUAL VIEW FOR EACH PLAYER
 
     //could also work with the playername
-    VirtualView(Socket socket, int id) throws IOException {
+    VirtualView(ServerStarter server, Socket socket, int id) throws IOException {
+
+        this.server = server;
         inStream = new ObjectInputStream(socket.getInputStream());
         System.out.println("input stream " +id + " ok");
         outStream = new ObjectOutputStream(socket.getOutputStream());
         System.out.println("output stream " +id + " ok");
         this.playerId = id;
         this.socket = socket;
+        new Thread(this::startConnection).start();
+        new Thread(this::startPing).start();
     }
 
     public synchronized void update(Message message){
@@ -35,21 +50,6 @@ public class VirtualView {
         }catch (IOException ex){ex.printStackTrace();}
     }
 
-    Runnable getHeartBeat = new Runnable() {
-        //cosi non funzionerebbe perche l'altro thread che legge i messaggi tira una ioexception
-        @Override
-        public void run() {
-            while(true){
-                try {
-                    Message pingMessage = (Message) inStream.readObject();
-                    Thread.sleep(6000);
-                } catch (ClassNotFoundException |InterruptedException e) {throw new RuntimeException(e);}
-                catch (IOException e) {
-                    onClientDisconnection();
-                }
-            }
-        }
-    };
     public void onClientDisconnection(){
         //dovremmo interrompere tutto e mandare un messaggio ai client
         //mandiamo prima quindi i messaggi che uno si è disconnesso,
@@ -57,22 +57,87 @@ public class VirtualView {
     }
 
 
-    public String getReply()  {
-        try {
-            Message userMessage = (Message) inStream.readObject();
-            if ((userMessage).isRepliable()) {
-//                    replyTo.accept(((Repliable)userMessage).getReply());
-                    return ((Repliable)userMessage).getReply();
-            }
-            else{throw new RuntimeException("Violation of protocol");}
-        }catch ( IOException| ClassNotFoundException ex ){throw new RuntimeException("could not get answer");}
+    public String getReply() throws DisconnectedException {
+        while (reply.equals("wait")){
+            if (isDisconnected()){throw new DisconnectedException();}
+            try{wait();}catch (Exception ex){}
+        }
+        String str = reply;
+        reply = "wait";
+        return str;
     }
 
-//    public Consumer<String> replyTo;
+    private void startConnection() {
+        timeOut = new Timer(7000, onTimeout);
+        timeOut.setRepeats(false);
+        while (true){
+            Message message;
+            try {
+                message = (Message) inStream.readObject();
+                if (message.isRepliable()){
+                    this.reply = ((Repliable) message).getReply();
+                    synchronized (this){notifyAll();}
+                }
+                else {if (message.isPing()){
+                    if (disconnected) {
+                        setDisconnected(false);
+                        server.aViewReconnected(this);
+                    }
+                    timeOut.restart();
+                }}
+            } catch (IOException | ClassNotFoundException exc){
+                System.out.println("From connection thread: the stream was closed");
+                break;
+            }
+        }
 
-//    public void setReplyTo(Consumer<String> replyTo) {
-//        this.replyTo = replyTo;
-//    }
+    }
+
+    private void startPing() {
+        while (true){
+            try {
+                synchronized (this) {
+                    if(!disconnected) {
+                        outStream.writeObject(new PingMessage());
+                        outStream.flush();
+                    }
+                }
+                Thread.sleep(1000);
+                //se la view è disconnessa, per fortuna continuiamo a mandare i ping, ma
+                //gli arriveranno tutti insieme quando si riconnette. quindi aspettiamo
+                //a mandare finche non si riconnette, tanto avrà già i ping di prima a cui
+                //rispondere.
+
+                //Praticamente noi mandiamo 7 ping a cui la view non riesce a rispondere prima di
+                //accorgerci che è disconnessa (quando scade il timeout).
+                //Il problema è che oltre a questi ping ci sarà (almeno) un messaggio di gioco
+                //che era stato scritto nella socket. Il client dovrà ignorare questo
+                //perchè il gioco ormai è andato avanti, però rispondere ai ping.
+
+            }catch (IOException | InterruptedException ex) {
+                System.err.println("cannot send Ping!");
+                break;
+            }
+        }
+    }
+    ActionListener onTimeout = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("there was a disconnection");
+            //this thing must be synchronized with isDisconnected, since main and other thread(this) will access it
+            setDisconnected(true);
+
+            //send message to other clients
+            server.aViewDisconnected(getThis());
+
+            //we must tell the thread that was waiting that nothing will arrive.
+            //So it can raise an exception
+            synchronized (this){notifyAll();}
+        }
+    };
+
+    //this is only for the ActionListener.
+    private VirtualView getThis(){return this;}
 
     public int getPlayerId() {
         return playerId;
@@ -80,5 +145,12 @@ public class VirtualView {
 
     public Socket getSocket() {
         return socket;
+    }
+
+    public synchronized Boolean isDisconnected(){
+        return disconnected;
+    }
+    public synchronized void setDisconnected(Boolean disconnected) {
+        this.disconnected = disconnected;
     }
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.messages;
 import it.polimi.ingsw.CLIENT.UIManager;
+import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GameMap;
@@ -11,7 +12,7 @@ import java.io.Serializable;
 import java.util.List;
 
 
-public class IslandInfoMessage implements Message, Serializable {
+public class IslandInfoMessage extends Message {
 
     private int numPlayers;
     private List<List<Student>> clouds;
@@ -49,25 +50,13 @@ public class IslandInfoMessage implements Message, Serializable {
         updateMap,
         init,
     }
-    @Override
-    public void send(VirtualView user) { user.update(this);}
 
-    @Override
-    public void send(List<VirtualView> all) { all.forEach(v->v.update(this));}
-
-    @Override
-    public String getView() {
-        return "generalview";
-    }
 
     @Override
     public void switchAndFillView() {
-        System.out.println("the message is filling a view with this map: " + map);
         Platform.runLater(()->{
             UIManager uim = UIManager.getUIManager();
             uim.getGenInfoView().fillInfo(this);
-            System.out.println("geninfoview: finished filling info");
-        System.out.println("geninfoview displayed");
         });
     }
 

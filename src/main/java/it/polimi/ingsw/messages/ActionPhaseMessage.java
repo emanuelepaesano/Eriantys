@@ -11,7 +11,7 @@ import java.util.List;
 
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.*;
 
-public class ActionPhaseMessage extends Repliable implements Message{
+public class ActionPhaseMessage extends Repliable{
 
     String text;
     Player player;
@@ -52,7 +52,7 @@ public class ActionPhaseMessage extends Repliable implements Message{
             }
             text += "} or type \"back\" to annull.";
         }
-        else {text = player.getEntrance().toString();}
+        else {text = "Your entrance: "+ player.getEntrance().toString();}
     }
 
     public enum ActionPhaseType {
@@ -60,23 +60,12 @@ public class ActionPhaseMessage extends Repliable implements Message{
         howmany,
         update,
         studselect,
-        endActions;
+        endActions,
+
+        TEST;
     }
 
-    @Override
-    public void send(VirtualView user) {
-        user.update(this);
-    }
 
-    @Override
-    public void send(List<VirtualView> all) {
-        all.forEach(v->v.update(this));
-    }
-
-    @Override
-    public String getView() {
-        return "actionview";
-    }
 
     @Override
     public void switchAndFillView() {

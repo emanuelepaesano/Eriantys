@@ -5,21 +5,8 @@ import it.polimi.ingsw.VirtualView;
 
 import java.util.List;
 
-public class StartGameMessage implements Message{
-    @Override
-    public void send(VirtualView user) {
-        user.update(this);
-    }
+public class StartGameMessage extends Message {
 
-    @Override
-    public void send(List<VirtualView> all) {
-        all.forEach(v->v.update(this));
-    }
-
-    @Override
-    public String getView() {
-        return null;
-    }
 
     @Override
     public void switchAndFillView() {

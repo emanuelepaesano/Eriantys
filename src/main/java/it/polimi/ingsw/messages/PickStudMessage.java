@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.Student;
 
 import java.util.List;
 
-public class PickStudMessage extends Repliable implements Message {
+public class PickStudMessage extends Repliable{
 
     List<Student> students;
     String text;
@@ -21,22 +21,6 @@ public class PickStudMessage extends Repliable implements Message {
         text += "} or type \"back\" to annull.";
     }
 
-    @Override
-    public void send(VirtualView user) {
-        user.update(this);
-    }
-
-
-
-    @Override
-    public void send(List<VirtualView> all) {
-        all.forEach(v->v.update(this));
-    }
-
-    @Override
-    public String getView() {
-        return "pickstudent";
-    }
 
     @Override
     public void switchAndFillView() {

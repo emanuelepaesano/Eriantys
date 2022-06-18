@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.*;
@@ -24,15 +25,14 @@ public class EntranceController {
     /**
      * Lets the player choose a cloud and fills the entrance with the students of that cloud
      */
-    public void fillFromClouds(List<List<Student>> clouds){
+    public void fillFromClouds(List<List<Student>> clouds) throws DisconnectedException {
         while (true) {
-            new IslandActionMessage(clouds).send(view);
+            new IslandActionMessage(clouds).sendAndCheck(view);
             try {
                 int choice = Integer.parseInt(view.getReply());
                 if (choice<= clouds.size() && choice >= 1 ){
                     List<Student> cloud = clouds.get(choice-1);
                     if (!cloud.isEmpty()){
-                        //add those students to our entrance
                         player.getEntrance().getStudents().addAll(cloud);
                         cloud.clear();
                         break;
@@ -52,7 +52,7 @@ public class EntranceController {
      * @return Method for moving students to dining room. Returns the number of moves used, for doActions()
      *
      */
-    public int moveToDiningRoom(int availablemoves, DiningRoom diningRoom, List<Player> players){
+    public int moveToDiningRoom(int availablemoves, DiningRoom diningRoom, List<Player> players) throws DisconnectedException {
         //First part: we ask how many students to move, maximum availablemoves
         int nstud;
         if (availablemoves>1) {
@@ -87,7 +87,7 @@ public class EntranceController {
 
 
 
-    public int moveToIsland(GameMap gm){
+    public int moveToIsland(GameMap gm) throws DisconnectedException {
 
         System.out.println("Current map:\n" + gm);
         List<Student> students = entrance.getStudents();
@@ -125,10 +125,10 @@ public class EntranceController {
      * @param availablemoves you can move at most this number of students
      * @return asks how many students one wants to move. it's used by movetoDiningRoom and movetoIsland
      */
-    private int askHowManyStudents(int availablemoves) {
+    private int askHowManyStudents(int availablemoves) throws DisconnectedException {
         int nstud;
         while (true) {
-            new ActionPhaseMessage(player,availablemoves).send(view);
+            new ActionPhaseMessage(player,availablemoves).sendAndCheck(view);
             String in = view.getReply();
             if (Objects.equals(in, "back")) {
                 return 0; //go back to movetox and then to doActions()
@@ -142,9 +142,9 @@ public class EntranceController {
         return nstud;
     }
 
-    public Island askWhichIsland(GameMap gm){
+    public Island askWhichIsland (GameMap gm) throws DisconnectedException {
         while (true){
-            new PickIslandMessage(gm).send(view);
+            new PickIslandMessage(gm).sendAndCheck(view);
             try {
                 String str = view.getReply();
                 if (str.equalsIgnoreCase("back")){return new Island(99);}

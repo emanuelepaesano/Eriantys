@@ -10,6 +10,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="schoolRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.SchoolView">
    <ImageView fitHeight="555.0" fitWidth="1287.0" layoutX="367.5" layoutY="493.0" preserveRatio="true" AnchorPane.bottomAnchor="186.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="54.0">
@@ -1020,6 +1022,13 @@
    </ImageView>
    <Label layoutX="421.0" layoutY="671.0" prefHeight="51.0" prefWidth="59.0" text="Your coins:" />
    <Label layoutX="486.0" layoutY="688.0" text="&lt;N&gt;" />
-   <Label fx:id="towLabel" layoutX="1085.0" layoutY="94.0" prefHeight="51.0" prefWidth="82.0" style="-fx-background-color: white;" text="&lt;numTowers&gt;" />
    <Button fx:id="back" layoutX="14.0" layoutY="131.0" mnemonicParsing="false" onAction="#sendBack" prefHeight="66.0" prefWidth="97.0" text="BACK" />
+   <Text fx:id="towLabel" fill="WHITE" layoutX="1056.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Towers: 8" wrappingWidth="130.39992675781252">
+      <font>
+         <Font name="System Bold" size="26.0" />
+      </font>
+      <effect>
+         <DropShadow spread="0.5" />
+      </effect>
+   </Text>
 </AnchorPane>

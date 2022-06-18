@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.TowerColor;
 
 import java.util.List;
 
-public class LoginMessage extends Repliable implements Message{
+public class LoginMessage extends Repliable{
 
     String content;
     String reply;
@@ -33,20 +33,6 @@ public class LoginMessage extends Repliable implements Message{
     }
 
 
-    @Override
-    public void send(VirtualView user) {
-        user.update(this);
-    }
-
-    @Override
-    public void send(List<VirtualView> all) {
-        all.forEach(v->v.update(this));
-    }
-
-    @Override
-    public String getView() {
-        return "loginview";
-    }
 
     @Override
     public void switchAndFillView() {

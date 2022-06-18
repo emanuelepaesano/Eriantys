@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.messages.ActionPhaseMessage;
 import it.polimi.ingsw.messages.PickStudMessage;
@@ -36,11 +37,15 @@ public enum Student {
             default -> {return "";}
         }
     }
-    public static String askStudent(List<Student> students, VirtualView user, String whereFrom){
-        String str;
+
+    // TODO: 17/06/2022 We cannot keep the catch like this, but idk what was done with the characters.
+    public static String askStudent(List<Student> students, VirtualView user, String whereFrom) {
+        String str = "";
         try{
             new PickStudMessage(students, whereFrom).send(user);
-            str = user.getReply();
+            try {
+                str = user.getReply();
+            }catch (DisconnectedException ex){}
             if (Objects.equals(str, "back")) {return "back";}
             else {
                 Student.valueOf(str.toUpperCase());
@@ -54,10 +59,10 @@ public enum Student {
 
     }
 
-    public static String askStudent(Player player, VirtualView user){
+    public static String askStudent(Player player, VirtualView user) throws DisconnectedException {
         String str;
         try{
-            new ActionPhaseMessage(player, studselect).send(user);
+            new ActionPhaseMessage(player, studselect).sendAndCheck(user);
             str = user.getReply();
             if (Objects.equals(str, "back")) {return "back";}
             else {

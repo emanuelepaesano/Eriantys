@@ -31,20 +31,6 @@ public class IslandActionMessage extends Repliable {
                 "\n enter a number from 1 to " + clouds.size() + " to choose the cloud.";
     }
 
-    @Override
-    public void send(VirtualView user) {
-        user.update(this);
-    }
-
-    @Override
-    public void send(List<VirtualView> all) {
-        all.forEach((v)->v.update(this));
-    }
-
-    @Override
-    public String getView() {
-        return null;
-    }
 
     @Override
     public void switchAndFillView() {

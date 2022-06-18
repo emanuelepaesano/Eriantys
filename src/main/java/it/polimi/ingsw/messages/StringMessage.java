@@ -6,7 +6,7 @@ import it.polimi.ingsw.messages.Message;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class StringMessage extends Repliable implements Message {
+public class StringMessage extends Repliable {
     final String content;
     String reply = "";
 
@@ -15,20 +15,6 @@ public class StringMessage extends Repliable implements Message {
         this.content = content;
     }
 
-    @Override
-    public void send(VirtualView user) {
-        user.update(this);
-    }
-
-    @Override
-    public void send(List<VirtualView> all) {
-        all.forEach(v->v.update(this));
-    }
-
-    @Override
-    public String getView() {
-        return "simpleview";
-    }
 
     @Override
     public void switchAndFillView() {

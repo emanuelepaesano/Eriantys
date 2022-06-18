@@ -1,6 +1,6 @@
 package it.polimi.ingsw.messages;
 
-public abstract class Repliable implements Message{
+public abstract class Repliable extends Message {
 
     String reply;
     public void setReply(String s){this.reply = s;}

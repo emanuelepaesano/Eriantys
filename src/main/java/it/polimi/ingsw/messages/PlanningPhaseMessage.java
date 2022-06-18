@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 
 import java.util.List;
 
-public class PlanningPhaseMessage extends Repliable implements Message  {
+public class PlanningPhaseMessage extends Repliable {
 
     String text;
 
@@ -34,20 +34,8 @@ public class PlanningPhaseMessage extends Repliable implements Message  {
     }
 
 
-    @Override
-    public void send(VirtualView user) {
-        user.update(this);
-    }
 
-    @Override
-    public void send(List<VirtualView> all) {
-        all.forEach(v->v.update(this));
-    }
 
-    @Override
-    public String getView() {
-        return "planningview";
-    }
 
     @Override
     public void switchAndFillView() {

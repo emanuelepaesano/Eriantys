@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.Player;
 
 import java.util.List;
 
-public class EndGameMessage implements Message{
+public class EndGameMessage extends Message {
 
 
     List<Player> otherWinners;
@@ -25,20 +25,7 @@ public class EndGameMessage implements Message{
 
 
     }
-    @Override
-    public void send(VirtualView user) {
-        user.update(this);
-    }
 
-    @Override
-    public void send(List<VirtualView> all) {
-        all.forEach(v->v.update(this));
-    }
-
-    @Override
-    public String getView() {
-        return null;
-    }
 
     @Override
     public void switchAndFillView() {
