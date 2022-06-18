@@ -3,6 +3,8 @@ package it.polimi.ingsw;
 import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.Game;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
@@ -27,11 +29,13 @@ public class ServerStarter {
         server = this;
     }
 
-    public static void stopGame() {
-        System.out.println("Something went wrong. Either all player disconnected\n" +
-                "or someone disconnected before the game started. The game will stop.");
-        new NoReplyMessage("Something went wrong. Either all player disconnected\n" +
-                "or someone disconnected before the game started. The game will stop.").send(server.views);
+    public static void stopGame(Boolean OK) {
+        if(!OK) {
+            System.out.println("Something went wrong. Either all player disconnected\n" +
+                    "or someone disconnected before the game started. The game will stop.");
+            new NoReplyMessage("Something went wrong. Either all player disconnected\n" +
+                    "or someone disconnected before the game started. The game will stop.").send(server.views);
+        }
         try {
             for (VirtualView view: server.views){
                 view.getSocket().close();
@@ -43,8 +47,6 @@ public class ServerStarter {
     }
 
 
-
-    // TODO: 01/05/2022 Multithreading (one for every client)
     public int startServer() throws IOException{
 
         try {serverSocket = new ServerSocket(port);}
@@ -80,23 +82,23 @@ public class ServerStarter {
                 new FirstClientMessage("Welcome! How many players?").send(client);
                 try {
                     input = Integer.parseInt(client.getReply());
-                }catch (DisconnectedException ex){stopGame();}
+                }catch (DisconnectedException ex){stopGame(false);}
             System.out.println("received reply: "+ input);
         }
         return input;
     }
 
 
-
-    public void closeEverything() throws IOException {
-        views.forEach(v-> {
-            try {
-                v.getSocket().close();
-            } catch (IOException e) {throw new RuntimeException("could not close sockets");}
-        });
-        serverSocket.close();
-        System.out.println("Server closed successfully");
-    }
+    static ActionListener declareWin = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            synchronized (ServerApp.lock){
+                ServerApp.lock.notifyAll();
+            }
+            new EndGameMessage(List.of(), EndGameMessage.EndGameType.WIN).send(server.views);
+            stopGame(true);
+        }
+    };
 
 
     public void aViewDisconnected(VirtualView view) {
@@ -104,6 +106,7 @@ public class ServerStarter {
         otherViews.remove(view);
         new NoReplyMessage("Player "+ view.getPlayerId() +" disconnected. The game will continue without that player.\n" +
                 "Players may wait for reconnection or keep playing.").send(otherViews);
+
         //aspettiamo che quella view si riconnetta. nel frattempo la marchiamo come disconnessa e
         //il gioco andrà avanti senza di lei
 
@@ -113,8 +116,11 @@ public class ServerStarter {
         System.out.println("a view: " + view + "reconnected.");
         List<VirtualView> otherViews = new ArrayList<>(views);
         otherViews.remove(view);
-        new NoReplyMessage("Player "+ view.getPlayerId() + "is back online.\n" +
+        new NoReplyMessage("Player "+ view.getPlayerId() + " is back online.\n" +
                 "They will resume playing from the next Planning Phase.").send(otherViews);
+        synchronized (ServerApp.lock) {
+            ServerApp.lock.notifyAll();
+        }
     }
 }
 

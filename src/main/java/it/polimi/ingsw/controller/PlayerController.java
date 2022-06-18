@@ -131,7 +131,7 @@ public class PlayerController {
             String str = "";
             try {
                 str = playerView.getReply();
-            }catch (DisconnectedException ex){ServerStarter.stopGame();}
+            }catch (DisconnectedException ex){ServerStarter.stopGame(false);}
             if (str.equalsIgnoreCase("back")){return;}
             else try{
                 chosenChar = Integer.parseInt(str);

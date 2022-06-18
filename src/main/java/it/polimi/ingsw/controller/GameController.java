@@ -43,7 +43,7 @@ public class GameController {
             askForAdvanced();
             try {
                 replyToAdvanced(firstPlayer.getReply());
-            }catch (DisconnectedException ex){ServerStarter.stopGame();}
+            }catch (DisconnectedException ex){ServerStarter.stopGame(false);}
         }
         askAllPlayerNames();
         askAllForTC(numplayers);
@@ -92,7 +92,7 @@ private void askAllPlayerNames() {
             String reply = "";
             try {
                 reply = pc.getPlayerView().getReply();
-            }catch (DisconnectedException ex){ServerStarter.stopGame();}
+            }catch (DisconnectedException ex){ServerStarter.stopGame(false);}
             aUsedName = pc.replyToPlayerName(reply, usedNames);
         }
         usedNames.add(aUsedName);
@@ -114,7 +114,7 @@ private void askAllPlayerNames() {
                 try {
                     String reply = pc.getPlayerView().getReply();
                     c = pc.replyToTowerColor(reply, remainingColors);
-                }catch (DisconnectedException ex){ServerStarter.stopGame();}
+                }catch (DisconnectedException ex){ServerStarter.stopGame(false);}
             }
             remainingColors.remove(c);
         }
@@ -134,7 +134,7 @@ private void askAllPlayerNames() {
                     Integer input = Integer.parseInt(pc.getPlayerView().getReply());
                     wiz = pc.replyToWizard(input, remainingWizards);
                     remainingWizards.remove(wiz);
-                }catch (DisconnectedException ex){ServerStarter.stopGame();}
+                }catch (DisconnectedException ex){ServerStarter.stopGame(false);}
             }
         }
     }
@@ -169,7 +169,7 @@ private void askAllPlayerNames() {
             newOrder.add(first);
         }
         new StringMessage("Player order for this turn:" + newOrder).send(views);
-        if (newOrder.size() == 0){ServerStarter.stopGame();}
+        if (newOrder.size() == 0){ServerStarter.stopGame(false);}
         g.setCurrentOrder(newOrder);
     }
     /**

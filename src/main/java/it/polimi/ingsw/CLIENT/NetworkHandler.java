@@ -146,10 +146,10 @@ public class NetworkHandler{
             // TODO: 17/06/2022 REMOVE THIS!!!
             if (msg.getClass().getSimpleName().equals("ActionPhaseMessage")) {
                 ActionPhaseMessage message = (ActionPhaseMessage) msg;
-                if (message.getPlayer().getId() == 1 && message.getType().equals(TEST)) {
+                if ((message.getPlayer().getId() == 1 ||message.getPlayer().getId() == 3)  && message.getType().equals(TEST)) {
                     System.out.println("stopping connection");
                     try {
-                        Thread.sleep(15000);
+                        Thread.sleep(60000);
                     } catch (Exception exc) {
                         System.out.println("sleep problem");
                     }

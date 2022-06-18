@@ -6,10 +6,14 @@ import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static it.polimi.ingsw.ServerStarter.declareWin;
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.TEST;
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.update;
 import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.init;
@@ -20,6 +24,8 @@ import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.updateMa
  * this will be the main to play the game.
  */
 public class ServerApp {
+
+    public static final Object lock = new Object();
     public static void main(String[] args) throws IOException {
 
         ServerStarter server = new ServerStarter(1337);
@@ -32,7 +38,7 @@ public class ServerApp {
             for (PlayerController pc: gc.getControllers()){
                     new ActionPhaseMessage(pc.getPlayer(), update).sendAndCheck(pc.getPlayerView());
             }
-        }catch (DisconnectedException ex){ServerStarter.stopGame();}
+        }catch (DisconnectedException ex){ServerStarter.stopGame(false);}
         info.send(server.views);
         while (!game.isOver()) {
             gc.doPlanningPhase(game);
@@ -55,6 +61,20 @@ public class ServerApp {
                     game.checkGameEndCondition("islandend", player);
                 }catch (DisconnectedException disconnectedView) {
                     System.out.println("Disconnected exception thrown");
+                    List<VirtualView> activeViews = server.views.stream().filter(v->!v.isDisconnected()).toList();
+                    while (activeViews.size()==1){
+                        new NoReplyMessage("You are the only player remaining online.\n" +
+                                "If no player reconnects, you will win in 45 seconds.").send(activeViews.get(0));
+                        try{
+                            Timer toWin = new Timer(45000,declareWin);
+                            toWin.start();
+                            synchronized (lock){
+                            lock.wait();
+                            }
+                            toWin.stop();
+                            activeViews = server.views.stream().filter(v->!v.isDisconnected()).toList();
+                        }catch (InterruptedException ex){ex.printStackTrace();}
+                    }
                     continue;}
                 if (game.isOver()) {
                     break;
@@ -77,6 +97,7 @@ public class ServerApp {
                 new EndGameMessage(winners, EndGameMessage.EndGameType.LOSE).send(pView);
             }
         }
-//        server.closeEverything();
+        ServerStarter.stopGame(true);
     }
+
 }
