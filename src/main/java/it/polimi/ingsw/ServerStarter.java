@@ -102,10 +102,15 @@ public class ServerStarter {
 
 
     public void aViewDisconnected(VirtualView view) {
-        List<VirtualView> otherViews = new ArrayList<>(views);
-        otherViews.remove(view);
-        new NoReplyMessage("Player "+ view.getPlayerId() +" disconnected. The game will continue without that player.\n" +
-                "Players may wait for reconnection or keep playing.").send(otherViews);
+        List<VirtualView> activeViews = server.views.stream().filter(v->!v.isDisconnected()).toList();
+        if (activeViews.size()>1) {
+            new NoReplyMessage("Player " + view.getPlayerId() + " disconnected. The game will continue without that player.\n" +
+                    "Players may wait for reconnection or keep playing.").send(activeViews);
+        }
+        else{
+            new NoReplyMessage("You are the only player remaining online.\n" +
+                    "If no player reconnects, you will win in 45 seconds.").send(activeViews.get(0));
+        }
 
         //aspettiamo che quella view si riconnetta. nel frattempo la marchiamo come disconnessa e
         //il gioco andrà avanti senza di lei

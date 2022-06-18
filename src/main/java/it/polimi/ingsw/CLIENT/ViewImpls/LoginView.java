@@ -8,8 +8,6 @@ import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.messages.NoReplyMessage;
 import it.polimi.ingsw.model.TowerColor;
 import javafx.application.Platform;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,7 +23,6 @@ import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -156,7 +153,7 @@ public class LoginView implements View {
 
     public void sendName() {
         Send.setDisable(true);
-        nh.sendMessage((textField.getText()));
+        nh.sendReply((textField.getText()));
         textField.clear();
     }
 
@@ -188,15 +185,15 @@ public class LoginView implements View {
 
     public void sendWhite(MouseEvent mouseEvent) {
         allNodes.forEach(node -> node.setDisable(true));
-        nh.sendMessage("white");
+        nh.sendReply("white");
     }
     public void sendGrey(MouseEvent mouseEvent) {
         allNodes.forEach(node -> node.setDisable(true));
-        nh.sendMessage("grey");
+        nh.sendReply("grey");
     }
     public void sendBlack(MouseEvent mouseEvent) {
         allNodes.forEach(node -> node.setDisable(true));
-        nh.sendMessage("black");
+        nh.sendReply("black");
     }
 
     public void mouseEnteredOne(){
@@ -234,19 +231,19 @@ public class LoginView implements View {
 
     public void send1(){
         allNodes.forEach(n->n.setDisable(true));
-        nh.sendMessage("1");
+        nh.sendReply("1");
     }
     public void send2(){
         allNodes.forEach(n->n.setDisable(true));
-        nh.sendMessage("2");
+        nh.sendReply("2");
     }
     public void send3(){
         allNodes.forEach(n->n.setDisable(true));
-        nh.sendMessage("3");
+        nh.sendReply("3");
     }
     public void send4(){
         allNodes.forEach(n->n.setDisable(true));
-        nh.sendMessage("4");
+        nh.sendReply("4");
     }
 
 }

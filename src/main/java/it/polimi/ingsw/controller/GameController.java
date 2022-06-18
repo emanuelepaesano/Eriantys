@@ -135,6 +135,7 @@ private void askAllPlayerNames() {
                     wiz = pc.replyToWizard(input, remainingWizards);
                     remainingWizards.remove(wiz);
                 }catch (DisconnectedException ex){ServerStarter.stopGame(false);}
+                catch (NumberFormatException ignored){}
             }
         }
     }

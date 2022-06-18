@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.TEST;
-
 public class NetworkHandler{
     //possiamo fare altrimenti una sorta di local model che si aggiorna quando arriva qualcosa.
     //Come questo si aggiorna viene chiamato view.update() che fa vedere cosa c'e ora nel modello.
@@ -106,16 +104,7 @@ public class NetworkHandler{
         listener.start();
     }
 
-    public void sendMessage(String content) {
-    if (currentMessage != null){sendReply(content);}
-    else try {
-            outStream.writeObject(new NoReplyMessage(content));
-            outStream.flush();
-            outStream.reset();
-        } catch (IOException e) {
-            System.err.println("Could not send message...");
-        }
-    }
+
 
     public void sendReply(String reply){
         try {
@@ -143,19 +132,19 @@ public class NetworkHandler{
     synchronized public void notifyMessageArrived(Message msg) {
         if (disconnected){return;}
         if (messageArrivedObserver != null) {
-            // TODO: 17/06/2022 REMOVE THIS!!!
-            if (msg.getClass().getSimpleName().equals("ActionPhaseMessage")) {
-                ActionPhaseMessage message = (ActionPhaseMessage) msg;
-                if ((message.getPlayer().getId() == 1 ||message.getPlayer().getId() == 3)  && message.getType().equals(TEST)) {
-                    System.out.println("stopping connection");
-                    try {
-                        Thread.sleep(60000);
-                    } catch (Exception exc) {
-                        System.out.println("sleep problem");
-                    }
-                    System.out.println("now i will resume connection");
-                }
-            }
+            // this code is to test disconnections. Uncomment it in that case
+//            if (msg.getClass().getSimpleName().equals("ActionPhaseMessage")) {
+//                ActionPhaseMessage message = (ActionPhaseMessage) msg;
+//                if ((message.getPlayer().getId() == 1 ||message.getPlayer().getId() == 3)  && message.getType().equals(TEST)) {
+//                    System.out.println("stopping connection");
+//                    try {
+//                        Thread.sleep(30000);
+//                    } catch (Exception exc) {
+//                        System.out.println("sleep problem");
+//                    }
+//                    System.out.println("now i will resume connection");
+//                }
+//            }
             //until here
             messageArrivedObserver.accept(msg);
         }

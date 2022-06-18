@@ -63,8 +63,6 @@ public class ServerApp {
                     System.out.println("Disconnected exception thrown");
                     List<VirtualView> activeViews = server.views.stream().filter(v->!v.isDisconnected()).toList();
                     while (activeViews.size()==1){
-                        new NoReplyMessage("You are the only player remaining online.\n" +
-                                "If no player reconnects, you will win in 45 seconds.").send(activeViews.get(0));
                         try{
                             Timer toWin = new Timer(45000,declareWin);
                             toWin.start();

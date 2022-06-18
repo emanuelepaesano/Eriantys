@@ -12,7 +12,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -322,7 +321,7 @@ public class IslandView implements View {
         island0.setEffect(null);
     }
     public void send0(){
-        nh.sendMessage("0");
+        nh.sendReply("0");
         islands.forEach((i)->i.setDisable(true));
     }
 
@@ -333,7 +332,7 @@ public class IslandView implements View {
         island1.setEffect(null);
     }
     public void send1(){
-        nh.sendMessage("1");
+        nh.sendReply("1");
         islands.forEach((i)->i.setDisable(true));
     }
 
@@ -344,7 +343,7 @@ public class IslandView implements View {
         island2.setEffect(null);
     }
     public void send2(){
-        nh.sendMessage("2");
+        nh.sendReply("2");
         islands.forEach((i)->i.setDisable(true));
     }
 
@@ -355,7 +354,7 @@ public class IslandView implements View {
         island3.setEffect(null);
     }
     public void send3(){
-        nh.sendMessage("3");
+        nh.sendReply("3");
         islands.forEach((i)->i.setDisable(true));
     }
 
@@ -366,7 +365,7 @@ public class IslandView implements View {
         island4.setEffect(null);
     }
     public void send4() {
-        nh.sendMessage("4");
+        nh.sendReply("4");
         islands.forEach((i)->i.setDisable(true));
     }
 
@@ -377,7 +376,7 @@ public class IslandView implements View {
         island5.setEffect(null);
     }
     public void send5(){
-        nh.sendMessage("5");
+        nh.sendReply("5");
         islands.forEach((i)->i.setDisable(true));
     }
 
@@ -388,7 +387,7 @@ public class IslandView implements View {
         island6.setEffect(null);
     }
     public void send6(){
-        nh.sendMessage("6");
+        nh.sendReply("6");
         islands.forEach((i)->i.setDisable(true));
     }
 
@@ -399,7 +398,7 @@ public class IslandView implements View {
         island7.setEffect(null);
     }
     public void send7(){
-        nh.sendMessage("7");
+        nh.sendReply("7");
         islands.forEach((i)->i.setDisable(true));
     }
 
@@ -410,7 +409,7 @@ public class IslandView implements View {
         island8.setEffect(null);
     }
     public void send8(){
-        nh.sendMessage("8");
+        nh.sendReply("8");
         islands.forEach((i)->i.setDisable(true));
     }
 
@@ -421,7 +420,7 @@ public class IslandView implements View {
         island9.setEffect(null);
     }
     public void send9(){
-        nh.sendMessage("9");
+        nh.sendReply("9");
         islands.forEach((i)->i.setDisable(true));
     }
 
@@ -432,7 +431,7 @@ public class IslandView implements View {
         island10.setEffect(null);
     }
     public void send10(){
-        nh.sendMessage("10");
+        nh.sendReply("10");
         islands.forEach((i)->i.setDisable(true));
     }
 
@@ -443,27 +442,27 @@ public class IslandView implements View {
         island11.setEffect(null);
     }
     public void send11(){
-        nh.sendMessage("11");
+        nh.sendReply("11");
         islands.forEach((i)->i.setDisable(true));
     }
 
 
     public void sendC1(MouseEvent mouseEvent) {
-        nh.sendMessage("1");
+        nh.sendReply("1");
         c1.setDisable(true);
         c2.setDisable(true);
         c3.setDisable(true);
         cloudStuds.get(0).forEach((l->l.forEach(img->img.setVisible(false))));
     }
     public void sendC2(MouseEvent mouseEvent) {
-        nh.sendMessage("2");
+        nh.sendReply("2");
         c1.setDisable(true);
         c2.setDisable(true);
         c3.setDisable(true);
         cloudStuds.get(1).forEach((l->l.forEach(img->img.setVisible(false))));
     }
     public void sendC3(MouseEvent mouseEvent) {
-        nh.sendMessage("3");
+        nh.sendReply("3");
         c1.setDisable(true);
         c2.setDisable(true);
         c3.setDisable(true);

@@ -18,6 +18,7 @@ class CheckOwnerCharacter extends Characters {
         this.cost = 3;
     }
 
+    // TODO: 18/06/2022 We cannot keep the try-catch like this, but idk what was done with characters
     public void play(Game game, PlayerController pc) {
         //choose an island to checkOwner() immediately
         Player player = pc.getPlayer();

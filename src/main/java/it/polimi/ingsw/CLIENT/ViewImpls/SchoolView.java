@@ -14,7 +14,6 @@ import javafx.scene.effect.Bloom;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -281,39 +280,39 @@ public class SchoolView implements View {
 
 
     private void yellowSelected(MouseEvent mouseEvent) {
-        nh.sendMessage("yellow");
+        nh.sendReply("yellow");
         entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(true)));
 
     }
 
     private void redSelected(MouseEvent mouseEvent) {
-        nh.sendMessage("red");
+        nh.sendReply("red");
         entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(true)));
     }
 
     private void pinkSelected(MouseEvent mouseEvent) {
-        nh.sendMessage("pink");
+        nh.sendReply("pink");
         entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(true)));
     }
 
     private void greenSelected(MouseEvent mouseEvent) {
-        nh.sendMessage("green");
+        nh.sendReply("green");
         entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(true)));
     }
 
     private void blueSelected(MouseEvent mouseEvent) {
-        nh.sendMessage("blue");
+        nh.sendReply("blue");
         entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(true)));
     }
 
     public void dRSelected(){
-        nh.sendMessage("diningroom");
+        nh.sendReply("diningroom");
     }
     public void islandSelected(){
-        nh.sendMessage("islands");
+        nh.sendReply("islands");
     }
     public void sendBack(){
-        nh.sendMessage("back");
+        nh.sendReply("back");
         back.setVisible(false);
     }
 
