@@ -22,6 +22,7 @@ public abstract class Characters implements Serializable {
             case 6 -> new NoTowersCharacter();
             case 7 -> new PlaceInIslandCharacter(List.of(game.drawFromBag(),game.drawFromBag(),game.drawFromBag()));
             case 8 -> new ZeroPointStudentCharacter();
+            case 11 -> new ReturnThreeStudentsCharacter();
             default -> null;
         };
     }

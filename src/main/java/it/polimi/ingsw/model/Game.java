@@ -146,6 +146,11 @@ public class Game implements Serializable {
         return randstud;
     }
 
+    public void addToBag(Student student, Integer num){
+        int oldnum = bag.get(student);
+        bag.replace(student, oldnum, oldnum + num);
+    }
+
 
 
     public Boolean checkGameEndCondition(String condition, Player player){
