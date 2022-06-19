@@ -38,7 +38,7 @@ public class ServerApp {
             for (PlayerController pc : gc.getControllers()) {
                 new ActionPhaseMessage(pc.getPlayer(), update).send(pc.getPlayerView());
                 //  to update other players' school
-                List<Player> otherPlayers = new ArrayList<Player>(game.getTableOrder());
+                List<Player> otherPlayers = new ArrayList<>(game.getTableOrder());
                 otherPlayers.remove(pc.getPlayer());
                 new SwitcherMessage(otherPlayers).sendAndCheck(pc.getPlayerView());
             }
@@ -48,6 +48,7 @@ public class ServerApp {
             gc.doPlanningPhase(game);
             //main game loop. We will skip one player if they are disconnected
             for (Player player : game.getCurrentOrder()) {
+                System.out.println("clouds: " + game.getClouds());
                 try {
                     PlayerController pc = gc.getControllers().get(game.getTableOrder().indexOf(player));
                     //  to update other players' school
@@ -88,8 +89,8 @@ public class ServerApp {
                     }
                     continue;
                 }
-                game.newRoundOrEnd();
             }
+            game.newRoundOrEnd();
         }
         List<Player> winners = game.getWinner();
         for (Player player: game.getTableOrder()){
