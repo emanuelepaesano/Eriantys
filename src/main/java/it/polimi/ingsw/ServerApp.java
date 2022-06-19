@@ -48,14 +48,12 @@ public class ServerApp {
             gc.doPlanningPhase(game);
             //main game loop. We will skip one player if they are disconnected
             for (Player player : game.getCurrentOrder()) {
-                System.out.println("clouds: " + game.getClouds());
                 try {
                     PlayerController pc = gc.getControllers().get(game.getTableOrder().indexOf(player));
                     //  to update other players' school
                     List<Player> otherPlayers = new ArrayList<>(game.getTableOrder());
                     otherPlayers.remove(player);
                     new SwitcherMessage(otherPlayers).send(pc.getPlayerView());
-
                     new IslandInfoMessage(game, updateMap).send(pc.getPlayerView());
                     game.setCurrentPlayer(player);
                     gc.doActions(pc);
@@ -68,26 +66,24 @@ public class ServerApp {
                     new ActionPhaseMessage(pc.getPlayer(), update).send(pc.getPlayerView());
                     game.checkGameEndCondition("towerend", player);
                     game.checkGameEndCondition("islandend", player);
-                    if (game.isOver()) {
-                        break;
-                    }
                 } catch (DisconnectedException disconnectedView) {
                     System.out.println("Disconnected exception thrown");
                     List<VirtualView> activeViews = server.views.stream().filter(v -> !v.isDisconnected()).toList();
                     while (activeViews.size() == 1) {
-                        try {
-                            Timer toWin = new Timer(45000, declareWin);
-                            toWin.start();
-                            synchronized (lock) {
+                        Timer toWin = new Timer(45000, declareWin);
+                        toWin.start();
+                        synchronized (lock) {
+                            try {
                                 lock.wait();
-                            }
-                            toWin.stop();
-                            activeViews = server.views.stream().filter(v -> !v.isDisconnected()).toList();
-                        } catch (InterruptedException ex) {
-                            ex.printStackTrace();
+                            }catch (InterruptedException ignored){}
                         }
+                        toWin.stop();
+                        activeViews = server.views.stream().filter(v -> !v.isDisconnected()).toList();
                     }
                     continue;
+                }
+                if (game.isOver()) {
+                    break;
                 }
             }
             game.newRoundOrEnd();
