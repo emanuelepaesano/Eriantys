@@ -1,6 +1,8 @@
 package it.polimi.ingsw.CLIENT;
 
 import it.polimi.ingsw.messages.*;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -156,11 +158,26 @@ public class NetworkHandler{
     ActionListener onTimeout = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-                System.err.println("Server is not responding. ");
-                setDisconnected(true);
-//                outStream.close();
-//                inStream.close();
-//                socket.close();
+            System.err.println("Server is not responding. ");
+            setDisconnected(true);
+            if (GUI) {
+                Platform.runLater(() -> {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Disconnection");
+                    alert.setHeaderText("Disconnection");
+                    alert.setContentText("""
+                            You are offline.
+                            If you don't reconnect and more than 1 player remains, the game will continue without you.
+                            Otherwise the last player left will win in 45 seconds.""");
+                    alert.setHeight(600);
+                    alert.setWidth(800);
+                    alert.showAndWait();
+                });
+            }
+            else System.out.println("""
+                            You are offline.
+                            If you don't reconnect and more than 1 player remains, the game will continue without you.
+                            Otherwise the last player left will win in 45 seconds.""");
         }
     };
 

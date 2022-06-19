@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.Player;
 
 import java.util.List;
 
-public class SwitcherMessage extends Repliable implements Message{
+public class SwitcherMessage extends Repliable{
 
     String text;
     List<Player> players;
@@ -16,21 +16,6 @@ public class SwitcherMessage extends Repliable implements Message{
         this.players = players;
         text = "Which player's school do you want to see " +
                 "(Players: " + players + ") ?\n" + "To return to action selection, type '0' or 'back'";
-    }
-
-    @Override
-    public void send(VirtualView user) {
-        user.update(this);
-    }
-
-    @Override
-    public void send(List<VirtualView> all) {
-        all.forEach(v->v.update(this));
-    }
-
-    @Override
-    public String getView() {
-        return "switcherView";
     }
 
     @Override

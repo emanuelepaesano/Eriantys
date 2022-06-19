@@ -28,7 +28,7 @@ public class ServerApp {
     public static final Object lock = new Object();
     public static void main(String[] args) throws IOException {
 
-        ClientHandler server = new ClientHandler(1337);
+        ServerStarter server = new ServerStarter(1337);
         int numplayers = server.startServer();
         GameController gc = new GameController(numplayers,server.views);
         Game game = gc.getGame();
@@ -40,7 +40,7 @@ public class ServerApp {
                 //  to update other players' school
                 List<Player> otherPlayers = new ArrayList<Player>(game.getTableOrder());
                 otherPlayers.remove(pc.getPlayer());
-                new SwitcherMessage(otherPlayers).send(pc.getPlayerView());
+                new SwitcherMessage(otherPlayers).sendAndCheck(pc.getPlayerView());
             }
         }catch (DisconnectedException ex){ServerStarter.stopGame(false);}
         info.send(server.views);
@@ -51,7 +51,7 @@ public class ServerApp {
                 try {
                     PlayerController pc = gc.getControllers().get(game.getTableOrder().indexOf(player));
                     //  to update other players' school
-                    List<Player> otherPlayers = new ArrayList<Player>(game.getTableOrder());
+                    List<Player> otherPlayers = new ArrayList<>(game.getTableOrder());
                     otherPlayers.remove(player);
                     new SwitcherMessage(otherPlayers).send(pc.getPlayerView());
 
@@ -64,28 +64,32 @@ public class ServerApp {
                     pc.getEntranceController().fillFromClouds(game.getClouds());
                     gc.resetCharacters(game, pc);
                     new IslandInfoMessage(game, updateMap).send(server.views);
-                    new ActionPhaseMessage(pc.getPlayer(),update).send(pc.getPlayerView());
+                    new ActionPhaseMessage(pc.getPlayer(), update).send(pc.getPlayerView());
                     game.checkGameEndCondition("towerend", player);
                     game.checkGameEndCondition("islandend", player);
                     if (game.isOver()) {
                         break;
                     }
-                }catch (DisconnectedException disconnectedView) {
-                System.out.println("Disconnected exception thrown");
-                List<VirtualView> activeViews = server.views.stream().filter(v->!v.isDisconnected()).toList();
-                while (activeViews.size()==1){
-                    try{
-                        Timer toWin = new Timer(45000,declareWin);
-                        toWin.start();
-                        synchronized (lock){
-                            lock.wait();
+                } catch (DisconnectedException disconnectedView) {
+                    System.out.println("Disconnected exception thrown");
+                    List<VirtualView> activeViews = server.views.stream().filter(v -> !v.isDisconnected()).toList();
+                    while (activeViews.size() == 1) {
+                        try {
+                            Timer toWin = new Timer(45000, declareWin);
+                            toWin.start();
+                            synchronized (lock) {
+                                lock.wait();
+                            }
+                            toWin.stop();
+                            activeViews = server.views.stream().filter(v -> !v.isDisconnected()).toList();
+                        } catch (InterruptedException ex) {
+                            ex.printStackTrace();
                         }
-                        toWin.stop();
-                        activeViews = server.views.stream().filter(v->!v.isDisconnected()).toList();
-                    }catch (InterruptedException ex){ex.printStackTrace();}
+                    }
+                    continue;
                 }
-                continue;}
-            game.newRoundOrEnd();
+                game.newRoundOrEnd();
+            }
         }
         List<Player> winners = game.getWinner();
         for (Player player: game.getTableOrder()){
@@ -104,5 +108,4 @@ public class ServerApp {
         }
         ServerStarter.stopGame(true);
     }
-
 }

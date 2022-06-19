@@ -4,12 +4,10 @@ import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 
-import java.util.List;
-
 /**
  * This turn player has +2 influence
  */
-class MoreInfluenceCharacter extends Characters {
+class MoreInfluenceCharacter extends Character {
 
     int cost;
     int maxCost;
@@ -22,10 +20,10 @@ class MoreInfluenceCharacter extends Characters {
     public void play(Game game, PlayerController pc) {
         Player player = pc.getPlayer();
         //this turn +2 influence (n.b. you cant combine characters)
-        if (!Characters.enoughMoney(player,cost)){
+        if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
             return;}
-        this.cost = Characters.payandUpdateCost(player,cost,maxCost);
+        this.cost = Character.payandUpdateCost(player,cost,maxCost);
             player.setBaseInfluence(2);
 
     }

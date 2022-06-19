@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * This turn towers will not count towards influence
  */
-class NoTowersCharacter extends Characters {
+class NoTowersCharacter extends Character {
     int cost;
     int maxCost;
     List<Integer> oldsizes;
@@ -22,10 +22,10 @@ class NoTowersCharacter extends Characters {
 
     public void play(Game game, PlayerController pc){
         Player player = pc.getPlayer();
-        if (!Characters.enoughMoney(player,cost)){
+        if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
             return;}
-        this.cost = Characters.payandUpdateCost(player,cost,maxCost);
+        this.cost = Character.payandUpdateCost(player,cost,maxCost);
         List<Island> islands = game.getGameMap().getArchipelago();
         oldsizes = islands.stream().map(Island::getSize).toList();
             //we either make size 0 or  change the checkowner

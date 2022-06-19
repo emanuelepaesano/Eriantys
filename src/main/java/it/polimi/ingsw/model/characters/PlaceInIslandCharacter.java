@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.characters;
 
+import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.messages.StringMessage;
@@ -10,7 +11,7 @@ import java.util.List;
 /**
  * You can take 1 student from this character and move it to an island.
  */
- class PlaceInIslandCharacter extends Characters {
+ class PlaceInIslandCharacter extends Character {
     int cost;
     List<Student> students;
     int maxCost;
@@ -25,7 +26,7 @@ import java.util.List;
 
     }
 
-    private void setUp(PlayerController pc, Game game){
+    private void setUp(PlayerController pc, Game game) throws DisconnectedException {
         Student student;
         VirtualView user = pc.getPlayerView();
         while (true) {
@@ -66,7 +67,7 @@ import java.util.List;
         return student;
     }
 
-    public void play(Game game, PlayerController pc) {
+    public void play(Game game, PlayerController pc) throws DisconnectedException {
         Player player = pc.getPlayer();
         if(chosenStudent == null || chosenIsland == null){
             setUp(pc, game);
@@ -74,7 +75,7 @@ import java.util.List;
                 return;
             }
         }
-        if (!Characters.enoughMoney(player,cost)){
+        if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
             return;}
 
@@ -83,7 +84,7 @@ import java.util.List;
         int oldval = chosenIsland.students.get(chosenStudent);
         chosenIsland.students.replace(chosenStudent, oldval, oldval + 1);
         students.add(game.drawFromBag());
-        this.cost = Characters.payandUpdateCost(player,cost,maxCost);
+        this.cost = Character.payandUpdateCost(player,cost,maxCost);
     }
     public int getCost() {
         return cost;

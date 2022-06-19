@@ -75,18 +75,14 @@ public class OtherPlayerView implements View {
     public Label towLabel;
 
     public Text playerName;
-
     Player player;
     Stage stage;
-
     NetworkHandler nh;
-
     List<ImageView> assistantImageViewList;
     List<List<ImageView>> entranceImageViewList;
     Map<Student, List<ImageView>> diningRoomImageViewMap;
     Map<Student, ImageView> professorsImageViewList;
     Map<TowerColor, List<ImageView>> towersImageViewList;
-
     List<Assistant> allAssistants;
     Map<Assistant, Boolean> playersAssistants;
 
@@ -268,28 +264,28 @@ public class OtherPlayerView implements View {
 
 
     private void yellowSelected(MouseEvent mouseEvent) {
-        nh.sendMessage("yellow");
+        nh.sendReply("yellow");
         entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(true)));
 
     }
 
     private void redSelected(MouseEvent mouseEvent) {
-        nh.sendMessage("red");
+        nh.sendReply("red");
         entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(true)));
     }
 
     private void pinkSelected(MouseEvent mouseEvent) {
-        nh.sendMessage("pink");
+        nh.sendReply("pink");
         entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(true)));
     }
 
     private void greenSelected(MouseEvent mouseEvent) {
-        nh.sendMessage("green");
+        nh.sendReply("green");
         entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(true)));
     }
 
     private void blueSelected(MouseEvent mouseEvent) {
-        nh.sendMessage("blue");
+        nh.sendReply("blue");
         entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(true)));
     }
 

@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * You can take 1 student from this character and move it to your diningRoom
  */
-class MoveToDRCharacter extends Characters {
+class MoveToDRCharacter extends Character {
     int cost;
     int maxCost;
 
@@ -56,7 +56,7 @@ class MoveToDRCharacter extends Characters {
                 return;
             }
         }
-        if (!Characters.enoughMoney(player,cost)){
+        if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
             return;}
         students.remove(chosenStudent);
@@ -65,7 +65,7 @@ class MoveToDRCharacter extends Characters {
         if (students.size() < 3) {
             students.add(game.drawFromBag());
         }
-        this.cost = Characters.payandUpdateCost(player,cost,maxCost);
+        this.cost = Character.payandUpdateCost(player,cost,maxCost);
         System.out.println("New Dining Room:\n " + player.getDiningRoom());
     }
 
