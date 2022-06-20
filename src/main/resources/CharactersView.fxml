@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="planningPhaseRoot" alignment="CENTER" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.PlanningPhaseView">
+<GridPane fx:id="planningPhaseRoot" alignment="CENTER" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.CharactersView">
     <TextField fx:id="Assistant_text" blendMode="DARKEN" editable="false" text="Choose character" AnchorPane.bottomAnchor="200" AnchorPane.leftAnchor="150" AnchorPane.rightAnchor="150" />
     <HBox alignment="CENTER" GridPane.rowIndex="1">
         <Button fx:id="one" disable="false" onAction="#send1" text="Cost: 1" contentDisplay="BOTTOM">
@@ -105,7 +105,7 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="eleven" disable="false" onAction="#send10" text="Cost: 1" contentDisplay="BOTTOM">
+        <Button fx:id="eleven" disable="false" onAction="#send11" text="Cost: 1" contentDisplay="BOTTOM">
             <graphic>
                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -114,7 +114,7 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="twelve" disable="false" onAction="#send10" text="Cost: 1" contentDisplay="BOTTOM">
+        <Button fx:id="twelve" disable="false" onAction="#send12" text="Cost: 1" contentDisplay="BOTTOM">
             <graphic>
                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
