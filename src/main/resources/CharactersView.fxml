@@ -13,7 +13,7 @@
 <GridPane fx:id="planningPhaseRoot" alignment="CENTER" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.PlanningPhaseView">
     <TextField fx:id="Assistant_text" blendMode="DARKEN" editable="false" text="Choose character" AnchorPane.bottomAnchor="200" AnchorPane.leftAnchor="150" AnchorPane.rightAnchor="150" />
     <HBox alignment="CENTER" GridPane.rowIndex="1">
-        <Button fx:id="one" onAction="#send1">
+        <Button fx:id="one" disable="false" onAction="#send1" text="Cost: 1" contentDisplay="BOTTOM">
             <graphic>
                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -22,7 +22,7 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="two" disable="false" onAction="#send2">
+        <Button fx:id="two" disable="false" onAction="#send2" text="Cost: 1" contentDisplay="BOTTOM">
             <graphic>
                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -31,7 +31,7 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="three" disable="false" onAction="#send3">
+        <Button fx:id="three" disable="false" onAction="#send3" text="Cost: 1" contentDisplay="BOTTOM">
             <graphic>
                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -40,7 +40,7 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="four" disable="false" onAction="#send4">
+        <Button fx:id="four" disable="false" onAction="#send4" text="Cost: 1" contentDisplay="BOTTOM">
             <graphic>
                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -49,7 +49,7 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="five" disable="false" onAction="#send5">
+        <Button fx:id="five" disable="false" onAction="#send5" text="Cost: 1" contentDisplay="BOTTOM">
             <graphic>
                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -58,7 +58,7 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="six" disable="false" onAction="#send6">
+        <Button fx:id="six" disable="false" onAction="#send6" text="Cost: 1" contentDisplay="BOTTOM">
             <graphic>
                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -69,7 +69,7 @@
         </Button>
     </HBox>
     <HBox alignment="CENTER" GridPane.rowIndex="2">
-        <Button fx:id="seven" disable="false" onAction="#send7">
+        <Button fx:id="seven" disable="false" onAction="#send7" text="Cost: 1" contentDisplay="BOTTOM">
             <graphic>
                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -78,7 +78,7 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="eight" disable="false" onAction="#send8">
+        <Button fx:id="eight" disable="false" onAction="#send8" text="Cost: 1" contentDisplay="BOTTOM">
             <graphic>
                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -87,7 +87,7 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="nine" disable="false" onAction="#send9">
+        <Button fx:id="nine" disable="false" onAction="#send9" text="Cost: 1" contentDisplay="BOTTOM">
             <graphic>
                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -96,7 +96,7 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="ten" disable="false" onAction="#send10">
+        <Button fx:id="ten" disable="false" onAction="#send10" text="Cost: 1" contentDisplay="BOTTOM">
             <graphic>
                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -105,7 +105,7 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="eleven" disable="false" onAction="#send10">
+        <Button fx:id="eleven" disable="false" onAction="#send10" text="Cost: 1" contentDisplay="BOTTOM">
             <graphic>
                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -114,7 +114,7 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button fx:id="twelve" disable="false" onAction="#send10">
+        <Button fx:id="twelve" disable="false" onAction="#send10" text="Cost: 1" contentDisplay="BOTTOM">
             <graphic>
                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
