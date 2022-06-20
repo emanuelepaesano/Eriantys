@@ -19,6 +19,7 @@
           <Button fx:id="assistants" mnemonicParsing="false" prefHeight="178.0" prefWidth="146.0" text="Assistants" onAction="#toAssistants" />
           <Button fx:id="player1" mnemonicParsing="false" prefHeight="178.0" prefWidth="146.0" text="" onAction="#toPlayer1" />
           <Button fx:id="player2" mnemonicParsing="false" prefHeight="178.0" prefWidth="146.0" text="" onAction="#toPlayer2" />
+          <Button fx:id="characters" mnemonicParsing="false" prefHeight="178.0" prefWidth="146.0" text="" onAction="#toCharacters" />
       </children>
    </VBox>
 </AnchorPane>

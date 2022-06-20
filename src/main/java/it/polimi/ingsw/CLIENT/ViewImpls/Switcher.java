@@ -26,6 +26,7 @@ public class Switcher implements View {
     public Button assistants;
     public Button player1;
     public Button player2;
+    public Button characters;
 
     private Stage stage;
 
@@ -60,8 +61,8 @@ public class Switcher implements View {
         uim.getGenInfoView();
         uim.getSchoolView();
         uim.getPlanningPhaseView();
-
     }
+
     @Override
     public void fillInfo(Message mes) {
         SwitcherMessage message = (SwitcherMessage) mes;
@@ -96,6 +97,10 @@ public class Switcher implements View {
         Platform.runLater(()->gameScene.getChildren().setAll(uim.getPlanningPhaseRoot()));
     }
 
+    public void toCharacters() {
+        Platform.runLater(()->gameScene.getChildren().setAll(uim.getCharactersRoot()));
+    }
+
     public void toPlayer1() {
         Platform.runLater(()->gameScene.getChildren().setAll(uim.getP1SchoolRoot()));
     }
@@ -103,4 +108,5 @@ public class Switcher implements View {
     public void toPlayer2() {
         Platform.runLater(()->gameScene.getChildren().setAll(uim.getP2SchoolRoot()));
     }
+
 }

@@ -192,13 +192,27 @@ public class UIManager extends Application{
         return schoolView;
     }
 
+    private View charactersView;
+    private Parent charactersRoot;
+    public Parent getCharactersRoot() {
+        return charactersRoot;
+    }
+    public View getCharactersView(){
+        if (this.charactersView ==null){
+            try {
+                FXMLLoader actionPhaseLoader = new FXMLLoader(getClass().getResource("/CharactersView.fxml"));
+                charactersRoot = actionPhaseLoader.load();
+                charactersView = actionPhaseLoader.getController();
+            }catch(IOException ex){ex.printStackTrace();}
+        }
+        return charactersView;
+    }
+
     private View p1SchoolView;
     private Parent p1SchoolRoot;
-
     public Parent getP1SchoolRoot() {
         return p1SchoolRoot;
     }
-
     public View getP1SchoolView(){
         if (this.p1SchoolView ==null){
             try {
