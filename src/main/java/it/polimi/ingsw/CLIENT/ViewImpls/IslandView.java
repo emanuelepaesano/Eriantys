@@ -146,7 +146,6 @@ public class IslandView implements View {
     public void fillInfo(Message mes) {
         if (mes.isRepliable()){
             IslandActionMessage message = (IslandActionMessage) mes;
-
             if (message.getType().equals(moveMN)) {
                 Platform.runLater(() -> {
                     Spinner<Integer> numberSel = new Spinner<>(1, message.getMaxMoves(), 1);
@@ -168,23 +167,20 @@ public class IslandView implements View {
                 initCloudStuds();
                 map = message.getMap();
                 players = message.getPlayers();
-                bindAllLabels();
-                bindMotherNature();
-                bindClouds();
-                addBridges();
-                showTowers();
             } else if (message.getType().equals(updateMap)) {
                 map = message.getMap();
                 players = message.getPlayers();
                 clouds = message.getClouds();
 
-                //Here we have to link the elements from the model to the graphic components.
-                bindAllLabels();
-                bindMotherNature();
-                bindClouds();
-                addBridges();
-                showTowers();
             }
+            //Here we have to link the elements from the model to the graphic components.
+            Platform.runLater(()->{
+            bindAllLabels();
+            bindMotherNature();
+            bindClouds();
+            addBridges();
+            showTowers();
+            });
         }
     }
 

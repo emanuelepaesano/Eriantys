@@ -24,6 +24,8 @@ public class EndGameView implements View {
     public Text endText;
     public AnchorPane endRoot;
     Stage stage;
+
+    NetworkHandler nh;
     @Override
     public void display() {
         Parent root = UIManager.getUIManager().getEndGameRoot();
@@ -43,6 +45,7 @@ public class EndGameView implements View {
 
 
     public void initialize(){
+        nh = UIManager.getUIManager().getNh();
         Image img = new Image("assets/pastel blue background.jpg");
         BackgroundImage bImg = new BackgroundImage(img, BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
@@ -62,9 +65,7 @@ public class EndGameView implements View {
             case WIN -> {showWinScreen();}
             case LOSE -> {showLoseScreen(endGameMessage.getOtherWinners());}
         }
-        //dobbiamo anche staccarci dal server in modo da non lanciare errori e il server deve riconoscere
-        //correttamente la disconnessione
-
+        nh.endConnectionandGame();
     }
 
     private void showLoseScreen(List<Player> otherWinners) {
@@ -87,5 +88,10 @@ public class EndGameView implements View {
             text += player.toString() + " ";
         }
         endText.setText(text);
+    }
+
+    public void closeGame(){
+        Platform.exit();
+        System.exit(0);
     }
 }

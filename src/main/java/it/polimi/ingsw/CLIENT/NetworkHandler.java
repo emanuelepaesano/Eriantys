@@ -24,6 +24,7 @@ public class NetworkHandler{
     //possiamo però lasciarci questo spazio a parte dagli stati della view. L'idea sarebbe
     //che queste cose appaiono come popup sopra alla view che resta però allo stato attuale
 
+    Boolean gameOver = false;
     private Socket socket;
     private final Boolean GUI;
     Thread listener;
@@ -158,8 +159,9 @@ public class NetworkHandler{
     ActionListener onTimeout = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.err.println("Server is not responding. ");
+            if (gameOver){return;}
             setDisconnected(true);
+            System.err.println("Server is not responding. ");
             if (GUI) {
                 Platform.runLater(() -> {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -181,8 +183,13 @@ public class NetworkHandler{
         }
     };
 
-    public Thread getListener() {
-        return listener;
+    public void endConnectionandGame(){
+        try{
+            outStream.close();
+            inStream.close();
+            socket.close();
+        }catch (Exception exception){exception.printStackTrace();}
+        gameOver = true;
     }
 
     public void setDisconnected(Boolean disconnected) {

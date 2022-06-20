@@ -140,6 +140,7 @@ public class SchoolView implements View {
 
         this.player = message.getPlayer();
         back.setVisible(false);
+        Platform.runLater(()->{
         switch (message.getType()) {
             case yourturn:
                 moveToDR.setDisable(false);
@@ -147,10 +148,8 @@ public class SchoolView implements View {
                 break;
             case howmany:
                 //show a popup with how many selection
-                Platform.runLater(()->{
                 Spinner<Integer> numberSel = new Spinner<>(0,message.getAvailableActions(),0);
                     View.makeSpinnerDialog(numberSel, nh, "How many", "Choose the number of students to move.");
-                });
                 break;
             case studselect:
                 entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(false)));
@@ -167,12 +166,15 @@ public class SchoolView implements View {
                 break;
 
         }
+        });
 
         //Here we have to link the elements from the model to the graphic components.
+        Platform.runLater(()->{
         bindEntrance();
         bindDiningRoom();
         bindProfessors();
         bindTowers();
+        });
     }
 
     public void setEntranceInvisible() {
