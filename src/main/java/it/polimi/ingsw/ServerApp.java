@@ -24,12 +24,14 @@ import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.updateMa
  * this will be the main to play the game.
  */
 public class ServerApp {
-
     public static final Object lock = new Object();
-    public static void main(String[] args) throws IOException {
 
+    public static void main(String[] args)  {
         ServerStarter server = new ServerStarter(1337);
-        int numplayers = server.startServer();
+        int numplayers;
+        try {
+            numplayers = server.startServer();
+        }catch (IOException problem){throw new RuntimeException("could not start server...");}
         GameController gc = new GameController(numplayers,server.views);
         Game game = gc.getGame();
         new StartGameMessage().send(server.views);
