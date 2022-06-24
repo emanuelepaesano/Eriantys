@@ -33,6 +33,7 @@ public class Game implements Serializable {
 
     Random randomizer = new Random();
     private Boolean over = false;
+    private Boolean advanced;
 
     public static Game makeGame(int numPlayers){
         List<Player> tableOrder = startPlayersandOrder(numPlayers);
@@ -87,6 +88,7 @@ public class Game implements Serializable {
 
 
     public void doSetUp(Boolean ad){
+        this.advanced = ad;
         round = 1;
         currentPlayer = currentOrder.get(0);
         fillClouds();
@@ -320,6 +322,10 @@ public class Game implements Serializable {
 
     public void setOver(Boolean over) {
         this.over = over;
+    }
+
+    public boolean isAdvanced() {
+        return advanced;
     }
 }
 

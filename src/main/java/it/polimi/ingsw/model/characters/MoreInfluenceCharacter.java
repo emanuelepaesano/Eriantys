@@ -9,9 +9,6 @@ import it.polimi.ingsw.model.Player;
  */
 class MoreInfluenceCharacter extends Character {
 
-    int cost;
-    int maxCost;
-
     public MoreInfluenceCharacter() {
         this.cost = 1;
         this.maxCost = 2;
@@ -31,9 +28,6 @@ class MoreInfluenceCharacter extends Character {
     public void reset(Game game, PlayerController pc){
         Player player = pc.getPlayer();
         player.setBaseInfluence(0);
-    }
-    public int getCost() {
-        return cost;
     }
 
 }

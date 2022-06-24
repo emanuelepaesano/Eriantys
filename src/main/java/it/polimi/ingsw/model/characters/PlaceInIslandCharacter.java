@@ -12,9 +12,8 @@ import java.util.List;
  * You can take 1 student from this character and move it to an island.
  */
  class PlaceInIslandCharacter extends Character {
-    int cost;
+
     List<Student> students;
-    int maxCost;
 
     public Student getChosenStudent() {
         return chosenStudent;
@@ -100,9 +99,6 @@ import java.util.List;
         chosenIsland.getStudents().replace(chosenStudent, oldval, oldval + 1);
         students.add(game.drawFromBag());
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
-    }
-    public int getCost() {
-        return cost;
     }
 
     public void reset (Game game, PlayerController pc){

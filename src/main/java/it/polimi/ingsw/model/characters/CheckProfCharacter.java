@@ -8,8 +8,6 @@ import it.polimi.ingsw.model.Player;
  * For this turn, >= instead of > in checkProfessors()
  */
 class CheckProfCharacter extends Character {
-    int cost;
-    int maxCost;
 
 
     public CheckProfCharacter() {
@@ -34,8 +32,5 @@ class CheckProfCharacter extends Character {
     public void reset (Game game, PlayerController pc){
         Player player = pc.getPlayer();
         player.setOrEqual(false);
-    }
-    public int getCost() {
-        return cost;
     }
 }

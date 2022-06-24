@@ -14,8 +14,6 @@ import java.util.List;
  * You can take 1 student from this character and move it to your diningRoom
  */
 class MoveToDRCharacter extends Character {
-    int cost;
-    int maxCost;
 
     List<Student> students;
 
@@ -69,10 +67,6 @@ class MoveToDRCharacter extends Character {
         System.out.println("New Dining Room:\n " + player.getDiningRoom());
     }
 
-    @Override
-    public int getCost() {
-        return cost;
-    }
 
     @Override
     public void reset(Game game, PlayerController pc) {

@@ -9,8 +9,6 @@ import it.polimi.ingsw.model.Player;
  * Choose an island to resolve immediately.
  */
 class CheckOwnerCharacter extends Character {
-    int cost;
-    int maxCost;
 
     public Island getChosenIsland() {
         return chosenIsland;
@@ -47,7 +45,4 @@ class CheckOwnerCharacter extends Character {
         this.cost = Character.payandUpdateCost(player,cost, maxCost);
     }
 
-    public int getCost() {
-        return cost;
-    }
 }

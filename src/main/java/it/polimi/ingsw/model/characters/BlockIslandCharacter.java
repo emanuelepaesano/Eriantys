@@ -13,9 +13,6 @@ import java.util.List;
 
 public class BlockIslandCharacter extends Character {
 
-    int cost;
-    int maxCost;
-
     int numTiles;
 
     public BlockIslandCharacter() {

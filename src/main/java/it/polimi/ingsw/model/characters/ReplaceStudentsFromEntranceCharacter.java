@@ -14,9 +14,6 @@ import java.util.List;
  * You may take up to 3 students from this card and replace them with the same number of students from your entrance.
  */
 class ReplaceStudentsFromEntranceCharacter extends Character {
-    int cost;
-    int maxCost;
-
     List<Student> students;
     List<Student> chosenStudents;
     List<Student> chosenStudentsFromEntrance;
@@ -54,7 +51,7 @@ class ReplaceStudentsFromEntranceCharacter extends Character {
         Student student;
         while (true) {
             new StringMessage("Choose a student from your entrance to replace it with chosen students.").send(user);
-            String str = Student.askStudent(students, user, "replaceStudentsFromEntranceChar").toUpperCase();
+            String str = Student.askStudent(entranceStudents, user, "replaceStudentsFromEntranceChar").toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return;}
             else if (List.of(Student.values()).contains(Student.valueOf(str))) {
@@ -99,11 +96,6 @@ class ReplaceStudentsFromEntranceCharacter extends Character {
         System.out.println("New Entrance Room:\n " + player.getEntrance());
         chosenStudents.clear();
         chosenStudentsFromEntrance.clear();
-    }
-
-    @Override
-    public int getCost() {
-        return cost;
     }
 
 

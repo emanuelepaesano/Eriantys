@@ -11,8 +11,6 @@ import java.util.List;
  * This turn towers will not count towards influence
  */
 class NoTowersCharacter extends Character {
-    int cost;
-    int maxCost;
 
     public List<Integer> getOldsizes() {
         return oldsizes;
@@ -42,8 +40,5 @@ class NoTowersCharacter extends Character {
                 island.setSize(oldsizes.get(islands.indexOf(island)))
         );
         oldsizes = null;
-    }
-    public int getCost() {
-        return cost;
     }
 }

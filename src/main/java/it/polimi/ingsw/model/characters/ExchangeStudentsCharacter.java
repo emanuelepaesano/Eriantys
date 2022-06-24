@@ -32,7 +32,7 @@ class ExchangeStudentsCharacter extends Character {
         Student student;
         while (true) {
             //al momento il modo per selezionare uno è dire il primo e poi fare back
-            new StringMessage("Choose up to 2 students from your entrance.").send(user);
+            new StringMessage("Choose up to 2 students from your entrance. Type back to stop choosing.").send(user);
             String str = Student.askStudent(entranceStudents, user, "exchangeStudentsChar").toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return;}
@@ -43,6 +43,7 @@ class ExchangeStudentsCharacter extends Character {
                     continue;
                 }
                 chosenStudentsFromEntrance.add(student);
+                entranceStudents.remove(student);
                 if (chosenStudentsFromEntrance.size()==2){break;}
             }
         }
@@ -59,12 +60,14 @@ class ExchangeStudentsCharacter extends Character {
             if (str.equals("BACK")){return;}
             else if (List.of(Student.values()).contains(Student.valueOf(str))) {
                 student = Student.valueOf(str);
-                if (!(diningRoomStudents.get(student) == 0)){
+                if (diningRoomStudents.get(student) == 0){
                     new StringMessage(Game.ANSI_RED+"Your entrance does not have that student! Try again"+
                             Game.ANSI_RESET).send(user);
                     continue;
                 }
                 chosenStudentsFromDiningRoom.add(student);
+                int oldVal = diningRoomStudents.get(student);
+                diningRoomStudents.replace(student,oldVal,oldVal-1);
                 if (chosenStudentsFromEntrance.size() == chosenStudentsFromDiningRoom.size()){break;}
             }
         }
@@ -80,12 +83,12 @@ class ExchangeStudentsCharacter extends Character {
             //ok, we can send a noreply here
             return;
         }
-        List<Student> entranceStudents = pc.getPlayer().getEntrance().getStudents();
+        List<Student> entranceStudents = new ArrayList<>(pc.getPlayer().getEntrance().getStudents());
         pickStudentsFromEntrance(pc.getPlayerView(), entranceStudents);
         if (chosenStudentsFromEntrance.size() == 0) {
             return;
         }
-        Map<Student, Integer> diningRoomStudents = pc.getPlayer().getDiningRoom().getTables();
+        Map<Student, Integer> diningRoomStudents = Map.copyOf(pc.getPlayer().getDiningRoom().getTables());
         pickStudentsFromDiningRoom(pc.getPlayerView(), diningRoomStudents);
         if (chosenStudentsFromDiningRoom.size() < chosenStudentsFromEntrance.size()) {
             return;

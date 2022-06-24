@@ -59,6 +59,9 @@ public class ServerApp {
                 gc.resetCharacters(game, pc);
                 new IslandInfoMessage(game, updateMap).send(server.views);
                 new ActionPhaseMessage(pc.getPlayer(),update).send(pc.getPlayerView());
+                if (game.isAdvanced()){
+                    game.getCharacters().forEach(c->c.reset(game,pc));
+                }
                 game.checkGameEndCondition("towerend", player);
                 game.checkGameEndCondition("islandend", player);
                 if (game.isOver()) {

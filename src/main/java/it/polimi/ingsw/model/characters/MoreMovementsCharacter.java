@@ -8,9 +8,6 @@ import it.polimi.ingsw.model.Player;
  * For this turn, player has +2 Mother Nature movements
  */
 class MoreMovementsCharacter extends Character {
-    int cost;
-    int maxCost;
-
 
     public MoreMovementsCharacter( ) {
         this.cost = 1;
@@ -35,7 +32,4 @@ class MoreMovementsCharacter extends Character {
         player.setBaseMoves(0);
     }
 
-    public int getCost() {
-        return cost;
-    }
 }

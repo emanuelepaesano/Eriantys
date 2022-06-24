@@ -9,7 +9,8 @@ import java.io.Serializable;
 
 public abstract class Character implements Serializable {
 
-    int cost = 999;
+    int cost;
+    int maxCost;
 
     public static Character makeCharacter(Integer chara, Game game) {
         return switch (chara) {

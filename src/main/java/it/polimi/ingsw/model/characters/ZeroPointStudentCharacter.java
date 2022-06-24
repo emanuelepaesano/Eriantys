@@ -10,8 +10,6 @@ import java.util.List;
  * For this turn, the chosen color will not count towards influence.
  */
 class ZeroPointStudentCharacter extends Character {
-    int cost;
-    int maxCost;
 
     public void setChosenStudent(Student chosenStudent) {
         this.chosenStudent = chosenStudent;
@@ -78,8 +76,5 @@ class ZeroPointStudentCharacter extends Character {
         oldnumbers = null;
         chosenStudent = null;
         System.out.println(game.getGameMap());
-    }
-    public int getCost() {
-        return cost;
     }
 }

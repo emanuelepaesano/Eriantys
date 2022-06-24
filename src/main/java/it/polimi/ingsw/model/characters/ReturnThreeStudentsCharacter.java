@@ -14,8 +14,6 @@ import java.util.List;
  * if any player has fewer than 3 students of that type, return as many students as they have.
  */
 class ReturnThreeStudentsCharacter extends Character {
-    int cost;
-    int maxCost;
 
     Student chosenStudent;
 
@@ -63,11 +61,6 @@ class ReturnThreeStudentsCharacter extends Character {
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
         System.out.println("New Dining Room:\n " + player.getDiningRoom());
 
-    }
-
-    @Override
-    public int getCost() {
-        return cost;
     }
 
     @Override
