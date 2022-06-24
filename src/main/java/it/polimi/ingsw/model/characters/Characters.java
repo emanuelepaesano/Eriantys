@@ -25,6 +25,7 @@ public abstract class Characters implements Serializable {
             case 9 -> new ReplaceStudentsFromEntranceCharacter(List.of(game.drawFromBag(), game.drawFromBag(),
                     game.drawFromBag(), game.drawFromBag(), game.drawFromBag(), game.drawFromBag()));
             case 10 -> new ExchangeStudentsCharacter();
+            case 11 -> new ReturnThreeStudentsCharacter();
             default -> null;
         };
     }
