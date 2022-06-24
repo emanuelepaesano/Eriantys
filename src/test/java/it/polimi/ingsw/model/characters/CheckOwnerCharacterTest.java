@@ -5,7 +5,6 @@ import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Island;
 import it.polimi.ingsw.model.Student;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
@@ -25,7 +24,7 @@ class CheckOwnerCharacterTest {
         testGame = Game.makeGame(2);
         testGame.doSetUp(true);
         testGame.setCurrentPlayer(testGame.getTableOrder().get(0));
-        testCharacter = (CheckOwnerCharacter) Characters.makeCharacter(1, testGame);
+        testCharacter = (CheckOwnerCharacter) Character.makeCharacter(1, testGame);
         testGame.getCharacters().add(testCharacter);
         VirtualView testView = null;
         pcTest = new PlayerController(testGame.getCurrentPlayer(), testView);

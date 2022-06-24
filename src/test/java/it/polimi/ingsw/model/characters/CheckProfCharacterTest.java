@@ -19,7 +19,7 @@ class CheckProfCharacterTest {
         testGame = Game.makeGame(2);
         testGame.doSetUp(true);
         testGame.setCurrentPlayer(testGame.getTableOrder().get(0));
-        testCharacter = (CheckProfCharacter) Characters.makeCharacter(2, testGame);
+        testCharacter = (CheckProfCharacter) Character.makeCharacter(2, testGame);
         testGame.getCharacters().add(testCharacter);
         VirtualView testView = null;
         testPc = new PlayerController(testGame.getCurrentPlayer(), testView);

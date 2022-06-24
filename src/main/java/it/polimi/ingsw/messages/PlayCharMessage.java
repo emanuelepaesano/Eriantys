@@ -1,17 +1,17 @@
 package it.polimi.ingsw.messages;
 
 import it.polimi.ingsw.VirtualView;
-import it.polimi.ingsw.model.characters.Characters;
+import it.polimi.ingsw.model.characters.Character;
 import it.polimi.ingsw.model.Player;
 
 import java.util.List;
 
 public class PlayCharMessage extends Repliable implements Message{
-    List<Characters> characters;
+    List<Character> characters;
     Player player;
     String text;
 
-    public PlayCharMessage(List<Characters> characters, Player player) {
+    public PlayCharMessage(List<Character> characters, Player player) {
         this.characters = characters;
         this.player = player;
         this.text = player.getPlayerName() +", choose a character to play, paying its cost.\n"+

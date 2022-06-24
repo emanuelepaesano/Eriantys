@@ -3,11 +3,8 @@ package it.polimi.ingsw.model.characters;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.Island;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,7 +19,7 @@ class NoTowersCharacterTest {
         testGame = Game.makeGame(2);
         testGame.doSetUp(true);
         testGame.setCurrentPlayer(testGame.getTableOrder().get(0));
-        testCharacter = (NoTowersCharacter) Characters.makeCharacter(6, testGame);
+        testCharacter = (NoTowersCharacter) Character.makeCharacter(6, testGame);
         testGame.getCharacters().add(testCharacter);
         VirtualView testView = null;
         testPc = new PlayerController(testGame.getCurrentPlayer(), testView);

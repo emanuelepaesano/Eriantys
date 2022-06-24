@@ -4,10 +4,7 @@ import it.polimi.ingsw.CLIENT.NetworkHandler;
 import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.CLIENT.View;
 import it.polimi.ingsw.messages.Message;
-import it.polimi.ingsw.messages.PlanningPhaseMessage;
-import it.polimi.ingsw.model.Assistant;
-import it.polimi.ingsw.model.characters.Characters;
-import javafx.application.Platform;
+import it.polimi.ingsw.model.characters.Character;
 import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,8 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.util.List;
-
-import static it.polimi.ingsw.model.Assistant.*;
 
 
 public class CharactersView implements View {
@@ -40,9 +35,9 @@ public class CharactersView implements View {
     Stage stage;
     NetworkHandler nh;
 
-    List<Characters> allCharacters;
-    private List<Characters> remainingCharacters;
-    private List<Characters> playedByOthers;
+    List<Character> allCharacters;
+    private List<Character> remainingCharacters;
+    private List<Character> playedByOthers;
     List<Button> buttons;
 
     public void initialize(){

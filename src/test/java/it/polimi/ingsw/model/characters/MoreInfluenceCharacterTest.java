@@ -19,7 +19,7 @@ class MoreInfluenceCharacterTest {
         testGame = Game.makeGame(2);
         testGame.doSetUp(true);
         testGame.setCurrentPlayer(testGame.getTableOrder().get(0));
-        testCharacter = (MoreInfluenceCharacter) Characters.makeCharacter(3, testGame);
+        testCharacter = (MoreInfluenceCharacter) Character.makeCharacter(3, testGame);
         testGame.getCharacters().add(testCharacter);
         VirtualView testView = null;
         testPc = new PlayerController(testGame.getCurrentPlayer(), testView);

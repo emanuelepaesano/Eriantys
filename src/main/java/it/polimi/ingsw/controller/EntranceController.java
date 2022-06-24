@@ -125,7 +125,7 @@ public class EntranceController {
      * @param availablemoves you can move at most this number of students
      * @return asks how many students one wants to move. it's used by movetoDiningRoom and movetoIsland
      */
-    private int askHowManyStudents(int availablemoves) {
+    public int askHowManyStudents(int availablemoves) {
         int nstud;
         while (true) {
             new ActionPhaseMessage(player,availablemoves).send(view);

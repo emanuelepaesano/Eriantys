@@ -5,10 +5,13 @@ import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.Student;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.update;
 import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.init;
@@ -20,6 +23,7 @@ import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.updateMa
  */
 public class ServerApp {
     public static void main(String[] args) throws IOException {
+
 
         ClientHandler server = new ClientHandler(1337);
         int numplayers = server.startServer();

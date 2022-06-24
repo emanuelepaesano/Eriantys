@@ -4,12 +4,10 @@ import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 
-import java.util.List;
-
 /**
  * For this turn, >= instead of > in checkProfessors()
  */
-class CheckProfCharacter extends Characters {
+class CheckProfCharacter extends Character {
     int cost;
     int maxCost;
 
@@ -23,10 +21,10 @@ class CheckProfCharacter extends Characters {
 
     public synchronized void play(Game game, PlayerController pc) {
         Player player = pc.getPlayer();
-        if (!Characters.enoughMoney(player,cost)){
+        if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
             return;}
-        this.cost = Characters.payandUpdateCost(player,cost, maxCost);
+        this.cost = Character.payandUpdateCost(player,cost, maxCost);
 
         player.setOrEqual(true);
 

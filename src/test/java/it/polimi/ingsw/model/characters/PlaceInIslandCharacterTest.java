@@ -26,7 +26,7 @@ class PlaceInIslandCharacterTest {
         testGame = Game.makeGame(2);
         testGame.doSetUp(true);
         testGame.setCurrentPlayer(testGame.getTableOrder().get(0));
-        testCharacter = (PlaceInIslandCharacter) Characters.makeCharacter(7, testGame);
+        testCharacter = (PlaceInIslandCharacter) Character.makeCharacter(7, testGame);
         testGame.getCharacters().add(testCharacter);
         VirtualView testView = null;
         testPc = new PlayerController(testGame.getCurrentPlayer(), testView);

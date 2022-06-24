@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * You may take up to 3 students from this card and replace them with the same number of students from your entrance.
  */
-class ReplaceStudentsFromEntranceCharacter extends Characters {
+class ReplaceStudentsFromEntranceCharacter extends Character {
     int cost;
     int maxCost;
 
@@ -25,7 +25,10 @@ class ReplaceStudentsFromEntranceCharacter extends Characters {
         this.cost = 2;
         this.students = new ArrayList<>(students);
         this.maxCost = 3;
+        chosenStudentsFromEntrance = new ArrayList<>(List.of());
+        chosenStudents = new ArrayList<>(List.of());
     }
+
 
     private void pickStudentsFromCharacter(VirtualView user){
         Student student;
@@ -34,7 +37,6 @@ class ReplaceStudentsFromEntranceCharacter extends Characters {
             String str = Student.askStudent(students, user, "replaceStudentsFromEntranceChar").toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return;}
-            if (str.equals("FINISH")){break;}
             else if (List.of(Student.values()).contains(Student.valueOf(str))) {
                 student = Student.valueOf(str);
                 if (!students.contains(student)){
@@ -62,34 +64,41 @@ class ReplaceStudentsFromEntranceCharacter extends Characters {
                     continue;
                 }
                 chosenStudentsFromEntrance.add(student);
-                entranceStudents.remove(student);
-                if (chosenStudents.size()==0){break;}
-                continue;
             }
         }
     }
-
+    /**
+     * You may take up to 3 students from this card and replace them with the same number of students from your entrance.
+     */
     public void play(Game game, PlayerController pc) {
         Player player = pc.getPlayer();
         List<Student> entranceStudents = pc.getPlayer().getEntrance().getStudents();
+        if (!Character.enoughMoney(player,cost)){
+            System.err.println("You don't have enough money!");
+            return;
+        }
         if (chosenStudents.size() == 0){
             pickStudentsFromCharacter(pc.getPlayerView());
             if (chosenStudents.size() == 0){
                 return;
             }
         }
-        if (!Characters.enoughMoney(player,cost)){
-            System.err.println("You don't have enough money!");
+        pickStudentsFromEntrance(pc.getPlayerView(), entranceStudents);
+        if (!(chosenStudentsFromEntrance.size() == chosenStudents.size())){
+            chosenStudentsFromEntrance.clear();
+            chosenStudents.clear();
             return;
         }
-        students.remove(chosenStudents);
-        pickStudentsFromEntrance(pc.getPlayerView(), entranceStudents);
+        students.removeAll(chosenStudents);
         students.addAll(chosenStudentsFromEntrance);
-        player.getEntrance().getStudents().addAll(chosenStudentsFromEntrance);
+        entranceStudents.removeAll(chosenStudentsFromEntrance);
+        entranceStudents.addAll(chosenStudents);
 
         player.getDiningRoom().checkProfessors(game.getTableOrder(),false);
-        this.cost = Characters.payandUpdateCost(player,cost,maxCost);
+        this.cost = Character.payandUpdateCost(player,cost,maxCost);
         System.out.println("New Entrance Room:\n " + player.getEntrance());
+        chosenStudents.clear();
+        chosenStudentsFromEntrance.clear();
     }
 
     @Override
@@ -97,10 +106,6 @@ class ReplaceStudentsFromEntranceCharacter extends Characters {
         return cost;
     }
 
-    @Override
-    public void reset(Game game, PlayerController pc) {
-        chosenStudents = null;
-        chosenStudentsFromEntrance = null;
-    }
+
 
 }

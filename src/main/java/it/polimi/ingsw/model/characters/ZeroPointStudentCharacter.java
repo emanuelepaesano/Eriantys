@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * For this turn, the chosen color will not count towards influence.
  */
-class ZeroPointStudentCharacter extends Characters {
+class ZeroPointStudentCharacter extends Character {
     int cost;
     int maxCost;
 
@@ -62,10 +62,10 @@ class ZeroPointStudentCharacter extends Characters {
                 return;
             }
         }
-        if (!Characters.enoughMoney(player,cost)){
+        if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
             return;}
-        this.cost = Characters.payandUpdateCost(player,cost,maxCost);
+        this.cost = Character.payandUpdateCost(player,cost,maxCost);
         islands = game.getGameMap().getArchipelago();
         oldnumbers = islands.stream().map(i -> i.getStudents().get(chosenStudent)).toList();
         islands.forEach(i -> i.getStudents().replace(chosenStudent, 0));

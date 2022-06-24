@@ -13,7 +13,7 @@ import java.util.List;
  * Choose a type of Student: every player must return three students of that type from their Dining Room to the bag.
  * if any player has fewer than 3 students of that type, return as many students as they have.
  */
-class ReturnThreeStudentsCharacter extends Characters {
+class ReturnThreeStudentsCharacter extends Character {
     int cost;
     int maxCost;
 
@@ -21,7 +21,7 @@ class ReturnThreeStudentsCharacter extends Characters {
 
     public ReturnThreeStudentsCharacter() {
         this.cost = 3;
-        this.maxCost = 999;
+        this.maxCost = 4;
     }
 
     private void pickStudent(VirtualView user){
@@ -41,8 +41,9 @@ class ReturnThreeStudentsCharacter extends Characters {
     }
 
     public void play(Game game, PlayerController pc) {
+        //this is good, need to implement messages for pickstudent
         Player player = pc.getPlayer();
-        if (!Characters.enoughMoney(player,cost)){
+        if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
             return;
         }
@@ -55,15 +56,13 @@ class ReturnThreeStudentsCharacter extends Characters {
         allPlayers.forEach(p -> {
             int oldnum = p.getDiningRoom().getTables().get(chosenStudent);
             int newnum = oldnum - 3;
-            if (newnum < 0) {
-                newnum = 0;
-            }
+            if (newnum < 0) {newnum = 0;}
             p.getDiningRoom().getTables().replace(chosenStudent, oldnum, newnum);
             game.addToBag(chosenStudent, oldnum-newnum);
         });
-        player.getDiningRoom().checkProfessors(game.getTableOrder(),false);
-        this.cost = Characters.payandUpdateCost(player,cost,maxCost);
+        this.cost = Character.payandUpdateCost(player,cost,maxCost);
         System.out.println("New Dining Room:\n " + player.getDiningRoom());
+
     }
 
     @Override

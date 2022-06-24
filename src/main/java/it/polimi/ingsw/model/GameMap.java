@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.characters.BlockIslandCharacter;
+import it.polimi.ingsw.model.characters.Character;
+
 import java.io.Serializable;
 import java.util.*;
 
@@ -11,6 +14,7 @@ public class GameMap implements Serializable {
     private int motherNature;
     Random randomizer = new Random();
     private List<Object> lastJoin;
+    private BlockIslandCharacter blockChar;
 
     public GameMap(){
         archipelago = makeIslands();
@@ -58,6 +62,11 @@ public class GameMap implements Serializable {
         int startIndex = archipelago.indexOf(getIslandById(motherNature));
         Island newIsland = archipelago.get((startIndex+nmoves)%(archipelago.size()));//archipelago changes in size
         motherNature = newIsland.getId();
+        if (newIsland.isBlocked()){
+            newIsland.setBlocked(false);
+            blockChar.setNumTiles(blockChar.getNumTiles()+1);
+            return;
+        }
         Player oldOwner = newIsland.getOwner();
         Player newOwner = newIsland.checkOwner(players);
         if (newOwner!= null && !newOwner.equals(oldOwner)) {doJoins(newIsland);}
@@ -138,7 +147,9 @@ public class GameMap implements Serializable {
             string.append("Size=").append(island.size).append("; ");
             string.append("Owner{").append(island.owner).append("} ");
             string.append(island.getStudents()).append((island.getId() == motherNature ?
-                    Game.ANSI_BADGREEN + " 🍀" + Game.ANSI_RESET : "")).append("\n");
+                    Game.ANSI_BADGREEN + " 🍀" + Game.ANSI_RESET : ""))
+                    .append(island.isBlocked()? Game.ANSI_RED + "\uD83D\uDEAB" + Game.ANSI_RESET:"")
+                    .append("\n");
 
         }
         return string.toString();
@@ -182,5 +193,9 @@ private final Island zeroIsland = new Island(99);
 
     public List<Island> getAllIslands() {
         return allIslands;
+    }
+
+    public void setBlockChar(BlockIslandCharacter blockChar) {
+        this.blockChar = blockChar;
     }
 }
