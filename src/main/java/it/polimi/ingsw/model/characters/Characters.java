@@ -22,6 +22,7 @@ public abstract class Characters implements Serializable {
             case 6 -> new NoTowersCharacter();
             case 7 -> new PlaceInIslandCharacter(List.of(game.drawFromBag(),game.drawFromBag(),game.drawFromBag()));
             case 8 -> new ZeroPointStudentCharacter();
+            case 10 -> new ExchangeStudentsCharacter();
             default -> null;
         };
     }
@@ -50,7 +51,7 @@ public abstract class Characters implements Serializable {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + "; current Cost =" +this.getCost();
+        return this.getClass().getSimpleName() + "; current Cost =" + this.getCost();
     }
 
     public void reset(Game game, PlayerController pc){
