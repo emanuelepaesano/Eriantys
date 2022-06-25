@@ -21,6 +21,7 @@ class NoTowersCharacter extends Character {
     public NoTowersCharacter() {
         this.cost = 3;
         this.maxCost = 4;
+        description="When resolving an island, Towers will not count towards influence for this turn.";
     }
     public void play(Game game, PlayerController pc){
         Player player = pc.getPlayer();

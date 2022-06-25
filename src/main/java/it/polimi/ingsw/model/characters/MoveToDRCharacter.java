@@ -24,6 +24,8 @@ class MoveToDRCharacter extends Character {
         this.cost = 2;
         this.students = new ArrayList<>(students);
         this.maxCost = 3;
+        description="Take one Student from this card and place it in your diningroom. A new student" +
+                "will be placed on the card.";
 
     }
 

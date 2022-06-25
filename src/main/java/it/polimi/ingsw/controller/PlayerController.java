@@ -8,6 +8,8 @@ import it.polimi.ingsw.model.characters.Character;
 import java.util.ArrayList;
 import java.util.List;
 
+import static it.polimi.ingsw.messages.PlayCharMessage.PlayCharType.play;
+
 public class PlayerController {
 
     private Player player;
@@ -123,7 +125,7 @@ public class PlayerController {
 
     public List<Boolean> playCharacters(List<Character> characters, Game game, List<Boolean> playedCharacters){
         int chosenChar;
-        new PlayCharMessage(characters,player).send(playerView);
+        new PlayCharMessage(characters,player,play).send(playerView);
         while(true) {
             String str = playerView.getReply();
             if (str.equalsIgnoreCase("back")){

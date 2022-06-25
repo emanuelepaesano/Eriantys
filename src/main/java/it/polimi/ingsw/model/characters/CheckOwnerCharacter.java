@@ -21,6 +21,8 @@ class CheckOwnerCharacter extends Character {
     public CheckOwnerCharacter() {
         this.cost = 3;
         this.maxCost = 4;
+        description = "Choose an Island to resolve immediately. \n" +
+                "You can still move Mother Nature as usual.";
     }
 
     private void setUp(PlayerController pc, Game game){

@@ -27,6 +27,7 @@ class ExchangeStudentsCharacter extends Character {
         this.maxCost = 2;
         this.chosenStudentsFromEntrance = new ArrayList<>(List.of());
         this.chosenStudentsFromDiningRoom = new ArrayList<>(List.of());
+        description = "You may exchange up to 2 Students between your Entrance and your Dining Room.";
     }
 
     private void pickStudentsFromEntrance(VirtualView user, List<Student> entranceStudents){

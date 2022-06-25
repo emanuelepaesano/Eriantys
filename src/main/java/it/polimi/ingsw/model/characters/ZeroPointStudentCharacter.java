@@ -22,6 +22,7 @@ class ZeroPointStudentCharacter extends Character {
     public ZeroPointStudentCharacter() {
         this.cost = 3;
         this.maxCost = 4;
+        description = "Choose a Student color.\n For this turn, that color will not count towards influence.";
     }
 
     private void setUp(VirtualView user, Game game){

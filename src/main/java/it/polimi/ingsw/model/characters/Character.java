@@ -12,6 +12,8 @@ public abstract class Character implements Serializable {
     int cost;
     int maxCost;
 
+    String description;
+
     public static Character makeCharacter(Integer chara, Game game) {
         return switch (chara) {
             case 1 -> new CheckOwnerCharacter();
@@ -53,6 +55,8 @@ public abstract class Character implements Serializable {
     public int getCost(){
         return cost;
     };
+
+    public String getDescription(){return description;}
 
     @Override
     public String toString() {

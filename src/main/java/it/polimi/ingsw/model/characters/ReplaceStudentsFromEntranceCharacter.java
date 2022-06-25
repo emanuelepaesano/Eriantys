@@ -24,25 +24,28 @@ class ReplaceStudentsFromEntranceCharacter extends Character {
         this.maxCost = 3;
         chosenStudentsFromEntrance = new ArrayList<>(List.of());
         chosenStudents = new ArrayList<>(List.of());
+        description = "You may take up to 3 Students from this card and replace them" +
+                "with the same number of students from your Entrance.";
     }
 
 
     private void pickStudentsFromCharacter(VirtualView user){
         Student student;
+        List<Student> studentsCopy = new ArrayList<>(students);
         while (true) {
             new StringMessage("Choose a student from the character to replace it from your Entrance.").send(user);
-            String str = Student.askStudent(students, user, "replaceStudentsFromEntranceChar").toUpperCase();
+            String str = Student.askStudent(studentsCopy, user, "replaceStudentsFromEntranceChar").toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return;}
             else if (List.of(Student.values()).contains(Student.valueOf(str))) {
                 student = Student.valueOf(str);
-                if (!students.contains(student)){
+                if (!studentsCopy.contains(student)){
                     new StringMessage(Game.ANSI_RED+"the character does not have that student! Try again"+Game.ANSI_RESET).send(user);
                     continue;
                 }
                 chosenStudents.add(student);
+                studentsCopy.remove(student);
                 if (chosenStudents.size()==3){break;}
-                continue;
             }
         }
     }
@@ -61,6 +64,10 @@ class ReplaceStudentsFromEntranceCharacter extends Character {
                     continue;
                 }
                 chosenStudentsFromEntrance.add(student);
+                entranceStudents.remove(student);
+                if (chosenStudentsFromEntrance.size()==chosenStudents.size()){
+                    break;
+                }
             }
         }
     }
@@ -69,7 +76,7 @@ class ReplaceStudentsFromEntranceCharacter extends Character {
      */
     public void play(Game game, PlayerController pc) {
         Player player = pc.getPlayer();
-        List<Student> entranceStudents = pc.getPlayer().getEntrance().getStudents();
+        List<Student> entranceStudentsCopy = new ArrayList<>(pc.getPlayer().getEntrance().getStudents());
         if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
             return;
@@ -80,16 +87,18 @@ class ReplaceStudentsFromEntranceCharacter extends Character {
                 return;
             }
         }
-        pickStudentsFromEntrance(pc.getPlayerView(), entranceStudents);
+        pickStudentsFromEntrance(pc.getPlayerView(), entranceStudentsCopy);
         if (!(chosenStudentsFromEntrance.size() == chosenStudents.size())){
+            new StringMessage("Annulling character play. ").send(pc.getPlayerView());
             chosenStudentsFromEntrance.clear();
             chosenStudents.clear();
             return;
         }
-        students.removeAll(chosenStudents);
+        chosenStudents.forEach(s->students.remove(s));
         students.addAll(chosenStudentsFromEntrance);
-        entranceStudents.removeAll(chosenStudentsFromEntrance);
-        entranceStudents.addAll(chosenStudents);
+
+        chosenStudentsFromEntrance.forEach(s->pc.getPlayer().getEntrance().getStudents().remove(s));
+        pc.getPlayer().getEntrance().getStudents().addAll(chosenStudents);
 
         player.getDiningRoom().checkProfessors(game.getTableOrder(),false);
         this.cost = Character.payandUpdateCost(player,cost,maxCost);

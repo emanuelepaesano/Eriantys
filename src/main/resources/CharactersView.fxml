@@ -1,135 +1,394 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Polyline?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<GridPane fx:id="planningPhaseRoot" alignment="CENTER" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.CharactersView">
-    <TextField fx:id="Assistant_text" blendMode="DARKEN" editable="false" text="Choose character" AnchorPane.bottomAnchor="200" AnchorPane.leftAnchor="150" AnchorPane.rightAnchor="150" />
-    <HBox alignment="CENTER" GridPane.rowIndex="1">
-        <Button fx:id="one" disable="false" onAction="#send1" text="Cost: 1" contentDisplay="BOTTOM">
-            <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/CarteTOT_front.jpg" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-        <Button fx:id="two" disable="false" onAction="#send2" text="Cost: 1" contentDisplay="BOTTOM">
-            <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/CarteTOT_front2.jpg" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-        <Button fx:id="three" disable="false" onAction="#send3" text="Cost: 1" contentDisplay="BOTTOM">
-            <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/CarteTOT_front3.jpg" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-        <Button fx:id="four" disable="false" onAction="#send4" text="Cost: 1" contentDisplay="BOTTOM">
-            <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/CarteTOT_front4.jpg" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-        <Button fx:id="five" disable="false" onAction="#send5" text="Cost: 1" contentDisplay="BOTTOM">
-            <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/CarteTOT_front5.jpg" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-        <Button fx:id="six" disable="false" onAction="#send6" text="Cost: 1" contentDisplay="BOTTOM">
-            <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/CarteTOT_front6.jpg" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-    </HBox>
-    <HBox alignment="CENTER" GridPane.rowIndex="2">
-        <Button fx:id="seven" disable="false" onAction="#send7" text="Cost: 1" contentDisplay="BOTTOM">
-            <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/CarteTOT_front7.jpg" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-        <Button fx:id="eight" disable="false" onAction="#send8" text="Cost: 1" contentDisplay="BOTTOM">
-            <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/CarteTOT_front8.jpg" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-        <Button fx:id="nine" disable="false" onAction="#send9" text="Cost: 1" contentDisplay="BOTTOM">
-            <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/CarteTOT_front9.jpg" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-        <Button fx:id="ten" disable="false" onAction="#send10" text="Cost: 1" contentDisplay="BOTTOM">
-            <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/CarteTOT_front10.jpg" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-        <Button fx:id="eleven" disable="false" onAction="#send11" text="Cost: 1" contentDisplay="BOTTOM">
-            <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/CarteTOT_front11.jpg" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-        <Button fx:id="twelve" disable="false" onAction="#send12" text="Cost: 1" contentDisplay="BOTTOM">
-            <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/CarteTOT_front12.jpg" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-    </HBox>
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
-</GridPane>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.CharactersView">
+   <children>
+      <Polyline fx:id="fumetto1" fill="WHITE" layoutX="237.0" layoutY="217.0" points="37.40000915527344, 11.399993896484375, 37.40000915527344, 11.399993896484375, 0.0, 60.0, 37.4000244140625, -131.79998779296875, 258.4000244140625, -131.79998779296875, 258.4000244140625, 11.399993896484375" stroke="WHITE" strokeType="INSIDE" AnchorPane.leftAnchor="237.0">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Polyline>
+      <ImageView fx:id="checkOwner" fitWidth="230.0" layoutX="237.0" layoutY="277.0" onMouseClicked="#send1" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.bottomAnchor="185.30157470703125" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="813.0" AnchorPane.topAnchor="277.0">
+         <image>
+            <Image url="@assets/Araldo.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="moreInfluence" fitWidth="230.0" layoutX="237.0" layoutY="277.0" onMouseClicked="#send1" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.bottomAnchor="185.30157470703125" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="813.0" AnchorPane.topAnchor="277.0">
+         <image>
+            <Image url="@assets/Cavaliere.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="noTowers" fitWidth="230.0" layoutX="237.0" layoutY="277.0" onMouseClicked="#send1" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.bottomAnchor="185.30157470703125" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="813.0" AnchorPane.topAnchor="277.0">
+         <image>
+            <Image url="@assets/Centauro.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="orEqual" fitWidth="230.0" layoutX="237.0" layoutY="277.0" onMouseClicked="#send1" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.bottomAnchor="185.30157470703125" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="813.0" AnchorPane.topAnchor="277.0">
+         <image>
+            <Image url="@assets/Contadino.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="zeroPointStudent" fitWidth="230.0" layoutX="237.0" layoutY="277.0" onMouseClicked="#send1" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.bottomAnchor="185.30157470703125" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="813.0" AnchorPane.topAnchor="277.0">
+         <image>
+            <Image url="@assets/Fungaro.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="exchangeStudents" fitWidth="230.0" layoutX="237.0" layoutY="277.0" onMouseClicked="#send1" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.bottomAnchor="185.30157470703125" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="813.0" AnchorPane.topAnchor="277.0">
+         <image>
+            <Image url="@assets/Giullare.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="returnStudent" fitWidth="230.0" layoutX="237.0" layoutY="277.0" onMouseClicked="#send1" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.bottomAnchor="185.30157470703125" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="813.0" AnchorPane.topAnchor="277.0">
+         <image>
+            <Image url="@assets/Ladro.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="moveEntranceDR" fitWidth="230.0" layoutX="237.0" layoutY="277.0" onMouseClicked="#send1" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.bottomAnchor="185.30157470703125" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="813.0" AnchorPane.topAnchor="277.0">
+         <image>
+            <Image url="@assets/Menestrello.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="placeInIsland" fitWidth="230.0" layoutX="237.0" layoutY="277.0" onMouseClicked="#send1" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.bottomAnchor="185.30157470703125" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="813.0" AnchorPane.topAnchor="277.0">
+         <image>
+            <Image url="@assets/Monaco.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="blockIsland" fitWidth="230.0" layoutX="237.0" layoutY="277.0" onMouseClicked="#send1" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.bottomAnchor="185.30157470703125" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="813.0" AnchorPane.topAnchor="277.0">
+         <image>
+            <Image url="@assets/Nonna erbe.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="moreMovements" fitWidth="230.0" layoutX="237.0" layoutY="277.0" onMouseClicked="#send1" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.bottomAnchor="185.30157470703125" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="813.0" AnchorPane.topAnchor="277.0">
+         <image>
+            <Image url="@assets/Postino magico.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="movetoDR" fitWidth="230.0" layoutX="237.0" layoutY="277.0" onMouseClicked="#send1" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.bottomAnchor="185.30157470703125" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="813.0" AnchorPane.topAnchor="277.0">
+         <image>
+            <Image url="@assets/Principessa viziata.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <Text fx:id="text1" layoutX="274.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Character text here.&#10;the text&#10;will be long&#10;maybe several lines and lines will be long like this it should not go over the cloud or it will look bad&#10;" wrappingWidth="220.6640625" AnchorPane.leftAnchor="274.0">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Text>
+      <Polyline fx:id="fumetto2" fill="WHITE" layoutX="608.0" layoutY="217.0" points="37.40000915527344, 11.399993896484375, 37.40000915527344, 11.399993896484375, 0.0, 60.0, 37.4000244140625, -131.79998779296875, 258.4000244140625, -131.79998779296875, 258.4000244140625, 11.399993896484375" stroke="WHITE" strokeType="INSIDE">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Polyline>
+      <ImageView fx:id="checkOwner1" fitWidth="230.0" layoutX="610.0" layoutY="277.0" onMouseClicked="#send2" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true">
+         <image>
+            <Image url="@assets/Araldo.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="moreInfluence1" fitWidth="230.0" layoutX="610.0" layoutY="277.0" onMouseClicked="#send2" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true">
+         <image>
+            <Image url="@assets/Cavaliere.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="noTowers1" fitWidth="230.0" layoutX="610.0" layoutY="277.0" onMouseClicked="#send2" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true">
+         <image>
+            <Image url="@assets/Centauro.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="orEqual1" fitWidth="230.0" layoutX="610.0" layoutY="277.0" onMouseClicked="#send2" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true">
+         <image>
+            <Image url="@assets/Contadino.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="zeroPointStudent1" fitWidth="230.0" layoutX="610.0" layoutY="277.0" onMouseClicked="#send2" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true">
+         <image>
+            <Image url="@assets/Fungaro.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="exchangeStudents1" fitWidth="230.0" layoutX="610.0" layoutY="277.0" onMouseClicked="#send2" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true">
+         <image>
+            <Image url="@assets/Giullare.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="returnStudent1" fitWidth="230.0" layoutX="610.0" layoutY="277.0" onMouseClicked="#send2" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true">
+         <image>
+            <Image url="@assets/Ladro.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="moveEntranceDR1" fitWidth="230.0" layoutX="610.0" layoutY="277.0" onMouseClicked="#send2" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true">
+         <image>
+            <Image url="@assets/Menestrello.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="placeInIsland1" fitWidth="230.0" layoutX="610.0" layoutY="277.0" onMouseClicked="#send2" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true">
+         <image>
+            <Image url="@assets/Monaco.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="blockIsland1" fitWidth="230.0" layoutX="610.0" layoutY="277.0" onMouseClicked="#send2" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true">
+         <image>
+            <Image url="@assets/Nonna erbe.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="moreMovements1" fitWidth="230.0" layoutX="610.0" layoutY="277.0" onMouseClicked="#send2" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true">
+         <image>
+            <Image url="@assets/Postino magico.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="movetoDR1" fitWidth="230.0" layoutX="610.0" layoutY="277.0" onMouseClicked="#send2" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true">
+         <image>
+            <Image url="@assets/Principessa viziata.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <Text fx:id="text2" layoutX="645.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Character text here.&#10;the text&#10;will be long&#10;maybe several lines and lines will be long like this it should not go over the cloud or it will look bad&#10;" wrappingWidth="220.6640625">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Text>
+      <Polyline fx:id="fumetto3" fill="WHITE" layoutX="980.0" layoutY="217.0" points="37.40000915527344, 11.399993896484375, 37.40000915527344, 11.399993896484375, 0.0, 60.0, 37.4000244140625, -131.79998779296875, 258.4000244140625, -131.79998779296875, 258.4000244140625, 11.399993896484375" stroke="WHITE" strokeType="INSIDE" AnchorPane.rightAnchor="41.5999755859375">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Polyline>
+      <ImageView fx:id="checkOwner3" fitWidth="230.0" layoutX="982.0" layoutY="277.0" onMouseClicked="#send3" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.rightAnchor="68.0">
+         <image>
+            <Image url="@assets/Araldo.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="moreInfluence3" fitWidth="230.0" layoutX="982.0" layoutY="277.0" onMouseClicked="#send3" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.rightAnchor="68.0">
+         <image>
+            <Image url="@assets/Cavaliere.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="noTowers3" fitWidth="230.0" layoutX="982.0" layoutY="277.0" onMouseClicked="#send3" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.rightAnchor="68.0">
+         <image>
+            <Image url="@assets/Centauro.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="orEqual3" fitWidth="230.0" layoutX="982.0" layoutY="277.0" onMouseClicked="#send3" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.rightAnchor="68.0">
+         <image>
+            <Image url="@assets/Contadino.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="zeroPointStudent3" fitWidth="230.0" layoutX="982.0" layoutY="277.0" onMouseClicked="#send3" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.rightAnchor="68.0">
+         <image>
+            <Image url="@assets/Fungaro.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="exchangeStudents3" fitWidth="230.0" layoutX="982.0" layoutY="277.0" onMouseClicked="#send3" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.rightAnchor="68.0">
+         <image>
+            <Image url="@assets/Giullare.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="returnStudent3" fitWidth="230.0" layoutX="982.0" layoutY="277.0" onMouseClicked="#send3" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.rightAnchor="68.0">
+         <image>
+            <Image url="@assets/Ladro.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="moveEntranceDR3" fitWidth="230.0" layoutX="982.0" layoutY="277.0" onMouseClicked="#send3" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.rightAnchor="68.0">
+         <image>
+            <Image url="@assets/Menestrello.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="placeInIsland3" fitWidth="230.0" layoutX="982.0" layoutY="277.0" onMouseClicked="#send3" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.rightAnchor="68.0">
+         <image>
+            <Image url="@assets/Monaco.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="blockIsland3" fitWidth="230.0" layoutX="982.0" layoutY="277.0" onMouseClicked="#send3" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.rightAnchor="68.0">
+         <image>
+            <Image url="@assets/Nonna erbe.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="moreMovements3" fitWidth="230.0" layoutX="982.0" layoutY="277.0" onMouseClicked="#send3" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.rightAnchor="68.0">
+         <image>
+            <Image url="@assets/Postino magico.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="movetoDR3" fitWidth="230.0" layoutX="982.0" layoutY="277.0" onMouseClicked="#send3" onMouseEntered="#enterCard1" onMouseExited="#exitCard" preserveRatio="true" AnchorPane.rightAnchor="68.0">
+         <image>
+            <Image url="@assets/Principessa viziata.png" />
+         </image>
+         <effect>
+            <DropShadow height="7.0" radius="3.0" width="7.0" />
+         </effect>
+      </ImageView>
+      <Text fx:id="text3" layoutX="1017.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Character text here.&#10;the text&#10;will be long&#10;maybe several lines and lines will be long like this it should not go over the cloud or it will look bad&#10;" wrappingWidth="220.6640625">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Text>
+      <Text fx:id="cost1" fill="WHITE" layoutX="251.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Text>
+      <Text fill="WHITE" layoutX="244.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cost:">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="cost2" fill="WHITE" layoutX="625.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Text>
+      <Text fill="WHITE" layoutX="618.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cost:">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="cost3" fill="WHITE" layoutX="999.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Text>
+      <Text fill="WHITE" layoutX="992.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cost:">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="200.0" fitWidth="176.0" layoutX="8.0" layoutY="346.0">
+         <image>
+            <Image url="@../../../../../OneDrive/Desktop/Graphical_Assets/Moneta_base.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="8.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose a character to play&#10;paying its cost." textAlignment="CENTER" wrappingWidth="240.7999877929688">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+      </Text>
+      <Text layoutX="22.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your coins:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text fx:id="numCoins" fill="WHITE" layoutX="96.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+         <effect>
+            <DropShadow height="15.0" radius="7.0" spread="0.72" width="15.0" />
+         </effect>
+      </Text>
+   </children>
+</AnchorPane>
