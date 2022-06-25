@@ -96,7 +96,9 @@ public class Game implements Serializable {
         gameMap.startMNAndStudents();
         if (ad){
             characters = makeAllCharacters();
-            tableOrder.forEach(p->p.setCoins(1));
+            //tableOrder.forEach(p->p.setCoins(1));
+            // TODO: 25/06/2022 REMOVE
+            tableOrder.forEach(p->p.setCoins(100));
         }
     }
 
@@ -104,22 +106,27 @@ public class Game implements Serializable {
 
         characters = new ArrayList<>();
         List<Integer> availables = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12));
-        for (int i=0; i<3;i++) {
-            Integer pickedChara;
-            while(true) {
-                //random 1~12
-                pickedChara = 1 + randomizer.nextInt(Collections.max(availables));
-                if (availables.contains(pickedChara)) {
-                    availables.remove(pickedChara);
-                    break;
-                }
-            }
-            Character newCharacter = Character.makeCharacter(pickedChara,this);
-            if (newCharacter.getClass().getSimpleName().equalsIgnoreCase("blockislandcharacter")){
-                gameMap.setBlockChar((BlockIslandCharacter) newCharacter);
-            }
-            characters.add(newCharacter);
-        }
+//        for (int i=0; i<3;i++) {
+//            Integer pickedChara;
+//            while(true) {
+//                //random 1~12
+//                pickedChara = 1 + randomizer.nextInt(Collections.max(availables));
+//                if (availables.contains(pickedChara)) {
+//                    availables.remove(pickedChara);
+//                    break;
+//                }
+//            }
+//            Character newCharacter = Character.makeCharacter(pickedChara,this);
+//            if (newCharacter.getClass().getSimpleName().equalsIgnoreCase("blockislandcharacter")){
+//                gameMap.setBlockChar((BlockIslandCharacter) newCharacter);
+//            }
+//            characters.add(newCharacter);
+//        }
+        BlockIslandCharacter block = (BlockIslandCharacter) Character.makeCharacter(12,this);
+        characters.add(block);
+        gameMap.setBlockChar(block);
+        characters.add(Character.makeCharacter(10,this));
+        characters.add(Character.makeCharacter(9,this));
         return characters;
     }
 

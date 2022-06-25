@@ -34,7 +34,7 @@ public class BlockIslandCharacter extends Character {
         Island island = pc.getEntranceController().askWhichIsland(game.getGameMap());
         island.setBlocked(true);
         numTiles--;
-        Character.payandUpdateCost(player,cost,maxCost);
+        cost = Character.payandUpdateCost(player,cost,maxCost);
     }
 
     public int getNumTiles() {

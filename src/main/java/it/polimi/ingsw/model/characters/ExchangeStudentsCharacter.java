@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Student;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 /**
@@ -88,19 +89,18 @@ class ExchangeStudentsCharacter extends Character {
         if (chosenStudentsFromEntrance.size() == 0) {
             return;
         }
-        Map<Student, Integer> diningRoomStudents = Map.copyOf(pc.getPlayer().getDiningRoom().getTables());
+        Map<Student, Integer> diningRoomStudents = new HashMap<>(pc.getPlayer().getDiningRoom().getTables());
         pickStudentsFromDiningRoom(pc.getPlayerView(), diningRoomStudents);
         if (chosenStudentsFromDiningRoom.size() < chosenStudentsFromEntrance.size()) {
             return;
         }
 
         //empty entrance + diningroom
-        player.getEntrance().getStudents().removeAll(chosenStudentsFromEntrance);
+        chosenStudentsFromEntrance.forEach(s->player.getEntrance().getStudents().remove(s));
         chosenStudentsFromDiningRoom.forEach(s->{
             int oldnum = player.getDiningRoom().getTables().get(s);
             player.getDiningRoom().getTables().replace(s,oldnum-1);
         });
-        chosenStudentsFromDiningRoom.clear();
 
         //fill entrance + diningroom
         player.getEntrance().getStudents().addAll(chosenStudentsFromDiningRoom);
@@ -109,6 +109,7 @@ class ExchangeStudentsCharacter extends Character {
             player.getDiningRoom().getTables().replace(s,oldnum+1);
         });
         chosenStudentsFromEntrance.clear();
+        chosenStudentsFromDiningRoom.clear();
         //ok paghiamo solo alla fine
         this.cost = Character.payandUpdateCost(player, cost, maxCost);
         player.getDiningRoom().checkProfessors(game.getTableOrder(),false);
