@@ -7,7 +7,6 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Student;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +24,6 @@ class ReturnThreeStudentsCharacter extends Character {
                 "Every player, including yoursel, must return 3 Students of that color from the dining room to the bag."+
                 "If they have less, they will return as many as they have.";
         this.number = 11;
-        students = new ArrayList<>();
     }
 
     private void pickStudent(VirtualView user){

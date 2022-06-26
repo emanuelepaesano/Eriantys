@@ -4,8 +4,6 @@ import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 
-import java.util.ArrayList;
-
 /**
  * For this turn, player has +2 Mother Nature movements
  */
@@ -17,7 +15,6 @@ class MoreMovementsCharacter extends Character {
         description="You may move Mother Nature up to 2 additional islands than is indicated" +
                 "by your Assistant.";
         this.number = 4;
-        students = new ArrayList<>();
 
     }
 

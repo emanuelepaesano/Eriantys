@@ -4,8 +4,6 @@ import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 
-import java.util.ArrayList;
-
 /**
  * For this turn, >= instead of > in checkProfessors()
  */
@@ -18,7 +16,6 @@ class CheckProfCharacter extends Character {
         description = "For this turn, you can gain Professors also if" +
                 "you have THE SAME number of Students as your best opponent";
         this.number = 2;
-        students = new ArrayList<>();
 
     }
 
