@@ -107,7 +107,6 @@ public class CharactersView implements View {
 
     }
 
-    //    todo: update the cost of characters
     @Override
     public void fillInfo(Message message) {
         PlayCharMessage charMessage = (PlayCharMessage) message;
