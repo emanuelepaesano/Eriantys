@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.characters;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.Student;
 
 import java.util.List;
 import java.io.Serializable;
@@ -14,6 +15,7 @@ public abstract class Character implements Serializable {
     String description;
 
     int number;
+    List<Student> students;
 
     public static Character makeCharacter(Integer chara, Game game) {
         return switch (chara) {
@@ -68,6 +70,8 @@ public abstract class Character implements Serializable {
 
     public void reset(Game game, PlayerController pc){
     };
+
+    public List<Student> getStudents() {return students;}
 
 }
 
