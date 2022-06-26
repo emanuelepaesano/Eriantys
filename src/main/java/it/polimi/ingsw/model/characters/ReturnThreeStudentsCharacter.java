@@ -23,6 +23,7 @@ class ReturnThreeStudentsCharacter extends Character {
         description="Choose one Student color.\n"+
                 "Every player, including yoursel, must return 3 Students of that color from the dining room to the bag."+
                 "If they have less, they will return as many as they have.";
+        this.number = 11;
     }
 
     private void pickStudent(VirtualView user){

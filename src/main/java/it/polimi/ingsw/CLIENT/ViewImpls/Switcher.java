@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -19,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Switcher implements View {
+
+    public AnchorPane mainPane;
     public AnchorPane container;
     public Button school;
     public Button islands;
@@ -61,6 +64,12 @@ public class Switcher implements View {
         uim.getGenInfoView();
         uim.getSchoolView();
         uim.getPlanningPhaseView();
+        uim.getCharactersView();
+        Image img = new Image("assets/pastel blue background.jpg");
+        BackgroundImage bImg = new BackgroundImage(img, BackgroundRepeat.REPEAT,
+                BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        Background bGround = new Background(bImg);
+        mainPane.setBackground(bGround);
     }
 
     @Override

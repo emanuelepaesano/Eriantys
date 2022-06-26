@@ -16,6 +16,7 @@ import java.util.Map;
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.update;
 import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.init;
 import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.updateMap;
+import static it.polimi.ingsw.messages.PlayCharMessage.PlayCharType.start;
 
 
 /**
@@ -23,7 +24,6 @@ import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.updateMa
  */
 public class ServerApp {
     public static void main(String[] args) throws IOException {
-
 
         ClientHandler server = new ClientHandler(1337);
         int numplayers = server.startServer();
@@ -33,6 +33,9 @@ public class ServerApp {
         Message info =  new IslandInfoMessage(game, init);
         for (PlayerController pc: gc.getControllers()){
             new ActionPhaseMessage(pc.getPlayer(), update).send(pc.getPlayerView());
+            if (game.isAdvanced()){
+                new PlayCharMessage(game.getCharacters(),pc.getPlayer(),start).send(pc.getPlayerView());
+            }
             //  to update other players' school
             List<Player> otherPlayers = new ArrayList<Player>(game.getTableOrder());
             otherPlayers.remove(pc.getPlayer());

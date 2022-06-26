@@ -15,19 +15,20 @@ import java.util.Map;
  * You may exchange up to 2 students between your Entrance and your Dining Room.
  */
 
-class ExchangeStudentsCharacter extends Character {
+class SwapEntranceDRCharacter extends Character {
     int cost;
     int maxCost;
 
     List<Student> chosenStudentsFromEntrance;
     List<Student> chosenStudentsFromDiningRoom;
 
-    public ExchangeStudentsCharacter() {
+    public SwapEntranceDRCharacter() {
         this.cost = 1;
         this.maxCost = 2;
         this.chosenStudentsFromEntrance = new ArrayList<>(List.of());
         this.chosenStudentsFromDiningRoom = new ArrayList<>(List.of());
         description = "You may exchange up to 2 Students between your Entrance and your Dining Room.";
+        this.number = 10;
     }
 
     private void pickStudentsFromEntrance(VirtualView user, List<Student> entranceStudents){

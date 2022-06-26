@@ -26,6 +26,7 @@ class MoveToDRCharacter extends Character {
         this.maxCost = 3;
         description="Take one Student from this card and place it in your diningroom. A new student" +
                 "will be placed on the card.";
+        this.number = 5;
 
     }
 

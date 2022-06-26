@@ -7,6 +7,7 @@ import it.polimi.ingsw.messages.ActionPhaseMessage;
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.model.*;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -53,7 +54,9 @@ public class SchoolView implements View {
     public ImageView t6w; public ImageView t6b; public ImageView t6g;
     public ImageView t7w; public ImageView t7b; public ImageView t7g;
     public ImageView t8w; public ImageView t8b; public ImageView t8g;
-    public Button moveToIsland ; public Button moveToDR; public Button back;
+    public Button moveToIsland ; public Button moveToDR; public Button back; public Button characters;
+
+    public ImageView coinImage; public Label coinNumber;
 
     public Label towLabel;
     public Parent schoolRoot;
@@ -118,6 +121,7 @@ public class SchoolView implements View {
         this.nh = UIManager.getUIManager().getNh();
         moveToDR.setDisable(true);
         moveToIsland.setDisable(true);
+        characters.setDisable(true);
         back.setVisible(false);
         entranceImageViewList.forEach(list->{
             list.get(0).setOnMouseClicked(this::blueSelected);
@@ -138,11 +142,18 @@ public class SchoolView implements View {
     public void fillInfo(Message mes) {
         ActionPhaseMessage message = (ActionPhaseMessage) mes;
         this.player = message.getPlayer();
+        if (!(message.getPlayer().getCoins() == null)){
+            characters.setVisible(true);
+            coinImage.setVisible(true);
+            coinNumber.setVisible(true);
+            coinNumber.setText(": " + message.getPlayer().getCoins());
+        }
         back.setVisible(false);
         switch (message.getType()) {
             case yourturn:
                 moveToDR.setDisable(false);
                 moveToIsland.setDisable(false);
+                characters.setDisable(false);
                 break;
             case howmany:
                 //show a popup with how many selection
@@ -313,4 +324,5 @@ public class SchoolView implements View {
         back.setVisible(false);
     }
 
+    public void characterSelected(ActionEvent actionEvent) {nh.sendReply("characters");}
 }

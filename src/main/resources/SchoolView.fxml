@@ -10,6 +10,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="schoolRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.SchoolView">
    <ImageView fitHeight="555.0" fitWidth="1287.0" layoutX="367.5" layoutY="493.0" preserveRatio="true" AnchorPane.bottomAnchor="186.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="54.0">
@@ -1018,8 +1019,19 @@
          <DropShadow />
       </effect>
    </ImageView>
-   <Label layoutX="421.0" layoutY="671.0" prefHeight="51.0" prefWidth="59.0" text="Your coins:" />
-   <Label layoutX="486.0" layoutY="688.0" text="&lt;N&gt;" />
+   <Label fx:id="coinNumber" layoutX="700.0" layoutY="697.0" text=": 1" textFill="WHITE" visible="false">
+      <font>
+         <Font name="System Bold" size="24.0" />
+      </font>
+      <effect>
+         <DropShadow height="10.0" radius="4.5" spread="0.25" width="10.0" />
+      </effect></Label>
    <Label fx:id="towLabel" layoutX="1085.0" layoutY="94.0" prefHeight="51.0" prefWidth="82.0" style="-fx-background-color: white;" text="&lt;numTowers&gt;" />
    <Button fx:id="back" layoutX="14.0" layoutY="131.0" mnemonicParsing="false" onAction="#sendBack" prefHeight="66.0" prefWidth="97.0" text="BACK" />
+   <Button fx:id="characters" layoutX="418.0" layoutY="671.0" mnemonicParsing="false" onAction="#characterSelected" prefHeight="51.0" prefWidth="175.0" text="Play Character" visible="false" />
+   <ImageView fx:id="coinImage" fitHeight="123.0" fitWidth="98.0" layoutX="614.0" layoutY="659.0" preserveRatio="true" visible="false">
+      <image>
+         <Image url="@assets/Moneta_base.png" />
+      </image>
+   </ImageView>
 </AnchorPane>

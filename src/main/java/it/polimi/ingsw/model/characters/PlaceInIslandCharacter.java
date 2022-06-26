@@ -38,6 +38,7 @@ import java.util.List;
         this.maxCost = 2;
         description = "Take 1 Student from this card and place it on an Island of your choice." +
                 "A new Student will be placed on the card.";
+        this.number = 7;
 
     }
 

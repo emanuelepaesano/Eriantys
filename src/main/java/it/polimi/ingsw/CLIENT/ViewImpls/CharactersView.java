@@ -4,12 +4,12 @@ import it.polimi.ingsw.CLIENT.NetworkHandler;
 import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.CLIENT.View;
 import it.polimi.ingsw.messages.Message;
+import it.polimi.ingsw.messages.PlayCharMessage;
 import it.polimi.ingsw.model.characters.Character;
 import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Effect;
 import javafx.scene.image.ImageView;
@@ -17,14 +17,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Polyline;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 import java.util.List;
+
+import static it.polimi.ingsw.messages.PlayCharMessage.PlayCharType.play;
+import static it.polimi.ingsw.messages.PlayCharMessage.PlayCharType.start;
 
 
 public class CharactersView implements View {
 
-    public Button one;
-    public Button two;
-    public Button three;
 
     public ImageView checkOwner; public ImageView moreInfluence; public ImageView noTowers;
     public ImageView orEqual; public ImageView zeroPointStudent; public ImageView exchangeStudents;
@@ -43,6 +45,7 @@ public class CharactersView implements View {
 
     public Text numCoins;
     public Text text1;public Text text2;public Text text3;
+    public Text cost1;public Text cost2;public Text cost3;
     public Polyline fumetto1;public Polyline fumetto2;public Polyline fumetto3;
     public Parent charactersRoot;
 
@@ -50,15 +53,14 @@ public class CharactersView implements View {
     NetworkHandler nh;
     Effect baseEffect;
 
-    List<Character> allCharacters;
     List<Button> buttons;
 
+    List<ImageView> activeCharacters;
+
     public void initialize(){
-        disableAllCharacters();
         nh = UIManager.getUIManager().getNh();
-        allCharacters = null;
-        buttons = List.of(one,two,three);
         baseEffect = movetoDR.getEffect();
+
     }
 
 
@@ -89,36 +91,67 @@ public class CharactersView implements View {
 //    todo: update the cost of characters
     @Override
     public void fillInfo(Message message) {
+        PlayCharMessage charMessage = (PlayCharMessage) message;
+        if (charMessage.getType().equals(start)){
+            activeCharacters = initializeCards(charMessage.getCharacters());
+            activeCharacters.forEach(img->img.setDisable(true));
+        }
+        else if (charMessage.getType().equals(play)){
+            activeCharacters.forEach(img->img.setDisable(false));
+        }
+        numCoins.setText(String.valueOf(charMessage.getPlayer().getCoins()));
+        bindCost(charMessage.getCharacters());
 
     }
 
-//
-    private void bindCharacters(){
-//        for (int i=0; i<10;i++){
-//            Assistant assistant = allCharacters.get(i);
-//            if (remainingCharacters.contains(assistant)){
-//                if (!playedByOthers.contains(assistant)||playedByOthers.equals(remainingCharacters)){
-//                    buttons.get(i).setDisable(false);
-//                }
-//            }
-//        }
+    private void bindCost(List<Character> characters) {
+        List<Text> costs = List.of(cost1,cost2,cost3);
+        for (int i = 0; i<3;i++){
+            Character character = characters.get(i);
+            costs.get(i).setText(String.valueOf(character.getCost()));
+        }
     }
+
+    private List<ImageView> initializeCards(List<Character> messChars) {
+        List<ImageView> actives = new ArrayList<>();
+        List<Text> fumetti = List.of(text1,text2,text3);
+        List<List<ImageView>> allCharacters =
+                List.of(
+                    List.of(checkOwner,orEqual,moreInfluence,moreMovements,movetoDR,noTowers,
+                            placeInIsland,zeroPointStudent,exchangeStudents, moveEntranceDR,returnStudent,
+                             blockIsland),
+                    List.of(checkOwner1,orEqual1,moreInfluence1,moreMovements1,movetoDR1,noTowers1,
+                            placeInIsland1,zeroPointStudent1,exchangeStudents1, moveEntranceDR1,returnStudent1,
+                            blockIsland1),
+                    List.of(checkOwner3,orEqual3,moreInfluence3,moreMovements3,movetoDR3,noTowers3,
+                            placeInIsland3,zeroPointStudent3,exchangeStudents3, moveEntranceDR3,returnStudent3,
+                            blockIsland3)
+                );
+        for (int i =0;i<3;i++){
+            Character character = messChars.get(i);
+            fumetti.get(i).setText(character.getDescription());
+            int charIndex = character.getNumber()-1;
+            ImageView active = allCharacters.get(i).get(charIndex);
+            active.setVisible(true);
+            actives.add(active);
+        }
+        return actives;
+    }
+
 
     public void disableAllCharacters(){
-        one.setDisable(true);
-        two.setDisable(true);
-        three.setDisable(true);
+        activeCharacters.forEach(img->img.setDisable(true));
     }
 
-    public void send1(ActionEvent actionEvent) {
+    public void send1(MouseEvent actionEvent) {
         nh.sendReply(("1"));
         disableAllCharacters();
     }
-    public void send2(ActionEvent actionEvent) {
+    public void send2(MouseEvent actionEvent) {
         nh.sendReply(("2"));
         disableAllCharacters();
     }
-    public void send3(ActionEvent actionEvent) {
+    public void send3(MouseEvent actionEvent) {
         nh.sendReply(("3"));
         disableAllCharacters();
     }

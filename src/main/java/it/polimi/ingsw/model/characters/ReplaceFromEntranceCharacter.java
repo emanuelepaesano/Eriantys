@@ -13,12 +13,12 @@ import java.util.List;
 /**
  * You may take up to 3 students from this card and replace them with the same number of students from your entrance.
  */
-class ReplaceStudentsFromEntranceCharacter extends Character {
+class ReplaceFromEntranceCharacter extends Character {
     List<Student> students;
     List<Student> chosenStudents;
     List<Student> chosenStudentsFromEntrance;
 
-    public ReplaceStudentsFromEntranceCharacter(List<Student> students) {
+    public ReplaceFromEntranceCharacter(List<Student> students) {
         this.cost = 2;
         this.students = new ArrayList<>(students);
         this.maxCost = 3;
@@ -26,6 +26,7 @@ class ReplaceStudentsFromEntranceCharacter extends Character {
         chosenStudents = new ArrayList<>(List.of());
         description = "You may take up to 3 Students from this card and replace them" +
                 "with the same number of students from your Entrance.";
+        this.number = 9;
     }
 
 

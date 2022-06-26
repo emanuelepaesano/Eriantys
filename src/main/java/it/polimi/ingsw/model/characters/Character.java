@@ -11,8 +11,9 @@ public abstract class Character implements Serializable {
 
     int cost;
     int maxCost;
-
     String description;
+
+    int number;
 
     public static Character makeCharacter(Integer chara, Game game) {
         return switch (chara) {
@@ -25,9 +26,9 @@ public abstract class Character implements Serializable {
             case 6 -> new NoTowersCharacter();
             case 7 -> new PlaceInIslandCharacter(List.of(game.drawFromBag(),game.drawFromBag(),game.drawFromBag()));
             case 8 -> new ZeroPointStudentCharacter();
-            case 9 -> new ReplaceStudentsFromEntranceCharacter(List.of(game.drawFromBag(), game.drawFromBag(),
+            case 9 -> new ReplaceFromEntranceCharacter(List.of(game.drawFromBag(), game.drawFromBag(),
                     game.drawFromBag(), game.drawFromBag(), game.drawFromBag(), game.drawFromBag()));
-            case 10 -> new ExchangeStudentsCharacter();
+            case 10 -> new SwapEntranceDRCharacter();
             case 11 -> new ReturnThreeStudentsCharacter();
             case 12 -> new BlockIslandCharacter();
             default -> null;
@@ -57,6 +58,8 @@ public abstract class Character implements Serializable {
     };
 
     public String getDescription(){return description;}
+
+    public int getNumber(){return number;}
 
     @Override
     public String toString() {

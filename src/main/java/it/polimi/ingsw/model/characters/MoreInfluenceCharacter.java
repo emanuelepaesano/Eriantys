@@ -13,6 +13,7 @@ class MoreInfluenceCharacter extends Character {
         this.cost = 1;
         this.maxCost = 2;
         description="You will have +2 Influence on Islands for this turn.";
+        this.number = 3;
     }
 
     public void play(Game game, PlayerController pc) {
