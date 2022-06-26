@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.characters;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.Student;
 
 import java.util.List;
 import java.io.Serializable;
@@ -12,8 +13,8 @@ public abstract class Character implements Serializable {
     int cost;
     int maxCost;
     String description;
-
     int number;
+    List<Student> students;
 
     public static Character makeCharacter(Integer chara, Game game) {
         return switch (chara) {
@@ -24,7 +25,8 @@ public abstract class Character implements Serializable {
             case 5 -> new MoveToDRCharacter(List.of(game.drawFromBag(),
                     game.drawFromBag(),game.drawFromBag(),game.drawFromBag()));
             case 6 -> new NoTowersCharacter();
-            case 7 -> new PlaceInIslandCharacter(List.of(game.drawFromBag(),game.drawFromBag(),game.drawFromBag()));
+            case 7 -> new PlaceInIslandCharacter(List.of(game.drawFromBag(),game.drawFromBag(),
+                    game.drawFromBag(),game.drawFromBag()));
             case 8 -> new ZeroPointStudentCharacter();
             case 9 -> new ReplaceFromEntranceCharacter(List.of(game.drawFromBag(), game.drawFromBag(),
                     game.drawFromBag(), game.drawFromBag(), game.drawFromBag(), game.drawFromBag()));
@@ -68,6 +70,8 @@ public abstract class Character implements Serializable {
 
     public void reset(Game game, PlayerController pc){
     };
+
+    public List<Student> getStudents() {return students;}
 
 }
 

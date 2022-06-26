@@ -4,6 +4,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Polyline?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -372,23 +373,46 @@
             <Image url="@assets/Moneta_base.png" />
          </image>
       </ImageView>
-      <Text layoutX="8.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose a character to play&#10;paying its cost." textAlignment="CENTER" wrappingWidth="240.7999877929688">
+      <Text layoutX="14.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here you can choose a character to play, by paying its cost." wrappingWidth="1044.7999572753906">
          <font>
             <Font name="System Bold" size="26.0" />
          </font>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </DropShadow>
+         </effect>
       </Text>
       <Text layoutX="22.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your coins:">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <Text fx:id="numCoins" fill="WHITE" layoutX="96.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
+      <Text fx:id="numCoins" fill="WHITE" layoutX="96.0" layoutY="456.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="1.5" text="1">
          <font>
             <Font name="System Bold" size="26.0" />
          </font>
-         <effect>
-            <DropShadow height="15.0" radius="7.0" spread="0.72" width="15.0" />
-         </effect>
       </Text>
+      <AnchorPane fx:id="p15" layoutX="332.0" layoutY="443.0" />
+      <AnchorPane fx:id="p12" layoutX="261.0" layoutY="483.0" />
+      <AnchorPane fx:id="p11" layoutX="261.0" layoutY="546.0" />
+      <AnchorPane fx:id="p16" layoutX="332.0" layoutY="586.0" />
+      <AnchorPane fx:id="p14" layoutX="403.0" layoutY="546.0" />
+      <AnchorPane fx:id="p13" layoutX="403.0" layoutY="483.0" />
+      <AnchorPane fx:id="p25" layoutX="705.0" layoutY="443.0" />
+      <AnchorPane fx:id="p22" layoutX="634.0" layoutY="483.0" />
+      <AnchorPane fx:id="p21" layoutX="634.0" layoutY="546.0" />
+      <AnchorPane fx:id="p26" layoutX="705.0" layoutY="586.0" />
+      <AnchorPane fx:id="p24" layoutX="776.0" layoutY="546.0" />
+      <AnchorPane fx:id="p23" layoutX="776.0" layoutY="483.0" />
+      <AnchorPane fx:id="p35" layoutX="1077.0" layoutY="443.0" />
+      <AnchorPane fx:id="p32" layoutX="1006.0" layoutY="483.0" />
+      <AnchorPane fx:id="p31" layoutX="1006.0" layoutY="546.0" />
+      <AnchorPane fx:id="p36" layoutX="1077.0" layoutY="586.0" />
+      <AnchorPane fx:id="p34" layoutX="1148.0" layoutY="546.0" />
+      <AnchorPane fx:id="p33" layoutX="1148.0" layoutY="483.0" />
+
    </children>
 </AnchorPane>

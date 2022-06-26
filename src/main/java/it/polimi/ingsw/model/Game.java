@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.characters.BlockIslandCharacter;
 import it.polimi.ingsw.model.characters.Character;
 
+import javax.print.DocFlavor;
 import java.io.Serializable;
 import java.util.*;
 
@@ -122,10 +123,8 @@ public class Game implements Serializable {
 //            }
 //            characters.add(newCharacter);
 //        }
-        BlockIslandCharacter block = (BlockIslandCharacter) Character.makeCharacter(12,this);
-        characters.add(block);
-        gameMap.setBlockChar(block);
-        characters.add(Character.makeCharacter(10,this));
+        characters.add(Character.makeCharacter(7,this));
+        characters.add(Character.makeCharacter(5,this));
         characters.add(Character.makeCharacter(9,this));
         return characters;
     }
