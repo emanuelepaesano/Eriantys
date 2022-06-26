@@ -13,7 +13,6 @@ import java.util.List;
  */
  class PlaceInIslandCharacter extends Character {
 
-    List<Student> students;
 
     public Student getChosenStudent() {
         return chosenStudent;

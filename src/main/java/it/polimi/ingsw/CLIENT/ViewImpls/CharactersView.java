@@ -20,6 +20,8 @@ import javafx.scene.shape.Polyline;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -46,7 +48,6 @@ public class CharactersView implements View {
     public ImageView returnStudent3; public ImageView moveEntranceDR3; public ImageView placeInIsland3;
     public ImageView blockIsland3; public ImageView moreMovements3; public ImageView movetoDR3;
 
-    public ImageView yellow;public ImageView blue;public ImageView red;public ImageView green;public ImageView pink;
 
     public AnchorPane p11; public AnchorPane p12; public AnchorPane p13; public AnchorPane p14; public AnchorPane p15;public AnchorPane p16;
     public AnchorPane p21; public AnchorPane p22; public AnchorPane p23; public AnchorPane p24; public AnchorPane p25;public AnchorPane p26;
@@ -56,6 +57,10 @@ public class CharactersView implements View {
     public Text cost1;public Text cost2;public Text cost3;
     public Polyline fumetto1;public Polyline fumetto2;public Polyline fumetto3;
 
+
+    private Image yellow;private Image blue;private Image red;private Image green;private Image pink;
+
+
     Stage stage;
     NetworkHandler nh;
     Effect baseEffect;
@@ -64,10 +69,16 @@ public class CharactersView implements View {
 
     List<ImageView> activeCharacters;
     List<List<AnchorPane>> studPanes;
-    Map<Student, ImageView> fromStudToImage;
+    Map<Student, Image> fromStudToImage;
 
 
     public void initialize(){
+        yellow = new Image("assets/student_yellow.png",true);
+        blue =new Image("assets/student_blue.png",true);
+        red =new Image("assets/student_red.png",true);
+        green =new Image("assets/student_green.png",true);
+        pink =new Image("assets/student_pink.png",true);
+
         nh = UIManager.getUIManager().getNh();
         baseEffect = movetoDR.getEffect();
         studPanes = List.of(
@@ -124,14 +135,21 @@ public class CharactersView implements View {
     }
 
     private void bindStudents(List<Character> characters) {
+        System.out.println("calling Bind Students");
         for (int i =0 ;i<3;i++) {
-            if (characters.get(i).getStudents() == null){continue;}
+            if (characters.get(i).getStudents() == null){
+                System.out.println("A null list with student");
+                continue;}
             List<Student> characterStudents = characters.get(i).getStudents();
             List<AnchorPane> cardPanes = studPanes.get(i);
             if (characterStudents.size()>0){
                 for (int j = 0; j<characterStudents.size();j++){
-                    cardPanes.get(j).getChildren().setAll(fromStudToImage.get(characterStudents.get(j)));
-                    fromStudToImage.get(characterStudents.get(j)).setVisible(true);
+                    ImageView studentView = new ImageView(fromStudToImage.get(characterStudents.get(j)));
+                    System.out.println("there should be an image "+ studentView);
+                    studentView.setEffect(new DropShadow());
+                    studentView.setVisible(true);
+                    cardPanes.get(j).getChildren().setAll(studentView);
+                    cardPanes.get(i).setVisible(true);
                 }
             }
 

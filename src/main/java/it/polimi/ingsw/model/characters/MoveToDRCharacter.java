@@ -15,14 +15,13 @@ import java.util.List;
  */
 class MoveToDRCharacter extends Character {
 
-    List<Student> students;
-
     Student chosenStudent;
 
 
     public MoveToDRCharacter(List<Student> students) {
         this.cost = 2;
         this.students = new ArrayList<>(students);
+        System.out.println("students: " + students);
         this.maxCost = 3;
         description="Take one Student from this card and place it in your diningroom. A new student" +
                 "will be placed on the card.";
@@ -88,8 +87,5 @@ class MoveToDRCharacter extends Character {
 
     public Student getChosenStudent(){
         return chosenStudent;
-    }
-    public List<Student> getStudents(){
-        return students;
     }
 }
