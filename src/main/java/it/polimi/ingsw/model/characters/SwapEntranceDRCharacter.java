@@ -29,6 +29,7 @@ class SwapEntranceDRCharacter extends Character {
         this.chosenStudentsFromDiningRoom = new ArrayList<>(List.of());
         description = "You may exchange up to 2 Students between your Entrance and your Dining Room.";
         this.number = 10;
+        students = new ArrayList<>();
     }
 
     private void pickStudentsFromEntrance(VirtualView user, List<Student> entranceStudents){

@@ -3,7 +3,9 @@ package it.polimi.ingsw.model.characters;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.Student;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.io.Serializable;
 
@@ -12,6 +14,7 @@ public abstract class Character implements Serializable {
     int cost;
     int maxCost;
     String description;
+    List<Student> students;
 
     int number;
 
@@ -60,6 +63,8 @@ public abstract class Character implements Serializable {
     public String getDescription(){return description;}
 
     public int getNumber(){return number;}
+
+    public List<Student> getStudents(){return students;};
 
     @Override
     public String toString() {

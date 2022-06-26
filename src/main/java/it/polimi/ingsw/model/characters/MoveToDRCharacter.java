@@ -15,8 +15,6 @@ import java.util.List;
  */
 class MoveToDRCharacter extends Character {
 
-    List<Student> students;
-
     Student chosenStudent;
 
 

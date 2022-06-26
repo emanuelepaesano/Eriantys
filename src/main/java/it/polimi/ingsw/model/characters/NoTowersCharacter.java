@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Island;
 import it.polimi.ingsw.model.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +24,7 @@ class NoTowersCharacter extends Character {
         this.maxCost = 4;
         description="When resolving an island, Towers will not count towards influence for this turn.";
         this.number = 6;
+        students = new ArrayList<>();
     }
     public void play(Game game, PlayerController pc){
         Player player = pc.getPlayer();

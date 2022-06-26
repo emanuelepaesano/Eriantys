@@ -4,6 +4,7 @@ import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,6 +25,7 @@ class ZeroPointStudentCharacter extends Character {
         this.maxCost = 4;
         description = "Choose a Student color.\n For this turn, that color will not count towards influence.";
         this.number = 8;
+        students = new ArrayList<>();
     }
 
     private void setUp(VirtualView user, Game game){

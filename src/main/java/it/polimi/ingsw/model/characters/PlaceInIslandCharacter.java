@@ -13,22 +13,8 @@ import java.util.List;
  */
  class PlaceInIslandCharacter extends Character {
 
-    List<Student> students;
-
-    public Student getChosenStudent() {
-        return chosenStudent;
-    }
 
     Student chosenStudent;
-
-    public Island getChosenIsland() {
-        return chosenIsland;
-    }
-
-    public void setChosenIsland(Island chosenIsland) {
-        this.chosenIsland = chosenIsland;
-    }
-
     Island chosenIsland;
 
 
@@ -39,8 +25,9 @@ import java.util.List;
         description = "Take 1 Student from this card and place it on an Island of your choice." +
                 "A new Student will be placed on the card.";
         this.number = 7;
-
     }
+
+
 
     private void setUp(PlayerController pc, Game game){
         Student student;
@@ -84,6 +71,7 @@ import java.util.List;
         return student;
     }
 */
+
     public void play(Game game, PlayerController pc) {
         Player player = pc.getPlayer();
         if(chosenStudent == null || chosenIsland == null){
@@ -103,7 +91,6 @@ import java.util.List;
         students.add(game.drawFromBag());
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
     }
-
     public void reset (Game game, PlayerController pc){
         chosenIsland = null;
         chosenStudent = null;
@@ -111,12 +98,23 @@ import java.util.List;
 
     //FOR TESTING ONLY
     //Makes the first student red, and returns it
+
     public Student getFirstStudent(){
         students.set(0, Student.RED);
         return students.get(0);
     }
-
     public void setChosenStudent(Student stud){
         chosenStudent = stud;
+    }
+
+    public void setChosenIsland(Island chosenIsland) {
+        this.chosenIsland = chosenIsland;
+    }
+    public Student getChosenStudent() {
+        return chosenStudent;
+    }
+
+    public Island getChosenIsland() {
+        return chosenIsland;
     }
 }

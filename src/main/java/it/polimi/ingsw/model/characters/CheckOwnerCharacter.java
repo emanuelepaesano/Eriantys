@@ -5,6 +5,8 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Island;
 import it.polimi.ingsw.model.Player;
 
+import java.util.ArrayList;
+
 /**
  * Choose an island to resolve immediately.
  */
@@ -24,6 +26,7 @@ class CheckOwnerCharacter extends Character {
         description = "Choose an Island to resolve immediately. \n" +
                 "You can still move Mother Nature as usual.";
         this.number = 1;
+        students = new ArrayList<>();
     }
 
     private void setUp(PlayerController pc, Game game){
