@@ -4,8 +4,6 @@ import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 
-import java.util.ArrayList;
-
 /**
  * This turn player has +2 influence
  */
@@ -16,7 +14,6 @@ class MoreInfluenceCharacter extends Character {
         this.maxCost = 2;
         description="You will have +2 Influence on Islands for this turn.";
         this.number = 3;
-        students = new ArrayList<>();
     }
 
     public void play(Game game, PlayerController pc) {

@@ -14,6 +14,7 @@ import java.util.List;
  * You may take up to 3 students from this card and replace them with the same number of students from your entrance.
  */
 class ReplaceFromEntranceCharacter extends Character {
+    List<Student> students;
     List<Student> chosenStudents;
     List<Student> chosenStudentsFromEntrance;
 

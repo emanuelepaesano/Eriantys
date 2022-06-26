@@ -22,7 +22,6 @@ public class BlockIslandCharacter extends Character {
         this.description = "Place a No Entry tile on an island of your choice. The first time mother nature lands there," +
                 "influence will not be calculated, and the No Entry Tile will be put back on this card.";
         this.number = 12;
-        students = new ArrayList<>();
     }
 
     /**
