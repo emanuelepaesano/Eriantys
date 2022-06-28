@@ -137,8 +137,10 @@ public class PlayerController {
             } catch (Exception ex){new NoReplyMessage("Not a correct number, retry.").send(playerView);}
         }
         Character chara = characters.get(chosenChar-1);
-        playedCharacters.set(chosenChar-1 , true);
-        chara.play(game, this);
+        boolean playSuccess = chara.play(game, this);
+        if (playSuccess) {
+            playedCharacters.set(chosenChar - 1, true);
+        }
         return playedCharacters;
     }
 

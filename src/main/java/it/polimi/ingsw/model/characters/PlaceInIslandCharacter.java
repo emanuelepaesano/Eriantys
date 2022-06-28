@@ -44,9 +44,10 @@ import java.util.List;
     private void setUp(PlayerController pc, Game game){
         Student student;
         VirtualView user = pc.getPlayerView();
+        int indexThis = game.getCharacters().indexOf(this);
         while (true) {
             new StringMessage("Choose 1 student from this character to move to an island.").send(user);
-            String str = Student.askStudent(students,user,"placeinislandchar").toUpperCase();
+            String str = Student.askStudent(students,user,indexThis).toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return;}
             else if (List.of(Student.values()).contains(Student.valueOf(str))) {
@@ -83,17 +84,18 @@ import java.util.List;
         return student;
     }
 */
-    public void play(Game game, PlayerController pc) {
+    public boolean play(Game game, PlayerController pc) {
         Player player = pc.getPlayer();
         if(chosenStudent == null || chosenIsland == null){
             setUp(pc, game);
             if(chosenStudent == null || chosenIsland == null){
-                return;
+                return false;
             }
         }
         if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
-            return;}
+            return false;
+        }
 
 
         students.remove(chosenStudent);
@@ -101,6 +103,7 @@ import java.util.List;
         chosenIsland.getStudents().replace(chosenStudent, oldval, oldval + 1);
         students.add(game.drawFromBag());
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
+        return true;
     }
 
     public void reset (Game game, PlayerController pc){

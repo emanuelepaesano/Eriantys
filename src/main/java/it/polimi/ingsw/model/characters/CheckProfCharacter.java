@@ -14,21 +14,19 @@ class CheckProfCharacter extends Character {
         this.cost = 2;
         this.maxCost = 3;
         description = "For this turn, you can gain Professors also if" +
-                "you have THE SAME number of Students as your best opponent";
+                "you have THE SAME number of Students as your best opponent.";
         this.number = 2;
 
     }
 
-    public synchronized void play(Game game, PlayerController pc) {
+    public boolean play(Game game, PlayerController pc) {
         Player player = pc.getPlayer();
         if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
-            return;}
+            return false;}
         this.cost = Character.payandUpdateCost(player,cost, maxCost);
-
         player.setOrEqual(true);
-
-
+        return true;
     }
 
     public void reset (Game game, PlayerController pc){

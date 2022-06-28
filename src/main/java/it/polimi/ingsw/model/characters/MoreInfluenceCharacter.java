@@ -16,15 +16,15 @@ class MoreInfluenceCharacter extends Character {
         this.number = 3;
     }
 
-    public void play(Game game, PlayerController pc) {
+    public boolean play(Game game, PlayerController pc) {
         Player player = pc.getPlayer();
         //this turn +2 influence (n.b. you cant combine characters)
         if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
-            return;}
+            return false;}
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
-            player.setBaseInfluence(2);
-
+        player.setBaseInfluence(2);
+        return true;
     }
 
     public void reset(Game game, PlayerController pc){

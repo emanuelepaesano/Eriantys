@@ -65,7 +65,7 @@ public class EntranceController {
         Student stud;
         for (int i = 0;i<nstud;i++){
             System.out.println("For student " +(i+1) + " :");
-            str = Student.askStudent(player,view).toUpperCase();
+            str = Student.askStudent(player, view).toUpperCase();
             if  (str.equals("BACK")) {return i;}
             else if  (str.equals("RETRY")) {
                 i -= 1;
@@ -94,7 +94,7 @@ public class EntranceController {
         String str;
         Student stud;
         while(true) {
-            str = Student.askStudent(player,view).toUpperCase();
+            str = Student.askStudent(player, view).toUpperCase();
             if (str.equals("BACK")) {
                 return 0;
             }

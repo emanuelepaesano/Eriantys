@@ -7,9 +7,12 @@ import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.messages.PlayCharMessage;
 import it.polimi.ingsw.model.Student;
 import it.polimi.ingsw.model.characters.Character;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.effect.Bloom;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
@@ -26,9 +29,10 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
-import static it.polimi.ingsw.messages.PlayCharMessage.PlayCharType.play;
-import static it.polimi.ingsw.messages.PlayCharMessage.PlayCharType.start;
+import static it.polimi.ingsw.messages.PlayCharMessage.PlayCharType.*;
 import static it.polimi.ingsw.model.Student.*;
 
 
@@ -66,10 +70,11 @@ public class CharactersView implements View {
     Effect baseEffect;
 
     List<Button> buttons;
-
     List<ImageView> activeCharacters;
     List<List<AnchorPane>> studPanes;
     Map<Student, Image> fromStudToImage;
+    Map<Student, EventHandler<MouseEvent>> fromStudToFunction;
+    List<List<ImageView>> currentStudents;
 
 
     public void initialize(){
@@ -78,7 +83,7 @@ public class CharactersView implements View {
         red =new Image("assets/student_red.png",true);
         green =new Image("assets/student_green.png",true);
         pink =new Image("assets/student_pink.png",true);
-
+        currentStudents = List.of(new ArrayList<>(List.of()),new ArrayList<>(List.of()),new ArrayList<>(List.of()));
         nh = UIManager.getUIManager().getNh();
         baseEffect = movetoDR.getEffect();
         studPanes = List.of(
@@ -92,6 +97,15 @@ public class CharactersView implements View {
                         RED, red,
                         PINK, pink,
                         GREEN, green)
+        );
+        fromStudToFunction = new EnumMap<>(
+                Map.of(
+                        YELLOW, this::sendYellow,
+                        BLUE, this::sendBlue,
+                        RED, this::sendRed,
+                        PINK, this::sendPink,
+                        GREEN, this::sendGreen
+                )
         );
     }
 
@@ -121,6 +135,13 @@ public class CharactersView implements View {
     @Override
     public void fillInfo(Message message) {
         PlayCharMessage charMessage = (PlayCharMessage) message;
+        if (charMessage.getType().equals(chooseStudent)){
+            int indexActive = charMessage.getCharIndex();
+            Platform.runLater(()->{bindOneCard(charMessage.getTempStudents(), indexActive);});
+            currentStudents.get(indexActive).forEach(img->img.setDisable(false));
+            return;
+        }
+
         if (charMessage.getType().equals(start)){
             activeCharacters = initializeCards(charMessage.getCharacters());
             activeCharacters.forEach(img->img.setDisable(true));
@@ -131,8 +152,8 @@ public class CharactersView implements View {
         numCoins.setText(String.valueOf(charMessage.getPlayer().getCoins()));
         bindCost(charMessage.getCharacters());
         bindStudents(charMessage.getCharacters());
-
     }
+
 
     private void bindStudents(List<Character> characters) {
         System.out.println("calling Bind Students");
@@ -143,18 +164,30 @@ public class CharactersView implements View {
             List<Student> characterStudents = characters.get(i).getStudents();
             List<AnchorPane> cardPanes = studPanes.get(i);
             if (characterStudents.size()>0){
-                for (int j = 0; j<characterStudents.size();j++){
-                    ImageView studentView = new ImageView(fromStudToImage.get(characterStudents.get(j)));
-                    System.out.println("there should be an image "+ studentView);
-                    studentView.setEffect(new DropShadow());
-                    studentView.setVisible(true);
-                    cardPanes.get(j).getChildren().setAll(studentView);
-                    cardPanes.get(i).setVisible(true);
-                }
+                bindOneCard(characterStudents,i);
             }
-
+            currentStudents.forEach(card->card.forEach(img->img.setDisable(true)));
         }
     }
+
+
+    private void bindOneCard(List<Student> students, int cardIndex) {
+        List<AnchorPane> cardPanes = studPanes.get(cardIndex);
+        cardPanes.forEach(pane->pane.getChildren().setAll());
+        currentStudents.get(cardIndex).clear();
+        for (int paneNum = 0; paneNum<students.size();paneNum++) {
+            Student student = students.get(paneNum);
+            ImageView studentView = new ImageView(fromStudToImage.get(student));
+            currentStudents.get(cardIndex).add(studentView);
+            studentView.setOnMouseEntered(this::enteredStudent);
+            studentView.setOnMouseExited(this::exitedStudent);
+            studentView.setOnMouseClicked(fromStudToFunction.get(student));
+            studentView.setEffect(new DropShadow());
+            studentView.setPickOnBounds(true);
+            cardPanes.get(paneNum).getChildren().setAll(studentView);
+        }
+    }
+
 
     private void bindCost(List<Character> characters) {
         List<Text> costs = List.of(cost1,cost2,cost3);
@@ -242,4 +275,34 @@ public class CharactersView implements View {
         text3.setVisible(false);
         fumetto3.setVisible(false);
     }
+
+
+    public void sendYellow(MouseEvent mouseEvent){
+        nh.sendReply("yellow");
+    }
+    public void sendBlue(MouseEvent mouseEvent){
+        nh.sendReply("blue");
+    }
+    public void sendRed(MouseEvent mouseEvent){
+        nh.sendReply("red");
+    }
+    public void sendPink(MouseEvent mouseEvent){
+        nh.sendReply("pink");
+    }
+    public void sendGreen(MouseEvent mouseEvent){
+        nh.sendReply("green");
+    }
+
+    public void enteredStudent(MouseEvent event){
+        ImageView student = (ImageView) event.getSource();
+        Bloom effect = new Bloom();
+        effect.setInput(new DropShadow());
+        student.setEffect(effect);
+    }
+
+    public void exitedStudent(MouseEvent event){
+        ImageView student = (ImageView) event.getSource();
+        student.setEffect(new DropShadow());
+    }
+
 }

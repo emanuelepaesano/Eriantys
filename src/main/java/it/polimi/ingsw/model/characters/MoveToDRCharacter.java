@@ -30,11 +30,11 @@ class MoveToDRCharacter extends Character {
 
     }
 
-    private void pickStudent(VirtualView user){
+    private void pickStudent(VirtualView user, int indexThis){
         Student student;
         while (true) {
             new StringMessage("Choose 1 student from the character to move to your dining Room.").send(user);
-            String str = Student.askStudent(students,user,"movetodrchar").toUpperCase();
+            String str = Student.askStudent(students,user,indexThis).toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return;}
             else if (List.of(Student.values()).contains(Student.valueOf(str))) {
@@ -49,17 +49,18 @@ class MoveToDRCharacter extends Character {
         chosenStudent = student;
     }
 
-    public void play(Game game, PlayerController pc) {
+    public boolean play(Game game, PlayerController pc) {
         Player player = pc.getPlayer();
+        int indexThis = game.getCharacters().indexOf(this);
         if (chosenStudent == null){
-            pickStudent(pc.getPlayerView());
+            pickStudent(pc.getPlayerView(), indexThis);
             if (chosenStudent == null){
-                return;
+                return false;
             }
         }
         if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
-            return;}
+            return false;}
         students.remove(chosenStudent);
         player.getDiningRoom().putStudent(chosenStudent);
         player.getDiningRoom().checkProfessors(game.getTableOrder(),false);
@@ -68,6 +69,7 @@ class MoveToDRCharacter extends Character {
         }
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
         System.out.println("New Dining Room:\n " + player.getDiningRoom());
+        return true;
     }
 
 

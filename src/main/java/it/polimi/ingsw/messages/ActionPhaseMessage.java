@@ -6,6 +6,7 @@ import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.model.Student;
 import it.polimi.ingsw.model.characters.Character;
 import it.polimi.ingsw.model.Player;
+import javafx.application.Platform;
 
 import java.util.List;
 
@@ -45,14 +46,18 @@ public class ActionPhaseMessage extends Repliable implements Message{
     public ActionPhaseMessage(Player player, ActionPhaseType type) {
         this.player = player;
         this.type = type;
-        if (type.equals(studselect)){
-            text = "Choose a student color from the available ones:\n{";
-            for (Student student : player.getEntrance().getStudents()) {
-                text += "(" + student + ")";
-            }
-            text += "} or type \"back\" to annull.";
+        text = player.getEntrance().toString();
+    }
+
+    public ActionPhaseMessage(Player player){
+        this.type = studselect;
+        this.player = player;
+        List<Student> entranceStudents = player.getEntrance().getStudents();
+        text = "Choose a student color from the available ones:\n{";
+        for (Student student : entranceStudents) {
+            text += "(" + student + ")";
         }
-        else {text = player.getEntrance().toString();}
+        text += "} or type \"back\" to annull.";
     }
 
     public enum ActionPhaseType {

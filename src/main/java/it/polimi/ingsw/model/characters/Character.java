@@ -37,10 +37,7 @@ public abstract class Character implements Serializable {
         };
     }
 
-    public void play(Game game, PlayerController pc) {
-
-
-    }
+    public boolean play(Game game, PlayerController pc){return false;}
 
     static Boolean enoughMoney(Player player, int cost) {
         return player.getCoins() >= cost;

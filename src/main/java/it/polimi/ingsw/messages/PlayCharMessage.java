@@ -2,19 +2,23 @@ package it.polimi.ingsw.messages;
 
 import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.VirtualView;
+import it.polimi.ingsw.model.Student;
 import it.polimi.ingsw.model.characters.Character;
 import it.polimi.ingsw.model.Player;
 
 import java.util.List;
 
+import static it.polimi.ingsw.messages.PlayCharMessage.PlayCharType.chooseStudent;
 import static it.polimi.ingsw.messages.PlayCharMessage.PlayCharType.play;
 
 public class PlayCharMessage extends Repliable implements Message{
     List<Character> characters;
     Player player;
     String text;
-
+    int charIndex = -1;
     PlayCharType type;
+
+    List<Student> tempStudents;
 
     public PlayCharMessage(List<Character> characters, Player player, PlayCharType type) {
         this.characters = characters;
@@ -25,10 +29,20 @@ public class PlayCharMessage extends Repliable implements Message{
                 "Enter a number between 1~3 to choose, or type \"back\".";
     }
 
+    public PlayCharMessage(List<Student> students, int indexActive) {
+
+        this.tempStudents = students;
+        this.charIndex = indexActive;
+        this.type = chooseStudent;
+        this.text = "You can pick a student from the character:\n" +
+                students;
+    }
+
 
     public enum PlayCharType{
         play,
-        start;
+        start,
+        chooseStudent;
     }
     @Override
     public void send(VirtualView user) {
@@ -79,6 +93,14 @@ public class PlayCharMessage extends Repliable implements Message{
 
     public PlayCharType getType() {
         return type;
+    }
+
+    public int getCharIndex() {
+        return charIndex;
+    }
+
+    public List<Student> getTempStudents() {
+        return tempStudents;
     }
 }
 

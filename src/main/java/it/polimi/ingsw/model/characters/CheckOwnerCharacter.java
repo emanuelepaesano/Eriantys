@@ -31,21 +31,22 @@ class CheckOwnerCharacter extends Character {
         chosenIsland = island;
     }
 
-    public void play(Game game, PlayerController pc) {
+    public boolean play(Game game, PlayerController pc) {
         //choose an island to checkOwner() immediately
         Player player = pc.getPlayer();
         if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
-            return;}
+            return false;}
         System.out.println(player + ", please choose an island to resolve.");
         if (chosenIsland == null){
             setUp(pc, game);
             if(chosenIsland == null){
-                return;
+                return false;
             }
         }
         chosenIsland.checkOwner(game.getTableOrder());
         this.cost = Character.payandUpdateCost(player,cost, maxCost);
+        return true;
     }
 
 }

@@ -3,6 +3,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.messages.ActionPhaseMessage;
 import it.polimi.ingsw.messages.PickStudMessage;
+import it.polimi.ingsw.messages.PlayCharMessage;
 
 import java.util.*;
 
@@ -36,10 +37,11 @@ public enum Student {
             default -> {return "";}
         }
     }
-    public static String askStudent(List<Student> students, VirtualView user, String whereFrom){
+    public static String askStudent(List<Student> students, VirtualView user, int indexChar){
+        //99 is a special index only for when you have to move from the dining room
         String str;
         try{
-            new PickStudMessage(students, whereFrom).send(user);
+            new PlayCharMessage(students, indexChar).send(user);
             str = user.getReply();
             if (Objects.equals(str, "back")) {return "back";}
             else {
@@ -57,7 +59,7 @@ public enum Student {
     public static String askStudent(Player player, VirtualView user){
         String str;
         try{
-            new ActionPhaseMessage(player, studselect).send(user);
+            new ActionPhaseMessage(player).send(user);
             str = user.getReply();
             if (Objects.equals(str, "back")) {return "back";}
             else {

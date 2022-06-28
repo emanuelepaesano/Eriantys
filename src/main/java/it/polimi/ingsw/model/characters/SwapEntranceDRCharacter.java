@@ -31,12 +31,13 @@ class SwapEntranceDRCharacter extends Character {
         this.number = 10;
     }
 
-    private void pickStudentsFromEntrance(VirtualView user, List<Student> entranceStudents){
+    private void pickStudentsFromEntrance(Player player,VirtualView user){
         Student student;
+        List<Student> entranceStudents = new ArrayList<>(player.getEntrance().getStudents());
         while (true) {
             //al momento il modo per selezionare uno è dire il primo e poi fare back
             new StringMessage("Choose up to 2 students from your entrance. Type back to stop choosing.").send(user);
-            String str = Student.askStudent(entranceStudents, user, "exchangeStudentsChar").toUpperCase();
+            String str = Student.askStudent(player, user).toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return;}
             else if (List.of(Student.values()).contains(Student.valueOf(str))) {
@@ -58,7 +59,7 @@ class SwapEntranceDRCharacter extends Character {
         while (true) {
             String str = Student.askStudent((diningRoomStudents.keySet().
                             stream().filter(s->(diningRoomStudents.get(s)>0)).toList()), user,
-                    "exchangeStudentsChar").toUpperCase();
+                    99).toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return;}
             else if (List.of(Student.values()).contains(Student.valueOf(str))) {
@@ -79,23 +80,21 @@ class SwapEntranceDRCharacter extends Character {
     /**
      * You may exchange up to 2 students between your Entrance and your Dining Room.
      */
-    public void play(Game game, PlayerController pc) {
+    @Override
+    public boolean play(Game game, PlayerController pc) {
         Player player = pc.getPlayer();
         if (!Character.enoughMoney(player, cost)){
             System.err.println("You don't have enough money!");
             //ok, we can send a noreply here
-            return;
+            return false;
         }
-        List<Student> entranceStudents = new ArrayList<>(pc.getPlayer().getEntrance().getStudents());
-        pickStudentsFromEntrance(pc.getPlayerView(), entranceStudents);
-        if (chosenStudentsFromEntrance.size() == 0) {
-            return;
-        }
+
+        pickStudentsFromEntrance(pc.getPlayer(), pc.getPlayerView());
+        if (chosenStudentsFromEntrance.size() == 0) {return false;}
+
         Map<Student, Integer> diningRoomStudents = new HashMap<>(pc.getPlayer().getDiningRoom().getTables());
         pickStudentsFromDiningRoom(pc.getPlayerView(), diningRoomStudents);
-        if (chosenStudentsFromDiningRoom.size() < chosenStudentsFromEntrance.size()) {
-            return;
-        }
+        if (chosenStudentsFromDiningRoom.size() < chosenStudentsFromEntrance.size()) {return false;}
 
         //empty entrance + diningroom
         chosenStudentsFromEntrance.forEach(s->player.getEntrance().getStudents().remove(s));
@@ -110,13 +109,16 @@ class SwapEntranceDRCharacter extends Character {
             int oldnum = player.getDiningRoom().getTables().get(s);
             player.getDiningRoom().getTables().replace(s,oldnum+1);
         });
+
         chosenStudentsFromEntrance.clear();
         chosenStudentsFromDiningRoom.clear();
         //ok paghiamo solo alla fine
+
         this.cost = Character.payandUpdateCost(player, cost, maxCost);
         player.getDiningRoom().checkProfessors(game.getTableOrder(),false);
         System.out.println("New Entrance for" + player + ":\n " + player.getEntrance());
         System.out.println("New Dining Room" + player + ":\n " + player.getDiningRoom().getTables());
+        return true;
     }
 
     @Override

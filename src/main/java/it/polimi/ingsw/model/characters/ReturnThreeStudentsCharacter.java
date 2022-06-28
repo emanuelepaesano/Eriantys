@@ -9,6 +9,8 @@ import it.polimi.ingsw.model.Student;
 
 import java.util.List;
 
+import static it.polimi.ingsw.model.Student.*;
+
 /**
  * Choose a type of Student: every player must return three students of that type from their Dining Room to the bag.
  * if any player has fewer than 3 students of that type, return as many students as they have.
@@ -21,17 +23,18 @@ class ReturnThreeStudentsCharacter extends Character {
         this.cost = 3;
         this.maxCost = 4;
         description="Choose one Student color.\n"+
-                "Every player, including yoursel, must return 3 Students of that color from the dining room to the bag."+
+                "Every player, including yourself, must return 3 Students of that color from the Dining Room to the Bag."+
                 "If they have less, they will return as many as they have.";
         this.number = 11;
+        this.students = List.of(YELLOW,BLUE,RED,PINK,GREEN);
     }
 
-    private void pickStudent(VirtualView user){
+    private void pickStudent(VirtualView user ,int indexThis){
         Student student;
         while (true) {
             new StringMessage("Choose a type of Student to return three students of that type " +
                     "from every player's Dining Room.").send(user);
-            String str = Student.askStudent(List.of(Student.values()), user,"returnThreeStudentsChar").toUpperCase();
+            String str = Student.askStudent(List.of(Student.values()), user, indexThis).toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return;}
             else {
@@ -42,16 +45,17 @@ class ReturnThreeStudentsCharacter extends Character {
         chosenStudent = student;
     }
 
-    public void play(Game game, PlayerController pc) {
-        //this is good, need to implement messages for pickstudent
+    public boolean play(Game game, PlayerController pc) {
         Player player = pc.getPlayer();
+        int indexThis = game.getCharacters().indexOf(this);
         if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
-            return;
+            return false;
         }
-        pickStudent(pc.getPlayerView());
+
+        pickStudent(pc.getPlayerView(), indexThis);
         if (chosenStudent == null){
-            return;
+            return false;
         }
 
         List<Player> allPlayers = game.getTableOrder();
@@ -64,6 +68,7 @@ class ReturnThreeStudentsCharacter extends Character {
         });
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
         System.out.println("New Dining Room:\n " + player.getDiningRoom());
+        return true;
 
     }
 

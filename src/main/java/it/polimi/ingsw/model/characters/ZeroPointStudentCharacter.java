@@ -6,6 +6,8 @@ import it.polimi.ingsw.model.*;
 
 import java.util.List;
 
+import static it.polimi.ingsw.model.Student.*;
+
 /**
  * For this turn, the chosen color will not count towards influence.
  */
@@ -22,14 +24,15 @@ class ZeroPointStudentCharacter extends Character {
     public ZeroPointStudentCharacter() {
         this.cost = 3;
         this.maxCost = 4;
-        description = "Choose a Student color.\n For this turn, that color will not count towards influence.";
+        description = "Choose a Student color.\n For this turn, that color will not count towards influence on Islands.";
         this.number = 8;
+        this.students = List.of(YELLOW,BLUE,RED,PINK,GREEN);
     }
 
-    private void setUp(VirtualView user, Game game){
+    private void setUp(VirtualView user, int indexThis){
         Student stud;
         while(true) {
-            String string = Student.askStudent(List.of(Student.values()),user,"zeropointchar").toUpperCase();
+            String string = Student.askStudent(List.of(Student.values()),user,indexThis).toUpperCase();
             if (string.equals("RETRY")){continue;}
             if (string.equals("BACK")) {return;}
             else if (List.of(Student.values()).contains(Student.valueOf(string))) {
@@ -54,22 +57,24 @@ class ZeroPointStudentCharacter extends Character {
         return stud;
     }
  */
-    public synchronized void play(Game game, PlayerController pc){
+    public boolean play(Game game, PlayerController pc){
         Player player = pc.getPlayer();
+        int indexThis = game.getCharacters().indexOf(this);
         if (chosenStudent == null){
-            setUp(pc.getPlayerView(), game);
+            setUp(pc.getPlayerView(), indexThis);
             if (chosenStudent == null){
-                return;
+                return false;
             }
         }
         if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
-            return;}
+            return false;}
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
         islands = game.getGameMap().getArchipelago();
         oldnumbers = islands.stream().map(i -> i.getStudents().get(chosenStudent)).toList();
         islands.forEach(i -> i.getStudents().replace(chosenStudent, 0));
         System.out.println("Game map for this turn!\n" + game.getGameMap());
+        return true;
     }
 
     public void reset(Game game, PlayerController pc){

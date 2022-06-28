@@ -13,19 +13,19 @@ class MoreMovementsCharacter extends Character {
         this.cost = 1;
         this.maxCost = 2;
         description="You may move Mother Nature up to 2 additional islands than is indicated" +
-                "by your Assistant.";
+                "by the Assistant you played.";
         this.number = 4;
 
     }
 
-    public synchronized void play(Game game, PlayerController pc){
+    public boolean play(Game game, PlayerController pc){
         Player player = pc.getPlayer();
         if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
-            return;}
+            return false;}
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
-
         player.setBaseMoves(2);
+        return true;
 
 
     }
