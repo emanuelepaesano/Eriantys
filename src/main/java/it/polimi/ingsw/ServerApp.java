@@ -39,10 +39,9 @@ public class ServerApp {
             //  to update other players' school
             List<Player> otherPlayers = new ArrayList<Player>(game.getTableOrder());
             otherPlayers.remove(pc.getPlayer());
-            new SwitcherMessage(otherPlayers).send(pc.getPlayerView());
+            new SwitcherMessage(game.isAdvanced(),otherPlayers).send(pc.getPlayerView());
         }
         info.send(server.views);
-        new SwitcherMessage(game.getTableOrder());
         while (!game.isOver()) {
             gc.doPlanningPhase(game);
             for (Player player : game.getCurrentOrder()) {
@@ -50,7 +49,7 @@ public class ServerApp {
                 //  to update other players' school
                 List<Player> otherPlayers = new ArrayList<Player>(game.getTableOrder());
                 otherPlayers.remove(player);
-                new SwitcherMessage(otherPlayers).send(pc.getPlayerView());
+                new SwitcherMessage(game.isAdvanced(),otherPlayers).send(pc.getPlayerView());
 
                 new IslandInfoMessage(game, updateMap).send(pc.getPlayerView());
                 game.setCurrentPlayer(player);

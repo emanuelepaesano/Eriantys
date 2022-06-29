@@ -185,7 +185,7 @@ public class GameController {
             }
             else if (action.equalsIgnoreCase("characters")){
                 List<Boolean> oldPlayed = new ArrayList<>(playedCharacters);
-                if(player.getCoins()!= null && !alreadyPlayed){
+                if(player.getCoins()!= -1 && !alreadyPlayed){
                     playedCharacters = pc.playCharacters(game.getCharacters(),game, playedCharacters);
                     if (!playedCharacters.equals(oldPlayed)){
                         alreadyPlayed = true;

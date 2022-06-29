@@ -14,7 +14,8 @@ class OrEqualCharacter extends Character {
         this.cost = 2;
         this.maxCost = 3;
         description = "For this turn, you can gain Professors also if" +
-                " you have THE SAME number of Students as your best opponent.";
+                " you have THE SAME number of Students as your best opponent.\nN.B.: A Professor can" +
+                " still be gained only when you move one Student of its color to the Dining Room.";
         this.number = 2;
 
     }

@@ -138,7 +138,7 @@ public class SchoolView implements View {
         this.player = message.getPlayer();
         disableAllDR();
         entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(false)));
-        if (!(message.getPlayer().getCoins() == null)){
+        if (!(message.getPlayer().getCoins() == -1)){
             characters.setVisible(true);
             coinImage.setVisible(true);
             coinNumber.setVisible(true);

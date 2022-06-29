@@ -15,7 +15,7 @@ public class DiningRoom implements Serializable {
     public DiningRoom(){
         this.tables = Student.makeStudents();
         this.professors= makeProfessors();
-        coins = null; //the game will set this to 1 later in case of advanced variant
+        coins = -1; //the game will set this to 1 later in case of advanced variant
     }
 
     public void putStudent(Student student){

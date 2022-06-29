@@ -76,6 +76,9 @@ public class Switcher implements View {
     public void fillInfo(Message mes) {
         SwitcherMessage message = (SwitcherMessage) mes;
         this.players = message.getOtherPlayers();
+        if (!message.isGameAdvanced()){
+            characters.setVisible(false);
+        }
         if (this.players.size() == 1) {
             player1.setText(this.players.get(0).getPlayerName());
             player1.setVisible(true);
