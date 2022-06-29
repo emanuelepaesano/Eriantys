@@ -12,13 +12,11 @@ public class DiningRoom implements Serializable {
 
     private Integer coins;
 
-
     public DiningRoom(){
         this.tables = Student.makeStudents();
         this.professors= makeProfessors();
         coins = null; //the game will set this to 1 later in case of advanced variant
     }
-
 
     public void putStudent(Student student){
         int oldnum = this.tables.get(student);
@@ -43,14 +41,11 @@ public class DiningRoom implements Serializable {
     }
 
 
-    public void checkProfessors(List<Player> players, Boolean orEqual) {
-        //look into all players to see if we get that professor (for every table)
-        //N.B: we win only with strictly more students
+    public void checkAllProfessors(List<Player> players, Boolean orEqual) {
         for (Student table : Student.values()) {
             checkOneProfessor(table,players,orEqual);
         }
     }
-
     public void checkOneProfessor(Student student, List<Player> players, Boolean orEqual){
         int countwins;
         if (orEqual) {countwins = countOrEqualWins(players, student);}
@@ -62,7 +57,6 @@ public class DiningRoom implements Serializable {
             }
             this.professors.replace(student, true);
         }
-
     }
 
     private int countNormalWins(List<Player> players, Student table){
@@ -78,11 +72,6 @@ public class DiningRoom implements Serializable {
     private int countOrEqualWins(List<Player> players, Student table){
         int countwins = 0;
         for (Player p : players) {
-            if (this.tables.get(table) == 0){
-                //check if anyone has that professor. If they do we can steal it,
-                //otherwise we don't get it with zero
-                List<Player> profOwner = players.stream().filter(player->player.getDiningRoom().getProfessors().get(table)).toList();
-            }
             if (this.tables.get(table) >= p.getDiningRoom().tables.get(table)) {
                 countwins += 1;
             }
@@ -102,17 +91,12 @@ public class DiningRoom implements Serializable {
         return dr.toString();
     }
 
-    public Map<Student, Integer> getTables() {
-        return tables;
-    }
+    public Map<Student, Integer> getTables() {return tables;}
 
     public Map<Student, Boolean> getProfessors() {
         return professors;
     }
 
-    public void setProfessors(Map<Student, Boolean> professors) {
-        this.professors = professors;
-    }
     int getCoins() { return coins;}
 
     void setCoins(int coins) {this.coins = coins;}

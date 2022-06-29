@@ -123,7 +123,7 @@ public class Game implements Serializable {
 //            }
 //            characters.add(newCharacter);
 //        }
-        characters.add(Character.makeCharacter(8,this));
+        characters.add(Character.makeCharacter(2,this));
         characters.add(Character.makeCharacter(11,this));
         Character blockChar = Character.makeCharacter(12,this);
         gameMap.setBlockChar((BlockIslandCharacter) blockChar);

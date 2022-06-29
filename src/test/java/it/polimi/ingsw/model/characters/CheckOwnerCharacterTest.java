@@ -30,7 +30,7 @@ class CheckOwnerCharacterTest {
         pcTest = new PlayerController(testGame.getCurrentPlayer(), testView);
         isTest = testGame.getGameMap().getIslandById(1);
         testGame.getCurrentPlayer().getDiningRoom().getTables().putAll(Map.of(Student.BLUE,3,Student.YELLOW,5));
-        testGame.getCurrentPlayer().getDiningRoom().checkProfessors(testGame.getTableOrder(), false);
+        testGame.getCurrentPlayer().getDiningRoom().checkAllProfessors(testGame.getTableOrder(), false);
         isTest.setStudents(Map.of(Student.BLUE, 5, Student.PINK, 0, Student.YELLOW, 0, Student.RED, 0, Student.GREEN, 0));
         testCharacter.setChosenIsland(isTest);
         testGame.getCurrentPlayer().setCoins(5);

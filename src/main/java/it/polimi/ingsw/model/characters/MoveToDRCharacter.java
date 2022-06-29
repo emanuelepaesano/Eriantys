@@ -61,7 +61,7 @@ class MoveToDRCharacter extends Character {
             return false;}
         students.remove(chosenStudent);
         player.getDiningRoom().putStudent(chosenStudent);
-        player.getDiningRoom().checkProfessors(game.getTableOrder(),false);
+        player.getDiningRoom().checkOneProfessor(chosenStudent,game.getTableOrder(),false);
         if (students.size() < 4) {
             students.add(game.drawFromBag());
         }

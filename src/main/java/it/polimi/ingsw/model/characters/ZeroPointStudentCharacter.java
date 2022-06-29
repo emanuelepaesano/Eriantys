@@ -24,7 +24,7 @@ class ZeroPointStudentCharacter extends Character {
     public ZeroPointStudentCharacter() {
         this.cost = 3;
         this.maxCost = 4;
-        description = "Choose a Student color.\n For this turn, that color will not count towards influence on Islands.";
+        description = "Choose a Student color.\nFor this turn, that color will not count towards influence on Islands.";
         this.number = 8;
         this.students = List.of(YELLOW,BLUE,RED,PINK,GREEN);
     }

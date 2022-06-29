@@ -24,7 +24,7 @@ class ReturnThreeStudentsCharacter extends Character {
         this.maxCost = 4;
         description="Choose one Student color.\n"+
                 "Every player, including yourself, must return 3 Students of that color from the Dining Room to the Bag."+
-                "If they have less, they will return as many as they have.";
+                " If they have less, they will return as many as they have.";
         this.number = 11;
         this.students = List.of(YELLOW,BLUE,RED,PINK,GREEN);
     }

@@ -5,6 +5,7 @@ import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.messages.ActionPhaseMessage;
 import it.polimi.ingsw.messages.NoReplyMessage;
 import it.polimi.ingsw.messages.StringMessage;
+import it.polimi.ingsw.model.DiningRoom;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Student;
@@ -21,7 +22,6 @@ import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.update
 class SwapEntranceDRCharacter extends Character {
     int cost;
     int maxCost;
-
     List<Student> chosenStudentsFromEntrance;
     List<Student> chosenStudentsFromDiningRoom;
 
@@ -96,17 +96,15 @@ class SwapEntranceDRCharacter extends Character {
             //ok, we can send a noreply here
             return false;
         }
-
         pickStudentsFromEntrance(pc.getPlayer(), pc.getPlayerView());
         if (chosenStudentsFromEntrance.size() == 0) {
             entranceStudents.addAll(chosenStudentsFromEntrance);
             clear();
             return false;
         }
-
         pickStudentsFromDiningRoom(pc.getPlayerView(), player);
         if (chosenStudentsFromDiningRoom.size() < chosenStudentsFromEntrance.size()) {
-            //give back and cancel everything
+            //give back and cancel everything but don't give money!!
             entranceStudents.addAll(chosenStudentsFromEntrance);
             chosenStudentsFromDiningRoom.forEach(s->{
                 int oldnum = player.getDiningRoom().getTables().get(s);
@@ -115,19 +113,15 @@ class SwapEntranceDRCharacter extends Character {
             clear();
             return false;
         }
-
-
-        //fill entrance + diningroom
+        //fill entrance + diningroom (and check)
         player.getEntrance().getStudents().addAll(chosenStudentsFromDiningRoom);
         chosenStudentsFromEntrance.forEach(s->{
-            int oldnum = player.getDiningRoom().getTables().get(s);
-            player.getDiningRoom().getTables().replace(s,oldnum+1);
+            DiningRoom DR = player.getDiningRoom();
+            DR.putStudent(s);
+            DR.checkOneProfessor(s,game.getTableOrder(),false);
         });
-
         clear();
-        //ok paghiamo solo alla fine
         this.cost = Character.payandUpdateCost(player, cost, maxCost);
-        player.getDiningRoom().checkProfessors(game.getTableOrder(),false);
         System.out.println("New Entrance for" + player + ":\n " + player.getEntrance());
         System.out.println("New Dining Room" + player + ":\n " + player.getDiningRoom().getTables());
         new ActionPhaseMessage(player, update).send(pc.getPlayerView());

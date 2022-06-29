@@ -77,6 +77,7 @@ class ReplaceFromEntranceCharacter extends Character {
             }
         }
     }
+
     /**
      * You may take up to 3 students from this card and replace them with the same number of students from your entrance.
      */
@@ -107,7 +108,6 @@ class ReplaceFromEntranceCharacter extends Character {
 
         pc.getPlayer().getEntrance().getStudents().addAll(chosenStudents);
 
-        player.getDiningRoom().checkProfessors(game.getTableOrder(),false);
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
         System.out.println("New Entrance Room:\n " + player.getEntrance());
         chosenStudents.clear();

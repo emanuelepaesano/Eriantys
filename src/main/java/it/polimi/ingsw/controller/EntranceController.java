@@ -64,18 +64,16 @@ public class EntranceController {
         String str;
         Student stud;
         for (int i = 0;i<nstud;i++){
-            System.out.println("For student " +(i+1) + " :");
+
             str = Student.askStudent(player, view, false).toUpperCase();
             if  (str.equals("BACK")) {return i;}
-            else if  (str.equals("RETRY")) {
-                i -= 1;
-                continue;}
+            else if  (str.equals("RETRY")) {i -= 1; continue;}
             else {stud = Student.valueOf(str);}
 
             if (students.contains(stud)){
                 students.remove(stud);
                 diningRoom.putStudent(stud);
-                player.getDiningRoom().checkProfessors(players,player.isOrEqual());
+                player.getDiningRoom().checkOneProfessor(stud,players,player.isOrEqual());
             }
             else{
                 System.out.println("You don't have this student in your entrance!");
