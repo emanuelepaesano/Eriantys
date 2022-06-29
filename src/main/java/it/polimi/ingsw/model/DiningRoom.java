@@ -53,7 +53,7 @@ public class DiningRoom implements Serializable {
         //you need enough wins, but with orEqual you will also beat yourself
         if (orEqual? countwins==(players.size()) : countwins==(players.size()-1) ) {
             for (Player p : players) {
-                p.getDiningRoom().professors.replace(student, true, false);
+                p.getDiningRoom().professors.replace(student, false);
             }
             this.professors.replace(student, true);
         }

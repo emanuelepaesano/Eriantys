@@ -137,7 +137,6 @@ public class SchoolView implements View {
         ActionPhaseMessage message = (ActionPhaseMessage) mes;
         this.player = message.getPlayer();
         disableAllDR();
-        entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(false)));
         if (!(message.getPlayer().getCoins() == -1)){
             characters.setVisible(true);
             coinImage.setVisible(true);
@@ -165,6 +164,7 @@ public class SchoolView implements View {
 
             case selectFromDR:
                 enableAllDR();
+                back.setVisible(true);
                 break;
                 
             case endActions:
@@ -176,7 +176,6 @@ public class SchoolView implements View {
                 break;
         }
 
-        //Here we have to link the elements from the model to the graphic components.
         bindEntrance();
         bindDiningRoom();
         bindProfessors();
@@ -201,23 +200,18 @@ public class SchoolView implements View {
             if (s == Student.BLUE) {
                 entranceImageViewList.get(index).get(0).setVisible(true);
                 index++;
-                continue;
             } else if (s == GREEN) {
                 entranceImageViewList.get(index).get(1).setVisible(true);
                 index++;
-                continue;
             } else if (s == Student.PINK) {
                 entranceImageViewList.get(index).get(2).setVisible(true);
                 index++;
-                continue;
             } else if (s == Student.RED) {
                 entranceImageViewList.get(index).get(3).setVisible(true);
                 index++;
-                continue;
             } else if (s == Student.YELLOW) {
                 entranceImageViewList.get(index).get(4).setVisible(true);
                 index++;
-                continue;
             }
         }
     }
@@ -289,29 +283,28 @@ public class SchoolView implements View {
 
 
     private void yellowSelected(MouseEvent mouseEvent) {
-        nh.sendMessage("yellow");
         entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(true)));
-
+        nh.sendMessage("yellow");
     }
 
     private void redSelected(MouseEvent mouseEvent) {
-        nh.sendMessage("red");
         entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(true)));
+        nh.sendMessage("red");
     }
 
     private void pinkSelected(MouseEvent mouseEvent) {
-        nh.sendMessage("pink");
         entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(true)));
+        nh.sendMessage("pink");
     }
 
     private void greenSelected(MouseEvent mouseEvent) {
-        nh.sendMessage("green");
         entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(true)));
+        nh.sendMessage("green");
     }
 
     private void blueSelected(MouseEvent mouseEvent) {
-        nh.sendMessage("blue");
         entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(true)));
+        nh.sendMessage("blue");
     }
 
     public void dRSelected(){
@@ -325,6 +318,7 @@ public class SchoolView implements View {
     public void sendBack(){
         nh.sendMessage("back");
         back.setVisible(false);
+        entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(true)));
     }
 
 

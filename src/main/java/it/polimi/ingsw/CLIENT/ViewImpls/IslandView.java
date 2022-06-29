@@ -187,7 +187,6 @@ public class IslandView implements View {
                 players = message.getPlayers();
                 clouds = message.getClouds();
 
-                //Here we have to link the elements from the model to the graphic components.
                 bindAllLabels();
                 bindMotherNature();
                 bindClouds();

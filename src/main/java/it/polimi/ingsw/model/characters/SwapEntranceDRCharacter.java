@@ -67,8 +67,8 @@ class SwapEntranceDRCharacter extends Character {
         }
         while (true) {
             String str = Student.askStudent(player, user, true);
-            if (str.equals("RETRY")){continue;}
-            if (str.equals("BACK")){return;}
+            if (str.equalsIgnoreCase("RETRY")){continue;}
+            if (str.equalsIgnoreCase("BACK")){return;}
             else if (List.of(Student.values()).contains(Student.valueOf(str.toUpperCase()))) {
                 student = Student.valueOf(str.toUpperCase());
                 if (diningRoomStudents.get(student) == 0){
@@ -111,6 +111,7 @@ class SwapEntranceDRCharacter extends Character {
                 player.getDiningRoom().getTables().replace(s,oldnum+1);
             });
             clear();
+            new ActionPhaseMessage(player, update).send(pc.getPlayerView());
             return false;
         }
         //fill entrance + diningroom (and check)
