@@ -5,19 +5,23 @@ import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.Student;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static it.polimi.ingsw.ServerStarter.declareWin;
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.TEST;
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.update;
 import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.init;
 import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.updateMap;
+import static it.polimi.ingsw.messages.PlayCharMessage.PlayCharType.start;
 
 
 /**
@@ -39,10 +43,13 @@ public class ServerApp {
         try {
             for (PlayerController pc : gc.getControllers()) {
                 new ActionPhaseMessage(pc.getPlayer(), update).send(pc.getPlayerView());
+                if (game.isAdvanced()){
+                    new PlayCharMessage(game.getCharacters(),pc.getPlayer(),start).send(pc.getPlayerView());
+                }
                 //  to update other players' school
                 List<Player> otherPlayers = new ArrayList<>(game.getTableOrder());
                 otherPlayers.remove(pc.getPlayer());
-                new SwitcherMessage(otherPlayers).sendAndCheck(pc.getPlayerView());
+                new SwitcherMessage(game.isAdvanced(),otherPlayers).sendAndCheck(pc.getPlayerView());
             }
         }catch (DisconnectedException ex){ServerStarter.stopGame(false);}
         info.send(server.views);
@@ -55,7 +62,7 @@ public class ServerApp {
                     //  to update other players' school
                     List<Player> otherPlayers = new ArrayList<>(game.getTableOrder());
                     otherPlayers.remove(player);
-                    new SwitcherMessage(otherPlayers).send(pc.getPlayerView());
+                    new SwitcherMessage(game.isAdvanced(),otherPlayers).send(pc.getPlayerView());
                     new IslandInfoMessage(game, updateMap).send(pc.getPlayerView());
                     game.setCurrentPlayer(player);
                     gc.doActions(pc);
@@ -66,6 +73,13 @@ public class ServerApp {
                     gc.resetCharacters(game, pc);
                     new IslandInfoMessage(game, updateMap).send(server.views);
                     new ActionPhaseMessage(pc.getPlayer(), update).send(pc.getPlayerView());
+                    if (game.isAdvanced()){
+                        for (int i = 0;i<3;i++){
+                            if (gc.getPlayedCharacters().get(i)){
+                                game.getCharacters().get(i).reset(game,pc);
+                            }
+                        }
+                    }
                     game.checkGameEndCondition("towerend", player);
                     game.checkGameEndCondition("islandend", player);
                 } catch (DisconnectedException disconnectedView) {

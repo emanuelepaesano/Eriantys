@@ -77,6 +77,10 @@ public class IslandView implements View {
     public ImageView island4; public ImageView island5; public ImageView island6; public ImageView island7;
     public ImageView island8; public ImageView island9; public ImageView island10; public ImageView island11;
     public ImageView c3;public ImageView c2;public ImageView c1;
+
+    public ImageView block1; public ImageView block2;public ImageView block3;public ImageView block4;
+    public ImageView block5; public ImageView block6;public ImageView block7;public ImageView block8;
+    public ImageView block9; public ImageView block10;public ImageView block11;public ImageView block0;
     public GridPane islandRoot;
 
 
@@ -93,6 +97,8 @@ public class IslandView implements View {
     List<List<ImageView>> allTowers;
     List<List<Label>> allStudentList;
     List<List<ImageView>> bridgesFrom;
+
+    List<ImageView> blocks;
 
     @Override
     public void display() {
@@ -139,6 +145,8 @@ public class IslandView implements View {
                 List.of(b23,b34),List.of(b34,b45),List.of(b45,b56),List.of(b56,b67),List.of(b67,b78),
                 List.of(b78,b89),List.of(b89,b910),List.of(b910,b1011),List.of(b1011,b110));
 
+        blocks = List.of (block0,block1,block2,block3,block4,
+                block5,block6,block7,block8,block9, block10,block11);
 
     }
 
@@ -155,7 +163,6 @@ public class IslandView implements View {
 
             else if (message.getType().equals(cloudSel)) {
                 enableClouds(numClouds);
-
             }
         }
         else {
@@ -180,10 +187,19 @@ public class IslandView implements View {
             bindClouds();
             addBridges();
             showTowers();
+            showBlocks();
             });
         }
     }
 
+    private void showBlocks() {
+        blocks.forEach(block->block.setVisible(false));
+        for(int i = 0; i<12;i++){
+            if (map.getAllIslands().get(i).isBlocked()){
+                blocks.get(i).setVisible(true);
+            }
+        }
+    }
     public void enableIslands(){
         for(int i = 0; i<12;i++){
             if (!map.getAllIslands().get(i).isJoined()){

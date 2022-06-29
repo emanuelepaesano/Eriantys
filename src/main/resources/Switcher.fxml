@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.Switcher" >
+<AnchorPane fx:id="mainPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.Switcher" >
     <AnchorPane fx:id="container" layoutX="162.0" prefHeight="800.0" prefWidth="1280.0" AnchorPane.leftAnchor="162.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
         <children>
          <StackPane fx:id="gameScene" prefHeight="800.0" prefWidth="1280.0">
@@ -19,6 +19,7 @@
           <Button fx:id="assistants" mnemonicParsing="false" prefHeight="178.0" prefWidth="146.0" text="Assistants" onAction="#toAssistants" />
           <Button fx:id="player1" mnemonicParsing="false" prefHeight="178.0" prefWidth="146.0" text="" onAction="#toPlayer1" />
           <Button fx:id="player2" mnemonicParsing="false" prefHeight="178.0" prefWidth="146.0" text="" onAction="#toPlayer2" />
+          <Button fx:id="characters" mnemonicParsing="false" prefHeight="178.0" prefWidth="146.0" text="Characters" onAction="#toCharacters" />
       </children>
    </VBox>
 </AnchorPane>

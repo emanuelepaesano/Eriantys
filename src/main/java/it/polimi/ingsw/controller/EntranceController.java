@@ -64,18 +64,16 @@ public class EntranceController {
         String str;
         Student stud;
         for (int i = 0;i<nstud;i++){
-            System.out.println("For student " +(i+1) + " :");
-            str = Student.askStudent(player,view).toUpperCase();
+
+            str = Student.askStudent(player, view, false).toUpperCase();
             if  (str.equals("BACK")) {return i;}
-            else if  (str.equals("RETRY")) {
-                i -= 1;
-                continue;}
+            else if  (str.equals("RETRY")) {i -= 1; continue;}
             else {stud = Student.valueOf(str);}
 
             if (students.contains(stud)){
                 students.remove(stud);
                 diningRoom.putStudent(stud);
-                player.getDiningRoom().checkProfessors(players,player.isOrEqual());
+                player.getDiningRoom().checkOneProfessor(stud,players,player.isOrEqual());
             }
             else{
                 System.out.println("You don't have this student in your entrance!");
@@ -94,7 +92,7 @@ public class EntranceController {
         String str;
         Student stud;
         while(true) {
-            str = Student.askStudent(player,view).toUpperCase();
+            str = Student.askStudent(player, view, false).toUpperCase();
             if (str.equals("BACK")) {
                 return 0;
             }
@@ -125,7 +123,7 @@ public class EntranceController {
      * @param availablemoves you can move at most this number of students
      * @return asks how many students one wants to move. it's used by movetoDiningRoom and movetoIsland
      */
-    private int askHowManyStudents(int availablemoves) throws DisconnectedException {
+    public int askHowManyStudents(int availablemoves) throws DisconnectedException {
         int nstud;
         while (true) {
             new ActionPhaseMessage(player,availablemoves).sendAndCheck(view);

@@ -9,7 +9,8 @@ public class PickStudMessage extends Repliable{
 
     List<Student> students;
     String text;
-    String whereFrom; //possible values: entrance,movetodrchar,placeinislandchar,zeropointchar
+    String whereFrom; //possible values: entrance, movetodrchar, placeinislandchar,
+                      // zeropointchar, replaceStudentsFromEntranceChar
 
     public PickStudMessage(List<Student> students, String whereFrom) {
         this.whereFrom = whereFrom;

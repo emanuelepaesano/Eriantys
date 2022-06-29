@@ -9,6 +9,8 @@ import it.polimi.ingsw.model.characters.Character;
 import java.util.ArrayList;
 import java.util.List;
 
+import static it.polimi.ingsw.messages.PlayCharMessage.PlayCharType.play;
+
 public class PlayerController {
 
     private Player player;
@@ -124,7 +126,7 @@ public class PlayerController {
 
     public List<Boolean> playCharacters(List<Character> characters, Game game, List<Boolean> playedCharacters) throws DisconnectedException {
         int chosenChar;
-        new PlayCharMessage(characters,player).send(playerView);
+        new PlayCharMessage(characters,player,play).send(playerView);
         while(true) {
             String str = playerView.getReply();
             if (str.equalsIgnoreCase("back")){
@@ -136,8 +138,10 @@ public class PlayerController {
             } catch (Exception ex){new NoReplyMessage("Not a correct number, retry.").send(playerView);}
         }
         Character chara = characters.get(chosenChar-1);
-        playedCharacters.set(chosenChar-1 , true);
-        chara.play(game, this);
+        boolean playSuccess = chara.play(game, this);
+        if (playSuccess) {
+            playedCharacters.set(chosenChar - 1, true);
+        }
         return playedCharacters;
     }
 

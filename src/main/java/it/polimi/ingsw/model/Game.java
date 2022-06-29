@@ -1,6 +1,9 @@
 package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.characters.Character;
+import it.polimi.ingsw.model.characters.BlockIslandCharacter;
+import it.polimi.ingsw.model.characters.Character;
 
+import javax.print.DocFlavor;
 import java.io.Serializable;
 import java.util.*;
 
@@ -32,6 +35,7 @@ public class Game implements Serializable {
 
     Random randomizer = new Random();
     private Boolean over = false;
+    private Boolean advanced;
 
     public static Game makeGame(int numPlayers){
         List<Player> tableOrder = startPlayersandOrder(numPlayers);
@@ -86,32 +90,45 @@ public class Game implements Serializable {
 
 
     public void doSetUp(Boolean ad){
+        this.advanced = ad;
         round = 1;
         currentPlayer = currentOrder.get(0);
         fillClouds();
         fillAllEntrancesBag();
         gameMap.startMNAndStudents();
         if (ad){
-            characters = makeAllCharacters(this);
-            tableOrder.forEach(p->p.setCoins(1));
+            characters = makeAllCharacters();
+            //tableOrder.forEach(p->p.setCoins(1));
+            // TODO: 25/06/2022 REMOVE
+            tableOrder.forEach(p->p.setCoins(100));
         }
     }
 
-    private List<Character> makeAllCharacters(Game game){
+    private List<Character> makeAllCharacters(){
 
         characters = new ArrayList<>();
-//        List<Integer> availables = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 7, 8));
+        List<Integer> availables = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12));
 //        for (int i=0; i<3;i++) {
 //            Integer pickedChara;
 //            while(true) {
+//                //random 1~12
 //                pickedChara = 1 + randomizer.nextInt(Collections.max(availables));
 //                if (availables.contains(pickedChara)) {
 //                    availables.remove(pickedChara);
 //                    break;
 //                }
 //            }
-            characters.add(Character.makeCharacter(3, this));
+//            Character newCharacter = Character.makeCharacter(pickedChara,this);
+//            if (newCharacter.getClass().getSimpleName().equalsIgnoreCase("blockislandcharacter")){
+//                gameMap.setBlockChar((BlockIslandCharacter) newCharacter);
+//            }
+//            characters.add(newCharacter);
 //        }
+        characters.add(Character.makeCharacter(10,this));
+        characters.add(Character.makeCharacter(2,this));
+        Character blockChar = Character.makeCharacter(12,this);
+        gameMap.setBlockChar((BlockIslandCharacter) blockChar);
+        characters.add(blockChar);
         return characters;
     }
 
@@ -145,6 +162,11 @@ public class Game implements Serializable {
         int oldnum = bag.get(randstud);
         bag.replace(randstud, oldnum, oldnum - 1);
         return randstud;
+    }
+
+    public void addToBag(Student student, Integer num){
+        int oldnum = bag.get(student);
+        bag.replace(student, oldnum, oldnum + num);
     }
 
 
@@ -288,6 +310,10 @@ public class Game implements Serializable {
 
     public void setOver(Boolean over) {
         this.over = over;
+    }
+
+    public boolean isAdvanced() {
+        return advanced;
     }
 }
 

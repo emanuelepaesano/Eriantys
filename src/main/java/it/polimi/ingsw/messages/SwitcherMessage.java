@@ -9,10 +9,12 @@ import java.util.List;
 
 public class SwitcherMessage extends Repliable{
 
+    private final Boolean advanced;
     String text;
     List<Player> players;
 
-    public SwitcherMessage(List<Player> players) {
+    public SwitcherMessage(Boolean advanced, List<Player> players) {
+        this.advanced = advanced;
         this.players = players;
         text = "Which player's school do you want to see " +
                 "(Players: " + players + ") ?\n" + "To return to action selection, type '0' or 'back'";
@@ -44,4 +46,5 @@ public class SwitcherMessage extends Repliable{
     public List<Player> getOtherPlayers() {
         return players;
     }
+    public Boolean isGameAdvanced(){return advanced;}
 }

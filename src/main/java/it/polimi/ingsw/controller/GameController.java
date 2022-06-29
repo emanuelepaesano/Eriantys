@@ -16,9 +16,6 @@ public class GameController {
 
     private  List<PlayerController> controllers;
     private List<VirtualView> views;
-
-    private List<Player> winner;
-
     VirtualView firstPlayer;
     private Boolean advanced;
     private List<Boolean> playedCharacters;
@@ -47,7 +44,8 @@ public class GameController {
             }catch (DisconnectedException ex){ServerStarter.stopGame(false);}
         }
         if (advanced){
-            playedCharacters = new ArrayList<Boolean>();
+            playedCharacters = new ArrayList<>();
+            playedCharacters.add(false);
             playedCharacters.add(false);
             playedCharacters.add(false);
             playedCharacters.add(false);
@@ -180,6 +178,8 @@ private void askAllPlayerNames() {
         if (newOrder.size() == 0){ServerStarter.stopGame(false);}
         g.setCurrentOrder(newOrder);
     }
+
+
     /**
      * This is the main method for the action phase of each player. It asks the player which action they want to do
      * and then performs the action, until they used all of their moves.
@@ -187,6 +187,7 @@ private void askAllPlayerNames() {
     public void doActions(PlayerController pc) throws DisconnectedException {
         Player player = pc.getPlayer();
         EntranceController entranceController = pc.getEntranceController();
+        boolean alreadyPlayed = false;
         int availableActions = player.getNumActions();
         while (availableActions>0) {
             String action = askWhichAction(availableActions,pc);
@@ -202,11 +203,15 @@ private void askAllPlayerNames() {
                 }
             }
             else if (action.equalsIgnoreCase("characters")){
-                if(player.getCoins()!= null){
+                List<Boolean> oldPlayed = new ArrayList<>(playedCharacters);
+                if(player.getCoins()!= -1 && !alreadyPlayed){
                     playedCharacters = pc.playCharacters(game.getCharacters(),game, playedCharacters);
+                    if (!playedCharacters.equals(oldPlayed)){
+                        alreadyPlayed = true;
+                    }
                 }
                 else {
-                    new NoReplyMessage("This is not an advanced game!").send(pc.getPlayerView());
+                    new NoReplyMessage("You have already played a character this turn!").send(pc.getPlayerView());
                 }
             }
         }
@@ -218,12 +223,6 @@ private void askAllPlayerNames() {
         return pc.getPlayerView().getReply();
     }
 
-
-    public void setCurrentPlayer(Player player){
-        //the controller of that player...
-        PlayerController currentPC = controllers.get(controllers.stream().map(PlayerController::getPlayer).toList().indexOf(player));
-        game.setCurrentPlayer(currentPC.getPlayer());
-    }
     
     public void resetCharacters(Game game, PlayerController pc){
         if (advanced) {
@@ -237,9 +236,7 @@ private void askAllPlayerNames() {
         }
     }
 
-
-
-    //GETTER
+    //GETTERS
     public Game getGame() {
         return game;
     }
@@ -250,5 +247,8 @@ private void askAllPlayerNames() {
 
     public Map<Player, PlayerController> getControllerMap() {
         return controllerMap;
+    }
+    public List<Boolean> getPlayedCharacters() {
+        return playedCharacters;
     }
 }

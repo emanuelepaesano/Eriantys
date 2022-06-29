@@ -1,7 +1,11 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.characters.BlockIslandCharacter;
+import it.polimi.ingsw.model.characters.Character;
+
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Island implements Serializable {
     private int id;
@@ -9,6 +13,8 @@ public class Island implements Serializable {
     public Player owner;
     public int size;
     private Boolean joined;
+    private Boolean blocked;
+
 
 
     public Island(int id){
@@ -17,12 +23,13 @@ public class Island implements Serializable {
         students = Student.makeStudents();
         joined = false;
         owner = null;
+        blocked = false;
     }
     /**
      *
      * @return the Player who has the most influence in the island. Has to be called when mother nature lands on this
      */
-    //Now this is called only by moveMotherNatureAndCheck and returns a boolean for it to decide whether to join or not
+
     public Player checkOwner(List<Player> players) {
         Map<Player, Integer> influences = new HashMap<>();
         Player newOwner = this.owner;
@@ -43,6 +50,10 @@ public class Island implements Serializable {
             newOwner.setNumTowers(newOwner.getNumTowers() - this.size);
         }
         return newOwner;
+    }
+
+    public void replaceStudent(Student stud, Integer value){
+        students.replace(stud, value);
     }
 
 
@@ -83,6 +94,14 @@ public class Island implements Serializable {
 
     public void setJoined(Boolean joined) {
         this.joined = joined;
+    }
+
+    public Boolean isBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(Boolean blocked) {
+        this.blocked = blocked;
     }
 }
 

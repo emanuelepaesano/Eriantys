@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -19,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Switcher implements View {
+
+    public AnchorPane mainPane;
     public AnchorPane container;
     public Button school;
     public Button islands;
@@ -26,6 +29,7 @@ public class Switcher implements View {
     public Button assistants;
     public Button player1;
     public Button player2;
+    public Button characters;
 
     private Stage stage;
 
@@ -60,12 +64,21 @@ public class Switcher implements View {
         uim.getGenInfoView();
         uim.getSchoolView();
         uim.getPlanningPhaseView();
-
+        uim.getCharactersView();
+        Image img = new Image("assets/pastel blue background.jpg");
+        BackgroundImage bImg = new BackgroundImage(img, BackgroundRepeat.REPEAT,
+                BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        Background bGround = new Background(bImg);
+        mainPane.setBackground(bGround);
     }
+
     @Override
     public void fillInfo(Message mes) {
         SwitcherMessage message = (SwitcherMessage) mes;
         this.players = message.getOtherPlayers();
+        if (!message.isGameAdvanced()){
+            characters.setVisible(false);
+        }
         if (this.players.size() == 1) {
             player1.setText(this.players.get(0).getPlayerName());
             player1.setVisible(true);
@@ -96,6 +109,10 @@ public class Switcher implements View {
         Platform.runLater(()->gameScene.getChildren().setAll(uim.getPlanningPhaseRoot()));
     }
 
+    public void toCharacters() {
+        Platform.runLater(()->gameScene.getChildren().setAll(uim.getCharactersRoot()));
+    }
+
     public void toPlayer1() {
         Platform.runLater(()->gameScene.getChildren().setAll(uim.getP1SchoolRoot()));
     }
@@ -103,4 +120,5 @@ public class Switcher implements View {
     public void toPlayer2() {
         Platform.runLater(()->gameScene.getChildren().setAll(uim.getP2SchoolRoot()));
     }
+
 }

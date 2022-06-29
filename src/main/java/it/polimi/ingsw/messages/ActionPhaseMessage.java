@@ -2,15 +2,20 @@ package it.polimi.ingsw.messages;
 
 import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.CLIENT.View;
+import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.model.Student;
 import it.polimi.ingsw.model.characters.Character;
 import it.polimi.ingsw.model.Player;
+import javafx.application.Platform;
 
+import javax.swing.*;
 import java.util.List;
+import java.util.Map;
 
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.*;
+import static java.util.stream.Collectors.toList;
 
-public class ActionPhaseMessage extends Repliable{
+public class ActionPhaseMessage extends Repliable implements Message{
 
     String text;
     Player player;
@@ -44,34 +49,53 @@ public class ActionPhaseMessage extends Repliable{
     public ActionPhaseMessage(Player player, ActionPhaseType type) {
         this.player = player;
         this.type = type;
-        if (type.equals(studselect)){
+        if (type.equals(selectFromDR)){
+            Map<Student,Integer> diningRoomStudents = player.getDiningRoom().getTables();
+            text =  "Select one student to replace from your Dining Room:\n" +
+                    (diningRoomStudents.keySet().
+                    stream().filter(s->(diningRoomStudents.get(s)>0)).toList());
+        }
+        else if (type.equals(studselect)){
+            List<Student> entranceStudents = player.getEntrance().getStudents();
             text = "Choose a student color from the available ones:\n{";
-            for (Student student : player.getEntrance().getStudents()) {
+            for (Student student : entranceStudents) {
                 text += "(" + student + ")";
             }
             text += "} or type \"back\" to annull.";
         }
-        else {text = "Your entrance: "+ player.getEntrance().toString();}
+        else {text = player.getEntrance().toString();}
     }
+
 
     public enum ActionPhaseType {
         yourturn,
         howmany,
         update,
         studselect,
-        endActions,
-
-        TEST;
+        selectFromDR,
+        endActions;
     }
 
+    @Override
+    public void send(VirtualView user) {
+        user.update(this);
+    }
 
+    @Override
+    public void send(List<VirtualView> all) {
+        all.forEach(v->v.update(this));
+    }
+
+    @Override
+    public String getView() {
+        return "actionview";
+    }
 
     @Override
     public void switchAndFillView() {
         UIManager uim = UIManager.getUIManager();
-        View apv = uim.getSchoolView();
-        apv.fillInfo(this);
-//        apv.display();
+        View school = uim.getSchoolView();
+        Platform.runLater(()-> school.fillInfo(this));
         uim.getSwitcher().toSchool();
     }
 

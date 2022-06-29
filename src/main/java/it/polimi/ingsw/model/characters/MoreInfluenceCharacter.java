@@ -9,31 +9,27 @@ import it.polimi.ingsw.model.Player;
  */
 class MoreInfluenceCharacter extends Character {
 
-    int cost;
-    int maxCost;
-
     public MoreInfluenceCharacter() {
         this.cost = 1;
         this.maxCost = 2;
+        description="You will have +2 Influence on Islands for this turn.";
+        this.number = 3;
     }
 
-    public void play(Game game, PlayerController pc) {
+    public boolean play(Game game, PlayerController pc) {
         Player player = pc.getPlayer();
         //this turn +2 influence (n.b. you cant combine characters)
         if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
-            return;}
+            return false;}
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
-            player.setBaseInfluence(2);
-
+        player.setBaseInfluence(2);
+        return true;
     }
 
     public void reset(Game game, PlayerController pc){
         Player player = pc.getPlayer();
         player.setBaseInfluence(0);
-    }
-    public int getCost() {
-        return cost;
     }
 
 }

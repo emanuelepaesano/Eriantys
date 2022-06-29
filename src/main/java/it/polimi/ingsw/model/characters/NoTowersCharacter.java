@@ -11,25 +11,30 @@ import java.util.List;
  * This turn towers will not count towards influence
  */
 class NoTowersCharacter extends Character {
-    int cost;
-    int maxCost;
+
+    public List<Integer> getOldsizes() {
+        return oldsizes;
+    }
+
     List<Integer> oldsizes;
 
     public NoTowersCharacter() {
         this.cost = 3;
         this.maxCost = 4;
+        description="When resolving an island, Towers will not count towards influence for this turn.";
+        this.number = 6;
     }
-
-    public void play(Game game, PlayerController pc){
+    public boolean play(Game game, PlayerController pc){
         Player player = pc.getPlayer();
         if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
-            return;}
+            return false;}
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
         List<Island> islands = game.getGameMap().getArchipelago();
         oldsizes = islands.stream().map(Island::getSize).toList();
             //we either make size 0 or  change the checkowner
         islands.forEach(island -> island.setSize(0));
+        return true;
     }
 
     public void reset(Game game, PlayerController pc){
@@ -37,9 +42,6 @@ class NoTowersCharacter extends Character {
         islands.forEach(island ->
                 island.setSize(oldsizes.get(islands.indexOf(island)))
         );
-        oldsizes.clear();
-    }
-    public int getCost() {
-        return cost;
+        oldsizes = null;
     }
 }

@@ -4,12 +4,14 @@ import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.messages.ActionPhaseMessage;
 import it.polimi.ingsw.messages.PickStudMessage;
+import it.polimi.ingsw.messages.PlayCharMessage;
 
+import javax.swing.*;
 import java.util.*;
 
+import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.selectFromDR;
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.studselect;
-// TODO: 11/04/2022
-//  -> add abbreviations
+
 
 public enum Student {
     YELLOW,
@@ -37,15 +39,11 @@ public enum Student {
             default -> {return "";}
         }
     }
-
-    // TODO: 17/06/2022 We cannot keep the catch like this, but idk what was done with the characters.
-    public static String askStudent(List<Student> students, VirtualView user, String whereFrom) {
-        String str = "";
+    public static String askStudent(List<Student> students, VirtualView user, int indexChar) throws DisconnectedException{
+        String str;
         try{
-            new PickStudMessage(students, whereFrom).send(user);
-            try {
-                str = user.getReply();
-            }catch (DisconnectedException ex){}
+            new PlayCharMessage(students, indexChar).sendAndCheck(user);
+            str = user.getReply();
             if (Objects.equals(str, "back")) {return "back";}
             else {
                 Student.valueOf(str.toUpperCase());
@@ -59,10 +57,13 @@ public enum Student {
 
     }
 
-    public static String askStudent(Player player, VirtualView user) throws DisconnectedException {
+    public static String askStudent(Player player, VirtualView user, boolean diningRoom) throws DisconnectedException{
         String str;
         try{
-            new ActionPhaseMessage(player, studselect).sendAndCheck(user);
+            if (diningRoom){
+                new ActionPhaseMessage(player, selectFromDR).sendAndCheck(user);
+            }
+            else {new ActionPhaseMessage(player, studselect).sendAndCheck(user);}
             str = user.getReply();
             if (Objects.equals(str, "back")) {return "back";}
             else {

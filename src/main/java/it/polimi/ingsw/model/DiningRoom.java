@@ -12,13 +12,11 @@ public class DiningRoom implements Serializable {
 
     private Integer coins;
 
-
     public DiningRoom(){
         this.tables = Student.makeStudents();
         this.professors= makeProfessors();
-        coins = null; //the game will set this to 1 later in case of advanced variant
+        coins = -1; //the game will set this to 1 later in case of advanced variant
     }
-
 
     public void putStudent(Student student){
         int oldnum = this.tables.get(student);
@@ -43,20 +41,21 @@ public class DiningRoom implements Serializable {
     }
 
 
-    public void checkProfessors(List<Player> players, Boolean orEqual) {
-        //look into all players to see if we get that professor (for every table)
-        //N.B: we win only with strictly more students
+    public void checkAllProfessors(List<Player> players, Boolean orEqual) {
         for (Student table : Student.values()) {
-            int countwins;
-            if (orEqual) {countwins= countOrEqualWins(players, table);}
-            else {countwins = countNormalWins(players,table);}
-            //you need enough wins, but with orEqual you will also beat yourself
-            if (orEqual? countwins == (players.size()) : countwins == (players.size()) - 1) {
-                for (Player p : players) {
-                    p.getDiningRoom().professors.replace(table, true, false);
-                }
-                this.professors.replace(table, true);
+            checkOneProfessor(table,players,orEqual);
+        }
+    }
+    public void checkOneProfessor(Student student, List<Player> players, Boolean orEqual){
+        int countwins;
+        if (orEqual) {countwins = countOrEqualWins(players, student);}
+        else {countwins = countNormalWins(players,student);}
+        //you need enough wins, but with orEqual you will also beat yourself
+        if (orEqual? countwins==(players.size()) : countwins==(players.size()-1) ) {
+            for (Player p : players) {
+                p.getDiningRoom().professors.replace(student, false);
             }
+            this.professors.replace(student, true);
         }
     }
 
@@ -92,17 +91,12 @@ public class DiningRoom implements Serializable {
         return dr.toString();
     }
 
-    public Map<Student, Integer> getTables() {
-        return tables;
-    }
+    public Map<Student, Integer> getTables() {return tables;}
 
     public Map<Student, Boolean> getProfessors() {
         return professors;
     }
 
-    public void setProfessors(Map<Student, Boolean> professors) {
-        this.professors = professors;
-    }
     int getCoins() { return coins;}
 
     void setCoins(int coins) {this.coins = coins;}

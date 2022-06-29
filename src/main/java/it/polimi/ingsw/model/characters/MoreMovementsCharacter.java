@@ -8,24 +8,24 @@ import it.polimi.ingsw.model.Player;
  * For this turn, player has +2 Mother Nature movements
  */
 class MoreMovementsCharacter extends Character {
-    int cost;
-    int maxCost;
-
 
     public MoreMovementsCharacter( ) {
         this.cost = 1;
         this.maxCost = 2;
+        description="You may move Mother Nature up to 2 additional islands than is indicated" +
+                " by the Assistant you played.";
+        this.number = 4;
 
     }
 
-    public synchronized void play(Game game, PlayerController pc){
+    public boolean play(Game game, PlayerController pc){
         Player player = pc.getPlayer();
         if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
-            return;}
+            return false;}
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
-
         player.setBaseMoves(2);
+        return true;
 
 
     }
@@ -35,7 +35,4 @@ class MoreMovementsCharacter extends Character {
         player.setBaseMoves(0);
     }
 
-    public int getCost() {
-        return cost;
-    }
 }

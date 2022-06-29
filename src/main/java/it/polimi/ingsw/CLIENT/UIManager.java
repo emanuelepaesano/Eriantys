@@ -80,8 +80,10 @@ public class UIManager extends Application{
             System.out.println("Starting connection to game server.\n" +
             "Please insert server ip address, or type \"localhost\" for local game.");
             String ip = scanner.nextLine();
+            if (ip.equals("")){ip = "localhost";}
             System.out.println("Insert server connection port (default is 1337).");
-            int port = Integer.parseInt(scanner.nextLine());
+            String string = scanner.nextLine();
+            int port = Integer.parseInt(string.equals("")? "1337":string);
             cliView = new CLIView(nh);
             nh.startConnection(ip ,port);
             nh.startListenerThread();
@@ -135,7 +137,7 @@ public class UIManager extends Application{
         if (genInfoView ==null){
             try {
                 System.out.println("i'm making a new controller");
-                FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/GenInfoView.fxml"));
+                FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/IslandView.fxml"));
                 genInfoRoot = loginLoader.load();
                 genInfoView = loginLoader.getController();
             }catch(IOException ex){ex.printStackTrace();}
@@ -192,13 +194,27 @@ public class UIManager extends Application{
         return schoolView;
     }
 
+    private View charactersView;
+    private Parent charactersRoot;
+    public Parent getCharactersRoot() {
+        return charactersRoot;
+    }
+    public View getCharactersView(){
+        if (this.charactersView ==null){
+            try {
+                FXMLLoader actionPhaseLoader = new FXMLLoader(getClass().getResource("/CharactersView.fxml"));
+                charactersRoot = actionPhaseLoader.load();
+                charactersView = actionPhaseLoader.getController();
+            }catch(IOException ex){ex.printStackTrace();}
+        }
+        return charactersView;
+    }
+
     private View p1SchoolView;
     private Parent p1SchoolRoot;
-
     public Parent getP1SchoolRoot() {
         return p1SchoolRoot;
     }
-
     public View getP1SchoolView(){
         if (this.p1SchoolView ==null){
             try {

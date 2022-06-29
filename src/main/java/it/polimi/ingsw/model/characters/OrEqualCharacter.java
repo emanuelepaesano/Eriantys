@@ -7,35 +7,31 @@ import it.polimi.ingsw.model.Player;
 /**
  * For this turn, >= instead of > in checkProfessors()
  */
-class CheckProfCharacter extends Character {
-    int cost;
-    int maxCost;
+class OrEqualCharacter extends Character {
 
 
-    public CheckProfCharacter() {
+    public OrEqualCharacter() {
         this.cost = 2;
         this.maxCost = 3;
-
+        description = "For this turn, you can gain Professors also if" +
+                " you have THE SAME number of Students as your best opponent.\nN.B.: You still need" +
+                " to move at least one Student of that color to the Dining Room.";
+        this.number = 2;
 
     }
 
-    public synchronized void play(Game game, PlayerController pc) {
+    public boolean play(Game game, PlayerController pc) {
         Player player = pc.getPlayer();
         if (!Character.enoughMoney(player,cost)){
             System.err.println("You don't have enough money!");
-            return;}
+            return false;}
         this.cost = Character.payandUpdateCost(player,cost, maxCost);
-
         player.setOrEqual(true);
-
-
+        return true;
     }
 
     public void reset (Game game, PlayerController pc){
         Player player = pc.getPlayer();
         player.setOrEqual(false);
-    }
-    public int getCost() {
-        return cost;
     }
 }
