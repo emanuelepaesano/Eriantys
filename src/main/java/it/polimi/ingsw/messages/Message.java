@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class Message implements Serializable {
-
+    private static final long serialVersionUID = 6529685098267757690L;
 
     public void sendAndCheck(VirtualView user) throws DisconnectedException {
         if (user.isDisconnected()){throw new DisconnectedException();}
