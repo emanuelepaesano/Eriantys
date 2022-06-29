@@ -8,15 +8,22 @@
 - CLI
 - GUI
 - Socket
-
+- Character Cards
+- Resilience to Disconnects
 
 # How to run the application
 ## Server
-1. Run server.jar
+1. Run `server.jar`
+2. Check the IP address of your machine
 
 ## Client
-2. Run client.jar
-   1. Select the type of interface (Graphical Interface or Command Line)
-   2. Enter the server IP address
-   3. Enter the server port number
-   4. The game starts
+1. Run `client.jar`
+2. Select the type of interface
+   1. Graphical Interface
+   2. Command Line
+3. Enter the server IP address
+4. Enter the server port number (DELETE?)
+5. Enter your nickname
+6. Choose a Tower Color
+7. Choose a Wizard
+8. The game starts
