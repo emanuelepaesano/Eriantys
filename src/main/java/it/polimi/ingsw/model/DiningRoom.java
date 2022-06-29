@@ -47,17 +47,22 @@ public class DiningRoom implements Serializable {
         //look into all players to see if we get that professor (for every table)
         //N.B: we win only with strictly more students
         for (Student table : Student.values()) {
-            int countwins;
-            if (orEqual) {countwins= countOrEqualWins(players, table);}
-            else {countwins = countNormalWins(players,table);}
-            //you need enough wins, but with orEqual you will also beat yourself
-            if (orEqual? countwins == (players.size()) : countwins == (players.size()) - 1) {
-                for (Player p : players) {
-                    p.getDiningRoom().professors.replace(table, true, false);
-                }
-                this.professors.replace(table, true);
-            }
+            checkOneProfessor(table,players,orEqual);
         }
+    }
+
+    public void checkOneProfessor(Student student, List<Player> players, Boolean orEqual){
+        int countwins;
+        if (orEqual) {countwins = countOrEqualWins(players, student);}
+        else {countwins = countNormalWins(players,student);}
+        //you need enough wins, but with orEqual you will also beat yourself
+        if (orEqual? countwins==(players.size()) : countwins==(players.size()-1) ) {
+            for (Player p : players) {
+                p.getDiningRoom().professors.replace(student, true, false);
+            }
+            this.professors.replace(student, true);
+        }
+
     }
 
     private int countNormalWins(List<Player> players, Student table){
@@ -73,6 +78,11 @@ public class DiningRoom implements Serializable {
     private int countOrEqualWins(List<Player> players, Student table){
         int countwins = 0;
         for (Player p : players) {
+            if (this.tables.get(table) == 0){
+                //check if anyone has that professor. If they do we can steal it,
+                //otherwise we don't get it with zero
+                List<Player> profOwner = players.stream().filter(player->player.getDiningRoom().getProfessors().get(table)).toList();
+            }
             if (this.tables.get(table) >= p.getDiningRoom().tables.get(table)) {
                 countwins += 1;
             }

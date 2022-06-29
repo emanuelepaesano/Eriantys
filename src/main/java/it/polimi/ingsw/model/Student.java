@@ -5,8 +5,10 @@ import it.polimi.ingsw.messages.ActionPhaseMessage;
 import it.polimi.ingsw.messages.PickStudMessage;
 import it.polimi.ingsw.messages.PlayCharMessage;
 
+import javax.swing.*;
 import java.util.*;
 
+import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.selectFromDR;
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.studselect;
 // TODO: 11/04/2022
 //  -> add abbreviations
@@ -38,7 +40,6 @@ public enum Student {
         }
     }
     public static String askStudent(List<Student> students, VirtualView user, int indexChar){
-        //99 is a special index only for when you have to move from the dining room
         String str;
         try{
             new PlayCharMessage(students, indexChar).send(user);
@@ -56,10 +57,13 @@ public enum Student {
 
     }
 
-    public static String askStudent(Player player, VirtualView user){
+    public static String askStudent(Player player, VirtualView user, boolean diningRoom){
         String str;
         try{
-            new ActionPhaseMessage(player).send(user);
+            if (diningRoom){
+                new ActionPhaseMessage(player, selectFromDR).send(user);
+            }
+            else {new ActionPhaseMessage(player, studselect).send(user);}
             str = user.getReply();
             if (Objects.equals(str, "back")) {return "back";}
             else {

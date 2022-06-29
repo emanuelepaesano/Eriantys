@@ -2,11 +2,14 @@ package it.polimi.ingsw.model.characters;
 
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.messages.IslandInfoMessage;
 import it.polimi.ingsw.messages.StringMessage;
 import it.polimi.ingsw.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.updateMap;
 
 /**
  * You can take 1 student from this character and move it to an island.
@@ -103,6 +106,7 @@ import java.util.List;
         chosenIsland.getStudents().replace(chosenStudent, oldval, oldval + 1);
         students.add(game.drawFromBag());
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
+        new IslandInfoMessage(game, updateMap).send(pc.getPlayerView());
         return true;
     }
 

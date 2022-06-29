@@ -123,9 +123,11 @@ public class Game implements Serializable {
 //            }
 //            characters.add(newCharacter);
 //        }
-        characters.add(Character.makeCharacter(7,this));
-        characters.add(Character.makeCharacter(5,this));
-        characters.add(Character.makeCharacter(9,this));
+        characters.add(Character.makeCharacter(8,this));
+        characters.add(Character.makeCharacter(11,this));
+        Character blockChar = Character.makeCharacter(12,this);
+        gameMap.setBlockChar((BlockIslandCharacter) blockChar);
+        characters.add(blockChar);
         return characters;
     }
 
@@ -246,28 +248,6 @@ public class Game implements Serializable {
         }
         round +=1;
         fillClouds();
-    }
-
-
-    public static void main(String[] args) {
-        //small test for wait and notify
-//        Game game = Game.makeGame(3);
-//        game.doSetUp(true);
-//        for (Character c : game.characters)
-//        {
-//            System.out.println(c);
-//        }
-//        Character chara = game.characters.get(0);
-//        game.getCurrentPlayer().setCoins(3);
-//        Player user = game.currentPlayer;
-//        System.out.println("current player: "+ game.getCurrentPlayer());
-//        Character.play(chara,game, user);
-//        game.gameMap.getArchipelago().get(0).checkOwner(game.getTableOrder());
-//        synchronized (game.characters.get(0)) {
-//            game.setCurrentPlayer(game.getTableOrder().get(1));
-//            System.out.println("current player: "+ game.getCurrentPlayer());
-//            game.characters.get(0).notifyAll();
-//        }
     }
 
 

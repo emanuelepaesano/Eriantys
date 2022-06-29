@@ -7,10 +7,10 @@ import it.polimi.ingsw.model.Player;
 /**
  * For this turn, >= instead of > in checkProfessors()
  */
-class CheckProfCharacter extends Character {
+class OrEqualCharacter extends Character {
 
 
-    public CheckProfCharacter() {
+    public OrEqualCharacter() {
         this.cost = 2;
         this.maxCost = 3;
         description = "For this turn, you can gain Professors also if" +

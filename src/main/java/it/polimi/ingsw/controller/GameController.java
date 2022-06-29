@@ -230,4 +230,7 @@ public class GameController {
     public Map<Player, PlayerController> getControllerMap() {
         return controllerMap;
     }
+    public List<Boolean> getPlayedCharacters() {
+        return playedCharacters;
+    }
 }

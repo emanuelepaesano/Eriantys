@@ -19,7 +19,7 @@ public abstract class Character implements Serializable {
     public static Character makeCharacter(Integer chara, Game game) {
         return switch (chara) {
             case 1 -> new CheckOwnerCharacter();
-            case 2 -> new CheckProfCharacter();
+            case 2 -> new OrEqualCharacter();
             case 3 -> new MoreInfluenceCharacter();
             case 4 -> new MoreMovementsCharacter();
             case 5 -> new MoveToDRCharacter(List.of(game.drawFromBag(),

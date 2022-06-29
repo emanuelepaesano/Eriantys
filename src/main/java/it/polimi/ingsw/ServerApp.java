@@ -63,7 +63,12 @@ public class ServerApp {
                 new IslandInfoMessage(game, updateMap).send(server.views);
                 new ActionPhaseMessage(pc.getPlayer(),update).send(pc.getPlayerView());
                 if (game.isAdvanced()){
-                    game.getCharacters().forEach(c->c.reset(game,pc));
+                    // TODO: 29/06/2022 this sucks
+                    for (int i = 0;i<3;i++){
+                        if (gc.getPlayedCharacters().get(i)){
+                            game.getCharacters().get(i).reset(game,pc);
+                        }
+                    }
                 }
                 game.checkGameEndCondition("towerend", player);
                 game.checkGameEndCondition("islandend", player);

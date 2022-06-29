@@ -8,9 +8,12 @@ import it.polimi.ingsw.model.characters.Character;
 import it.polimi.ingsw.model.Player;
 import javafx.application.Platform;
 
+import javax.swing.*;
 import java.util.List;
+import java.util.Map;
 
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.*;
+import static java.util.stream.Collectors.toList;
 
 public class ActionPhaseMessage extends Repliable implements Message{
 
@@ -46,25 +49,30 @@ public class ActionPhaseMessage extends Repliable implements Message{
     public ActionPhaseMessage(Player player, ActionPhaseType type) {
         this.player = player;
         this.type = type;
-        text = player.getEntrance().toString();
+        if (type.equals(selectFromDR)){
+            Map<Student,Integer> diningRoomStudents = player.getDiningRoom().getTables();
+            text =  "Select one student to replace from your Dining Room:\n" +
+                    (diningRoomStudents.keySet().
+                    stream().filter(s->(diningRoomStudents.get(s)>0)).toList());
+        }
+        else if (type.equals(studselect)){
+            List<Student> entranceStudents = player.getEntrance().getStudents();
+            text = "Choose a student color from the available ones:\n{";
+            for (Student student : entranceStudents) {
+                text += "(" + student + ")";
+            }
+            text += "} or type \"back\" to annull.";
+        }
+        else {text = player.getEntrance().toString();}
     }
 
-    public ActionPhaseMessage(Player player){
-        this.type = studselect;
-        this.player = player;
-        List<Student> entranceStudents = player.getEntrance().getStudents();
-        text = "Choose a student color from the available ones:\n{";
-        for (Student student : entranceStudents) {
-            text += "(" + student + ")";
-        }
-        text += "} or type \"back\" to annull.";
-    }
 
     public enum ActionPhaseType {
         yourturn,
         howmany,
         update,
         studselect,
+        selectFromDR,
         endActions;
     }
 
@@ -86,9 +94,8 @@ public class ActionPhaseMessage extends Repliable implements Message{
     @Override
     public void switchAndFillView() {
         UIManager uim = UIManager.getUIManager();
-        View apv = uim.getSchoolView();
-        apv.fillInfo(this);
-//        apv.display();
+        View school = uim.getSchoolView();
+        Platform.runLater(()-> school.fillInfo(this));
         uim.getSwitcher().toSchool();
     }
 

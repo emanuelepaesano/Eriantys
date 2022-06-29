@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 import java.util.List;
 import java.util.Map;
 
+import static it.polimi.ingsw.model.Student.*;
+
 public class SchoolView implements View {
 
     public ImageView e1b; public ImageView e1g; public ImageView e1p; public ImageView e1r; public ImageView e1y;
@@ -63,18 +65,10 @@ public class SchoolView implements View {
 
     Player player;
     Stage stage;
-
     NetworkHandler nh;
-
     List<List<ImageView>> entranceImageViewList;
-
-
     Map<Student, List<ImageView>> diningRoomImageViewMap;
-
-
     Map<Student, ImageView> professorsImageViewList;
-
-
     Map<TowerColor, List<ImageView>> towersImageViewList;
 
 
@@ -106,13 +100,13 @@ public class SchoolView implements View {
                 List.of(e7b, e7g, e7p, e7r, e7y), List.of(e8b, e8g, e8p, e8r, e8y),
                 List.of(e9b, e9g, e9p, e9r, e9y));
         diningRoomImageViewMap =
-                Map.of(Student.GREEN, List.of(dg1, dg2, dg3, dg4, dg5, dg6, dg7, dg8, dg9, dg10),
+                Map.of(GREEN, List.of(dg1, dg2, dg3, dg4, dg5, dg6, dg7, dg8, dg9, dg10),
                 Student.RED, List.of(dr1, dr2, dr3, dr4, dr5, dr6, dr7, dr8, dr9, dr10),
                 Student.YELLOW, List.of(dy1, dy2, dy3, dy4, dy5, dy6, dy7, dy8, dy9, dy10),
                 Student.PINK, List.of(dp1, dp2, dp3, dp4, dp5, dp6, dp7, dp8, dp9, dp10),
                 Student.BLUE, List.of(db1, db2, db3, db4, db5, db6, db7, db8, db9, db10));
         professorsImageViewList =
-                Map.of(Student.GREEN, pg, Student.RED, pr, Student.YELLOW, py, Student.PINK, pp, Student.BLUE, pb);
+                Map.of(GREEN, pg, Student.RED, pr, Student.YELLOW, py, Student.PINK, pp, Student.BLUE, pb);
         towersImageViewList=
                 Map.of(TowerColor.WHITE, List.of(t1w, t2w, t3w, t4w, t5w, t6w, t7w, t8w),
                 TowerColor.BLACK, List.of(t1b, t2b, t3b, t4b, t5b, t6b, t7b, t8b),
@@ -142,6 +136,8 @@ public class SchoolView implements View {
     public void fillInfo(Message mes) {
         ActionPhaseMessage message = (ActionPhaseMessage) mes;
         this.player = message.getPlayer();
+        disableAllDR();
+        entranceImageViewList.forEach(list -> list.forEach(img -> img.setDisable(false)));
         if (!(message.getPlayer().getCoins() == null)){
             characters.setVisible(true);
             coinImage.setVisible(true);
@@ -167,6 +163,10 @@ public class SchoolView implements View {
                 back.setVisible(true);
                 break;
 
+            case selectFromDR:
+                enableAllDR();
+                break;
+                
             case endActions:
                 back.setVisible(false);
                 moveToIsland.setDisable(true);
@@ -182,6 +182,8 @@ public class SchoolView implements View {
         bindProfessors();
         bindTowers();
     }
+
+
 
     public void setEntranceInvisible() {
         for (List<ImageView> l: entranceImageViewList) {
@@ -200,7 +202,7 @@ public class SchoolView implements View {
                 entranceImageViewList.get(index).get(0).setVisible(true);
                 index++;
                 continue;
-            } else if (s == Student.GREEN) {
+            } else if (s == GREEN) {
                 entranceImageViewList.get(index).get(1).setVisible(true);
                 index++;
                 continue;
@@ -265,7 +267,6 @@ public class SchoolView implements View {
     public void bindTowers() {
         setTowersInvisible();
         towLabel.setText("Towers: " + player.getNumTowers().toString());
-
         TowerColor towerColor = player.getTowerColor();
         Integer towerNum = player.getNumTowers();
         List<ImageView> towersImageView = towersImageViewList.get(towerColor);
@@ -319,10 +320,47 @@ public class SchoolView implements View {
     public void islandSelected(){
         nh.sendMessage("islands");
     }
+    public void characterSelected(ActionEvent actionEvent) {nh.sendReply("characters");}
+
     public void sendBack(){
         nh.sendMessage("back");
         back.setVisible(false);
     }
 
-    public void characterSelected(ActionEvent actionEvent) {nh.sendReply("characters");}
+
+
+    public void yellowSelectedInDR(MouseEvent mouseEvent) {
+        nh.sendMessage("yellow");
+        disableAllDR();
+    }
+    public void redSelectedInDR(MouseEvent mouseEvent) {
+        nh.sendMessage("red");
+        disableAllDR();
+    }
+    public void pinkSelectedInDR(MouseEvent mouseEvent) {
+        nh.sendMessage("pink");
+        disableAllDR();
+    }
+    public void greenSelectedInDR(MouseEvent mouseEvent) {
+        nh.sendMessage("green");
+        disableAllDR();
+    }
+    public void blueSelectedInDR(MouseEvent mouseEvent) {
+        nh.sendMessage("blue");
+        disableAllDR();
+    }
+    public void disableAllDR(){
+        diningRoomImageViewMap.get(GREEN).forEach(img->img.setDisable(true));
+        diningRoomImageViewMap.get(RED).forEach(img->img.setDisable(true));
+        diningRoomImageViewMap.get(YELLOW).forEach(img->img.setDisable(true));
+        diningRoomImageViewMap.get(PINK).forEach(img->img.setDisable(true));
+        diningRoomImageViewMap.get(BLUE).forEach(img->img.setDisable(true));
+    }
+    private void enableAllDR() {
+        diningRoomImageViewMap.get(GREEN).forEach(img->img.setDisable(false));
+        diningRoomImageViewMap.get(RED).forEach(img->img.setDisable(false));
+        diningRoomImageViewMap.get(YELLOW).forEach(img->img.setDisable(false));
+        diningRoomImageViewMap.get(PINK).forEach(img->img.setDisable(false));
+        diningRoomImageViewMap.get(BLUE).forEach(img->img.setDisable(false));
+    }
 }

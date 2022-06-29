@@ -53,20 +53,24 @@ class ReplaceFromEntranceCharacter extends Character {
 
     private void pickStudentsFromEntrance(Player player,VirtualView user){
         Student student;
-        List<Student> entranceStudentsCopy = new ArrayList<>(player.getEntrance().getStudents());
+        List<Student> entranceStudents = player.getEntrance().getStudents();
         while (true) {
             new StringMessage("Choose a student from your entrance to replace it with chosen students.").send(user);
-            String str = Student.askStudent(player, user).toUpperCase();
+            String str = Student.askStudent(player, user, false).toUpperCase();
             if (str.equals("RETRY")){continue;}
-            if (str.equals("BACK")){return;}
+            if (str.equals("BACK")){
+                //this will annull the play
+                entranceStudents.addAll(chosenStudentsFromEntrance);
+                return;
+            }
             else if (List.of(Student.values()).contains(Student.valueOf(str))) {
                 student = Student.valueOf(str);
-                if (!entranceStudentsCopy.contains(student)){
+                if (!entranceStudents.contains(student)){
                     new StringMessage(Game.ANSI_RED+"Your entrance does not have that student! Try again"+Game.ANSI_RESET).send(user);
                     continue;
                 }
                 chosenStudentsFromEntrance.add(student);
-                entranceStudentsCopy.remove(student);
+                entranceStudents.remove(student);
                 if (chosenStudentsFromEntrance.size()==chosenStudents.size()){
                     break;
                 }
@@ -91,6 +95,7 @@ class ReplaceFromEntranceCharacter extends Character {
             }
         }
         pickStudentsFromEntrance(pc.getPlayer(),pc.getPlayerView());
+
         if (!(chosenStudentsFromEntrance.size() == chosenStudents.size())){
             new StringMessage("Annulling character play. ").send(pc.getPlayerView());
             chosenStudentsFromEntrance.clear();
@@ -100,7 +105,6 @@ class ReplaceFromEntranceCharacter extends Character {
         chosenStudents.forEach(s->students.remove(s));
         students.addAll(chosenStudentsFromEntrance);
 
-        chosenStudentsFromEntrance.forEach(s->pc.getPlayer().getEntrance().getStudents().remove(s));
         pc.getPlayer().getEntrance().getStudents().addAll(chosenStudents);
 
         player.getDiningRoom().checkProfessors(game.getTableOrder(),false);

@@ -51,8 +51,6 @@ public class CharactersView implements View {
     public ImageView orEqual3; public ImageView zeroPointStudent3; public ImageView exchangeStudents3;
     public ImageView returnStudent3; public ImageView moveEntranceDR3; public ImageView placeInIsland3;
     public ImageView blockIsland3; public ImageView moreMovements3; public ImageView movetoDR3;
-
-
     public AnchorPane p11; public AnchorPane p12; public AnchorPane p13; public AnchorPane p14; public AnchorPane p15;public AnchorPane p16;
     public AnchorPane p21; public AnchorPane p22; public AnchorPane p23; public AnchorPane p24; public AnchorPane p25;public AnchorPane p26;
     public AnchorPane p31; public AnchorPane p32; public AnchorPane p33; public AnchorPane p34; public AnchorPane p35;public AnchorPane p36;
@@ -60,9 +58,7 @@ public class CharactersView implements View {
     public Text text1;public Text text2;public Text text3;
     public Text cost1;public Text cost2;public Text cost3;
     public Polyline fumetto1;public Polyline fumetto2;public Polyline fumetto3;
-
-
-    private Image yellow;private Image blue;private Image red;private Image green;private Image pink;
+    public Button done1;public Button done2;public Button done3;
 
 
     Stage stage;
@@ -78,11 +74,11 @@ public class CharactersView implements View {
 
 
     public void initialize(){
-        yellow = new Image("assets/student_yellow.png",true);
-        blue =new Image("assets/student_blue.png",true);
-        red =new Image("assets/student_red.png",true);
-        green =new Image("assets/student_green.png",true);
-        pink =new Image("assets/student_pink.png",true);
+        Image yellow = new Image("assets/student_yellow.png",true);
+        Image blue =new Image("assets/student_blue.png",true);
+        Image red =new Image("assets/student_red.png",true);
+        Image green =new Image("assets/student_green.png",true);
+        Image pink =new Image("assets/student_pink.png",true);
         currentStudents = List.of(new ArrayList<>(List.of()),new ArrayList<>(List.of()),new ArrayList<>(List.of()));
         nh = UIManager.getUIManager().getNh();
         baseEffect = movetoDR.getEffect();
@@ -110,8 +106,6 @@ public class CharactersView implements View {
     }
 
 
-
-
     @Override
     public void display() {
         Parent root = UIManager.getUIManager().getCharactersRoot();
@@ -136,9 +130,12 @@ public class CharactersView implements View {
     public void fillInfo(Message message) {
         PlayCharMessage charMessage = (PlayCharMessage) message;
         if (charMessage.getType().equals(chooseStudent)){
-            int indexActive = charMessage.getCharIndex();
-            Platform.runLater(()->{bindOneCard(charMessage.getTempStudents(), indexActive);});
-            currentStudents.get(indexActive).forEach(img->img.setDisable(false));
+            int cardIndex = charMessage.getCharIndex();
+            Platform.runLater(()->{
+                bindOneCard(charMessage.getTempStudents(), cardIndex);
+                enableDone(cardIndex);
+                currentStudents.get(cardIndex).forEach(img->img.setDisable(false));
+            });
             return;
         }
 
@@ -152,6 +149,14 @@ public class CharactersView implements View {
         numCoins.setText(String.valueOf(charMessage.getPlayer().getCoins()));
         bindCost(charMessage.getCharacters());
         bindStudents(charMessage.getCharacters());
+    }
+
+    private void enableDone(int cardIndex) {
+        switch (cardIndex){
+            case 0 -> {if (activeCharacters.get(0).equals(exchangeStudents)){done1.setVisible(true);}}
+            case 1 -> {if (activeCharacters.get(1).equals(exchangeStudents1)){done2.setVisible(true);}}
+            case 2 -> {if (activeCharacters.get(2).equals(exchangeStudents3)){done3.setVisible(true);}}
+            }
     }
 
 
@@ -292,7 +297,12 @@ public class CharactersView implements View {
     public void sendGreen(MouseEvent mouseEvent){
         nh.sendReply("green");
     }
-
+    public void sendBack(){
+        nh.sendReply("back");
+        done1.setVisible(false);
+        done2.setVisible(false);
+        done3.setVisible(false);
+    }
     public void enteredStudent(MouseEvent event){
         ImageView student = (ImageView) event.getSource();
         Bloom effect = new Bloom();

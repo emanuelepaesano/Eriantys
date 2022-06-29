@@ -8,18 +8,18 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CheckProfCharacterTest {
+class OrEqualCharacterTest {
 
     Game testGame;
     PlayerController testPc;
-    CheckProfCharacter testCharacter;
+    OrEqualCharacter testCharacter;
 
     @BeforeEach
     void setUp(){
         testGame = Game.makeGame(2);
         testGame.doSetUp(true);
         testGame.setCurrentPlayer(testGame.getTableOrder().get(0));
-        testCharacter = (CheckProfCharacter) Character.makeCharacter(2, testGame);
+        testCharacter = (OrEqualCharacter) Character.makeCharacter(2, testGame);
         testGame.getCharacters().add(testCharacter);
         VirtualView testView = null;
         testPc = new PlayerController(testGame.getCurrentPlayer(), testView);

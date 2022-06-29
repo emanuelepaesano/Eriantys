@@ -15,9 +15,7 @@ import java.util.List;
  */
 class MoveToDRCharacter extends Character {
 
-
     Student chosenStudent;
-
 
     public MoveToDRCharacter(List<Student> students) {
         this.cost = 2;
@@ -25,7 +23,7 @@ class MoveToDRCharacter extends Character {
         System.out.println("students: " + students);
         this.maxCost = 3;
         description="Take one Student from this card and place it in your Dining Room. A new student" +
-                "will be placed on the card.";
+                " will be placed on the card.";
         this.number = 5;
 
     }
@@ -64,7 +62,7 @@ class MoveToDRCharacter extends Character {
         students.remove(chosenStudent);
         player.getDiningRoom().putStudent(chosenStudent);
         player.getDiningRoom().checkProfessors(game.getTableOrder(),false);
-        if (students.size() < 3) {
+        if (students.size() < 4) {
             students.add(game.drawFromBag());
         }
         this.cost = Character.payandUpdateCost(player,cost,maxCost);

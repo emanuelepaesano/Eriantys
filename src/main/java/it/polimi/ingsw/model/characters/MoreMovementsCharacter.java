@@ -13,7 +13,7 @@ class MoreMovementsCharacter extends Character {
         this.cost = 1;
         this.maxCost = 2;
         description="You may move Mother Nature up to 2 additional islands than is indicated" +
-                "by the Assistant you played.";
+                " by the Assistant you played.";
         this.number = 4;
 
     }
