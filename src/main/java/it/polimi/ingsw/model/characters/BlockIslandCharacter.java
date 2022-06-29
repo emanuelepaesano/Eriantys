@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.characters;
 
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.messages.IslandInfoMessage;
 import it.polimi.ingsw.messages.StringMessage;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Island;
@@ -10,6 +11,8 @@ import it.polimi.ingsw.model.Student;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.updateMap;
 
 public class BlockIslandCharacter extends Character {
 
@@ -38,6 +41,7 @@ public class BlockIslandCharacter extends Character {
         island.setBlocked(true);
         numTiles--;
         cost = Character.payandUpdateCost(player,cost,maxCost);
+        new IslandInfoMessage(game, updateMap).send(pc.getPlayerView());
         return true;
     }
 

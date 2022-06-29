@@ -137,7 +137,7 @@ public class UIManager extends Application{
         if (genInfoView ==null){
             try {
                 System.out.println("i'm making a new controller");
-                FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/GenInfoView.fxml"));
+                FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/IslandView.fxml"));
                 genInfoRoot = loginLoader.load();
                 genInfoView = loginLoader.getController();
             }catch(IOException ex){ex.printStackTrace();}
