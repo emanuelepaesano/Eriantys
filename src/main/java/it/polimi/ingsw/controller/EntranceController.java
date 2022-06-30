@@ -8,6 +8,9 @@ import it.polimi.ingsw.model.*;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Controller for Entrance
+ */
 public class EntranceController {
 
     Entrance entrance;
@@ -20,9 +23,11 @@ public class EntranceController {
         this.player = player;
     }
 
-
     /**
-     * Lets the player choose a cloud and fills the entrance with the students of that cloud
+     *  Let the player choose a cloud and fills the entrance with the students of that cloud
+     *
+     * @param clouds
+     * @throws DisconnectedException
      */
     public void fillFromClouds(List<List<Student>> clouds) throws DisconnectedException {
         while (true) {
@@ -83,7 +88,11 @@ public class EntranceController {
     }
 
 
-
+    /**
+     * @param gm
+     * @return
+     * @throws DisconnectedException
+     */
     public int moveToIsland(GameMap gm) throws DisconnectedException {
 
         System.out.println("Current map:\n" + gm);

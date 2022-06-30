@@ -14,6 +14,9 @@ import java.util.*;
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.endActions;
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.update;
 
+/**
+ * Controller for Game
+ */
 public class GameController {
     private Game game;
 
@@ -25,10 +28,12 @@ public class GameController {
     private Map<Player,PlayerController> controllerMap;
 
 
-
     /**
      * In the constructor we can put the methods to inizialize the game.
-     * Our main will call the constructor of this class to start the game
+     * Our main will call the constructor of this class to start the game.
+     *
+     * @param numplayers
+     * @param views
      */
     public GameController(int numplayers, List<VirtualView> views){
         if (numplayers==0){
@@ -77,6 +82,9 @@ public class GameController {
     }
 
 
+    /**
+     * Ask the user to play the game mode. (normal or expert)
+     */
     public void askForAdvanced(){
         new FirstClientMessage("Normal game or expert version? Please type \"normal\" or \"expert\".").send(firstPlayer);
     }
@@ -89,27 +97,30 @@ public class GameController {
     }
 
 
-
-
-private void askAllPlayerNames() {
-    List<String> usedNames = new ArrayList<>();
-    for (PlayerController pc : controllers){
-        String aUsedName= null;
-        while(aUsedName == null) {
-            pc.askPlayerName();
-            String reply = "";
-            try {
-                reply = pc.getPlayerView().getReply();
-            }catch (DisconnectedException ex){ServerStarter.stopGame(false);}
-            aUsedName = pc.replyToPlayerName(reply, usedNames);
+    /**
+     * Ask the user to insert player name.
+     */
+    private void askAllPlayerNames() {
+        List<String> usedNames = new ArrayList<>();
+        for (PlayerController pc : controllers){
+            String aUsedName= null;
+            while(aUsedName == null) {
+                pc.askPlayerName();
+                String reply = "";
+                try {
+                    reply = pc.getPlayerView().getReply();
+                }catch (DisconnectedException ex){ServerStarter.stopGame(false);}
+                aUsedName = pc.replyToPlayerName(reply, usedNames);
+            }
+            usedNames.add(aUsedName);
         }
-        usedNames.add(aUsedName);
     }
-}
 
     /**
      * Cycles through players and asks them a color.
-     * It will be stored as an attribute of the player
+     * It will be stored as an attribute of the player.
+     *
+     * @param n
      */
     private void askAllForTC(int n){
         ArrayList<TowerColor> remainingColors;
@@ -130,7 +141,7 @@ private void askAllPlayerNames() {
 
     /**
      * Cycles through players and asks them a wizard number.
-     * It will be stored as an attribute of the player
+     * It will be stored as an attribute of the player.
      */
     public void askAllForWiz() {
         ArrayList<Integer> remainingWizards = new ArrayList<>(Arrays.asList(1,2,3,4));
@@ -152,6 +163,8 @@ private void askAllPlayerNames() {
     /**
      * I put this here for now but maybe we can do a planningPhaseController.
      * This is a bit complicated, we might break it down somehow.
+     *
+     * @param g
      */
     public void doPlanningPhase(Game g){
         //This weird code is to start from the current first and then go clockwise, following the
@@ -186,6 +199,9 @@ private void askAllPlayerNames() {
     /**
      * This is the main method for the action phase of each player. It asks the player which action they want to do
      * and then performs the action, until they used all of their moves.
+     *
+     * @param pc
+     * @throws DisconnectedException
      */
     public void doActions(PlayerController pc) throws DisconnectedException {
         Player player = pc.getPlayer();
@@ -221,12 +237,26 @@ private void askAllPlayerNames() {
         new ActionPhaseMessage(player,endActions).sendAndCheck(pc.getPlayerView());
     }
 
+    /**
+     * Ask which action to take.
+     *
+     * @param availableActions
+     * @param pc
+     * @return
+     * @throws DisconnectedException
+     */
     public String askWhichAction(int availableActions, PlayerController pc) throws DisconnectedException {
         new ActionPhaseMessage(advanced, availableActions,pc.getPlayer(), game.getCharacters()).sendAndCheck(pc.getPlayerView());
         return pc.getPlayerView().getReply();
     }
 
-    
+
+    /**
+     * Reset the character cards.
+     *
+     * @param game
+     * @param pc
+     */
     public void resetCharacters(Game game, PlayerController pc){
         if (advanced) {
             for (int i = 0; i<playedCharacters.size(); i++) {
@@ -243,11 +273,9 @@ private void askAllPlayerNames() {
     public Game getGame() {
         return game;
     }
-
     public List<PlayerController> getControllers() {
         return controllers;
     }
-
     public Map<Player, PlayerController> getControllerMap() {
         return controllerMap;
     }
