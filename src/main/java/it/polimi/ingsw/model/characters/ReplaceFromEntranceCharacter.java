@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.characters;
 import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.messages.NoReplyMessage;
 import it.polimi.ingsw.messages.StringMessage;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
@@ -35,7 +36,6 @@ class ReplaceFromEntranceCharacter extends Character {
         Student student;
         List<Student> studentsCopy = new ArrayList<>(students);
         while (true) {
-            new StringMessage("Choose a student from the character to replace it from your Entrance.").send(user);
             String str = Student.askStudent(studentsCopy, user,indexThis).toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return;}
@@ -56,7 +56,6 @@ class ReplaceFromEntranceCharacter extends Character {
         Student student;
         List<Student> entranceStudents = player.getEntrance().getStudents();
         while (true) {
-            new StringMessage("Choose a student from your entrance to replace it with chosen students.").send(user);
             String str = Student.askStudent(player, user, false).toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){
@@ -87,21 +86,23 @@ class ReplaceFromEntranceCharacter extends Character {
 
         int indexThis = game.getCharacters().indexOf(this);
         if (!Character.enoughMoney(player,cost)){
-            System.err.println("You don't have enough money!");
+            Character.sendNoMoneyMessage(pc.getPlayerView());
             return false;
         }
         if (chosenStudents.size() == 0){
+            new NoReplyMessage(false,"Play Character","Pick Students to move",
+                    "Pick a student from the Character and replace it with one from your Entrance.").send(pc.getPlayerView());
             pickStudentsFromCharacter(pc.getPlayerView(), indexThis);
             if (chosenStudents.size() == 0){
+                Character.sendCancelMessage(pc.getPlayerView());
                 return false;
             }
         }
         pickStudentsFromEntrance(pc.getPlayer(),pc.getPlayerView());
-
         if (!(chosenStudentsFromEntrance.size() == chosenStudents.size())){
-            new StringMessage("Annulling character play. ").send(pc.getPlayerView());
             chosenStudentsFromEntrance.clear();
             chosenStudents.clear();
+            Character.sendCancelMessage(pc.getPlayerView());
             return false;
         }
         chosenStudents.forEach(s->students.remove(s));
@@ -110,7 +111,6 @@ class ReplaceFromEntranceCharacter extends Character {
         pc.getPlayer().getEntrance().getStudents().addAll(chosenStudents);
 
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
-        System.out.println("New Entrance Room:\n " + player.getEntrance());
         chosenStudents.clear();
         chosenStudentsFromEntrance.clear();
         return true;

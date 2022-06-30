@@ -1,7 +1,9 @@
 package it.polimi.ingsw.model.characters;
 
 import it.polimi.ingsw.DisconnectedException;
+import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.messages.NoReplyMessage;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Student;
@@ -37,14 +39,9 @@ public abstract class Character implements Serializable {
             default -> null;
         };
     }
-
-    public boolean play(Game game, PlayerController pc) throws DisconnectedException {return false;}
-
-
     static Boolean enoughMoney(Player player, int cost) {
         return player.getCoins() >= cost;
     }
-
     static int payandUpdateCost(Player player, int cost, int maxCost){
         player.setCoins(player.getCoins() - cost);
         System.out.println("coins after payment: " + player.getCoins());
@@ -54,6 +51,18 @@ public abstract class Character implements Serializable {
         return cost + 1;
     }
 
+    static void sendCancelMessage(VirtualView view){
+        new NoReplyMessage(true,"Cancel","Cancel Character play",
+        "The Character play was canceled. You will receive your Coins back.").send(view);
+    }
+
+    static void sendNoMoneyMessage(VirtualView view){
+        new NoReplyMessage(true,"Warning","Cannot play Character","You don't have enough Coins!\n" +
+        "You gain Coins when you put a Student on a Coin symbol in the Dining Room. ").send(view);
+    }
+
+    public boolean play(Game game, PlayerController pc) throws DisconnectedException {return false;}
+
     public int getCost(){
         return cost;
     };
@@ -61,15 +70,12 @@ public abstract class Character implements Serializable {
     public String getDescription(){return description;}
 
     public int getNumber(){return number;}
-
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + "; current Cost =" +this.getCost();
     }
 
-    public void reset(Game game, PlayerController pc){
-    };
-
+    public void reset(Game game, PlayerController pc){};
     public List<Student> getStudents() {return students;}
 
 }

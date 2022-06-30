@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.characters.BlockIslandCharacter;
-import it.polimi.ingsw.model.characters.Character;
 
 import java.io.Serializable;
 import java.util.*;
@@ -10,29 +9,25 @@ import java.util.*;
 public class Game implements Serializable {
     public static final String ANSI_BOLD = "\u001B[1m";
     public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[92m";
     public static final String ANSI_BADGREEN = "\u001B[32m";
     public static final String ANSI_PINK = "\u001B[95m";
     public static final String ANSI_YELLOW = "\u001B[93m";
     public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
     private List<Player> winner;
     public final int numPlayers;
     private Player currentPlayer;
     private final List<Player> tableOrder;
     private List<Player> currentOrder;
     private Integer round;
-    private Map<Student, Integer> bag;
-    private List<List<Student>> clouds;
-    private GameMap gameMap;
+    private final Map<Student, Integer> bag;
+    private final List<List<Student>> clouds;
+    private final GameMap gameMap;
 
     private List<Character> characters;
 
-    Random randomizer = new Random();
+    private final Random randomizer = new Random();
     private Boolean over = false;
     private Boolean advanced;
 
@@ -93,41 +88,33 @@ public class Game implements Serializable {
         round = 1;
         currentPlayer = currentOrder.get(0);
         fillClouds();
-        fillAllEntrancesBag();
+        fillAllEntrancesFromBag();
         gameMap.startMNAndStudents();
         if (ad){
             characters = makeAllCharacters();
-            //tableOrder.forEach(p->p.setCoins(1));
-            // TODO: 25/06/2022 REMOVE
-            tableOrder.forEach(p->p.setCoins(100));
+            tableOrder.forEach(p->p.setCoins(1));
         }
     }
 
     private List<Character> makeAllCharacters(){
-
-        characters = new ArrayList<>();
+        List<Character> characters = new ArrayList<>();
         List<Integer> availables = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12));
-//        for (int i=0; i<3;i++) {
-//            Integer pickedChara;
-//            while(true) {
-//                //random 1~12
-//                pickedChara = 1 + randomizer.nextInt(Collections.max(availables));
-//                if (availables.contains(pickedChara)) {
-//                    availables.remove(pickedChara);
-//                    break;
-//                }
-//            }
-//            Character newCharacter = Character.makeCharacter(pickedChara,this);
-//            if (newCharacter.getClass().getSimpleName().equalsIgnoreCase("blockislandcharacter")){
-//                gameMap.setBlockChar((BlockIslandCharacter) newCharacter);
-//            }
-//            characters.add(newCharacter);
-//        }
-        characters.add(Character.makeCharacter(10,this));
-        characters.add(Character.makeCharacter(2,this));
-        Character blockChar = Character.makeCharacter(12,this);
-        gameMap.setBlockChar((BlockIslandCharacter) blockChar);
-        characters.add(blockChar);
+        for (int i=0; i<3;i++) {
+            Integer pickedChara;
+            while(true) {
+                //random 1~12
+                pickedChara = 1 + randomizer.nextInt(Collections.max(availables));
+                if (availables.contains(pickedChara)) {
+                    availables.remove(pickedChara);
+                    break;
+                }
+            }
+            Character newCharacter = Character.makeCharacter(pickedChara,this);
+            if (newCharacter.getNumber() == 12){
+                gameMap.setBlockChar((BlockIslandCharacter) newCharacter);
+            }
+            characters.add(newCharacter);
+        }
         return characters;
     }
 
@@ -142,13 +129,13 @@ public class Game implements Serializable {
     }
 
 
-    private void fillAllEntrancesBag(){
+    private void fillAllEntrancesFromBag(){
         for (Player player : tableOrder){
-            fillEntranceFromBag(player);
+            fillOneEntranceFromBag(player);
         }
     }
 
-    private void fillEntranceFromBag(Player player){
+    private void fillOneEntranceFromBag(Player player){
         for (int i=0;i<(numPlayers==3? 9:7);i++) {
             Student randstud = this.drawFromBag();
             player.getEntrance().getStudents().set(i, randstud);
@@ -187,7 +174,7 @@ public class Game implements Serializable {
                 }
             }
             case "studend" -> {
-                if (bag.equals(Map.of(Student.RED, 0, Student.BLUE, 0, Student.YELLOW, 0, Student.PINK, 0, Student.GREEN, 0))){
+                if (bag.equals(Map.of(Student.YELLOW, 0, Student.BLUE, 0, Student.RED, 0, Student.PINK, 0, Student.GREEN, 0))){
                 over = true;
                 return true;
                 }
@@ -283,9 +270,6 @@ public class Game implements Serializable {
         this.currentPlayer = currentPlayer;
     }
 
-    public Integer getRound() {
-        return round;
-    }
 
     public List<Character> getCharacters() {
         return characters;
@@ -295,20 +279,9 @@ public class Game implements Serializable {
         return over;
     }
 
-    public void setWinner(List<Player> winner) {
-        this.winner = winner;
-    }
-
-    public void setClouds(List<List<Student>> clouds) {
-        this.clouds = clouds;
-    }
 
     public List<Player> getWinner() {
         return winner;
-    }
-
-    public void setOver(Boolean over) {
-        this.over = over;
     }
 
     public boolean isAdvanced() {

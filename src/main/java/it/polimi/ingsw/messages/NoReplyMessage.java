@@ -5,14 +5,17 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Region;
 
+import static javafx.scene.control.Alert.AlertType.INFORMATION;
 import static javafx.scene.control.Alert.AlertType.WARNING;
 
 public class NoReplyMessage extends Message {
     final String title;
     final String headerText;
     final String content;
+    final boolean isWarning;
 
-    public NoReplyMessage(String title,String headerText,String content) {
+    public NoReplyMessage(boolean warning, String title,String headerText,String content) {
+        this.isWarning = warning;
         this.title = title;
         this.headerText = headerText;
         this.content = content;
@@ -21,7 +24,9 @@ public class NoReplyMessage extends Message {
     public void switchAndFillView() {
         //make dialog showing content
         Platform.runLater(()->{
-        Alert alert = new Alert(WARNING, content, ButtonType.OK);
+        Alert alert;
+        if (isWarning){alert = new Alert(WARNING, content, ButtonType.OK);}
+        else {alert = new Alert(INFORMATION,content,ButtonType.OK);}
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.setTitle(title);
         alert.setHeaderText(headerText);

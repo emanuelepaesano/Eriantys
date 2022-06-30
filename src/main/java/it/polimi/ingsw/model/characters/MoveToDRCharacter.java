@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.characters;
 import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.messages.NoReplyMessage;
 import it.polimi.ingsw.messages.StringMessage;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
@@ -31,8 +32,9 @@ class MoveToDRCharacter extends Character {
 
     private void pickStudent(VirtualView user, int indexThis) throws DisconnectedException {
         Student student;
+        new NoReplyMessage(false,"Play Character","Pick Student",
+        "You can pick one Student from the Character. It will be moved to your Dining Room.").send(user);
         while (true) {
-            new StringMessage("Choose 1 student from the character to move to your dining Room.").send(user);
             String str = Student.askStudent(students,user,indexThis).toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return;}
@@ -54,11 +56,12 @@ class MoveToDRCharacter extends Character {
         if (chosenStudent == null){
             pickStudent(pc.getPlayerView(), indexThis);
             if (chosenStudent == null){
+                Character.sendCancelMessage(pc.getPlayerView());
                 return false;
             }
         }
         if (!Character.enoughMoney(player,cost)){
-            System.err.println("You don't have enough money!");
+            Character.sendNoMoneyMessage(pc.getPlayerView());
             return false;}
         students.remove(chosenStudent);
         player.getDiningRoom().putStudent(chosenStudent);

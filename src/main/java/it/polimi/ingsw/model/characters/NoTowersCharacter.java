@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.characters;
 
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.messages.NoReplyMessage;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Island;
 import it.polimi.ingsw.model.Player;
@@ -27,13 +28,14 @@ class NoTowersCharacter extends Character {
     public boolean play(Game game, PlayerController pc){
         Player player = pc.getPlayer();
         if (!Character.enoughMoney(player,cost)){
-            System.err.println("You don't have enough money!");
+            Character.sendNoMoneyMessage(pc.getPlayerView());
             return false;}
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
         List<Island> islands = game.getGameMap().getArchipelago();
         oldsizes = islands.stream().map(Island::getSize).toList();
-            //we either make size 0 or  change the checkowner
         islands.forEach(island -> island.setSize(0));
+        new NoReplyMessage(false,"Play Character","Effect active",
+                "The Character effect was activated. You can use it for this turn only.").send(pc.getPlayerView());
         return true;
     }
 

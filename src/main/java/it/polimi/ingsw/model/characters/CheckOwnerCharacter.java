@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.characters;
 
 import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.messages.NoReplyMessage;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Island;
 import it.polimi.ingsw.model.Player;
@@ -28,8 +29,9 @@ class CheckOwnerCharacter extends Character {
     }
 
     private void setUp(PlayerController pc, Game game) throws DisconnectedException {
-        Island island = pc.getEntranceController().askWhichIsland(game.getGameMap());
-        chosenIsland = island;
+        new NoReplyMessage(false,"Play Character","Pick Island",
+        "Pick one island to resolve now. Mother Nature will still move and resolve another Island.").send(pc.getPlayerView());
+        chosenIsland = pc.getEntranceController().askWhichIsland(game.getGameMap());
     }
 
     @Override
@@ -37,12 +39,12 @@ class CheckOwnerCharacter extends Character {
         //choose an island to checkOwner() immediately
         Player player = pc.getPlayer();
         if (!Character.enoughMoney(player,cost)){
-            System.err.println("You don't have enough money!");
+            Character.sendNoMoneyMessage(pc.getPlayerView());
             return false;}
-        System.out.println(player + ", please choose an island to resolve.");
         if (chosenIsland == null){
             setUp(pc, game);
             if(chosenIsland == null){
+                Character.sendCancelMessage(pc.getPlayerView());
                 return false;
             }
         }

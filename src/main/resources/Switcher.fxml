@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<AnchorPane fx:id="mainPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.Switcher" >
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="mainPane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.Switcher">
     <AnchorPane fx:id="container" layoutX="162.0" prefHeight="800.0" prefWidth="1280.0" AnchorPane.leftAnchor="162.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
         <children>
          <StackPane fx:id="gameScene" prefHeight="800.0" prefWidth="1280.0">
@@ -11,12 +14,12 @@
     </AnchorPane>
    <VBox layoutX="6.0" layoutY="7.0" prefHeight="598.0" prefWidth="141.0">
       <children>
-          <Button fx:id="islands" mnemonicParsing="false" prefHeight="178.0" prefWidth="155.0" text="Islands" onAction="#toIslands" />
-          <Button fx:id="school" mnemonicParsing="false" prefHeight="178.0" prefWidth="146.0" text="School" onAction="#toSchool"/>
-          <Button fx:id="assistants" mnemonicParsing="false" prefHeight="178.0" prefWidth="146.0" text="Assistants" onAction="#toAssistants" />
-          <Button fx:id="player1" mnemonicParsing="false" prefHeight="178.0" prefWidth="146.0" text="" onAction="#toPlayer1" />
-          <Button fx:id="player2" mnemonicParsing="false" prefHeight="178.0" prefWidth="146.0" text="" onAction="#toPlayer2" />
-          <Button fx:id="characters" mnemonicParsing="false" prefHeight="178.0" prefWidth="146.0" text="Characters" onAction="#toCharacters" />
+          <Button fx:id="islands" focusTraversable="false" mnemonicParsing="false" onAction="#toIslands" prefHeight="178.0" prefWidth="155.0" text="Islands" />
+          <Button fx:id="school" focusTraversable="false" mnemonicParsing="false" onAction="#toSchool" prefHeight="178.0" prefWidth="146.0" text="School" />
+          <Button fx:id="assistants" focusTraversable="false" mnemonicParsing="false" onAction="#toAssistants" prefHeight="178.0" prefWidth="146.0" text="Assistants" />
+          <Button fx:id="player1" focusTraversable="false" mnemonicParsing="false" onAction="#toPlayer1" prefHeight="178.0" prefWidth="146.0" text="" />
+          <Button fx:id="player2" focusTraversable="false" mnemonicParsing="false" onAction="#toPlayer2" prefHeight="178.0" prefWidth="146.0" text="" />
+          <Button fx:id="characters" focusTraversable="false" mnemonicParsing="false" onAction="#toCharacters" prefHeight="178.0" prefWidth="146.0" text="Characters" />
       </children>
    </VBox>
 </AnchorPane>

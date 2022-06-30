@@ -174,9 +174,9 @@
          </DropShadow>
       </effect>
    </ImageView>
-   <Button fx:id="moveToDR" layoutX="18.0" layoutY="671.0" mnemonicParsing="false" onAction="#dRSelected" prefHeight="51.0" prefWidth="154.0" text="Move to Dining Room" />
-   <Button fx:id="moveToIsland" layoutX="207.0" layoutY="671.0" mnemonicParsing="false" onAction="#islandSelected" prefHeight="51.0" prefWidth="175.0" text="Move to Island" />
-   <TextField layoutX="17.0" layoutY="619.0" prefHeight="40.0" prefWidth="864.0" text="Here you can move students from your entrance." />
+   <Button fx:id="moveToDR" focusTraversable="false" layoutX="18.0" layoutY="671.0" mnemonicParsing="false" onAction="#dRSelected" prefHeight="51.0" prefWidth="154.0" text="Move to Dining Room" />
+   <Button fx:id="moveToIsland" focusTraversable="false" layoutX="207.0" layoutY="671.0" mnemonicParsing="false" onAction="#islandSelected" prefHeight="51.0" prefWidth="175.0" text="Move to Island" />
+   <TextField focusTraversable="false" layoutX="17.0" layoutY="619.0" prefHeight="40.0" prefWidth="864.0" text="Here you can move students from your entrance." />
    <ImageView fx:id="dg6" disable="true" fitHeight="40.0" fitWidth="40.0" layoutX="550.0" layoutY="130.0" onMouseClicked="#greenSelectedInDR" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" preserveRatio="true">
       <image>
          <Image url="@assets/student_green.png" />
@@ -1029,7 +1029,7 @@
          <DropShadow spread="0.5" />
       </effect>
    </Text>
-   <Button fx:id="characters" layoutX="418.0" layoutY="671.0" mnemonicParsing="false" onAction="#characterSelected" prefHeight="51.0" prefWidth="175.0" text="Play Character" visible="false" />
+   <Button fx:id="characters" focusTraversable="false" layoutX="418.0" layoutY="671.0" mnemonicParsing="false" onAction="#characterSelected" prefHeight="51.0" prefWidth="175.0" text="Play Character" visible="false" />
    <ImageView fx:id="coinImage" fitHeight="123.0" fitWidth="98.0" layoutX="614.0" layoutY="659.0" preserveRatio="true" visible="false">
       <image>
          <Image url="@assets/Moneta_base.png" />

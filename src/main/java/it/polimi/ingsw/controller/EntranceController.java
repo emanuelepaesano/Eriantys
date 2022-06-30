@@ -30,6 +30,8 @@ public class EntranceController {
      * @throws DisconnectedException
      */
     public void fillFromClouds(List<List<Student>> clouds) throws DisconnectedException {
+        new NoReplyMessage(false,"Cloud Selection","Select one Cloud",
+        "Select one Cloud from the middle. Your Entrance will be filled with the students in it.").send(view);
         while (true) {
             new IslandActionMessage(clouds).sendAndCheck(view);
             try {
@@ -119,7 +121,7 @@ public class EntranceController {
                 island.students.replace(stud, oldval,oldval+1);
                 break;
             }
-            else{new NoReplyMessage("Invalid Student","","You don't have this student in your entrance!").send(view);}
+            else{new NoReplyMessage(true,"Invalid Student","","You don't have this student in your entrance!").send(view);}
         }
         return 1; //doActions() needs this
     }

@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.characters;
 import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.messages.IslandInfoMessage;
+import it.polimi.ingsw.messages.NoReplyMessage;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Island;
 import it.polimi.ingsw.model.Player;
@@ -29,9 +30,11 @@ public class BlockIslandCharacter extends Character {
     public boolean play(Game game, PlayerController pc) throws DisconnectedException {
         Player player = pc.getPlayer();
         if (!Character.enoughMoney(player,cost)){
-            System.out.println("you don't have enough money!");
+            Character.sendNoMoneyMessage(pc.getPlayerView());
             return false;
         }
+        new NoReplyMessage(false,"Play Character","Pick Island",
+                "Pick one island to block.").send(pc.getPlayerView());
         Island island = pc.getEntranceController().askWhichIsland(game.getGameMap());
         island.setBlocked(true);
         numTiles--;
