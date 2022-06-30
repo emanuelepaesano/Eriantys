@@ -68,9 +68,7 @@ public class OtherPlayerView implements View {
     public ImageView eight;
     public ImageView nine;
     public ImageView ten;
-
-    public Label towLabel;
-
+    public Text towLabel;
     public Text playerName;
     Player player;
     Stage stage;

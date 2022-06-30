@@ -167,7 +167,8 @@ public class GameController {
      * Cycles through players and asks them a color.
      * It will be stored as an attribute of the player.
      *
-     * @param n the number of players.
+     * @param n the number of players. If 2 players, only black and white can be selected;
+     *          If 3 players, also grey is available.
      */
     private void askAllForTC(int n){
         ArrayList<TowerColor> remainingColors;
@@ -246,7 +247,7 @@ public class GameController {
      *
      * @param pc the Player Controller.
      * @throws DisconnectedException if a user disconnects, this Exception will be caught in the ServerApp,
-     * and it will skip the turnof that player
+     * and it will skip the turn of that player.
      */
     public void doActions(PlayerController pc) throws DisconnectedException {
         Player player = pc.getPlayer();
@@ -283,11 +284,11 @@ public class GameController {
     }
 
     /**
-     * Ask which action to take.
+     * Ask which action to take, between moving to diningroom or to islands if normal game;
+     *between also playing a character if advanced.
      *
-     * @param availableActions
-     * @param pc
-     * @throws DisconnectedException
+     * @param availableActions the actions left to the player
+     * @param pc the PlayerController of the player
      */
     public String askWhichAction(int availableActions, PlayerController pc) throws DisconnectedException {
         new ActionPhaseMessage(advanced, availableActions,pc.getPlayer(), game.getCharacters()).sendAndCheck(pc.getPlayerView());
