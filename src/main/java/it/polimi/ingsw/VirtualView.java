@@ -13,6 +13,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+/**
+ * ONE VIRTUAL VIEW FOR EACH PLAYER
+ */
 public class VirtualView {
     private final int playerId;
     private final Socket socket;
@@ -24,9 +27,7 @@ public class VirtualView {
     private String reply = "wait";
 
     private Boolean disconnected = false;
-    //ONE VIRTUAL VIEW FOR EACH PLAYER
 
-    //could also work with the playername
     VirtualView(ServerStarter server, Socket socket, int id) throws IOException {
 
         this.server = server;
@@ -47,13 +48,6 @@ public class VirtualView {
             outStream.reset();
         }catch (IOException ex){ex.printStackTrace();}
     }
-
-    public void onClientDisconnection(){
-        //dovremmo interrompere tutto e mandare un messaggio ai client
-        //mandiamo prima quindi i messaggi che uno si è disconnesso,
-        //poi stoppiamo tutti i task sul server, una cosa del genere
-    }
-
 
     public String getReply() throws DisconnectedException {
         while (reply.equals("wait")){
@@ -76,19 +70,20 @@ public class VirtualView {
                     this.reply = ((Repliable) message).getReply();
                     synchronized (this){notifyAll();}
                 }
-                else {if (message.isPing()){
-                    if (disconnected) {
-                        setDisconnected(false);
-                        server.aViewReconnected(this);
+                else {
+                    if (message.isPing()){
+                        if (disconnected) {
+                            setDisconnected(false);
+                            server.aViewReconnected(this);
+                        }
+                        timeOut.restart();
                     }
-                    timeOut.restart();
-                }}
+                }
             } catch (IOException | ClassNotFoundException exc){
                 System.out.println("From connection thread: the stream was closed");
                 break;
             }
         }
-
     }
 
     private void startPing() {
@@ -101,17 +96,6 @@ public class VirtualView {
                     }
                 }
                 Thread.sleep(1000);
-                //se la view è disconnessa, per fortuna continuiamo a mandare i ping, ma
-                //gli arriveranno tutti insieme quando si riconnette. quindi aspettiamo
-                //a mandare finche non si riconnette, tanto avrà già i ping di prima a cui
-                //rispondere.
-
-                //Praticamente noi mandiamo 7 ping a cui la view non riesce a rispondere prima di
-                //accorgerci che è disconnessa (quando scade il timeout).
-                //Il problema è che oltre a questi ping ci sarà (almeno) un messaggio di gioco
-                //che era stato scritto nella socket. Il client dovrà ignorare questo
-                //perchè il gioco ormai è andato avanti, però rispondere ai ping.
-
             }catch (IOException | InterruptedException ex) {
                 System.err.println("cannot send Ping!");
                 break;

@@ -24,13 +24,18 @@ public class ServerStarter {
     List<VirtualView> views;
 
     private static ServerStarter server;
-    //To the first client we ask the number of players, which is the first thing inside the gamecontroller
+
     public ServerStarter(int port) {
         this.port = port;
         views = new ArrayList<>();
         server = this;
     }
 
+    /**
+     * Stop the game if client is disconnected from the server.
+     *
+     * @param OK true if the connection is ok.
+     */
     public static void stopGame(Boolean OK) {
         if(!OK) {
             new NoReplyMessage(true,"Disconnection","Disconnection Error","Something went wrong. Either all player disconnected\n" +
@@ -46,9 +51,14 @@ public class ServerStarter {
         System.exit(0);
     }
 
-
+    /**
+     * Start server.
+     * This method creates new socket, makes VirtualView for the first client, and ask the number of players.
+     *
+     * @return the number of players
+     * @throws IOException
+     */
     public int startServer() throws IOException{
-
         try {serverSocket = new ServerSocket(port);}
         catch (IOException e) {System.err.println(e.getMessage()); return 0;}
         System.out.println("Server ready");
@@ -64,6 +74,13 @@ public class ServerStarter {
         System.out.println(views);
         return n;
     }
+
+    /**
+     * Look for other players until the number of players reaches the selected number by the first client.
+     *
+     * @param n the number of players
+     * @throws IOException
+     */
     public void lookForMorePlayers(int n) throws IOException {
         for (int i=0; i<n ; i++){
             Socket socket = serverSocket.accept();
@@ -76,18 +93,23 @@ public class ServerStarter {
     }
 
 
+    /**
+     * Ask the number of players to the first client.
+     *
+     * @param client VirtualView of the client
+     * @return the number of players
+     */
     private int askForPN(VirtualView client)  {
         int input = 0;
         while ((input != 3) && (input != 2)) {
-                new FirstClientMessage("Welcome! How many players?").send(client);
-                try {
-                    input = Integer.parseInt(client.getReply());
-                }catch (DisconnectedException ex){stopGame(false);}
+            new FirstClientMessage("Welcome! How many players?").send(client);
+            try {
+                input = Integer.parseInt(client.getReply());
+            } catch (DisconnectedException ex){ stopGame(false); }
             System.out.println("received reply: "+ input);
         }
         return input;
     }
-
 
     static ActionListener declareWin = new ActionListener() {
         @Override
@@ -100,7 +122,12 @@ public class ServerStarter {
         }
     };
 
-
+    /**
+     * This method is called when player is disconnected.
+     * Notify the other players that the player is disconnected.
+     *
+     * @param view VirtualView of the player disconnected
+     */
     public void aViewDisconnected(VirtualView view) {
         List<VirtualView> activeViews = server.views.stream().filter(v->!v.isDisconnected()).toList();
         if (activeViews.size()>1) {
@@ -112,11 +139,14 @@ public class ServerStarter {
                     "If no player reconnects, you will win in 45 seconds.").send(activeViews.get(0));
         }
 
-        //aspettiamo che quella view si riconnetta. nel frattempo la marchiamo come disconnessa e
-        //il gioco andrà avanti senza di lei
-
     }
 
+    /**
+     * This method is called when the player is reconnected.
+     * Notify the other players that the player is reconnected.
+     *
+     * @param view VirtualView of the player reconnected.
+     */
     public void aViewReconnected(VirtualView view) {
         System.out.println("a view: " + view + "reconnected.");
         List<VirtualView> otherViews = new ArrayList<>(views);
