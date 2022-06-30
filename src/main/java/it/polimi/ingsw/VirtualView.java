@@ -14,7 +14,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 /**
- * ONE VIRTUAL VIEW FOR EACH PLAYER
+ * One Virtual View for each player.
  */
 public class VirtualView {
     private int playerId;
