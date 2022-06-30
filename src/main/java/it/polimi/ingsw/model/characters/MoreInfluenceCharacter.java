@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.characters;
 
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.messages.NoReplyMessage;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 
@@ -20,7 +21,7 @@ class MoreInfluenceCharacter extends Character {
         Player player = pc.getPlayer();
         //this turn +2 influence (n.b. you cant combine characters)
         if (!Character.enoughMoney(player,cost)){
-            System.err.println("You don't have enough money!");
+            Character.sendNoMoneyMessage(pc.getPlayerView());
             return false;}
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
         player.setBaseInfluence(2);

@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.characters;
 import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.messages.NoReplyMessage;
 import it.polimi.ingsw.model.*;
 
 import java.util.List;
@@ -43,38 +44,26 @@ class ZeroPointStudentCharacter extends Character {
         }
         this.chosenStudent = stud;
     }
-/*
-    private Student pickStudent(VirtualView user){ //move to controller!
-        Student stud;
-        while(true) {
-            String string = Student.askStudent(List.of(Student.values()),user,"zeropointchar").toUpperCase();
-            if (string.equals("RETRY")){continue;}
-            if (string.equals("BACK")) {return null;}
-            else if (List.of(Student.values()).contains(Student.valueOf(string))) {
-                stud = Student.valueOf(string);
-                break;
-            }
-        }
-        return stud;
-    }
- */
+
     public boolean play(Game game, PlayerController pc) throws DisconnectedException {
         Player player = pc.getPlayer();
         int indexThis = game.getCharacters().indexOf(this);
         if (chosenStudent == null){
+            new NoReplyMessage("Play Character","Pick one color",
+            "Please select one Student color from the Character.").send(pc.getPlayerView());
             setUp(pc.getPlayerView(), indexThis);
             if (chosenStudent == null){
+                Character.sendCancelMessage(pc.getPlayerView());
                 return false;
             }
         }
         if (!Character.enoughMoney(player,cost)){
-            System.err.println("You don't have enough money!");
+            Character.sendNoMoneyMessage(pc.getPlayerView());
             return false;}
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
         islands = game.getGameMap().getArchipelago();
         oldnumbers = islands.stream().map(i -> i.getStudents().get(chosenStudent)).toList();
         islands.forEach(i -> i.getStudents().replace(chosenStudent, 0));
-        System.out.println("Game map for this turn!\n" + game.getGameMap());
         return true;
     }
 

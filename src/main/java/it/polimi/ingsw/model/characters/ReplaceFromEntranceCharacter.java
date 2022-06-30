@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.characters;
 import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.messages.NoReplyMessage;
 import it.polimi.ingsw.messages.StringMessage;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
@@ -87,21 +88,22 @@ class ReplaceFromEntranceCharacter extends Character {
 
         int indexThis = game.getCharacters().indexOf(this);
         if (!Character.enoughMoney(player,cost)){
-            System.err.println("You don't have enough money!");
+            Character.sendNoMoneyMessage(pc.getPlayerView());
             return false;
         }
         if (chosenStudents.size() == 0){
             pickStudentsFromCharacter(pc.getPlayerView(), indexThis);
             if (chosenStudents.size() == 0){
+                Character.sendCancelMessage(pc.getPlayerView());
                 return false;
             }
         }
         pickStudentsFromEntrance(pc.getPlayer(),pc.getPlayerView());
 
         if (!(chosenStudentsFromEntrance.size() == chosenStudents.size())){
-            new StringMessage("Annulling character play. ").send(pc.getPlayerView());
             chosenStudentsFromEntrance.clear();
             chosenStudents.clear();
+            Character.sendCancelMessage(pc.getPlayerView());
             return false;
         }
         chosenStudents.forEach(s->students.remove(s));
@@ -110,7 +112,6 @@ class ReplaceFromEntranceCharacter extends Character {
         pc.getPlayer().getEntrance().getStudents().addAll(chosenStudents);
 
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
-        System.out.println("New Entrance Room:\n " + player.getEntrance());
         chosenStudents.clear();
         chosenStudentsFromEntrance.clear();
         return true;

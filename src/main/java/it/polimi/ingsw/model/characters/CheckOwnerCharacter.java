@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.characters;
 
 import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.messages.NoReplyMessage;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Island;
 import it.polimi.ingsw.model.Player;
@@ -37,12 +38,12 @@ class CheckOwnerCharacter extends Character {
         //choose an island to checkOwner() immediately
         Player player = pc.getPlayer();
         if (!Character.enoughMoney(player,cost)){
-            System.err.println("You don't have enough money!");
+            Character.sendNoMoneyMessage(pc.getPlayerView());
             return false;}
-        System.out.println(player + ", please choose an island to resolve.");
         if (chosenIsland == null){
             setUp(pc, game);
             if(chosenIsland == null){
+                Character.sendCancelMessage(pc.getPlayerView());
                 return false;
             }
         }
