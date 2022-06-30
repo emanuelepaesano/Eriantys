@@ -1,9 +1,6 @@
 package it.polimi.ingsw.messages;
 
 import it.polimi.ingsw.CLIENT.UIManager;
-import it.polimi.ingsw.VirtualView;
-
-import java.util.List;
 
 public class FirstClientMessage extends Repliable {
 

@@ -1,7 +1,6 @@
 package it.polimi.ingsw;
 
 
-
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.messages.PingMessage;
 import it.polimi.ingsw.messages.Repliable;
@@ -13,7 +12,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.net.SocketException;
 
 public class VirtualView {
     private final int playerId;

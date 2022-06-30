@@ -1,9 +1,5 @@
 package it.polimi.ingsw.messages;
 
-import it.polimi.ingsw.VirtualView;
-
-import java.util.List;
-
 public class PingMessage extends Message {
 
 

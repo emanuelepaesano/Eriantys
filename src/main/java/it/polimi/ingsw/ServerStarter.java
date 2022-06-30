@@ -1,7 +1,9 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.messages.*;
-import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.messages.EndGameMessage;
+import it.polimi.ingsw.messages.FirstClientMessage;
+import it.polimi.ingsw.messages.LoginMessage;
+import it.polimi.ingsw.messages.NoReplyMessage;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

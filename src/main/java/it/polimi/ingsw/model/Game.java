@@ -1,9 +1,8 @@
 package it.polimi.ingsw.model;
-import it.polimi.ingsw.model.characters.Character;
+
 import it.polimi.ingsw.model.characters.BlockIslandCharacter;
 import it.polimi.ingsw.model.characters.Character;
 
-import javax.print.DocFlavor;
 import java.io.Serializable;
 import java.util.*;
 

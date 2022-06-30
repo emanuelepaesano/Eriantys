@@ -1,12 +1,14 @@
 package it.polimi.ingsw.model.characters;
 
 import it.polimi.ingsw.DisconnectedException;
-import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.messages.IslandInfoMessage;
 import it.polimi.ingsw.messages.StringMessage;
-import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.Island;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.Student;
 
 import java.util.ArrayList;
 import java.util.List;

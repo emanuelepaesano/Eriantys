@@ -1,9 +1,5 @@
 package it.polimi.ingsw.CLIENT;
 
-import it.polimi.ingsw.CLIENT.ViewImpls.CLIView;
-
-import java.io.IOException;
-
 public class ClientApp {
     private static NetworkHandler nh;
 

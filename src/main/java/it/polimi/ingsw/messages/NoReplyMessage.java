@@ -1,12 +1,9 @@
 package it.polimi.ingsw.messages;
 
-import it.polimi.ingsw.VirtualView;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Region;
-
-import java.util.List;
 
 import static javafx.scene.control.Alert.AlertType.WARNING;
 

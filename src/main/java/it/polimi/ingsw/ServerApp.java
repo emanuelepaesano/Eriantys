@@ -1,20 +1,15 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.Student;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static it.polimi.ingsw.ServerStarter.declareWin;
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.update;

@@ -2,7 +2,6 @@ package it.polimi.ingsw.messages;
 
 import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.CLIENT.View;
-import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.model.Player;
 
 import java.util.List;

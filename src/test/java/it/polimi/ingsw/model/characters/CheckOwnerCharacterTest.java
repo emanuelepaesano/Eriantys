@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.characters;
 
+import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
@@ -20,7 +21,7 @@ class CheckOwnerCharacterTest {
 
 
     @Test
-    void play() {
+    void play() throws DisconnectedException {
         testGame = Game.makeGame(2);
         testGame.doSetUp(true);
         testGame.setCurrentPlayer(testGame.getTableOrder().get(0));

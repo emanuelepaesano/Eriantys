@@ -4,7 +4,10 @@ import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.ServerStarter;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.messages.*;
-import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.Assistant;
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.TowerColor;
 
 import java.util.*;
 

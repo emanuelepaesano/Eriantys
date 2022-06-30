@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.characters;
 
+import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
@@ -39,7 +40,7 @@ class PlaceInIslandCharacterTest {
     }
 
     @Test
-    void play() {
+    void play() throws DisconnectedException {
         testGame.getCurrentPlayer().setCoins(2);
         testCharacter.play(testGame, testPc);
         Map<Student, Integer> expected = Map.of(Student.RED, 1, Student.PINK, 0, Student.GREEN, 0, Student.BLUE, 0, Student.YELLOW, 0);
@@ -51,7 +52,7 @@ class PlaceInIslandCharacterTest {
     }
 
     @Test
-    void reset() {
+    void reset() throws DisconnectedException {
         testGame.getCurrentPlayer().setCoins(2);
         testCharacter.play(testGame, testPc);
         testCharacter.reset(testGame, testPc);

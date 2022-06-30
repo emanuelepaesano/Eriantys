@@ -1,6 +1,7 @@
 package it.polimi.ingsw.CLIENT;
 
-import it.polimi.ingsw.messages.*;
+import it.polimi.ingsw.messages.Message;
+import it.polimi.ingsw.messages.Repliable;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 

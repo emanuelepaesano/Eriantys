@@ -10,9 +10,10 @@ import it.polimi.ingsw.model.DiningRoom;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Student;
-import javafx.application.Platform;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.update;
 

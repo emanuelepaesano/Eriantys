@@ -1,6 +1,5 @@
 package it.polimi.ingsw.messages;
 
-import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.model.Student;
 
 import java.util.List;

@@ -4,7 +4,6 @@ import it.polimi.ingsw.CLIENT.NetworkHandler;
 import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.CLIENT.View;
 import it.polimi.ingsw.messages.Message;
-import it.polimi.ingsw.messages.SwitcherMessage;
 import it.polimi.ingsw.model.Assistant;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Student;
@@ -12,7 +11,6 @@ import it.polimi.ingsw.model.TowerColor;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Bloom;
 import javafx.scene.effect.DropShadow;
@@ -25,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 
 import static it.polimi.ingsw.model.Assistant.*;
-import static it.polimi.ingsw.model.Assistant.TEN;
 
 public class OtherPlayerView implements View {
 

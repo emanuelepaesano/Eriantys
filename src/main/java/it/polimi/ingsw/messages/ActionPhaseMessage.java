@@ -2,18 +2,15 @@ package it.polimi.ingsw.messages;
 
 import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.CLIENT.View;
-import it.polimi.ingsw.VirtualView;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Student;
 import it.polimi.ingsw.model.characters.Character;
-import it.polimi.ingsw.model.Player;
 import javafx.application.Platform;
 
-import javax.swing.*;
 import java.util.List;
 import java.util.Map;
 
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.*;
-import static java.util.stream.Collectors.toList;
 
 public class ActionPhaseMessage extends Repliable {
 

@@ -6,8 +6,8 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Student;
 
-import java.util.List;
 import java.io.Serializable;
+import java.util.List;
 
 public abstract class Character implements Serializable {
 

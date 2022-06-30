@@ -1,11 +1,7 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.characters.BlockIslandCharacter;
-import it.polimi.ingsw.model.characters.Character;
-
 import java.io.Serializable;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Island implements Serializable {
     private int id;

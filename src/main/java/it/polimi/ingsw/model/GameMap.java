@@ -1,10 +1,12 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.characters.BlockIslandCharacter;
-import it.polimi.ingsw.model.characters.Character;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 
 public class GameMap implements Serializable {

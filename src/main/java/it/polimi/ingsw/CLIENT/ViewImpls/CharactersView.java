@@ -23,14 +23,10 @@ import javafx.scene.shape.Polyline;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 import static it.polimi.ingsw.messages.PlayCharMessage.PlayCharType.*;
 import static it.polimi.ingsw.model.Student.*;

@@ -1,9 +1,5 @@
 package it.polimi.ingsw.CLIENT.ViewImpls;
 
-import it.polimi.ingsw.CLIENT.View;
-import it.polimi.ingsw.messages.Message;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,10 +8,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class WaitingView{
     public ImageView imageView;

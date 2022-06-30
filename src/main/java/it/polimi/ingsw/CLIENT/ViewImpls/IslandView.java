@@ -10,11 +10,12 @@ import it.polimi.ingsw.model.*;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -22,7 +23,8 @@ import java.util.List;
 
 import static it.polimi.ingsw.messages.IslandActionMessage.IslandActionType.cloudSel;
 import static it.polimi.ingsw.messages.IslandActionMessage.IslandActionType.moveMN;
-import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.*;
+import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.init;
+import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.updateMap;
 
 public class IslandView implements View {
 

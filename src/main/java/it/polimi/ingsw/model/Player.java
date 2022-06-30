@@ -1,9 +1,8 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.controller.PlayerController;
-
 import java.io.Serializable;
-import java.util.*;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Player implements Serializable {
     public final int id ;
