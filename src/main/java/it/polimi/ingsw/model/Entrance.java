@@ -17,14 +17,16 @@ public class Entrance implements Serializable {
     }
 
 
-
-    //only for test, will need to draw from the clouds/bag in the game
+    /**
+     * Only for test, will need to draw from the clouds/bag in the game
+     */
     public void fillTEST(){
         for (int i = 0; i< this.size;i++){
             Student s = Arrays.asList(Student.values()).get(i%5);
             students.set(i,s);
         }
     }
+
     @Override
     public String toString() {
         String string = "Entrance{";

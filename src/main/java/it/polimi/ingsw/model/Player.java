@@ -27,6 +27,11 @@ public class Player implements Serializable {
     }
 
 
+    /**
+     * Build the assistant cards deck.
+     *
+     * @return assistants
+     */
     private static Map<Assistant, Boolean> buildDeck(){
         Map<Assistant,Boolean> tm = new TreeMap<>();
         for (Assistant as : Assistant.values()) {
@@ -48,7 +53,7 @@ public class Player implements Serializable {
 
 
     /**
-     *Method to calculate this player's influence on an island. It gets called by Island.checkOwner().
+     * Calculate this player's influence on an island. It gets called by Island.checkOwner().
      */
     public int calculateInfluence(Island island) {
         int influence = baseInfluence;
@@ -61,15 +66,11 @@ public class Player implements Serializable {
         return influence;
     }
 
-
     @Override
     public String toString() {
         return "Player" + id +
                 ": \"" + playerName +"\"";
     }
-
-
-
 
 
     //GETTERS SETTERS
@@ -116,7 +117,6 @@ public class Player implements Serializable {
         this.currentAssistant = currentAssistant;
     }
 
-
     public void setBaseInfluence(int baseInfluence) { this.baseInfluence = baseInfluence;}
 
     public int getId() {
@@ -160,6 +160,5 @@ public class Player implements Serializable {
     public int getBaseInfluence() {
         return baseInfluence;
     }
-
 
 }

@@ -58,8 +58,12 @@ public class GameMap implements Serializable {
         }
     }
 
-    //now this needs to take a list of players. i don't really like it.
-    //Splitting it into 2 methods might be a good idea
+    /**
+     * Move the mother nature, and check the owner of the island the mother nature moved to.
+     *
+     * @param players
+     * @param nmoves steps to move the mother nature
+     */
     public void moveMotherNatureAndCheck(List<Player> players, int nmoves){
         int startIndex = archipelago.indexOf(getIslandById(motherNature));
         Island newIsland = archipelago.get((startIndex+nmoves)%(archipelago.size()));//archipelago changes in size
@@ -75,9 +79,11 @@ public class GameMap implements Serializable {
         System.out.println(this);
     }
 
-
-//    this should be private?
-    //it's quite ugly but it should do the job
+    /**
+     * Join islands
+     *
+     * @param tojoin Island to be joined.
+     */
     public void doJoins(Island tojoin){
         int startindex = archipelago.indexOf(tojoin);
         Island left = archipelago.get(startindex==0? (archipelago.size()-1):(startindex-1));
@@ -110,7 +116,6 @@ public class GameMap implements Serializable {
                 System.err.println("Something went wrong...");
                 break;
         }
-
     }
 
     /**
@@ -139,8 +144,6 @@ public class GameMap implements Serializable {
         return "none";
     }
 
-
-
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();
@@ -161,13 +164,14 @@ public class GameMap implements Serializable {
         return archipelago;
     }
 
+
 //    only for test
     public void setMotherNature(int motherNaturePosition) {
         this.motherNature = motherNaturePosition;
     }
 
 //    return should be an island.
-private final Island zeroIsland = new Island(99);
+    private final Island zeroIsland = new Island(99);
     public Island getIslandById(int islandId) {
         zeroIsland.setSize(0);
         List<Island> islands = archipelago.stream()
@@ -181,16 +185,12 @@ private final Island zeroIsland = new Island(99);
 
 
 
-
     public List<Object> getLastJoin() {
         return lastJoin;
     }
+
     public int getMotherNature() {
         return this.motherNature;
-    }
-
-    public void setArchipelago(List<Island> archipelago) {
-        this.archipelago = archipelago;
     }
 
     public List<Island> getAllIslands() {

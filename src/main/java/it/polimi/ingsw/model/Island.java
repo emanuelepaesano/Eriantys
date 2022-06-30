@@ -12,7 +12,6 @@ public class Island implements Serializable {
     private Boolean blocked;
 
 
-
     public Island(int id){
         this.id = id;
         size = 1;
@@ -21,11 +20,12 @@ public class Island implements Serializable {
         owner = null;
         blocked = false;
     }
-    /**
-     *
-     * @return the Player who has the most influence in the island. Has to be called when mother nature lands on this
-     */
 
+    /**
+     * Check the owner of this island. This method has to be called when mother nature lands on this.
+     *
+     * @return the Player who has the most influence in the island.
+     */
     public Player checkOwner(List<Player> players) {
         Map<Player, Integer> influences = new HashMap<>();
         Player newOwner = this.owner;
@@ -48,27 +48,17 @@ public class Island implements Serializable {
         return newOwner;
     }
 
-    public void replaceStudent(Student stud, Integer value){
-        students.replace(stud, value);
-    }
-
-
 
     //GETTERS SETTERS
-
     public Map<Student, Integer> getStudents() {
         return students;
     }
-
-
     public void setOwner(Player owner) {
         this.owner = owner;
     }
-
     public void setSize(int size) {
         this.size = size;
     }
-
     public Player getOwner() {
         return owner;
     }
@@ -78,24 +68,19 @@ public class Island implements Serializable {
     public void setStudents(Map<Student,Integer> students) {
         this.students = students;
     }
-
     public int getSize() {return size;}
-
     public int getId() {
         return id;
     }
     public Boolean isJoined() {
         return joined;
     }
-
     public void setJoined(Boolean joined) {
         this.joined = joined;
     }
-
     public Boolean isBlocked() {
         return blocked;
     }
-
     public void setBlocked(Boolean blocked) {
         this.blocked = blocked;
     }

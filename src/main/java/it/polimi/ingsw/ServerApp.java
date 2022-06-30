@@ -19,7 +19,8 @@ import static it.polimi.ingsw.messages.PlayCharMessage.PlayCharType.start;
 
 
 /**
- * this will be the main to play the game.
+ * Server application.
+ *
  */
 public class ServerApp {
     public static final Object lock = new Object();
