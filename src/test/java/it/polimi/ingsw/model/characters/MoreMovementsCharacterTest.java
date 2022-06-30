@@ -21,7 +21,7 @@ class MoreMovementsCharacterTest {
         testGame.setCurrentPlayer(testGame.getTableOrder().get(0));
         testCharacter = (MoreMovementsCharacter) Character.makeCharacter(4, testGame);
         testGame.getCharacters().add(testCharacter);
-        VirtualView testView = null;
+        VirtualView testView = new TestVirtualView();
         testPc = new PlayerController(testGame.getCurrentPlayer(), testView);
     }
 

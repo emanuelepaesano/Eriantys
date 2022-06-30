@@ -27,7 +27,7 @@ class ZeroPointStudentCharacterTest {
         testGame.setCurrentPlayer(testGame.getTableOrder().get(0));
         testCharacter = (ZeroPointStudentCharacter) Character.makeCharacter(8, testGame);
         testGame.getCharacters().add(testCharacter);
-        VirtualView testView = null;
+        VirtualView testView = new TestVirtualView();
         testPc = new PlayerController(testGame.getCurrentPlayer(), testView);
         testStudent=Student.RED;
         testCharacter.setChosenStudent(testStudent);

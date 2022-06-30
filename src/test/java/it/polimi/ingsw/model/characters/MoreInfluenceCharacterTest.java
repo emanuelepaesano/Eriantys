@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.characters;
 
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.model.Game;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,13 +22,14 @@ class MoreInfluenceCharacterTest {
         testGame.setCurrentPlayer(testGame.getTableOrder().get(0));
         testCharacter = (MoreInfluenceCharacter) Character.makeCharacter(3, testGame);
         testGame.getCharacters().add(testCharacter);
-        VirtualView testView = null;
+        VirtualView testView = new TestVirtualView();
         testPc = new PlayerController(testGame.getCurrentPlayer(), testView);
     }
 
     @Test
     void play() {
         testGame.getCurrentPlayer().setCoins(2);
+
         testCharacter.play(testGame, testPc);
         assertEquals(2, testGame.getCurrentPlayer().getBaseInfluence());
         assertEquals(1, testGame.getCurrentPlayer().getCoins());

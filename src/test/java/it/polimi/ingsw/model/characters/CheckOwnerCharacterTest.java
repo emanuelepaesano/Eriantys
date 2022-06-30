@@ -27,7 +27,7 @@ class CheckOwnerCharacterTest {
         testGame.setCurrentPlayer(testGame.getTableOrder().get(0));
         testCharacter = (CheckOwnerCharacter) Character.makeCharacter(1, testGame);
         testGame.getCharacters().add(testCharacter);
-        VirtualView testView = null;
+        VirtualView testView = new TestVirtualView();
         pcTest = new PlayerController(testGame.getCurrentPlayer(), testView);
         isTest = testGame.getGameMap().getIslandById(1);
         testGame.getCurrentPlayer().getDiningRoom().getTables().putAll(Map.of(Student.BLUE,3,Student.YELLOW,5));

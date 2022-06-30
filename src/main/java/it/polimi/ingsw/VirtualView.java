@@ -17,8 +17,8 @@ import java.net.Socket;
  * ONE VIRTUAL VIEW FOR EACH PLAYER
  */
 public class VirtualView {
-    private final int playerId;
-    private final Socket socket;
+    private int playerId;
+    private Socket socket;
     ObjectInputStream inStream;
     ObjectOutputStream outStream;
 
@@ -27,6 +27,7 @@ public class VirtualView {
     private String reply = "wait";
 
     private Boolean disconnected = false;
+
 
     /**
      * Each Virtual View handles the socket connection with one client instance.
@@ -173,4 +174,6 @@ public class VirtualView {
     public synchronized void setDisconnected(Boolean disconnected) {
         this.disconnected = disconnected;
     }
+    //only for test
+    public VirtualView(){}
 }

@@ -21,7 +21,7 @@ class OrEqualCharacterTest {
         testGame.setCurrentPlayer(testGame.getTableOrder().get(0));
         testCharacter = (OrEqualCharacter) Character.makeCharacter(2, testGame);
         testGame.getCharacters().add(testCharacter);
-        VirtualView testView = null;
+        VirtualView testView = new TestVirtualView();
         testPc = new PlayerController(testGame.getCurrentPlayer(), testView);
     }
 
