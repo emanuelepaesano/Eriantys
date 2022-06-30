@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.characters;
 
+import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Island;
@@ -26,12 +27,13 @@ class CheckOwnerCharacter extends Character {
         this.number = 1;
     }
 
-    private void setUp(PlayerController pc, Game game){
+    private void setUp(PlayerController pc, Game game) throws DisconnectedException {
         Island island = pc.getEntranceController().askWhichIsland(game.getGameMap());
         chosenIsland = island;
     }
 
-    public boolean play(Game game, PlayerController pc) {
+    @Override
+    public boolean play(Game game, PlayerController pc) throws DisconnectedException {
         //choose an island to checkOwner() immediately
         Player player = pc.getPlayer();
         if (!Character.enoughMoney(player,cost)){

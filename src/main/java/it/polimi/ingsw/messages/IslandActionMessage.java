@@ -1,7 +1,6 @@
 package it.polimi.ingsw.messages;
 
 import it.polimi.ingsw.CLIENT.UIManager;
-import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Student;
 import javafx.application.Platform;
@@ -36,7 +35,7 @@ public class IslandActionMessage extends Repliable {
     public void switchAndFillView() {
         Platform.runLater(()->{
             UIManager uim = UIManager.getUIManager();
-            uim.getGenInfoView().fillInfo(this);
+            uim.getIslandView().fillInfo(this);
             uim.getSwitcher().toIslands();
         });
     }

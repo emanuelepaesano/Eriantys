@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.characters;
 
+import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
@@ -37,7 +38,8 @@ public abstract class Character implements Serializable {
         };
     }
 
-    public boolean play(Game game, PlayerController pc){return false;}
+    public boolean play(Game game, PlayerController pc) throws DisconnectedException {return false;}
+
 
     static Boolean enoughMoney(Player player, int cost) {
         return player.getCoins() >= cost;

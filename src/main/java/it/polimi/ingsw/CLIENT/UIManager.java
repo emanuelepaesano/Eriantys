@@ -25,7 +25,7 @@ public class UIManager extends Application{
     private Boolean GUI;
     private View cliView;
     private View firstClientView;
-    private View genInfoView;
+    private View islandView;
 
     private View planningPhaseView;
 
@@ -127,22 +127,22 @@ public class UIManager extends Application{
         return loginView;
     }
 
-    private Parent genInfoRoot;
+    private Parent islandRoot;
 
-    public Parent getGenInfoRoot() {
-        return genInfoRoot;
+    public Parent getIslandRoot() {
+        return islandRoot;
     }
 
-    public View getGenInfoView(){
-        if (genInfoView ==null){
+    public View getIslandView(){
+        if (islandView ==null){
             try {
                 System.out.println("i'm making a new controller");
                 FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("/IslandView.fxml"));
-                genInfoRoot = loginLoader.load();
-                genInfoView = loginLoader.getController();
+                islandRoot = loginLoader.load();
+                islandView = loginLoader.getController();
             }catch(IOException ex){ex.printStackTrace();}
         }
-        return genInfoView;
+        return islandView;
     }
 
     private Parent planningPhaseRoot;

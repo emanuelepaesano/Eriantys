@@ -12,14 +12,14 @@ import java.util.List;
 import static it.polimi.ingsw.messages.PlayCharMessage.PlayCharType.chooseStudent;
 import static it.polimi.ingsw.messages.PlayCharMessage.PlayCharType.play;
 
-public class PlayCharMessage extends Repliable implements Message{
+public class PlayCharMessage extends Repliable{
     List<Character> characters;
     Player player;
     String text;
     int charIndex = -1;
     PlayCharType type;
     List<Student> tempStudents;
-    public PlayCharMessage(List<Character> characters, Player player) {
+    public PlayCharMessage(List<Character> characters, Player player, PlayCharType type) {
         this.characters = characters;
         this.player = player;
         this.type = type;

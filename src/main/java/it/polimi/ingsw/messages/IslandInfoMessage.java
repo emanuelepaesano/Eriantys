@@ -1,14 +1,11 @@
 package it.polimi.ingsw.messages;
 import it.polimi.ingsw.CLIENT.UIManager;
-import it.polimi.ingsw.DisconnectedException;
-import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GameMap;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Student;
 import javafx.application.Platform;
 
-import java.io.Serializable;
 import java.util.List;
 
 
@@ -56,7 +53,7 @@ public class IslandInfoMessage extends Message {
     public void switchAndFillView() {
         Platform.runLater(()->{
             UIManager uim = UIManager.getUIManager();
-            uim.getGenInfoView().fillInfo(this);
+            uim.getIslandView().fillInfo(this);
         });
     }
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.characters;
 
+import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.messages.StringMessage;
@@ -30,7 +31,7 @@ class ReplaceFromEntranceCharacter extends Character {
     }
 
 
-    private void pickStudentsFromCharacter(VirtualView user, int indexThis){
+    private void pickStudentsFromCharacter(VirtualView user, int indexThis) throws DisconnectedException {
         Student student;
         List<Student> studentsCopy = new ArrayList<>(students);
         while (true) {
@@ -51,7 +52,7 @@ class ReplaceFromEntranceCharacter extends Character {
         }
     }
 
-    private void pickStudentsFromEntrance(Player player,VirtualView user){
+    private void pickStudentsFromEntrance(Player player,VirtualView user) throws DisconnectedException {
         Student student;
         List<Student> entranceStudents = player.getEntrance().getStudents();
         while (true) {
@@ -81,7 +82,7 @@ class ReplaceFromEntranceCharacter extends Character {
     /**
      * You may take up to 3 students from this card and replace them with the same number of students from your entrance.
      */
-    public boolean play(Game game, PlayerController pc) {
+    public boolean play(Game game, PlayerController pc) throws DisconnectedException {
         Player player = pc.getPlayer();
 
         int indexThis = game.getCharacters().indexOf(this);

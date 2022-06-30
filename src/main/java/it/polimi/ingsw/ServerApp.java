@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import static it.polimi.ingsw.ServerStarter.declareWin;
-import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.TEST;
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.update;
 import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.init;
 import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.updateMap;

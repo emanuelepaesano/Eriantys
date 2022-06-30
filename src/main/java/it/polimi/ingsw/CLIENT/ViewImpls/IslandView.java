@@ -102,7 +102,7 @@ public class IslandView implements View {
 
     @Override
     public void display() {
-        Parent root = UIManager.getUIManager().getGenInfoRoot();
+        Parent root = UIManager.getUIManager().getIslandRoot();
         Scene sc;
         stage = UIManager.getUIManager().getMainWindow();
         if (root.getScene() == null) {

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.characters;
 
+import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.messages.ActionPhaseMessage;
@@ -34,7 +35,7 @@ class SwapEntranceDRCharacter extends Character {
         this.number = 10;
     }
 
-    private void pickStudentsFromEntrance(Player player,VirtualView user){
+    private void pickStudentsFromEntrance(Player player,VirtualView user) throws DisconnectedException {
         Student student;
         List<Student> entranceStudents = player.getEntrance().getStudents();
         while (true) {
@@ -56,13 +57,14 @@ class SwapEntranceDRCharacter extends Character {
         }
     }
 
-    private void pickStudentsFromDiningRoom(VirtualView user, Player player){
+    private void pickStudentsFromDiningRoom(VirtualView user, Player player) throws DisconnectedException {
         Student student;
         new StringMessage("Choose up to 2 students from your dining room.").send(user);
         Map<Student, Integer> diningRoomStudents = player.getDiningRoom().getTables();
         int numOfDRStuds = diningRoomStudents.values().stream().mapToInt(Integer::intValue).sum();
         if (numOfDRStuds < chosenStudentsFromEntrance.size()){
-            new NoReplyMessage("You don't have enough students in your Dining Room!!").send(user);
+            new NoReplyMessage("Warning","Not enough Students","You don't have enough students in your Dining Room! Your coins will" +
+                    "be returned.").send(user);
             return;
         }
         while (true) {
@@ -88,7 +90,7 @@ class SwapEntranceDRCharacter extends Character {
      * You may exchange up to 2 students between your Entrance and your Dining Room.
      */
     @Override
-    public boolean play(Game game, PlayerController pc) {
+    public boolean play(Game game, PlayerController pc) throws DisconnectedException {
         Player player = pc.getPlayer();
         List<Student> entranceStudents = player.getEntrance().getStudents();
         if (!Character.enoughMoney(player, cost)){

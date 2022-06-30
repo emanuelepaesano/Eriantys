@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.characters;
 
+import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.*;
@@ -29,7 +30,7 @@ class ZeroPointStudentCharacter extends Character {
         this.students = List.of(YELLOW,BLUE,RED,PINK,GREEN);
     }
 
-    private void setUp(VirtualView user, int indexThis){
+    private void setUp(VirtualView user, int indexThis) throws DisconnectedException {
         Student stud;
         while(true) {
             String string = Student.askStudent(List.of(Student.values()),user,indexThis).toUpperCase();
@@ -57,7 +58,7 @@ class ZeroPointStudentCharacter extends Character {
         return stud;
     }
  */
-    public boolean play(Game game, PlayerController pc){
+    public boolean play(Game game, PlayerController pc) throws DisconnectedException {
         Player player = pc.getPlayer();
         int indexThis = game.getCharacters().indexOf(this);
         if (chosenStudent == null){

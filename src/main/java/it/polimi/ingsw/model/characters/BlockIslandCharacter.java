@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.characters;
 
+import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.messages.IslandInfoMessage;
@@ -31,7 +32,7 @@ public class BlockIslandCharacter extends Character {
      * Place a No Entry tile on an island of your choice. The first time mother nature lands,
      * do not calculate influence and put the No Entry tile back on this card.
      */
-    public boolean play(Game game, PlayerController pc) {
+    public boolean play(Game game, PlayerController pc) throws DisconnectedException {
         Player player = pc.getPlayer();
         if (!Character.enoughMoney(player,cost)){
             System.out.println("you don't have enough money!");

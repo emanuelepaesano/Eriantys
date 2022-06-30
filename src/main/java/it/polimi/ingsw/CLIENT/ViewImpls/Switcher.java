@@ -2,21 +2,17 @@ package it.polimi.ingsw.CLIENT.ViewImpls;
 
 import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.CLIENT.View;
-import it.polimi.ingsw.controller.PlayerController;
-import it.polimi.ingsw.messages.ActionPhaseMessage;
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.messages.SwitcherMessage;
 import it.polimi.ingsw.model.Player;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Switcher implements View {
@@ -61,7 +57,7 @@ public class Switcher implements View {
 
     public void initialize(){
         uim = UIManager.getUIManager();
-        uim.getGenInfoView();
+        uim.getIslandView();
         uim.getSchoolView();
         uim.getPlanningPhaseView();
         uim.getCharactersView();
@@ -98,7 +94,7 @@ public class Switcher implements View {
     }
 
     public void toIslands() {
-        Platform.runLater(()->gameScene.getChildren().setAll(uim.getGenInfoRoot()));
+        Platform.runLater(()->gameScene.getChildren().setAll(uim.getIslandRoot()));
     }
 
     public void toSchool() {

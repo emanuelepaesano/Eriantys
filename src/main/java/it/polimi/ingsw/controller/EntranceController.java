@@ -111,7 +111,7 @@ public class EntranceController {
                 island.students.replace(stud, oldval,oldval+1);
                 break;
             }
-            else{new NoReplyMessage("You don't have this student in your entrance!").send(view);}
+            else{new NoReplyMessage("Invalid Student","","You don't have this student in your entrance!").send(view);}
         }
         return 1; //doActions() needs this
     }

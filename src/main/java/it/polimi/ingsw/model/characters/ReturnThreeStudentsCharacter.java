@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.characters;
 
+import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.messages.StringMessage;
@@ -29,7 +30,7 @@ class ReturnThreeStudentsCharacter extends Character {
         this.students = List.of(YELLOW,BLUE,RED,PINK,GREEN);
     }
 
-    private void pickStudent(VirtualView user ,int indexThis){
+    private void pickStudent(VirtualView user ,int indexThis) throws DisconnectedException {
         Student student;
         while (true) {
             new StringMessage("Choose a type of Student to return three students of that type " +
@@ -45,7 +46,7 @@ class ReturnThreeStudentsCharacter extends Character {
         chosenStudent = student;
     }
 
-    public boolean play(Game game, PlayerController pc) {
+    public boolean play(Game game, PlayerController pc) throws DisconnectedException {
         Player player = pc.getPlayer();
         int indexThis = game.getCharacters().indexOf(this);
         if (!Character.enoughMoney(player,cost)){

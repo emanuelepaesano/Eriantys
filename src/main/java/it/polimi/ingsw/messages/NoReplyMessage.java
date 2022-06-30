@@ -3,29 +3,37 @@ package it.polimi.ingsw.messages;
 import it.polimi.ingsw.VirtualView;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Region;
 
 import java.util.List;
 
+import static javafx.scene.control.Alert.AlertType.WARNING;
+
 public class NoReplyMessage extends Message {
+    final String title;
+    final String headerText;
     final String content;
-    public NoReplyMessage(String content) {
+
+    public NoReplyMessage(String title,String headerText,String content) {
+        this.title = title;
+        this.headerText = headerText;
         this.content = content;
     }
-
-
     @Override
     public void switchAndFillView() {
         //make dialog showing content
         Platform.runLater(()->{
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Disconnection");
-        alert.setHeaderText("Player Disconnection");
-        alert.setContentText(content);
+        Alert alert = new Alert(WARNING, content, ButtonType.OK);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
         alert.setHeight(400);
         alert.setWidth(600);
         alert.showAndWait();
         });
     }
+
 
     @Override
     public Boolean isPing() {
