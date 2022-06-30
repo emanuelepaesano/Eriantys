@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.*;
 
 public class Island implements Serializable {
-    private int id;
+    private final int id;
     public Map<Student,Integer> students;
     public Player owner;
     public int size;
@@ -62,9 +62,6 @@ public class Island implements Serializable {
     public Player getOwner() {
         return owner;
     }
-
-
-    //   for test
     public void setStudents(Map<Student,Integer> students) {
         this.students = students;
     }

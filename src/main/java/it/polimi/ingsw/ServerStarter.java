@@ -17,9 +17,6 @@ import java.util.Scanner;
 
 public class ServerStarter {
     int port;
-    String model;
-    Scanner inStream;
-    ObjectOutputStream outStream;
     ServerSocket serverSocket;
     List<VirtualView> views;
 
@@ -34,7 +31,7 @@ public class ServerStarter {
     /**
      * Stop the game if client is disconnected from the server.
      *
-     * @param OK true if the connection is ok.
+     * @param OK true if the game ended under normal circumstances. False if ended for disconnection.
      */
     public static void stopGame(Boolean OK) {
         if(!OK) {
@@ -111,6 +108,10 @@ public class ServerStarter {
         return input;
     }
 
+    /**
+     * This method is called when only one player is left online and the 45-second timer finishes.
+     * That player is awarded the win and goes to the normal end game screen
+     */
     static ActionListener declareWin = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
