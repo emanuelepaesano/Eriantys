@@ -136,10 +136,6 @@ public class LoginView implements View {
         );
     }
 
-    @Override
-    public void sendReply() {
-    }
-
 
     @Override
     public void fillInfo(Message message) {

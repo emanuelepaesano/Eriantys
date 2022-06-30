@@ -103,23 +103,7 @@ public class IslandView implements View {
     List<ImageView> blocks;
 
     @Override
-    public void display() {
-        Parent root = UIManager.getUIManager().getIslandRoot();
-        Scene sc;
-        stage = UIManager.getUIManager().getMainWindow();
-        if (root.getScene() == null) {
-            sc = new Scene(root);
-        } else sc = root.getScene();
-        stage.setScene(sc);
-        stage.setTitle("Eriantys");
-        stage.sizeToScene();
-        stage.show();
-    }
-
-
-    @Override
-    public void sendReply() {
-    }
+    public void display() {}
 
     public void initialize(){
         nh = UIManager.getUIManager().getNh();

@@ -103,24 +103,7 @@ public class CharactersView implements View {
 
 
     @Override
-    public void display() {
-        Parent root = UIManager.getUIManager().getCharactersRoot();
-        stage = UIManager.getUIManager().getMainWindow();
-        Scene sc;
-        if (root.getScene() == null) {
-            sc = new Scene(root);
-        }
-        else sc = root.getScene();
-        stage.setScene(sc);
-        stage.setTitle("Characters");
-        stage.sizeToScene();
-        stage.show();
-    }
-
-    @Override
-    public void sendReply() {
-
-    }
+    public void display() {}
 
     @Override
     public void fillInfo(Message message) {

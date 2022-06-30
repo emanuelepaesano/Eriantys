@@ -69,10 +69,6 @@ public class FirstClientView implements View {
         stage.show();
     }
 
-    @Override
-    public void sendReply() {
-
-    }
 
     @Override
     public void fillInfo(Message message) {

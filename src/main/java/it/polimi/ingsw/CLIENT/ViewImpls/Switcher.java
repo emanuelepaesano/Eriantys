@@ -27,8 +27,6 @@ public class Switcher implements View {
     public Button player2;
     public Button characters;
 
-    private Stage stage;
-
     List<Player> players;
 
     private UIManager uim;
@@ -37,7 +35,7 @@ public class Switcher implements View {
     public void display() {
         Parent root = UIManager.getUIManager().getSwitcherRoot();
         Scene sc;
-        stage = UIManager.getUIManager().getMainWindow();
+        Stage stage = UIManager.getUIManager().getMainWindow();
         if (root.getScene() == null) {
             sc = new Scene(root);
         } else sc = root.getScene();
@@ -48,11 +46,6 @@ public class Switcher implements View {
         stage.setX(0);
         stage.setY(0);
         stage.show();
-    }
-
-    @Override
-    public void sendReply() {
-
     }
 
     public void initialize(){

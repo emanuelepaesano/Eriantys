@@ -48,7 +48,7 @@ public class ServerApp {
         }catch (DisconnectedException ex){ServerStarter.stopGame(false);}
         info.send(server.views);
         while (!game.isOver()) {
-            gc.doPlanningPhase(game);
+            gc.doPlanningPhase();
             //main game loop. We will skip one player if they are disconnected
             for (Player player : game.getCurrentOrder()) {
                 try {

@@ -4,22 +4,17 @@ import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.ServerStarter;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.messages.*;
-import it.polimi.ingsw.model.Assistant;
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.TowerColor;
+import it.polimi.ingsw.model.*;
 
 import java.util.*;
 
-import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.endActions;
-import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.update;
+import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.*;
 
 /**
  * Controller for Game
  */
 public class GameController {
     private Game game;
-
     private  List<PlayerController> controllers;
     private List<VirtualView> views;
     VirtualView firstPlayer;
@@ -66,6 +61,58 @@ public class GameController {
     }
 
     /**
+     * The two askStudent methods are used ask the user to choose a Student color.
+     * This one is for when the selection happens inside the "schoolView", meaning
+     * that Students are selected from the Entrance or the Dining Room.
+     * @param player the player model we will send to the user.
+     * @param user the virtual view which we will communicate with.
+     * @param diningRoom true if selection in dining room, false if in entrance.
+     * @return a String which either contains the student name or a control string for the caller
+     */
+    public static String askStudent(Player player, VirtualView user, boolean diningRoom) throws DisconnectedException{
+        String str;
+        try{
+            if (diningRoom){
+                new ActionPhaseMessage(player, selectFromDR).sendAndCheck(user);
+            }
+            else {new ActionPhaseMessage(player, studselect).sendAndCheck(user);}
+            str = user.getReply();
+            if (Objects.equals(str, "back")) {return "back";}
+            else {
+                Student.valueOf(str.toUpperCase());
+                return str;
+            }
+        }
+        catch (IllegalArgumentException ex) {
+            System.out.println("Not a valid color, try again.");
+            return "retry";
+        }
+    }
+    /**
+     * This method is the same as the previous one, but it is used for when the communication
+     * with the user happens inside the Character View.
+     * @param students the list of students contained in the Character.
+     * @param indexChar the index of the Character inside the characters list of the game model.
+     */
+    public static String askStudent(List<Student> students, VirtualView user, int indexChar) throws DisconnectedException{
+        String str;
+        try{
+            new PlayCharMessage(students, indexChar).sendAndCheck(user);
+            str = user.getReply();
+            if (Objects.equals(str, "back")) {return "back";}
+            else {
+                Student.valueOf(str.toUpperCase());
+                return str;
+            }
+        }
+        catch (IllegalArgumentException ex) {
+            System.out.println("Not a valid color, try again.");
+            return "retry";
+        }
+
+    }
+
+    /**
      *
      * Binds each playerController to their player and view
      */
@@ -83,7 +130,7 @@ public class GameController {
 
 
     /**
-     * Ask the user to play the game mode. (normal or expert)
+     * Ask the user (first client) the game mode. (normal or expert)
      */
     public void askForAdvanced(){
         new FirstClientMessage("Normal game or expert version? Please type \"normal\" or \"expert\".").send(firstPlayer);
@@ -120,7 +167,7 @@ public class GameController {
      * Cycles through players and asks them a color.
      * It will be stored as an attribute of the player.
      *
-     * @param n
+     * @param n the number of players.
      */
     private void askAllForTC(int n){
         ArrayList<TowerColor> remainingColors;
@@ -159,24 +206,21 @@ public class GameController {
         }
     }
 
-
     /**
-     * I put this here for now but maybe we can do a planningPhaseController.
-     * This is a bit complicated, we might break it down somehow.
-     *
-     * @param g
+     * Main method for the planning phase. Cycles through players following the order specified in the rules,
+     * and asks them to play an Assistant. Then a new currentOrder is formed from the results.
      */
-    public void doPlanningPhase(Game g){
-        //This weird code is to start from the current first and then go clockwise, following the
+    public void doPlanningPhase(){
+        //This code is to start from the current first and then go clockwise, following the
         //table order. In this order, we make players play assistants, and store them in a Map
         Map<Integer, Player> Priorities = new TreeMap<>();
         List<Assistant> playedAssistants = new ArrayList<>();
-        System.out.println("current order: " + g.getCurrentOrder());
-        int initialind = g.getTableOrder().indexOf(g.getCurrentOrder().get(0)); //this is the index in the tableOrder of current first
-        for (int i = initialind; i<initialind+g.numPlayers;i++) {
-            PlayerController p = controllers.get(i%g.numPlayers);
+        //this is the index in the tableOrder of current first
+        int initialind = game.getTableOrder().indexOf(game.getCurrentOrder().get(0));
+        for (int i = initialind; i<initialind+game.numPlayers;i++) {
+            PlayerController p = controllers.get(i%game.numPlayers);
             Assistant choice;
-            //also here, we just skip that player if he is disconnected
+            //here we just skip that player if he is disconnected
             try {
                 choice = p.playAssistant(playedAssistants);
             }catch (DisconnectedException disconnected ) {continue;}
@@ -192,7 +236,7 @@ public class GameController {
         }
         new StringMessage("Player order for this turn:" + newOrder).send(views);
         if (newOrder.size() == 0){ServerStarter.stopGame(false);}
-        g.setCurrentOrder(newOrder);
+        game.setCurrentOrder(newOrder);
     }
 
 
@@ -200,8 +244,9 @@ public class GameController {
      * This is the main method for the action phase of each player. It asks the player which action they want to do
      * and then performs the action, until they used all of their moves.
      *
-     * @param pc
-     * @throws DisconnectedException
+     * @param pc the Player Controller.
+     * @throws DisconnectedException if a user disconnects, this Exception will be caught in the ServerApp,
+     * and it will skip the turnof that player
      */
     public void doActions(PlayerController pc) throws DisconnectedException {
         Player player = pc.getPlayer();
@@ -242,7 +287,6 @@ public class GameController {
      *
      * @param availableActions
      * @param pc
-     * @return
      * @throws DisconnectedException
      */
     public String askWhichAction(int availableActions, PlayerController pc) throws DisconnectedException {
@@ -252,7 +296,7 @@ public class GameController {
 
 
     /**
-     * Reset the character cards.
+     * Reset the character cards. It's only needed for characters active for a whole turn
      *
      * @param game
      * @param pc
@@ -264,10 +308,10 @@ public class GameController {
                     game.getCharacters().get(i).reset(game, pc);
                     playedCharacters.set(i, false);
                 }
-
             }
         }
     }
+
 
     //GETTERS
     public Game getGame() {
@@ -282,4 +326,5 @@ public class GameController {
     public List<Boolean> getPlayedCharacters() {
         return playedCharacters;
     }
+
 }

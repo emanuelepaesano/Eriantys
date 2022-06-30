@@ -55,24 +55,7 @@ public class PlanningPhaseView implements View {
     }
 
     @Override
-    public void display() {
-        Parent root = UIManager.getUIManager().getPlanningPhaseRoot();
-        stage = UIManager.getUIManager().getMainWindow();
-        Scene sc;
-        if (root.getScene() == null) {
-            sc = new Scene(root);
-        }
-        else sc = root.getScene();
-        stage.setScene(sc);
-        stage.setTitle("PlanningPhase");
-        stage.sizeToScene();
-        stage.show();
-    }
-
-    @Override
-    public void sendReply() {
-
-    }
+    public void display() {}
 
     @Override
     public void fillInfo(Message message) {
