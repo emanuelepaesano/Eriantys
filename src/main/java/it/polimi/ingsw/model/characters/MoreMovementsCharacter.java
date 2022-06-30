@@ -26,6 +26,8 @@ class MoreMovementsCharacter extends Character {
             return false;}
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
         player.setBaseMoves(2);
+        new NoReplyMessage(false,"Play Character","Effect active",
+                "The Character effect was activated. You can use it for this turn only.").send(pc.getPlayerView());
         return true;
     }
 

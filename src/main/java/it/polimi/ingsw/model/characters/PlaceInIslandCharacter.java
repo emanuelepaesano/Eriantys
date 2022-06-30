@@ -52,7 +52,6 @@ import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.updateMa
         VirtualView user = pc.getPlayerView();
         int indexThis = game.getCharacters().indexOf(this);
         while (true) {
-            new StringMessage("Choose 1 student from this character to move to an island.").send(user);
             String str = Student.askStudent(students,user,indexThis).toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return;}
@@ -73,6 +72,8 @@ import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.updateMa
     public boolean play(Game game, PlayerController pc) throws DisconnectedException {
         Player player = pc.getPlayer();
         if(chosenStudent == null || chosenIsland == null){
+            new NoReplyMessage(false,"Play Character","Pick Student and Island",
+            "You can pick one Student from the Character and one Island to move it to.").send(pc.getPlayerView());
             setUp(pc, game);
             if(chosenStudent == null || chosenIsland == null){
                 Character.sendCancelMessage(pc.getPlayerView());

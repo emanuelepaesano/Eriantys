@@ -38,10 +38,9 @@ class SwapEntranceDRCharacter extends Character {
     private void pickStudentsFromEntrance(Player player,VirtualView user) throws DisconnectedException {
         Student student;
         List<Student> entranceStudents = player.getEntrance().getStudents();
+        new NoReplyMessage(false,"Character Play","Pick Students to move","Select up to 2 Students, and press \"BACK\"" +
+                " when you are done. Then take the same number of Students from your Dining Room.").send(user);
         while (true) {
-            //al momento il modo per selezionare uno è dire il primo e poi fare back
-            new NoReplyMessage("Character Play","Pick Students to move","Select up to 2 Students, press \"BACK\"" +
-            " when you are done. Then take the same number from your Dining Room.").send(user);
             String str = Student.askStudent(player, user, false).toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return;}
@@ -58,19 +57,19 @@ class SwapEntranceDRCharacter extends Character {
         }
     }
 
-    private void pickStudentsFromDiningRoom(VirtualView user, Player player) throws DisconnectedException {
+    private boolean pickStudentsFromDiningRoom(VirtualView user, Player player) throws DisconnectedException {
         Student student;
         Map<Student, Integer> diningRoomStudents = player.getDiningRoom().getTables();
         int numOfDRStuds = diningRoomStudents.values().stream().mapToInt(Integer::intValue).sum();
         if (numOfDRStuds < chosenStudentsFromEntrance.size()){
-            new NoReplyMessage("Warning","Not enough Students",
-            "You don't have enough Students in your Dining Room! Your coins will" + "be returned.").send(user);
-            return;
+            new NoReplyMessage(true,"Warning","Not enough Students",
+            "You don't have enough Students in your Dining Room! Your Coins will be returned.").send(user);
+            return false;
         }
         while (true) {
             String str = Student.askStudent(player, user, true);
             if (str.equalsIgnoreCase("RETRY")){continue;}
-            if (str.equalsIgnoreCase("BACK")){return;}
+            if (str.equalsIgnoreCase("BACK")){return true;}
             else if (List.of(Student.values()).contains(Student.valueOf(str.toUpperCase()))) {
                 student = Student.valueOf(str.toUpperCase());
                 if (diningRoomStudents.get(student) == 0){
@@ -84,6 +83,7 @@ class SwapEntranceDRCharacter extends Character {
                 if (chosenStudentsFromEntrance.size() == chosenStudentsFromDiningRoom.size()){break;}
             }
         }
+        return true;
     }
 
     /**
@@ -104,7 +104,7 @@ class SwapEntranceDRCharacter extends Character {
             Character.sendCancelMessage(pc.getPlayerView());
             return false;
         }
-        pickStudentsFromDiningRoom(pc.getPlayerView(), player);
+        boolean enough = pickStudentsFromDiningRoom(pc.getPlayerView(), player);
         if (chosenStudentsFromDiningRoom.size() < chosenStudentsFromEntrance.size()) {
             entranceStudents.addAll(chosenStudentsFromEntrance);
             chosenStudentsFromDiningRoom.forEach(s->{
@@ -112,7 +112,7 @@ class SwapEntranceDRCharacter extends Character {
                 player.getDiningRoom().getTables().replace(s,oldnum+1);
             });
             clear();
-            Character.sendCancelMessage(pc.getPlayerView());
+            if (enough){Character.sendCancelMessage(pc.getPlayerView());}
             new ActionPhaseMessage(player, update).sendAndCheck(pc.getPlayerView());
             return false;
         }

@@ -45,13 +45,13 @@ public class PlayerController {
                         player.setPlayerName(name);
                         return name;
                     }
-                    else new NoReplyMessage("Invalid name","Empty Name","Please insert a nickname to play." ).send(playerView);
+                    else new NoReplyMessage(true,"Invalid name","Empty Name","Please insert a nickname to play." ).send(playerView);
                     return null;
                 }
-                else new NoReplyMessage("Invalid name","Long Name","Name too long! Please insert a name shorter than 20 characters." ).send(playerView);
+                else new NoReplyMessage(true,"Invalid name","Long Name","Name too long! Please insert a name shorter than 20 characters." ).send(playerView);
                 return null;
             }
-            else new NoReplyMessage("Invalid name","Name Taken","Name already taken! Choose a different name.").send(playerView);
+            else new NoReplyMessage(true,"Invalid name","Name Taken","Name already taken! Choose a different name.").send(playerView);
             return null;
     }
 
@@ -71,10 +71,10 @@ public class PlayerController {
                     return choice;
                 }
             } catch (IllegalArgumentException ex) {
-                new NoReplyMessage("Illegal argument","","Please try again.").send(playerView);
+                new NoReplyMessage(true,"Illegal argument","","Please try again.").send(playerView);
                 return null;
             }
-            new NoReplyMessage("Illegal argument","", "Not an acceptable color, available colors are: "
+            new NoReplyMessage(true,"Illegal argument","", "Not an acceptable color, available colors are: "
                     + remainingColors).send(playerView);
             return null;
     }
@@ -120,9 +120,9 @@ public class PlayerController {
                         return choice;
                     }
                 }
-                else new NoReplyMessage("Invalid Assistant","",Game.ANSI_RED+ "That assistant was already played! Try again."+ Game.ANSI_RESET).send(playerView);
+                else new NoReplyMessage(true,"Invalid Assistant","",Game.ANSI_RED+ "That assistant was already played! Try again."+ Game.ANSI_RESET).send(playerView);
             } catch (IllegalArgumentException exception) {
-                new NoReplyMessage("Invalid Assistant","",Game.ANSI_RED+ "Not a valid assistant, take one from the list: "
+                new NoReplyMessage(true,"Invalid Assistant","",Game.ANSI_RED+ "Not a valid assistant, take one from the list: "
                         + remass+ Game.ANSI_RESET).send(playerView);}
         }
     }
@@ -139,7 +139,7 @@ public class PlayerController {
             else try{
                 chosenChar = Integer.parseInt(str);
                 break;
-            } catch (Exception ex){new NoReplyMessage("Invalid number","","Not a correct number, retry.").send(playerView);}
+            } catch (Exception ex){new NoReplyMessage(true,"Invalid number","","Not a correct number, retry.").send(playerView);}
         }
         Character chara = characters.get(chosenChar-1);
         boolean playSuccess = chara.play(game, this);

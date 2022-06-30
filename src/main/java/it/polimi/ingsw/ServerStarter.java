@@ -31,7 +31,7 @@ public class ServerStarter {
 
     public static void stopGame(Boolean OK) {
         if(!OK) {
-            new NoReplyMessage("Disconnection","Disconnection Error","Something went wrong. Either all player disconnected\n" +
+            new NoReplyMessage(true,"Disconnection","Disconnection Error","Something went wrong. Either all player disconnected\n" +
                     "or someone disconnected before the game started. The game will stop.").send(server.views);
         }
         try {
@@ -56,7 +56,7 @@ public class ServerStarter {
         VirtualView client1 = new VirtualView(this, socket,1);
         views.add(client1);
         int n = askForPN(client1);
-        new NoReplyMessage("OK","","OK! Waiting players for a "+n+"-player game...").send(client1);
+        new NoReplyMessage(false,"OK","","OK! Waiting players for a "+n+"-player game...").send(client1);
 
         lookForMorePlayers((n-1));
         System.out.println(views);
@@ -102,11 +102,11 @@ public class ServerStarter {
     public void aViewDisconnected(VirtualView view) {
         List<VirtualView> activeViews = server.views.stream().filter(v->!v.isDisconnected()).toList();
         if (activeViews.size()>1) {
-            new NoReplyMessage("Disconnection","Player Disconnection","Player " + view.getPlayerId() + " disconnected. The game will continue without that player.\n" +
+            new NoReplyMessage(true,"Disconnection","Player Disconnection","Player " + view.getPlayerId() + " disconnected. The game will continue without that player.\n" +
                     "Players may wait for reconnection or keep playing.").send(activeViews);
         }
         else{
-            new NoReplyMessage("Last Player","You are alone!","You are the only player remaining online.\n" +
+            new NoReplyMessage(true,"Last Player","You are alone!","You are the only player remaining online.\n" +
                     "If no player reconnects, you will win in 45 seconds.").send(activeViews.get(0));
         }
 
@@ -119,7 +119,7 @@ public class ServerStarter {
         System.out.println("a view: " + view + "reconnected.");
         List<VirtualView> otherViews = new ArrayList<>(views);
         otherViews.remove(view);
-        new NoReplyMessage("Reconnection", "Player reconnection","Player "+ view.getPlayerId() + " is back online.\n" +
+        new NoReplyMessage(false,"Reconnection", "Player reconnection","Player "+ view.getPlayerId() + " is back online.\n" +
                 "They will resume playing from the next Planning Phase.").send(otherViews);
         synchronized (ServerApp.lock) {
             ServerApp.lock.notifyAll();

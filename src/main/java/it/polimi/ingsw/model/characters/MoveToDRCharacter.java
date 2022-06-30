@@ -32,8 +32,9 @@ class MoveToDRCharacter extends Character {
 
     private void pickStudent(VirtualView user, int indexThis) throws DisconnectedException {
         Student student;
+        new NoReplyMessage(false,"Play Character","Pick Student",
+        "You can pick one Student from the Character. It will be moved to your Dining Room.").send(user);
         while (true) {
-            new StringMessage("Choose 1 student from the character to move to your dining Room.").send(user);
             String str = Student.askStudent(students,user,indexThis).toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return;}

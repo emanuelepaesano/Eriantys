@@ -33,9 +33,9 @@ class ReturnThreeStudentsCharacter extends Character {
 
     private void pickStudent(VirtualView user ,int indexThis) throws DisconnectedException {
         Student student;
+        new NoReplyMessage(false,"Play Character","Pick one color",
+                "Please select one Student color from the Character.").send(user);
         while (true) {
-            new StringMessage("Choose a type of Student to return three students of that type " +
-                    "from every player's Dining Room.").send(user);
             String str = Student.askStudent(List.of(Student.values()), user, indexThis).toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return;}

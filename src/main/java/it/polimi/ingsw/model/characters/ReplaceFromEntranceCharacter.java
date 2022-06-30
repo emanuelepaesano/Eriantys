@@ -36,7 +36,6 @@ class ReplaceFromEntranceCharacter extends Character {
         Student student;
         List<Student> studentsCopy = new ArrayList<>(students);
         while (true) {
-            new StringMessage("Choose a student from the character to replace it from your Entrance.").send(user);
             String str = Student.askStudent(studentsCopy, user,indexThis).toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return;}
@@ -57,7 +56,6 @@ class ReplaceFromEntranceCharacter extends Character {
         Student student;
         List<Student> entranceStudents = player.getEntrance().getStudents();
         while (true) {
-            new StringMessage("Choose a student from your entrance to replace it with chosen students.").send(user);
             String str = Student.askStudent(player, user, false).toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){
@@ -92,6 +90,8 @@ class ReplaceFromEntranceCharacter extends Character {
             return false;
         }
         if (chosenStudents.size() == 0){
+            new NoReplyMessage(false,"Play Character","Pick Students to move",
+                    "Pick a student from the Character and replace it with one from your Entrance.").send(pc.getPlayerView());
             pickStudentsFromCharacter(pc.getPlayerView(), indexThis);
             if (chosenStudents.size() == 0){
                 Character.sendCancelMessage(pc.getPlayerView());
@@ -99,7 +99,6 @@ class ReplaceFromEntranceCharacter extends Character {
             }
         }
         pickStudentsFromEntrance(pc.getPlayer(),pc.getPlayerView());
-
         if (!(chosenStudentsFromEntrance.size() == chosenStudents.size())){
             chosenStudentsFromEntrance.clear();
             chosenStudents.clear();

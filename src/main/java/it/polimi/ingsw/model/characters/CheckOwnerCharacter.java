@@ -29,8 +29,9 @@ class CheckOwnerCharacter extends Character {
     }
 
     private void setUp(PlayerController pc, Game game) throws DisconnectedException {
-        Island island = pc.getEntranceController().askWhichIsland(game.getGameMap());
-        chosenIsland = island;
+        new NoReplyMessage(false,"Play Character","Pick Island",
+        "Pick one island to resolve now. Mother Nature will still move and resolve another Island.").send(pc.getPlayerView());
+        chosenIsland = pc.getEntranceController().askWhichIsland(game.getGameMap());
     }
 
     @Override

@@ -49,7 +49,7 @@ class ZeroPointStudentCharacter extends Character {
         Player player = pc.getPlayer();
         int indexThis = game.getCharacters().indexOf(this);
         if (chosenStudent == null){
-            new NoReplyMessage("Play Character","Pick one color",
+            new NoReplyMessage(false,"Play Character","Pick one color",
             "Please select one Student color from the Character.").send(pc.getPlayerView());
             setUp(pc.getPlayerView(), indexThis);
             if (chosenStudent == null){

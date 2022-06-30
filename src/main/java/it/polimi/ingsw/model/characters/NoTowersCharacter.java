@@ -33,8 +33,9 @@ class NoTowersCharacter extends Character {
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
         List<Island> islands = game.getGameMap().getArchipelago();
         oldsizes = islands.stream().map(Island::getSize).toList();
-            //we either make size 0 or  change the checkowner
         islands.forEach(island -> island.setSize(0));
+        new NoReplyMessage(false,"Play Character","Effect active",
+                "The Character effect was activated. You can use it for this turn only.").send(pc.getPlayerView());
         return true;
     }
 

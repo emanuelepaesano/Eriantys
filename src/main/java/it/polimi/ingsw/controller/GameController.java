@@ -81,7 +81,7 @@ public class GameController {
     public void replyToAdvanced(String choice){
             if (choice.equalsIgnoreCase("expert")) {this.advanced = true;return;}
             else if (choice.equalsIgnoreCase("normal")) {this.advanced = false;return;}
-            new NoReplyMessage("Wrong input","",Game.ANSI_RED + "What do you mean? Please type \"normal\" or \"expert\"."+ Game.ANSI_RESET)
+            new NoReplyMessage(true,"Wrong input","","What do you mean? Please type \"normal\" or \"expert\".")
                     .send(firstPlayer);
     }
 
@@ -211,7 +211,7 @@ private void askAllPlayerNames() {
                     }
                 }
                 else {
-                    new NoReplyMessage("Warning","Already Played","You have already played a character this turn!").send(pc.getPlayerView());
+                    new NoReplyMessage(true,"Warning","Already Played","You have already played a character this turn!").send(pc.getPlayerView());
                 }
             }
         }

@@ -52,12 +52,12 @@ public abstract class Character implements Serializable {
     }
 
     static void sendCancelMessage(VirtualView view){
-        new NoReplyMessage("Cancel","Cancel Character play",
+        new NoReplyMessage(true,"Cancel","Cancel Character play",
         "The Character play was canceled. You will receive your Coins back.").send(view);
     }
 
     static void sendNoMoneyMessage(VirtualView view){
-        new NoReplyMessage("Warning","Cannot play Character","You don't have enough Coins!\n" +
+        new NoReplyMessage(true,"Warning","Cannot play Character","You don't have enough Coins!\n" +
         "You gain Coins when you put a Student on a Coin symbol in the Dining Room. ").send(view);
     }
 
