@@ -99,7 +99,6 @@ public class LoginView implements View {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Invalid Name");
                     alert.setContentText(noRep.getContent());
-                    alert.initModality(Modality.NONE);
                     alert.showAndWait();
                     });
                 }

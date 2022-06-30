@@ -65,6 +65,7 @@ public class ServerApp {
                     new IslandInfoMessage(game, updateMap).send(pc.getPlayerView());
                     game.setCurrentPlayer(player);
                     gc.doActions(pc);
+                    new SwitcherMessage(game.isAdvanced(),otherPlayers).send(pc.getPlayerView());
                     int nmoves = pc.askMNMoves();
                     game.getGameMap().moveMotherNatureAndCheck(game.getTableOrder(), nmoves);
                     new IslandInfoMessage(game, updateMap).send(pc.getPlayerView());

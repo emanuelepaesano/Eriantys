@@ -1,24 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="fcPane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.FirstClientView" prefHeight="400.0" prefWidth="600.0">
+<AnchorPane fx:id="fcPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.FirstClientView">
     <children>
-        <TextField fx:id="testo" text="Welcome! Choose number of Players." editable="false" AnchorPane.bottomAnchor="200"
-                   AnchorPane.leftAnchor="150" AnchorPane.rightAnchor="150" blendMode="DARKEN"/>
-        <Button fx:id="two" text="2 Players" layoutY="302.0" prefHeight="25.0" prefWidth="54.0"
-            AnchorPane.bottomAnchor="266.0" AnchorPane.rightAnchor="150" AnchorPane.leftAnchor="150" onAction="#send2"/>
-        <Button fx:id="three" text="3 Players" layoutY="302.0" prefHeight="25.0" prefWidth="54.0"
-                AnchorPane.bottomAnchor="133.0" AnchorPane.rightAnchor="150" AnchorPane.leftAnchor="150" onAction="#send3"/>
-        <Button fx:id="normal" text="Normal" disable="true" visible="false" layoutY="302.0" prefHeight="25.0" prefWidth="54.0"
-                AnchorPane.bottomAnchor="266.0" AnchorPane.rightAnchor="150" AnchorPane.leftAnchor="150" onAction="#sendNormal"/>
-        <Button fx:id="expert" text="Expert" disable="true" visible="false" layoutY="302.0" prefHeight="25.0" prefWidth="54.0"
-                AnchorPane.bottomAnchor="133.0" AnchorPane.rightAnchor="150" AnchorPane.leftAnchor="150" onAction="#sendExpert"/>
+      <ImageView fitHeight="400.0" fitWidth="600.0">
+         <image>
+            <Image url="@assets/pastel%20blue%20background.jpg" />
+         </image>
+      </ImageView>
+        <TextField fx:id="testo" blendMode="DARKEN" editable="false" focusTraversable="false" text="Welcome! Choose number of Players." AnchorPane.bottomAnchor="200" AnchorPane.leftAnchor="150" AnchorPane.rightAnchor="150">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="0.06979671865701675" blue="1.0" />
+               </color>
+            </DropShadow>
+         </effect></TextField>
+        <Button fx:id="two" focusTraversable="false" layoutX="136.0" layoutY="302.0" onAction="#send2" prefHeight="25.0" prefWidth="314.0" text="2 Players" AnchorPane.bottomAnchor="266.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150" />
+        <Button fx:id="three" focusTraversable="false" layoutY="302.0" onAction="#send3" prefHeight="25.0" prefWidth="54.0" text="3 Players" AnchorPane.bottomAnchor="133.0" AnchorPane.leftAnchor="150" AnchorPane.rightAnchor="150" />
+        <Button fx:id="normal" disable="true" focusTraversable="false" layoutY="302.0" onAction="#sendNormal" prefHeight="25.0" prefWidth="54.0" text="Normal" visible="false" AnchorPane.bottomAnchor="266.0" AnchorPane.leftAnchor="150" AnchorPane.rightAnchor="150" />
+        <Button fx:id="expert" disable="true" focusTraversable="false" layoutY="302.0" onAction="#sendExpert" prefHeight="25.0" prefWidth="54.0" text="Expert" visible="false" AnchorPane.bottomAnchor="133.0" AnchorPane.leftAnchor="150" AnchorPane.rightAnchor="150" />
     </children>
 
 </AnchorPane>

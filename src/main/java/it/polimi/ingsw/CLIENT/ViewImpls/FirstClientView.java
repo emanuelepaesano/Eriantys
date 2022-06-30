@@ -29,14 +29,14 @@ public class FirstClientView implements View {
         nh = UIManager.getUIManager().getNh();
         nh.setMessageArrivedObserver((msg)-> {
                     if (msg.getClass().getSimpleName().equals("FirstClientMessage")) {
-                        testo.setText("Do you want Normal game or Expert variant?");
+                        testo.setText("Normal game or Expert variant?");
                         two.setDisable(true); two.setVisible(false);
                         three.setDisable(true); three.setVisible(false);
                         normal.setVisible(true); normal.setDisable(false);
                         expert.setVisible(true); expert.setDisable(false);
                     }
                     else if (msg.getClass().getSimpleName().equals("NoReplyMessage")){
-                        testo.setText(msg.toString());
+                        Platform.runLater(()-> testo.setText(msg.toString()));
                     }
                     else {
                         Platform.runLater(msg::switchAndFillView);
