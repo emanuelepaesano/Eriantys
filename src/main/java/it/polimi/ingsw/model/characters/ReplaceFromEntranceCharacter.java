@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.characters;
 
 import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
+import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.messages.NoReplyMessage;
 import it.polimi.ingsw.messages.StringMessage;
@@ -36,7 +37,7 @@ class ReplaceFromEntranceCharacter extends Character {
         Student student;
         List<Student> studentsCopy = new ArrayList<>(students);
         while (true) {
-            String str = Student.askStudent(studentsCopy, user,indexThis).toUpperCase();
+            String str = GameController.askStudent(studentsCopy, user,indexThis).toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return;}
             else if (List.of(Student.values()).contains(Student.valueOf(str))) {
@@ -56,7 +57,7 @@ class ReplaceFromEntranceCharacter extends Character {
         Student student;
         List<Student> entranceStudents = player.getEntrance().getStudents();
         while (true) {
-            String str = Student.askStudent(player, user, false).toUpperCase();
+            String str = GameController.askStudent(player, user, false).toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){
                 //this will annull the play

@@ -50,11 +50,6 @@ public class EndGameView implements View {
         endRoot.setBackground(bGround);
     }
     @Override
-    public void sendReply() {
-
-    }
-
-    @Override
     public void fillInfo(Message message) {
         EndGameMessage endGameMessage = (EndGameMessage) message;
         switch(endGameMessage.getType()){

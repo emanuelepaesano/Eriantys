@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.characters;
 
 import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
+import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.messages.ActionPhaseMessage;
 import it.polimi.ingsw.messages.NoReplyMessage;
@@ -42,7 +43,7 @@ class SwapEntranceDRCharacter extends Character {
         new NoReplyMessage(false,"Character Play","Pick Students to move","Select up to 2 Students, and press \"BACK\"" +
                 " when you are done. Then take the same number of Students from your Dining Room.").send(user);
         while (true) {
-            String str = Student.askStudent(player, user, false).toUpperCase();
+            String str = GameController.askStudent(player, user, false).toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return;}
             else if (List.of(Student.values()).contains(Student.valueOf(str))) {
@@ -68,7 +69,7 @@ class SwapEntranceDRCharacter extends Character {
             return false;
         }
         while (true) {
-            String str = Student.askStudent(player, user, true);
+            String str = GameController.askStudent(player, user, true);
             if (str.equalsIgnoreCase("RETRY")){continue;}
             if (str.equalsIgnoreCase("BACK")){return true;}
             else if (List.of(Student.values()).contains(Student.valueOf(str.toUpperCase()))) {

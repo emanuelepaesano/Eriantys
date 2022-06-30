@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.characters;
 
 import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
+import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.messages.NoReplyMessage;
 import it.polimi.ingsw.messages.StringMessage;
@@ -35,7 +36,7 @@ class MoveToDRCharacter extends Character {
         new NoReplyMessage(false,"Play Character","Pick Student",
         "You can pick one Student from the Character. It will be moved to your Dining Room.").send(user);
         while (true) {
-            String str = Student.askStudent(students,user,indexThis).toUpperCase();
+            String str = GameController.askStudent(students,user,indexThis).toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return;}
             else if (List.of(Student.values()).contains(Student.valueOf(str))) {

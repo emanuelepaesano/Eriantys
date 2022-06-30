@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.characters;
 
 import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
+import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.messages.NoReplyMessage;
 import it.polimi.ingsw.model.*;
@@ -34,7 +35,7 @@ class ZeroPointStudentCharacter extends Character {
     private void setUp(VirtualView user, int indexThis) throws DisconnectedException {
         Student stud;
         while(true) {
-            String string = Student.askStudent(List.of(Student.values()),user,indexThis).toUpperCase();
+            String string = GameController.askStudent(List.of(Student.values()),user,indexThis).toUpperCase();
             if (string.equals("RETRY")){continue;}
             if (string.equals("BACK")) {return;}
             else if (List.of(Student.values()).contains(Student.valueOf(string))) {

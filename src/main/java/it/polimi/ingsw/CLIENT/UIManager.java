@@ -12,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -23,18 +22,18 @@ public class UIManager extends Application{
     private View loginView;
     private NetworkHandler nh;
     private Boolean GUI;
-    private View cliView;
-    private View firstClientView;
-    private View islandView;
-
-    private View planningPhaseView;
-
+    private View cliView; private View firstClientView; private View islandView;
+    private View planningPhaseView; private View schoolView; private View charactersView;
+    private View p2SchoolView; private View p1SchoolView; private View endGameView;
+    private Parent loginRoot; private Parent islandRoot; private Parent planningPhaseRoot;
+    private Parent firstClientRoot; private Parent schoolRoot; private Parent p1SchoolRoot;
+    private Parent p2SchoolRoot; private Parent endGameRoot; private Parent switcherRoot; private Parent charactersRoot;
+    private Switcher switcher;
     private final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         launch(args);
     }
-
     @Override
     public void start(Stage stage) throws Exception {
         UIManager = this;
@@ -103,7 +102,6 @@ public class UIManager extends Application{
         b2.setOnAction(e-> {GUI =false; stage.close();});
         stage.showAndWait();
     }
-
     public void startWaitingView() throws IOException {
         FXMLLoader waitLoader = new FXMLLoader(getClass().getResource("/WaitingView.fxml"));
         Parent waitingRoot = waitLoader.load();
@@ -111,10 +109,7 @@ public class UIManager extends Application{
         waitingView.display(waitingRoot);
     }
 
-    private Parent loginRoot;
-    public Parent getLoginRoot() {
-        return loginRoot;
-    }
+
 
     public View getLoginView(){
         if (this.loginView ==null){
@@ -126,13 +121,6 @@ public class UIManager extends Application{
         }
         return loginView;
     }
-
-    private Parent islandRoot;
-
-    public Parent getIslandRoot() {
-        return islandRoot;
-    }
-
     public View getIslandView(){
         if (islandView ==null){
             try {
@@ -144,12 +132,6 @@ public class UIManager extends Application{
         }
         return islandView;
     }
-
-    private Parent planningPhaseRoot;
-
-    public Parent getPlanningPhaseRoot() {
-        return planningPhaseRoot;
-    }
     public View getPlanningPhaseView(){
         if (this.planningPhaseView ==null){
             try {
@@ -160,13 +142,6 @@ public class UIManager extends Application{
         }
         return planningPhaseView;
     }
-
-    private Parent firstClientRoot;
-    public Parent getFirstClientRoot() {
-        return firstClientRoot;
-    }
-
-
     public View getFirstClientView(){
         if (this.firstClientView ==null){
             try {
@@ -176,12 +151,6 @@ public class UIManager extends Application{
             }catch(IOException ex){ex.printStackTrace();}
         }
         return firstClientView;
-    }
-
-    private View schoolView;
-    private Parent schoolRoot;
-    public Parent getSchoolRoot() {
-        return schoolRoot;
     }
     public View getSchoolView(){
         if (this.schoolView ==null){
@@ -193,12 +162,6 @@ public class UIManager extends Application{
         }
         return schoolView;
     }
-
-    private View charactersView;
-    private Parent charactersRoot;
-    public Parent getCharactersRoot() {
-        return charactersRoot;
-    }
     public View getCharactersView(){
         if (this.charactersView ==null){
             try {
@@ -208,12 +171,6 @@ public class UIManager extends Application{
             }catch(IOException ex){ex.printStackTrace();}
         }
         return charactersView;
-    }
-
-    private View p1SchoolView;
-    private Parent p1SchoolRoot;
-    public Parent getP1SchoolRoot() {
-        return p1SchoolRoot;
     }
     public View getP1SchoolView(){
         if (this.p1SchoolView ==null){
@@ -225,13 +182,6 @@ public class UIManager extends Application{
         }
         return p1SchoolView;
     }
-
-    private View p2SchoolView;
-    private Parent p2SchoolRoot;
-
-    public Parent getP2SchoolRoot() {
-        return p2SchoolRoot;
-    }
     public View getP2SchoolView(){
         if (this.p2SchoolRoot ==null){
             try {
@@ -241,13 +191,6 @@ public class UIManager extends Application{
             }catch(IOException ex){ex.printStackTrace();}
         }
         return p2SchoolView;
-    }
-
-    private View endGameView;
-    private Parent endGameRoot;
-
-    public Parent getEndGameRoot() {
-        return endGameRoot;
     }
     public View getEndGameView(){
         if (this.endGameView ==null){
@@ -259,13 +202,6 @@ public class UIManager extends Application{
         }
         return endGameView;
     }
-    private Switcher switcher;
-    private Parent switcherRoot;
-
-    public Parent getSwitcherRoot() {
-        return switcherRoot;
-    }
-
     public Switcher getSwitcher() {
         if (this.switcher ==null){
             try {
@@ -277,23 +213,18 @@ public class UIManager extends Application{
         return switcher;
     }
 
-    public static UIManager getUIManager(){
-        return UIManager;
-    }
-
-    public  Stage getMainWindow() {
-        return mainWindow;
-    }
-
-    public  WaitingView getWaitingView() {
-        return waitingView;
-    }
-
-    public  NetworkHandler getNh() {
-        return nh;
-    }
-
-    public  View getCliView() {
-        return cliView;
-    }
+    public static UIManager getUIManager(){return UIManager;}
+    public  Stage getMainWindow() {return mainWindow;}
+    public  NetworkHandler getNh() {return nh;}
+    public  View getCliView() {return cliView;}
+    public Parent getLoginRoot() {return loginRoot;}
+    public Parent getSwitcherRoot() {return switcherRoot;}
+    public Parent getEndGameRoot() {return endGameRoot;}
+    public Parent getP2SchoolRoot() {return p2SchoolRoot;}
+    public Parent getP1SchoolRoot() {return p1SchoolRoot;}
+    public Parent getCharactersRoot() {return charactersRoot;}
+    public Parent getSchoolRoot() {return schoolRoot;}
+    public Parent getFirstClientRoot() {return firstClientRoot;}
+    public Parent getPlanningPhaseRoot() {return planningPhaseRoot;}
+    public Parent getIslandRoot() {return islandRoot;}
 }

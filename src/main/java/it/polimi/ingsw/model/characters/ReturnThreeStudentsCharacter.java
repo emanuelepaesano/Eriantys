@@ -2,9 +2,9 @@ package it.polimi.ingsw.model.characters;
 
 import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
+import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.messages.NoReplyMessage;
-import it.polimi.ingsw.messages.StringMessage;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Student;
@@ -36,7 +36,7 @@ class ReturnThreeStudentsCharacter extends Character {
         new NoReplyMessage(false,"Play Character","Pick one color",
                 "Please select one Student color from the Character.").send(user);
         while (true) {
-            String str = Student.askStudent(List.of(Student.values()), user, indexThis).toUpperCase();
+            String str = GameController.askStudent(List.of(Student.values()), user, indexThis).toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return;}
             else {

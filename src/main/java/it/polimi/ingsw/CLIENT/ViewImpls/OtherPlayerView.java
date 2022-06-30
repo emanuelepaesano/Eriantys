@@ -68,9 +68,7 @@ public class OtherPlayerView implements View {
     public ImageView eight;
     public ImageView nine;
     public ImageView ten;
-
-    public Label towLabel;
-
+    public Text towLabel;
     public Text playerName;
     Player player;
     Stage stage;
@@ -84,20 +82,7 @@ public class OtherPlayerView implements View {
     Map<Assistant, Boolean> playersAssistants;
 
     @Override
-    public void display() {
-        Parent root = UIManager.getUIManager().getSchoolRoot();
-        Scene sc;
-        stage = UIManager.getUIManager().getMainWindow();
-        if (root.getScene() == null) {
-            sc = new Scene(root);
-        } else sc = root.getScene();
-        Platform.runLater(()->{
-            stage.setScene(sc);
-            stage.setTitle("School");
-            stage.sizeToScene();
-            stage.show();
-        });
-    }
+    public void display() {}
 
     public void initialize(){
         entranceImageViewList =
@@ -135,9 +120,6 @@ public class OtherPlayerView implements View {
     }
 
 
-    @Override
-    public void sendReply() {
-    }
 
     @Override
     public void fillInfo(Message mes) {

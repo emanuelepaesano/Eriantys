@@ -24,7 +24,6 @@ public class CLIView implements View {
         System.out.println(content);
     }
 
-    @Override
     public void sendReply() {
         reply = scanner.nextLine();
         nh.sendReply(reply);

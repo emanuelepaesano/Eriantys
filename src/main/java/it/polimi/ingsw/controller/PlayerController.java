@@ -16,8 +16,8 @@ import static it.polimi.ingsw.messages.PlayCharMessage.PlayCharType.play;
  */
 public class PlayerController {
 
-    private Player player;
-    private VirtualView playerView;
+    private final Player player;
+    private final VirtualView playerView;
     private EntranceController entranceController;
 
 
@@ -154,9 +154,7 @@ public class PlayerController {
                     }
                 }
                 else new NoReplyMessage(true,"Invalid Assistant","",Game.ANSI_RED+ "That assistant was already played! Try again."+ Game.ANSI_RESET).send(playerView);
-            } catch (IllegalArgumentException exception) {
-                new NoReplyMessage(true,"Invalid Assistant","",Game.ANSI_RED+ "Not a valid assistant, take one from the list: "
-                        + remass+ Game.ANSI_RESET).send(playerView);}
+            } catch (IllegalArgumentException ignored) {}
         }
     }
 
@@ -194,8 +192,7 @@ public class PlayerController {
     /**
      * Ask how many steps the user wants to move Mother Nature.
      *
-     * @return The number of steps the player wants to move mother Nature. This method is now only called from GameMap.moveMotherNature().
-     * This could change if we choose to move that method
+     * @return The number of steps the player wants to move mother Nature. This method is called directly from the server Main()
      */
     public int askMNMoves() throws DisconnectedException {
         int possibleMoves = player.getBaseMoves() + player.getCurrentAssistant().getMoves();

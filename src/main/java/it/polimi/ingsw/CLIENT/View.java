@@ -8,12 +8,14 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
-
 import java.io.Serializable;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public interface View extends Serializable {
+
+    void display();
+    void fillInfo(Message message);
 
     static void makeSpinnerDialog(Spinner<Integer> numberSel, NetworkHandler nh, String title, String header) {
         AtomicBoolean sent = new AtomicBoolean(false);
@@ -42,9 +44,5 @@ public interface View extends Serializable {
             makeSpinnerDialog(numberSel,nh,title,header);
         }
     }
-
-    void display();
-    void sendReply();
-    void fillInfo(Message message);
 
 }
