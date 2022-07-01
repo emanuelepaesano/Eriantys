@@ -23,14 +23,10 @@ import javafx.scene.shape.Polyline;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 import static it.polimi.ingsw.messages.PlayCharMessage.PlayCharType.*;
 import static it.polimi.ingsw.model.Student.*;
@@ -107,24 +103,7 @@ public class CharactersView implements View {
 
 
     @Override
-    public void display() {
-        Parent root = UIManager.getUIManager().getCharactersRoot();
-        stage = UIManager.getUIManager().getMainWindow();
-        Scene sc;
-        if (root.getScene() == null) {
-            sc = new Scene(root);
-        }
-        else sc = root.getScene();
-        stage.setScene(sc);
-        stage.setTitle("Characters");
-        stage.sizeToScene();
-        stage.show();
-    }
-
-    @Override
-    public void sendReply() {
-
-    }
+    public void display() {}
 
     @Override
     public void fillInfo(Message message) {

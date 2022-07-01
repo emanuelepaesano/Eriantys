@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.characters;
 
+import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
@@ -10,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ZeroPointStudentCharacterTest {
 
@@ -26,14 +27,14 @@ class ZeroPointStudentCharacterTest {
         testGame.setCurrentPlayer(testGame.getTableOrder().get(0));
         testCharacter = (ZeroPointStudentCharacter) Character.makeCharacter(8, testGame);
         testGame.getCharacters().add(testCharacter);
-        VirtualView testView = null;
+        VirtualView testView = new TestVirtualView();
         testPc = new PlayerController(testGame.getCurrentPlayer(), testView);
         testStudent=Student.RED;
         testCharacter.setChosenStudent(testStudent);
     }
 
     @Test
-    void play() {
+    void play() throws DisconnectedException {
         testGame.getCurrentPlayer().setCoins(6);
         for (int i = 0; i<testGame.getGameMap().getArchipelago().size(); i++){
             testGame.getGameMap().getIslandById(i).setStudents(new HashMap<>(Map.of(Student.RED, 2, Student.PINK,0,Student.GREEN,0,Student.BLUE,0,Student.YELLOW,0)));
@@ -49,7 +50,7 @@ class ZeroPointStudentCharacterTest {
     }
 
     @Test
-    void reset() {
+    void reset() throws DisconnectedException {
         testGame.getCurrentPlayer().setCoins(3);
         for (int i = 0; i<testGame.getGameMap().getArchipelago().size(); i++){
             testGame.getGameMap().getIslandById(i).setStudents(new HashMap<>(Map.of(Student.RED, 2, Student.PINK,0,Student.GREEN,0,Student.BLUE,0,Student.YELLOW,0)));

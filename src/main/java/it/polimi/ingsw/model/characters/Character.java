@@ -8,8 +8,8 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Student;
 
-import java.util.List;
 import java.io.Serializable;
+import java.util.List;
 
 public abstract class Character implements Serializable {
 
@@ -39,9 +39,26 @@ public abstract class Character implements Serializable {
             default -> null;
         };
     }
+
+    /**
+     * Check if the player has enough money.
+     *
+     * @param player
+     * @param cost cost to play the character
+     * @return true if the player has enough money to pay the cost.
+     */
     static Boolean enoughMoney(Player player, int cost) {
         return player.getCoins() >= cost;
     }
+
+    /**
+     * Pay the cost of character, and add +1 cost if the cost has not reached maxCost.
+     *
+     * @param player
+     * @param cost cost to be paid
+     * @param maxCost
+     * @return new cost of the character
+     */
     static int payandUpdateCost(Player player, int cost, int maxCost){
         player.setCoins(player.getCoins() - cost);
         System.out.println("coins after payment: " + player.getCoins());
@@ -70,14 +87,15 @@ public abstract class Character implements Serializable {
     public String getDescription(){return description;}
 
     public int getNumber(){return number;}
+
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + "; current Cost =" +this.getCost();
     }
 
     public void reset(Game game, PlayerController pc){};
-    public List<Student> getStudents() {return students;}
 
+    public List<Student> getStudents() {return students;}
 }
 
 

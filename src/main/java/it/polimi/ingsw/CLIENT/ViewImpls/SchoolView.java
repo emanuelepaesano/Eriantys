@@ -5,12 +5,16 @@ import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.CLIENT.View;
 import it.polimi.ingsw.messages.ActionPhaseMessage;
 import it.polimi.ingsw.messages.Message;
-import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.Student;
+import it.polimi.ingsw.model.TowerColor;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 import javafx.scene.effect.Bloom;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
@@ -73,20 +77,7 @@ public class SchoolView implements View {
 
 
     @Override
-    public void display() {
-        Parent root = UIManager.getUIManager().getSchoolRoot();
-        Scene sc;
-        stage = UIManager.getUIManager().getMainWindow();
-        if (root.getScene() == null) {
-            sc = new Scene(root);
-        } else sc = root.getScene();
-        Platform.runLater(()->{
-        stage.setScene(sc);
-        stage.setTitle("School");
-        stage.sizeToScene();
-        stage.show();
-        });
-    }
+    public void display() {}
 
     public Parent getSchoolRoot() {
         return schoolRoot;
@@ -127,10 +118,6 @@ public class SchoolView implements View {
         });
     }
 
-
-    @Override
-    public void sendReply() {
-    }
 
     @Override
     public void fillInfo(Message mes) {

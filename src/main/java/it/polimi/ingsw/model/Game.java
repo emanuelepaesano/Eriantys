@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
-import it.polimi.ingsw.model.characters.Character;
+
 import it.polimi.ingsw.model.characters.BlockIslandCharacter;
+import it.polimi.ingsw.model.characters.Character;
 
 import java.io.Serializable;
 import java.util.*;
@@ -54,6 +55,12 @@ public class Game implements Serializable {
         return startingOrder;
     }
 
+    /**
+     * Make clouds based on the number of players.
+     *
+     * @param numPlayers
+     * @return clouds
+     */
     private static List<List<Student>> makeClouds(int numPlayers){
         List<List<Student>> clouds = new ArrayList<>();
         for (int i=0; i<numPlayers; i++){
@@ -62,6 +69,11 @@ public class Game implements Serializable {
         return clouds;
     }
 
+    /**
+     * Make bag.
+     *
+     * @return bag
+     */
     private static Map<Student,Integer> makeBag(){
         Map<Student,Integer> bag = new EnumMap<>(Student.class);
         for (Student sc : Student.values()){
@@ -83,6 +95,11 @@ public class Game implements Serializable {
     }
 
 
+    /**
+     * Set up the game.
+     *
+     * @param ad true if the game is expert mode
+     */
     public void doSetUp(Boolean ad){
         this.advanced = ad;
         round = 1;
@@ -96,6 +113,11 @@ public class Game implements Serializable {
         }
     }
 
+    /**
+     * Select three characters randomly.
+     *
+     * @return list of three characters selected randomly.
+     */
     private List<Character> makeAllCharacters(){
         List<Character> characters = new ArrayList<>();
         List<Integer> availables = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12));
@@ -118,6 +140,9 @@ public class Game implements Serializable {
         return characters;
     }
 
+    /**
+     * Fill the clouds.
+     */
     private void fillClouds(){
         clouds.forEach(List::clear);
         for(List<Student> cloud : clouds){
@@ -129,12 +154,20 @@ public class Game implements Serializable {
     }
 
 
+    /**
+     * Fill the entrance with students for all players.
+     */
     private void fillAllEntrancesFromBag(){
         for (Player player : tableOrder){
             fillOneEntranceFromBag(player);
         }
     }
 
+    /**
+     * Fill the entrance with students for the player.
+     *
+     * @param player
+     */
     private void fillOneEntranceFromBag(Player player){
         for (int i=0;i<(numPlayers==3? 9:7);i++) {
             Student randstud = this.drawFromBag();
@@ -142,6 +175,11 @@ public class Game implements Serializable {
         }
     }
 
+    /**
+     * Draw students from the bag.
+     *
+     * @return
+     */
     public Student drawFromBag(){
         int randind = randomizer.nextInt(5);
         Student randstud = Arrays.asList(Student.values()).get(randind);
@@ -150,13 +188,22 @@ public class Game implements Serializable {
         return randstud;
     }
 
+    /**
+     * Add students to the bag.
+     *
+     */
     public void addToBag(Student student, Integer num){
         int oldnum = bag.get(student);
         bag.replace(student, oldnum, oldnum + num);
     }
 
-
-
+    /**
+     * Check if the game can end.
+     *
+     * @param condition the end condition to check.
+     * @param player
+     * @return
+     */
     public Boolean checkGameEndCondition(String condition, Player player){
         switch (condition) {
             case "towerend" -> {
@@ -217,6 +264,9 @@ public class Game implements Serializable {
         return secondTies;
     }
 
+    /**
+     * Check if the game goes to the next round or end.
+     */
     public void newRoundOrEnd(){
         if (this.isOver()){
             return;
@@ -245,7 +295,6 @@ public class Game implements Serializable {
         this.currentOrder = currentOrder;
     }
 
-
     public List<Player> getCurrentOrder() {
         return currentOrder;
     }
@@ -270,7 +319,6 @@ public class Game implements Serializable {
         this.currentPlayer = currentPlayer;
     }
 
-
     public List<Character> getCharacters() {
         return characters;
     }
@@ -278,7 +326,6 @@ public class Game implements Serializable {
     public Boolean isOver() {
         return over;
     }
-
 
     public List<Player> getWinner() {
         return winner;

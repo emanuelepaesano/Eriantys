@@ -5,7 +5,6 @@ import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.CLIENT.View;
 import it.polimi.ingsw.messages.Message;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -70,10 +69,6 @@ public class FirstClientView implements View {
         stage.show();
     }
 
-    @Override
-    public void sendReply() {
-
-    }
 
     @Override
     public void fillInfo(Message message) {

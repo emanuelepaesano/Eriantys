@@ -1,10 +1,8 @@
 package it.polimi.ingsw.messages;
 
 import it.polimi.ingsw.CLIENT.UIManager;
-import it.polimi.ingsw.VirtualView;
-import it.polimi.ingsw.model.Student;
-import it.polimi.ingsw.model.characters.Character;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.Student;
 import it.polimi.ingsw.model.characters.Character;
 
 import java.util.List;

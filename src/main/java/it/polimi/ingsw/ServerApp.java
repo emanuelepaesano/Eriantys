@@ -1,20 +1,15 @@
 package it.polimi.ingsw;
 
-import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.PlayerController;
+import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.Student;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static it.polimi.ingsw.ServerStarter.declareWin;
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.update;
@@ -24,7 +19,8 @@ import static it.polimi.ingsw.messages.PlayCharMessage.PlayCharType.start;
 
 
 /**
- * this will be the main to play the game.
+ * Server application.
+ *
  */
 public class ServerApp {
     public static final Object lock = new Object();
@@ -53,7 +49,7 @@ public class ServerApp {
         }catch (DisconnectedException ex){ServerStarter.stopGame(false);}
         info.send(server.views);
         while (!game.isOver()) {
-            gc.doPlanningPhase(game);
+            gc.doPlanningPhase();
             //main game loop. We will skip one player if they are disconnected
             for (Player player : game.getCurrentOrder()) {
                 try {

@@ -7,8 +7,10 @@ import it.polimi.ingsw.model.*;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Scanner;
 
+/**
+ * Controller for Entrance
+ */
 public class EntranceController {
 
     Entrance entrance;
@@ -21,9 +23,11 @@ public class EntranceController {
         this.player = player;
     }
 
-
     /**
-     * Lets the player choose a cloud and fills the entrance with the students of that cloud
+     *  Let the player choose a cloud and fills the entrance with the students of that cloud
+     *
+     * @param clouds
+     * @throws DisconnectedException
      */
     public void fillFromClouds(List<List<Student>> clouds) throws DisconnectedException {
         new NoReplyMessage(false,"Cloud Selection","Select one Cloud",
@@ -46,12 +50,11 @@ public class EntranceController {
     }
 
 
-
     /**
      *
      * @param availablemoves the moves that are left to the player, will come from the controller.
      *
-     * @return Method for moving students to dining room. Returns the number of moves used, for doActions()
+     * @return The number of moves used, needed for doActions()
      *
      */
     public int moveToDiningRoom(int availablemoves, DiningRoom diningRoom, List<Player> players) throws DisconnectedException {
@@ -61,13 +64,13 @@ public class EntranceController {
             nstud = askHowManyStudents(availablemoves);
         }
         else nstud = 1;
-        //Now we ask to move the students
+        //Second part: We ask which students to move
         List<Student> students = entrance.getStudents();
         String str;
         Student stud;
         for (int i = 0;i<nstud;i++){
 
-            str = Student.askStudent(player, view, false).toUpperCase();
+            str = GameController.askStudent(player, view, false).toUpperCase();
             if  (str.equals("BACK")) {return i;}
             else if  (str.equals("RETRY")) {i -= 1; continue;}
             else {stud = Student.valueOf(str);}
@@ -86,7 +89,10 @@ public class EntranceController {
     }
 
 
-
+    /**
+     * @param gm: the game map
+     * @return the number of actions used (here always 1)
+     */
     public int moveToIsland(GameMap gm) throws DisconnectedException {
 
         System.out.println("Current map:\n" + gm);
@@ -94,7 +100,7 @@ public class EntranceController {
         String str;
         Student stud;
         while(true) {
-            str = Student.askStudent(player, view, false).toUpperCase();
+            str = GameController.askStudent(player, view, false).toUpperCase();
             if (str.equals("BACK")) {
                 return 0;
             }
@@ -113,7 +119,7 @@ public class EntranceController {
                 island.students.replace(stud, oldval,oldval+1);
                 break;
             }
-            else{new NoReplyMessage(true,"Invalid Student","","You don't have this student in your entrance!").send(view);}
+            else{new NoReplyMessage(true,"Invalid Student","","You don't have this Student in your entrance!").send(view);}
         }
         return 1; //doActions() needs this
     }
@@ -135,9 +141,9 @@ public class EntranceController {
             }
             try {
                 nstud = Integer.parseInt(in);
-                if (nstud > availablemoves || nstud<0){System.out.println("nice try :)");}
+                if (nstud > availablemoves || nstud<0){new StringMessage("nice try :)").send(view);}
                 else{break;}
-            } catch (IllegalArgumentException ex) { System.out.println("not a number, try again");}
+            } catch (IllegalArgumentException ex) { new StringMessage("not a number, try again").send(view);}
         }
         return nstud;
     }

@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.characters;
 
 import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
+import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.messages.ActionPhaseMessage;
 import it.polimi.ingsw.messages.NoReplyMessage;
@@ -10,9 +11,10 @@ import it.polimi.ingsw.model.DiningRoom;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Student;
-import javafx.application.Platform;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import static it.polimi.ingsw.messages.ActionPhaseMessage.ActionPhaseType.update;
 
@@ -41,7 +43,7 @@ class SwapEntranceDRCharacter extends Character {
         new NoReplyMessage(false,"Character Play","Pick Students to move","Select up to 2 Students, and press \"BACK\"" +
                 " when you are done. Then take the same number of Students from your Dining Room.").send(user);
         while (true) {
-            String str = Student.askStudent(player, user, false).toUpperCase();
+            String str = GameController.askStudent(player, user, false).toUpperCase();
             if (str.equals("RETRY")){continue;}
             if (str.equals("BACK")){return;}
             else if (List.of(Student.values()).contains(Student.valueOf(str))) {
@@ -67,7 +69,7 @@ class SwapEntranceDRCharacter extends Character {
             return false;
         }
         while (true) {
-            String str = Student.askStudent(player, user, true);
+            String str = GameController.askStudent(player, user, true);
             if (str.equalsIgnoreCase("RETRY")){continue;}
             if (str.equalsIgnoreCase("BACK")){return true;}
             else if (List.of(Student.values()).contains(Student.valueOf(str.toUpperCase()))) {
@@ -97,14 +99,18 @@ class SwapEntranceDRCharacter extends Character {
             Character.sendNoMoneyMessage(pc.getPlayerView());
             return false;
         }
+
         pickStudentsFromEntrance(pc.getPlayer(), pc.getPlayerView());
+
         if (chosenStudentsFromEntrance.size() == 0) {
             entranceStudents.addAll(chosenStudentsFromEntrance);
             clear();
             Character.sendCancelMessage(pc.getPlayerView());
             return false;
         }
+
         boolean enough = pickStudentsFromDiningRoom(pc.getPlayerView(), player);
+
         if (chosenStudentsFromDiningRoom.size() < chosenStudentsFromEntrance.size()) {
             entranceStudents.addAll(chosenStudentsFromEntrance);
             chosenStudentsFromDiningRoom.forEach(s->{
@@ -141,9 +147,6 @@ class SwapEntranceDRCharacter extends Character {
     }
 
     @Override
-    public void reset(Game game, PlayerController pc) {
-        chosenStudentsFromEntrance = new ArrayList<>(List.of());
-        chosenStudentsFromDiningRoom = new ArrayList<>(List.of());
-    }
+    public void reset(Game game, PlayerController pc) {}
 
 }

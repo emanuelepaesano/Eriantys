@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.Glow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,12 +13,15 @@
 
 <AnchorPane fx:id="otherPlRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.OtherPlayerView">
    <children>
-      <AnchorPane layoutY="108.0" AnchorPane.bottomAnchor="116.0" AnchorPane.topAnchor="116.0">
+      <AnchorPane layoutY="62.0" AnchorPane.bottomAnchor="170.0" AnchorPane.topAnchor="62.0">
          <children>
             <ImageView fitHeight="555.0" fitWidth="1287.0" preserveRatio="true">
                <image>
                   <Image url="@assets/Plancia_DEF2.png" />
                </image>
+               <effect>
+                  <InnerShadow height="40.0" radius="14.75" />
+               </effect>
             </ImageView>
             <ImageView fx:id="e1b" layoutX="126.0" layoutY="76.0" onMouseEntered="#enteredStudent" onMouseExited="#exitedStudent" pickOnBounds="true">
                <image>
@@ -1020,63 +1023,104 @@
                   <DropShadow />
                </effect>
             </ImageView>
-            <Label fx:id="towLabel" layoutX="1085.0" layoutY="40.0" prefHeight="51.0" prefWidth="82.0" style="-fx-background-color: white;" text="&lt;numTowers&gt;" />
+            <Text fx:id="towLabel" fill="WHITE" layoutX="1058.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Towers: 8" wrappingWidth="130.39992675781252">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+               <effect>
+                  <DropShadow spread="0.5" />
+               </effect>
+            </Text>
          </children>
       </AnchorPane>
-      <Text fx:id="playerName" layoutX="14.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player Name here" wrappingWidth="336.5367546081543">
+      <Text fx:id="playerName" layoutX="17.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player Name here" wrappingWidth="336.5367546081543">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Text>
-      <ImageView fx:id="one" fitHeight="200.0" fitWidth="90.0" layoutX="140.0" layoutY="670.0" preserveRatio="true">
+      <ImageView fx:id="one" fitHeight="200.0" fitWidth="121.0" layoutX="177.0" layoutY="620.0" preserveRatio="true">
          <image>
             <Image url="@assets/Assistente%20(1).png" />
          </image>
+         <effect>
+            <DropShadow />
+         </effect>
       </ImageView>
-      <ImageView fx:id="three" fitHeight="200.0" fitWidth="90.0" layoutX="340.0" layoutY="670.0" preserveRatio="true">
-         <image>
-            <Image url="@assets/Assistente%20(3).png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="two" fitHeight="200.0" fitWidth="90.0" layoutX="240.0" layoutY="670.0" preserveRatio="true">
+      <ImageView fx:id="two" fitHeight="200.0" fitWidth="121.0" layoutX="286.0" layoutY="620.0" preserveRatio="true">
          <image>
             <Image url="@assets/Assistente%20(2).png" />
          </image>
+         <effect>
+            <DropShadow />
+         </effect>
       </ImageView>
-      <ImageView fx:id="ten" fitHeight="200.0" fitWidth="90.0" layoutX="1040.0" layoutY="670.0" preserveRatio="true">
+      <ImageView fx:id="three" fitHeight="200.0" fitWidth="121.0" layoutX="397.0" layoutY="620.0" preserveRatio="true">
          <image>
-            <Image url="@assets/Assistente%20(10).png" />
+            <Image url="@assets/Assistente%20(3).png" />
          </image>
+         <effect>
+            <DropShadow />
+         </effect>
       </ImageView>
-      <ImageView fx:id="seven" fitHeight="200.0" fitWidth="90.0" layoutX="740.0" layoutY="670.0" preserveRatio="true">
-         <image>
-            <Image url="@assets/Assistente%20(7).png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="nine" fitHeight="200.0" fitWidth="90.0" layoutX="940.0" layoutY="670.0" preserveRatio="true">
-         <image>
-            <Image url="@assets/Assistente%20(9).png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="eight" fitHeight="200.0" fitWidth="90.0" layoutX="840.0" layoutY="670.0" preserveRatio="true">
-         <image>
-            <Image url="@assets/Assistente%20(8).png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="four" fitHeight="200.0" fitWidth="90.0" layoutX="440.0" layoutY="670.0" preserveRatio="true">
+      <ImageView fx:id="four" fitHeight="200.0" fitWidth="121.0" layoutX="506.0" layoutY="620.0" preserveRatio="true">
          <image>
             <Image url="@assets/Assistente%20(4).png" />
          </image>
+         <effect>
+            <DropShadow />
+         </effect>
       </ImageView>
-      <ImageView fx:id="five" fitHeight="200.0" fitWidth="90.0" layoutX="540.0" layoutY="670.0" preserveRatio="true">
+      <ImageView fx:id="five" fitHeight="200.0" fitWidth="121.0" layoutX="616.0" layoutY="620.0" preserveRatio="true">
          <image>
             <Image url="@assets/Assistente%20(5).png" />
          </image>
+         <effect>
+            <DropShadow />
+         </effect>
       </ImageView>
-      <ImageView fx:id="six" fitHeight="200.0" fitWidth="90.0" layoutX="640.0" layoutY="670.0" preserveRatio="true">
+      <ImageView fx:id="six" fitHeight="200.0" fitWidth="121.0" layoutX="724.0" layoutY="620.0" preserveRatio="true">
          <image>
             <Image url="@assets/Assistente%20(6).png" />
          </image>
+         <effect>
+            <DropShadow />
+         </effect>
       </ImageView>
+      <ImageView fx:id="seven" fitHeight="200.0" fitWidth="121.0" layoutX="832.0" layoutY="620.0" preserveRatio="true">
+         <image>
+            <Image url="@assets/Assistente%20(7).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="eight" fitHeight="200.0" fitWidth="121.0" layoutX="939.0" layoutY="620.0" preserveRatio="true">
+         <image>
+            <Image url="@assets/Assistente%20(8).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="nine" fitHeight="200.0" fitWidth="121.0" layoutX="1047.0" layoutY="620.0" preserveRatio="true">
+         <image>
+            <Image url="@assets/Assistente%20(9).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="ten" fitHeight="200.0" fitWidth="121.0" layoutX="1160.0" layoutY="620.0" preserveRatio="true">
+         <image>
+            <Image url="@assets/Assistente%20(10).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <Text layoutX="17.0" layoutY="706.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unused assistants:" wrappingWidth="130.3999267578124">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font></Text>
    </children>
 </AnchorPane>

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.CLIENT;
 
-import it.polimi.ingsw.messages.*;
+import it.polimi.ingsw.messages.Message;
+import it.polimi.ingsw.messages.Repliable;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 
@@ -16,14 +17,6 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class NetworkHandler{
-    //possiamo fare altrimenti una sorta di local model che si aggiorna quando arriva qualcosa.
-    //Come questo si aggiorna viene chiamato view.update() che fa vedere cosa c'e ora nel modello.
-    //possiamo fare anche che il modello ha diversi stati, ma in qualsiasi stato può sempre ricevere
-    //una stringa di "input veloce"(tipo popup) dal server. Ma poi nel gioco non dovrebbe essere proprio cosi
-    //c'e i dati arrivano solo a seconda di cosa fa l'utente, non a piacimento del server.
-    //possiamo però lasciarci questo spazio a parte dagli stati della view. L'idea sarebbe
-    //che queste cose appaiono come popup sopra alla view che resta però allo stato attuale
-
     Boolean gameOver = false;
     private Socket socket;
     private final Boolean GUI;
@@ -31,7 +24,7 @@ public class NetworkHandler{
     private ObjectInputStream inStream;
     private ObjectOutputStream outStream;
     private Consumer<Message> messageArrivedObserver;
-    private List<Message> delayedMessages = new ArrayList<>();
+    private final List<Message> delayedMessages = new ArrayList<>();
     private Message currentMessage;
 
     private Boolean disconnected = false;
@@ -77,13 +70,12 @@ public class NetworkHandler{
                         }
                         else{
                         synchronized (socket) {
-                            //and send again the same ping message.
+                            //we send again the same ping message.
                                 outStream.writeObject(message);
                                 outStream.flush();
                             }
                         }
                     }
-
                     else {
                         System.out.println("last non ping message: " + message.getClass().getSimpleName());
                         if (message.isRepliable()){
@@ -155,7 +147,10 @@ public class NetworkHandler{
     }
 
 
-
+    /**
+     * This will be called when the disconnection timer expires.
+     * We set disconnected to true and tell the user that they are disconnected.
+     */
     ActionListener onTimeout = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {

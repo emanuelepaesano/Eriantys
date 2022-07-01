@@ -6,18 +6,15 @@ import it.polimi.ingsw.CLIENT.View;
 import it.polimi.ingsw.messages.EndGameMessage;
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.TowerColor;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class EndGameView implements View {
 
@@ -52,11 +49,6 @@ public class EndGameView implements View {
         Background bGround = new Background(bImg);
         endRoot.setBackground(bGround);
     }
-    @Override
-    public void sendReply() {
-
-    }
-
     @Override
     public void fillInfo(Message message) {
         EndGameMessage endGameMessage = (EndGameMessage) message;

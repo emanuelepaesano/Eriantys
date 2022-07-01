@@ -11,18 +11,15 @@ import java.util.List;
 
 import static it.polimi.ingsw.messages.PlayCharMessage.PlayCharType.play;
 
+/**
+ * Controller for Player
+ */
 public class PlayerController {
 
-    private Player player;
-
-    private VirtualView playerView;
-
+    private final Player player;
+    private final VirtualView playerView;
     private EntranceController entranceController;
 
-    //Socket client = server.getClients.get(id-1)
-    //we have to associate each player with a socket, so we can send messages
-    //only to him. so like a method server.update(string,socket) to send only to that
-    //as opposed to server.update(string) that sends to all(?)
 
     public PlayerController(Player player,VirtualView playerView){
         this.player = player;
@@ -30,39 +27,65 @@ public class PlayerController {
         bindEntrance();
     }
 
+    /**
+     * Bind the entrance to view.
+     */
     private void bindEntrance(){
             Entrance entrance = player.getEntrance();
             this.entranceController= new EntranceController(player, entrance, playerView);
     }
 
+    /**
+     * Ask player name.
+     */
     public void askPlayerName()  {
         new LoginMessage("Player " + player.getId() + ", enter your nickname:").send(playerView);
     }
+
+
+    /**
+     * Reply to player name.
+     * Validate and set the player name.
+     *
+     * @param name player name
+     * @param usedNames player name used by others
+     * @return name player name
+     */
     public String replyToPlayerName(String name, List<String>usedNames){
-            if (!usedNames.contains(name)){
-                if (name.length() < 20){
-                    if (name.length() > 0) {
-                        player.setPlayerName(name);
-                        return name;
-                    }
-                    else new NoReplyMessage(true,"Invalid name","Empty Name","Please insert a nickname to play." ).send(playerView);
-                    return null;
+        if (!usedNames.contains(name)){
+            if (name.length() < 20){
+                if (name.length() > 0) {
+                    player.setPlayerName(name);
+                    return name;
                 }
-                else new NoReplyMessage(true,"Invalid name","Long Name","Name too long! Please insert a name shorter than 20 characters." ).send(playerView);
+                else new NoReplyMessage(true,"Invalid name","Empty Name","Please insert a nickname to play." ).send(playerView);
                 return null;
             }
-            else new NoReplyMessage(true,"Invalid name","Name Taken","Name already taken! Choose a different name.").send(playerView);
+            else new NoReplyMessage(true,"Invalid name","Long Name","Name too long! Please insert a name shorter than 20 characters." ).send(playerView);
             return null;
+        }
+        else new NoReplyMessage(true,"Invalid name","Name Taken","Name already taken! Choose a different name.").send(playerView);
+        return null;
     }
 
     /**
+     * Ask tower color.
+     *
      * @param remainingColors the remaining colors, by the game controller
-     * @return the TowerColor chosen by the player among the remaining ones
      */
     public void askTowerColor(List<TowerColor> remainingColors) {
         new LoginMessage(player.getPlayerName() + ", please choose your tower color among the available ones: " + remainingColors
        , remainingColors).send(playerView);
     }
+
+    /**
+     * Reply the tower color.
+     * Validate and set the tower color.
+     *
+     * @param input tower color chosen
+     * @param remainingColors remaining tower colors.
+     * @return
+     */
     public TowerColor replyToTowerColor(String input, List<TowerColor> remainingColors){
             try {
                 TowerColor choice = TowerColor.valueOf(input.toUpperCase());
@@ -78,15 +101,24 @@ public class PlayerController {
                     + remainingColors).send(playerView);
             return null;
     }
+
     /**
+     * Ask wizard.
      *
      * @param remainingWizards the remaining wizards, by askAllforWiz()
-     * @return the wizard chosen by the player
      */
     public void askWizard(List<Integer> remainingWizards) {
         new LoginMessage(remainingWizards,
                 player.getPlayerName() + ", choose your wizard number among these: " + remainingWizards).send(playerView);
     }
+
+    /**
+     * Reply wizard.
+     *
+     * @param input wizard chosen
+     * @param remainingWizards list of remaining wizards
+     * @return
+     */
     public Integer replyToWizard(Integer input, List<Integer> remainingWizards){
         while (true) {
             if (remainingWizards.contains(input)){
@@ -97,11 +129,12 @@ public class PlayerController {
         }
     }
 
-
-
     /**
-     * asks an assistant as input from those remaining, turns it to false in the map and returns it.
+     * Asks an assistant as input from those remaining, turns it to false in the map and returns it.
      * This way the GameController will then join all the played assistants and choose the new playerOrder
+     *
+     * @param playedAssistants
+     * @throws DisconnectedException
      */
     public Assistant playAssistant(List<Assistant>playedAssistants) throws DisconnectedException {
         List<Assistant> remass = new ArrayList<>(); //list of remaining assistants
@@ -121,13 +154,20 @@ public class PlayerController {
                     }
                 }
                 else new NoReplyMessage(true,"Invalid Assistant","",Game.ANSI_RED+ "That assistant was already played! Try again."+ Game.ANSI_RESET).send(playerView);
-            } catch (IllegalArgumentException exception) {
-                new NoReplyMessage(true,"Invalid Assistant","",Game.ANSI_RED+ "Not a valid assistant, take one from the list: "
-                        + remass+ Game.ANSI_RESET).send(playerView);}
+            } catch (IllegalArgumentException ignored) {}
         }
     }
 
 
+    /**
+     * Play characters.
+     *
+     * @param characters The list of characters used in the Game.
+     * @param game Game
+     * @param playedCharacters The list showing which character is played.
+     * @return playedCharacters
+     * @throws DisconnectedException
+     */
     public List<Boolean> playCharacters(List<Character> characters, Game game, List<Boolean> playedCharacters) throws DisconnectedException {
         int chosenChar;
         new PlayCharMessage(characters,player,play).send(playerView);
@@ -149,12 +189,10 @@ public class PlayerController {
         return playedCharacters;
     }
 
-
-
     /**
+     * Ask how many steps the user wants to move Mother Nature.
      *
-     * @return The number of steps the player wants to move mother Nature. This method is now only called from GameMap.moveMotherNature().
-     * This could change if we choose to move that method
+     * @return The number of steps the player wants to move mother Nature. This method is called directly from the server Main()
      */
     public int askMNMoves() throws DisconnectedException {
         int possibleMoves = player.getBaseMoves() + player.getCurrentAssistant().getMoves();
@@ -170,7 +208,7 @@ public class PlayerController {
         }
     }
 
-
+// getters
     public Player getPlayer() {
         return player;
     }

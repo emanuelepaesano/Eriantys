@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.characters;
 
+import it.polimi.ingsw.DisconnectedException;
 import it.polimi.ingsw.VirtualView;
 import it.polimi.ingsw.controller.PlayerController;
 import it.polimi.ingsw.model.Game;
@@ -9,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CheckOwnerCharacterTest {
 
@@ -20,13 +21,13 @@ class CheckOwnerCharacterTest {
 
 
     @Test
-    void play() {
+    void play() throws DisconnectedException {
         testGame = Game.makeGame(2);
         testGame.doSetUp(true);
         testGame.setCurrentPlayer(testGame.getTableOrder().get(0));
         testCharacter = (CheckOwnerCharacter) Character.makeCharacter(1, testGame);
         testGame.getCharacters().add(testCharacter);
-        VirtualView testView = null;
+        VirtualView testView = new TestVirtualView();
         pcTest = new PlayerController(testGame.getCurrentPlayer(), testView);
         isTest = testGame.getGameMap().getIslandById(1);
         testGame.getCurrentPlayer().getDiningRoom().getTables().putAll(Map.of(Student.BLUE,3,Student.YELLOW,5));

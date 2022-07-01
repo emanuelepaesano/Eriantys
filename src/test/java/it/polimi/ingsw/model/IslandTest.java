@@ -11,7 +11,8 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import static it.polimi.ingsw.model.Student.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class IslandTest {

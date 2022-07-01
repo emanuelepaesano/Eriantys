@@ -1,7 +1,7 @@
 package it.polimi.ingsw.CLIENT.ViewImpls;
 
-import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.CLIENT.NetworkHandler;
+import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.CLIENT.View;
 import it.polimi.ingsw.messages.LoginMessage;
 import it.polimi.ingsw.messages.Message;
@@ -134,10 +134,6 @@ public class LoginView implements View {
                 else Platform.runLater(msg::switchAndFillView);
             }
         );
-    }
-
-    @Override
-    public void sendReply() {
     }
 
 
