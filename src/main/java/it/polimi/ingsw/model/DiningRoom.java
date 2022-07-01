@@ -137,4 +137,10 @@ public class DiningRoom implements Serializable {
     int getCoins() { return coins;}
 
     void setCoins(int coins) {this.coins = coins;}
+
+//    FOR TEST
+    public void setProfessors(Map<Student, Boolean> professors) {
+        this.professors = professors;
+    }
+
 }
