@@ -79,21 +79,20 @@ class SwapEntranceDRCharacterTest {
                 assertFalse(testCharacter.play(testGame, pc));
                 //entrance and dining room should not change (0 coins)
                 Map<Student, Integer> expected = Map.of(RED, 0,PINK, 0, GREEN, 0, BLUE, 0, YELLOW, 0);
-                assertEquals(expected,pc.getPlayer().getDiningRoom().getTables());
+                assertEquals(expected,pc.getPlayer().getDiningRoom().getTables(),
+                        "entrance and dining room should not change.");
                 assertEquals(List.of(PINK,BLUE,BLUE,RED),pc.getPlayer().getEntrance().getStudents());
-                //check that we didn't charge him
-                assertEquals(3,pc.getPlayer().getCoins());
+                assertEquals(3,pc.getPlayer().getCoins(),"we should not charge the player");
             }
 
             case 3->{
                 assertTrue(testCharacter.play(testGame, pc));
-                //entrance and dining room should now change
                 Map<Student, Integer> expected = Map.of(RED, 2,PINK, 0, GREEN, 1, BLUE, 2, YELLOW, 0);
-                assertEquals(expected,pc.getPlayer().getDiningRoom().getTables());
+                assertEquals(expected,pc.getPlayer().getDiningRoom().getTables(),
+                        "entrance and dining room should now change");
                 assertEquals(List.of(PINK,BLUE,PINK,YELLOW),pc.getPlayer().getEntrance().getStudents());
-                //check that we charged him
-                assertEquals(2,pc.getPlayer().getCoins());
-                assertEquals(2,testCharacter.getCost());
+                assertEquals(2,pc.getPlayer().getCoins(),"we should charge the player");
+                assertEquals(2,testCharacter.getCost(),"we should update the cost");
             }
 
         }

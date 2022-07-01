@@ -33,6 +33,11 @@ public class BlockIslandCharacter extends Character {
             Character.sendNoMoneyMessage(pc.getPlayerView());
             return false;
         }
+        if (numTiles == 0){
+            new NoReplyMessage(true,"Warning","No tiles",
+                    "The Character has no more tiles available. The play will be canceled.").send(pc.getPlayerView());
+            return false;
+        }
         new NoReplyMessage(false,"Play Character","Pick Island",
                 "Pick one island to block.").send(pc.getPlayerView());
         Island island = pc.getEntranceController().askWhichIsland(game.getGameMap());

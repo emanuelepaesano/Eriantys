@@ -11,7 +11,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -59,7 +58,7 @@ class ReturnThreeStudentsCharacterTest {
                 assertEquals(expected,game.getTableOrder().get(0).getDiningRoom().getTables());
                 assertEquals(expected,game.getTableOrder().get(1).getDiningRoom().getTables());
                 assertEquals(expected,game.getTableOrder().get(2).getDiningRoom().getTables());
-                assertEquals(3,testCharacter.getCost(),"player should not be charger");
+                assertEquals(3,testCharacter.getCost(),"cost should not increase");
             }
             case 2->{
                 //the play should now succeed
