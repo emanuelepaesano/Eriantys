@@ -42,7 +42,6 @@ public class Island implements Serializable {
             newOwner = ties.get(0);
             if (owner != null) {owner.setNumTowers(owner.getNumTowers() + this.size);}
             this.owner = newOwner;
-            System.out.println("Island " + this.id + " has a new owner: " + newOwner) ;
             newOwner.setNumTowers(newOwner.getNumTowers() - this.size);
         }
         return newOwner;

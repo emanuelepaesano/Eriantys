@@ -23,7 +23,6 @@ class MoveToDRCharacter extends Character {
     public MoveToDRCharacter(List<Student> students) {
         this.cost = 2;
         this.students = new ArrayList<>(students);
-        System.out.println("students: " + students);
         this.maxCost = 3;
         description="Take one Student from this card and place it in your Dining Room. A new student" +
                 " will be placed on the card.";
@@ -71,7 +70,6 @@ class MoveToDRCharacter extends Character {
             students.add(game.drawFromBag());
         }
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
-        System.out.println("New Dining Room:\n " + player.getDiningRoom());
         return true;
     }
 

@@ -273,7 +273,6 @@ public class IslandView implements View {
         List<ImageView> allmn = List.of(mn0,mn1,mn2,mn3,mn4,mn5,mn6,mn7,mn8,mn9,mn10,mn11);
         allmn.forEach((img)->img.setVisible(false));
         allmn.get(map.getMotherNature()).setVisible(true);
-        System.out.println("mother nature should be at "+ map.getMotherNature());
     }
     private void addBridges(){
         List<Object> lastJoin = map.getLastJoin();

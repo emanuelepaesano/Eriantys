@@ -105,8 +105,6 @@ public class LoginView implements View {
                 else if (msg.getClass().getSimpleName().equals("LoginMessage")) {
                     LoginMessage lmsg = (LoginMessage) msg;
                     if (lmsg.getType().equals("tower")){
-//                        System.out.println("going to sleep");
-//                        try{Thread.sleep(10000);}catch (Exception ex){}
                         allNodes.forEach(node -> node.setVisible(false));
                         remainingColors = lmsg.getAvailableColors();
                         Image img = new Image("assets/pastel blue background.jpg");

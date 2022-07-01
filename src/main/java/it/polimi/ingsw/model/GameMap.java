@@ -43,7 +43,6 @@ public class GameMap implements Serializable {
     public void startMNAndStudents(){
 
         motherNature =  randomizer.nextInt(12);
-        System.out.println("mother nature is here:" + motherNature);
 
         ArrayList<Student> smallBag = new ArrayList<>(Arrays.asList(Student.values()));
         smallBag.addAll(Arrays.asList(Student.values())); //these 2 lines make the initial bag
@@ -76,7 +75,6 @@ public class GameMap implements Serializable {
         Player oldOwner = newIsland.getOwner();
         Player newOwner = newIsland.checkOwner(players);
         if (newOwner!= null && !newOwner.equals(oldOwner)) {doJoins(newIsland);}
-        System.out.println(this);
     }
 
     /**

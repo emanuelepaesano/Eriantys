@@ -131,8 +131,6 @@ class SwapEntranceDRCharacter extends Character {
         });
         clear();
         this.cost = Character.payandUpdateCost(player, cost, maxCost);
-        System.out.println("New Entrance for" + player + ":\n " + player.getEntrance());
-        System.out.println("New Dining Room" + player + ":\n " + player.getDiningRoom().getTables());
         new ActionPhaseMessage(player, update).send(pc.getPlayerView());
         return true;
     }

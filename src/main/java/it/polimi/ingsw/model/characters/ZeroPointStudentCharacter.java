@@ -73,6 +73,5 @@ class ZeroPointStudentCharacter extends Character {
         islands = null;
         oldnumbers = null;
         chosenStudent = null;
-        System.out.println(game.getGameMap());
     }
 }

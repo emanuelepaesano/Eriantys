@@ -140,10 +140,8 @@ public class CharactersView implements View {
 
 
     private void bindStudents(List<Character> characters) {
-        System.out.println("calling Bind Students");
         for (int i =0 ;i<3;i++) {
             if (characters.get(i).getStudents() == null){
-                System.out.println("A null list with student");
                 continue;}
             List<Student> characterStudents = characters.get(i).getStudents();
             List<AnchorPane> cardPanes = studPanes.get(i);

@@ -70,7 +70,6 @@ class ReturnThreeStudentsCharacter extends Character {
             game.addToBag(chosenStudent, oldnum-newnum);
         });
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
-        System.out.println("New Dining Room:\n " + player.getDiningRoom());
         return true;
 
     }

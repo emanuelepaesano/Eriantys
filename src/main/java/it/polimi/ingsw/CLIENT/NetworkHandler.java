@@ -53,9 +53,7 @@ public class NetworkHandler{
         Thread listener = new Thread(()->{
             int pingCounter = 0;
             Message message;
-            System.out.println("listener started");
             try {
-                System.out.println("waiting for messages");
                 Timer timeout = new Timer(6000,onTimeout);
                 timeout.setRepeats(false);
                 while (true) {
@@ -64,9 +62,8 @@ public class NetworkHandler{
                         timeout.restart();
                         if (disconnected){
                             pingCounter++;
-                            System.out.println("ping for reconnection number: " + pingCounter);
                             if (pingCounter>=5){pingCounter=0;setDisconnected(false);
-                                System.out.println("reconnected.");}
+                                System.out.println("Reconnected!");}
                         }
                         else{
                         synchronized (socket) {
@@ -77,11 +74,9 @@ public class NetworkHandler{
                         }
                     }
                     else {
-                        System.out.println("last non ping message: " + message.getClass().getSimpleName());
                         if (message.isRepliable()){
                             if(!disconnected) {
                                 this.currentMessage = message;
-                                System.out.println("current message: " + currentMessage);
                             }
                         }
                         if (GUI) {
