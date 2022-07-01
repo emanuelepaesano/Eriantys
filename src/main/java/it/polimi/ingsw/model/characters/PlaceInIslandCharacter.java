@@ -74,6 +74,10 @@ import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.updateMa
 
     public boolean play(Game game, PlayerController pc) throws DisconnectedException {
         Player player = pc.getPlayer();
+        if (!Character.enoughMoney(player,cost)){
+            Character.sendNoMoneyMessage(pc.getPlayerView());
+            return false;
+        }
         if(chosenStudent == null || chosenIsland == null){
             new NoReplyMessage(false,"Play Character","Pick Student and Island",
             "You can pick one Student from the Character and one Island to move it to.").send(pc.getPlayerView());
@@ -82,10 +86,6 @@ import static it.polimi.ingsw.messages.IslandInfoMessage.IslandInfoType.updateMa
                 Character.sendCancelMessage(pc.getPlayerView());
                 return false;
             }
-        }
-        if (!Character.enoughMoney(player,cost)){
-            Character.sendNoMoneyMessage(pc.getPlayerView());
-            return false;
         }
         students.remove(chosenStudent);
         int oldval = chosenIsland.getStudents().get(chosenStudent);

@@ -53,6 +53,10 @@ class MoveToDRCharacter extends Character {
     public boolean play(Game game, PlayerController pc) throws DisconnectedException {
         Player player = pc.getPlayer();
         int indexThis = game.getCharacters().indexOf(this);
+        if (!Character.enoughMoney(player,cost)){
+            Character.sendNoMoneyMessage(pc.getPlayerView());
+            return false;
+        }
         if (chosenStudent == null){
             pickStudent(pc.getPlayerView(), indexThis);
             if (chosenStudent == null){
@@ -60,9 +64,6 @@ class MoveToDRCharacter extends Character {
                 return false;
             }
         }
-        if (!Character.enoughMoney(player,cost)){
-            Character.sendNoMoneyMessage(pc.getPlayerView());
-            return false;}
         students.remove(chosenStudent);
         player.getDiningRoom().putStudent(chosenStudent);
         player.getDiningRoom().checkOneProfessor(chosenStudent,game.getTableOrder(),false);

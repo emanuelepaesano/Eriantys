@@ -49,6 +49,9 @@ class ZeroPointStudentCharacter extends Character {
     public boolean play(Game game, PlayerController pc) throws DisconnectedException {
         Player player = pc.getPlayer();
         int indexThis = game.getCharacters().indexOf(this);
+        if (!Character.enoughMoney(player,cost)){
+            Character.sendNoMoneyMessage(pc.getPlayerView());
+            return false;}
         if (chosenStudent == null){
             new NoReplyMessage(false,"Play Character","Pick one color",
             "Please select one Student color from the Character.").send(pc.getPlayerView());
@@ -58,16 +61,12 @@ class ZeroPointStudentCharacter extends Character {
                 return false;
             }
         }
-        if (!Character.enoughMoney(player,cost)){
-            Character.sendNoMoneyMessage(pc.getPlayerView());
-            return false;}
         this.cost = Character.payandUpdateCost(player,cost,maxCost);
         islands = game.getGameMap().getArchipelago();
         oldnumbers = islands.stream().map(i -> i.getStudents().get(chosenStudent)).toList();
         islands.forEach(i -> i.getStudents().replace(chosenStudent, 0));
         return true;
     }
-
     public void reset(Game game, PlayerController pc){
         islands.forEach(i -> i.getStudents().replace(chosenStudent, oldnumbers.get(islands.indexOf(i))));
         islands = null;
