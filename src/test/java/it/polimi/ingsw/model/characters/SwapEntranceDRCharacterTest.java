@@ -93,11 +93,8 @@ class SwapEntranceDRCharacterTest {
                 assertEquals(List.of(PINK,BLUE,PINK,YELLOW),pc.getPlayer().getEntrance().getStudents());
                 //check that we charged him
                 assertEquals(2,pc.getPlayer().getCoins());
-                assertEquals(2,testCharacter.cost);
+                assertEquals(2,testCharacter.getCost());
             }
-
-
-
 
         }
     }
@@ -144,5 +141,7 @@ class SwapEntranceDRCharacterTest {
 
         return Stream.of(arguments(pc1,1),arguments(pc2,2),arguments(pc3,3));
     }
+
+
 
 }
