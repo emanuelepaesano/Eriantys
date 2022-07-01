@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static it.polimi.ingsw.model.Student.*;
-import static it.polimi.ingsw.model.Student.PINK;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
@@ -22,7 +21,7 @@ class BlockIslandCharacterTest {
     private static GameMap gameMap;
     static private class BlockIslandVirtualView extends TestVirtualView {
         @Override
-        public String getReply() throws DisconnectedException {
+        public String getReply() {
             return "10";
         }
     }
