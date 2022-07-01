@@ -21,11 +21,9 @@ public class VirtualView {
     private Socket socket;
     ObjectInputStream inStream;
     ObjectOutputStream outStream;
-
     ServerStarter server;
     Timer timeOut;
     private String reply = "wait";
-
     private Boolean disconnected = false;
 
 

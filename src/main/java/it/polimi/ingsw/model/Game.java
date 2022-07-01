@@ -198,9 +198,9 @@ public class Game implements Serializable {
     }
 
     /**
-     * Check if the fame can end.
+     * Check if the game can end.
      *
-     * @param condition the game condition.
+     * @param condition the end condition to check.
      * @param player
      * @return
      */

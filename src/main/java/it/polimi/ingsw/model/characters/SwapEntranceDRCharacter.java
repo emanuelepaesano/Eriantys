@@ -99,14 +99,18 @@ class SwapEntranceDRCharacter extends Character {
             Character.sendNoMoneyMessage(pc.getPlayerView());
             return false;
         }
+
         pickStudentsFromEntrance(pc.getPlayer(), pc.getPlayerView());
+
         if (chosenStudentsFromEntrance.size() == 0) {
             entranceStudents.addAll(chosenStudentsFromEntrance);
             clear();
             Character.sendCancelMessage(pc.getPlayerView());
             return false;
         }
+
         boolean enough = pickStudentsFromDiningRoom(pc.getPlayerView(), player);
+
         if (chosenStudentsFromDiningRoom.size() < chosenStudentsFromEntrance.size()) {
             entranceStudents.addAll(chosenStudentsFromEntrance);
             chosenStudentsFromDiningRoom.forEach(s->{
@@ -143,9 +147,6 @@ class SwapEntranceDRCharacter extends Character {
     }
 
     @Override
-    public void reset(Game game, PlayerController pc) {
-        chosenStudentsFromEntrance = new ArrayList<>(List.of());
-        chosenStudentsFromDiningRoom = new ArrayList<>(List.of());
-    }
+    public void reset(Game game, PlayerController pc) {}
 
 }
