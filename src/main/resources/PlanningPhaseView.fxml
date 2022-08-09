@@ -105,7 +105,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Text>
-      <ImageView fx:id="one1" fitHeight="235.0" fitWidth="180.0" layoutX="70.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="one1" fitHeight="250.0" fitWidth="180.0" layoutX="70.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (1).png" />
          </image>
@@ -113,7 +113,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="two1" fitHeight="235.0" fitWidth="180.0" layoutX="69.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="two1" fitHeight="250.0" fitWidth="180.0" layoutX="69.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (2).png" />
          </image>
@@ -121,7 +121,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="three1" fitHeight="235.0" fitWidth="180.0" layoutX="70.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="three1" fitHeight="250.0" fitWidth="180.0" layoutX="70.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (3).png" />
          </image>
@@ -129,7 +129,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="four1" fitHeight="235.0" fitWidth="180.0" layoutX="69.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="four1" fitHeight="250.0" fitWidth="180.0" layoutX="69.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (4).png" />
          </image>
@@ -137,7 +137,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="five1" fitHeight="235.0" fitWidth="180.0" layoutX="70.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="five1" fitHeight="250.0" fitWidth="180.0" layoutX="70.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (5).png" />
          </image>
@@ -145,7 +145,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="six1" fitHeight="235.0" fitWidth="180.0" layoutX="69.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="six1" fitHeight="250.0" fitWidth="180.0" layoutX="69.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (6).png" />
          </image>
@@ -153,7 +153,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="seven1" fitHeight="235.0" fitWidth="200.0" layoutX="69.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="seven1" fitHeight="250.0" fitWidth="200.0" layoutX="69.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (7).png" />
          </image>
@@ -161,7 +161,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="eight1" fitHeight="235.0" fitWidth="200.0" layoutX="70.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="eight1" fitHeight="250.0" fitWidth="200.0" layoutX="70.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (8).png" />
          </image>
@@ -169,7 +169,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="nine1" fitHeight="235.0" fitWidth="200.0" layoutX="70.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="nine1" fitHeight="250.0" fitWidth="200.0" layoutX="70.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (9).png" />
          </image>
@@ -177,7 +177,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="ten1" fitHeight="235.0" fitWidth="200.0" layoutX="69.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="ten1" fitHeight="250.0" fitWidth="200.0" layoutX="69.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (10).png" />
          </image>
@@ -185,7 +185,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="one11" fitHeight="235.0" fitWidth="180.0" layoutX="651.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="one11" fitHeight="250.0" fitWidth="180.0" layoutX="651.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (1).png" />
          </image>
@@ -193,7 +193,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="two11" fitHeight="235.0" fitWidth="180.0" layoutX="650.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="two11" fitHeight="250.0" fitWidth="180.0" layoutX="650.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (2).png" />
          </image>
@@ -201,7 +201,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="three11" fitHeight="235.0" fitWidth="180.0" layoutX="651.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="three11" fitHeight="250.0" fitWidth="180.0" layoutX="651.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (3).png" />
          </image>
@@ -209,7 +209,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="four11" fitHeight="235.0" fitWidth="180.0" layoutX="650.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="four11" fitHeight="250.0" fitWidth="180.0" layoutX="650.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (4).png" />
          </image>
@@ -217,7 +217,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="five11" fitHeight="235.0" fitWidth="180.0" layoutX="651.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="five11" fitHeight="250.0" fitWidth="180.0" layoutX="651.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (5).png" />
          </image>
@@ -225,7 +225,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="six11" fitHeight="235.0" fitWidth="180.0" layoutX="650.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="six11" fitHeight="250.0" fitWidth="180.0" layoutX="650.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (6).png" />
          </image>
@@ -233,7 +233,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="seven11" fitHeight="235.0" fitWidth="200.0" layoutX="650.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="seven11" fitHeight="250.0" fitWidth="200.0" layoutX="650.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (7).png" />
          </image>
@@ -241,7 +241,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="eight11" fitHeight="235.0" fitWidth="200.0" layoutX="651.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="eight11" fitHeight="250.0" fitWidth="200.0" layoutX="651.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (8).png" />
          </image>
@@ -249,7 +249,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="nine11" fitHeight="235.0" fitWidth="200.0" layoutX="651.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="nine11" fitHeight="250.0" fitWidth="200.0" layoutX="651.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (9).png" />
          </image>
@@ -257,7 +257,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="ten11" fitHeight="235.0" fitWidth="200.0" layoutX="650.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="ten11" fitHeight="250.0" fitWidth="200.0" layoutX="650.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (10).png" />
          </image>
@@ -265,7 +265,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="one111" fitHeight="235.0" fitWidth="180.0" layoutX="1026.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="one111" fitHeight="250.0" fitWidth="180.0" layoutX="1026.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (1).png" />
          </image>
@@ -273,7 +273,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="two111" fitHeight="235.0" fitWidth="180.0" layoutX="1025.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="two111" fitHeight="250.0" fitWidth="180.0" layoutX="1025.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (2).png" />
          </image>
@@ -281,7 +281,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="three111" fitHeight="235.0" fitWidth="180.0" layoutX="1026.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="three111" fitHeight="250.0" fitWidth="180.0" layoutX="1026.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (3).png" />
          </image>
@@ -289,7 +289,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="four111" fitHeight="235.0" fitWidth="180.0" layoutX="1025.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="four111" fitHeight="250.0" fitWidth="180.0" layoutX="1025.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (4).png" />
          </image>
@@ -297,7 +297,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="five111" fitHeight="235.0" fitWidth="180.0" layoutX="1026.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="five111" fitHeight="250.0" fitWidth="180.0" layoutX="1026.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (5).png" />
          </image>
@@ -305,7 +305,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="six111" fitHeight="235.0" fitWidth="180.0" layoutX="1025.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="six111" fitHeight="250.0" fitWidth="180.0" layoutX="1025.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (6).png" />
          </image>
@@ -313,7 +313,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="seven111" fitHeight="235.0" fitWidth="200.0" layoutX="1025.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="seven111" fitHeight="250.0" fitWidth="200.0" layoutX="1025.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (7).png" />
          </image>
@@ -321,7 +321,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="eight111" fitHeight="235.0" fitWidth="200.0" layoutX="1026.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="eight111" fitHeight="250.0" fitWidth="200.0" layoutX="1026.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (8).png" />
          </image>
@@ -329,7 +329,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="nine111" fitHeight="235.0" fitWidth="200.0" layoutX="1026.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="nine111" fitHeight="250.0" fitWidth="200.0" layoutX="1026.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (9).png" />
          </image>
@@ -337,7 +337,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="ten111" fitHeight="235.0" fitWidth="200.0" layoutX="1025.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="ten111" fitHeight="250.0" fitWidth="200.0" layoutX="1025.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@assets/Assistente (10).png" />
          </image>
