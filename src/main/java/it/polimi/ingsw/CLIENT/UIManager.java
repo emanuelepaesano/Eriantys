@@ -43,6 +43,7 @@ public class UIManager extends Application{
             Platform.setImplicitExit(false);
             mainWindow = stage;
             mainWindow.setResizable(false);
+            mainWindow.setOnCloseRequest((event)->System.exit(0));
             startWaitingView();
             Task<Void> task = new Task<>() {
                 @Override

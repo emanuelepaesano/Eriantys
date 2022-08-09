@@ -1,110 +1,364 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<GridPane fx:id="planningPhaseRoot" alignment="CENTER" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.PlanningPhaseView">
-    <TextField fx:id="Assistant_text" blendMode="DARKEN" editable="false" text="Choose your Assistant" AnchorPane.bottomAnchor="200" AnchorPane.leftAnchor="150" AnchorPane.rightAnchor="150" />
-    <HBox alignment="CENTER" GridPane.rowIndex="1">
-        <Button fx:id="one" onAction="#send1">
-            <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/Assistente (1).png" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-        <Button fx:id="two" disable="false" onAction="#send2">
-            <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/Assistente (2).png" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-        <Button fx:id="three" disable="false" onAction="#send3">
-            <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/Assistente (3).png" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-        <Button fx:id="four" disable="false" onAction="#send4">
-            <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/Assistente (4).png" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-        <Button fx:id="five" disable="false" onAction="#send5">
-            <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/Assistente (5).png" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-    </HBox>
-    <HBox alignment="CENTER" GridPane.rowIndex="2">
-        <Button fx:id="six" disable="false" onAction="#send6">
-            <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/Assistente (6).png" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-        <Button fx:id="seven" disable="false" onAction="#send7">
-            <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/Assistente (7).png" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-        <Button fx:id="eight" disable="false" onAction="#send8">
-            <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/Assistente (8).png" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-        <Button fx:id="nine" disable="false" onAction="#send9">
-            <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/Assistente (9).png" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-        <Button fx:id="ten" disable="false" onAction="#send10">
-            <graphic>
-                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@assets/Assistente (10).png" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-    </HBox>
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
-</GridPane>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.CLIENT.ViewImpls.PlanningPhaseView">
+   <children>
+          <ImageView fx:id="one" fitHeight="235.0" fitWidth="180.0" layoutX="70.0" layoutY="511.0" onMouseClicked="#send1" onMouseEntered="#enterCard" onMouseExited="#exitCard" pickOnBounds="true" preserveRatio="true">
+              <image>
+                  <Image url="@assets/Assistente (1).png" />
+              </image>
+         <effect>
+            <DropShadow />
+         </effect>
+          </ImageView>
+          <ImageView fx:id="two" fitHeight="235.0" fitWidth="180.0" layoutX="180.0" layoutY="511.0" onMouseClicked="#send2" onMouseEntered="#enterCard" onMouseExited="#exitCard" pickOnBounds="true" preserveRatio="true">
+              <image>
+                  <Image url="@assets/Assistente (2).png" />
+              </image>
+         <effect>
+            <DropShadow />
+         </effect>
+          </ImageView>
+          <ImageView fx:id="three" fitHeight="235.0" fitWidth="180.0" layoutX="291.0" layoutY="511.0" onMouseClicked="#send3" onMouseEntered="#enterCard" onMouseExited="#exitCard" pickOnBounds="true" preserveRatio="true">
+              <image>
+                  <Image url="@assets/Assistente (3).png" />
+              </image>
+         <effect>
+            <DropShadow />
+         </effect>
+          </ImageView>
+          <ImageView fx:id="four" fitHeight="235.0" fitWidth="180.0" layoutX="402.0" layoutY="511.0" onMouseClicked="#send4" onMouseEntered="#enterCard" onMouseExited="#exitCard" pickOnBounds="true" preserveRatio="true">
+              <image>
+                  <Image url="@assets/Assistente (4).png" />
+              </image>
+         <effect>
+            <DropShadow />
+         </effect>
+          </ImageView>
+          <ImageView fx:id="five" fitHeight="235.0" fitWidth="180.0" layoutX="512.0" layoutY="511.0" onMouseClicked="#send5" onMouseEntered="#enterCard" onMouseExited="#exitCard" pickOnBounds="true" preserveRatio="true">
+              <image>
+                  <Image url="@assets/Assistente (5).png" />
+              </image>
+         <effect>
+            <DropShadow />
+         </effect>
+          </ImageView>
+          <ImageView fx:id="six" fitHeight="235.0" fitWidth="180.0" layoutX="619.0" layoutY="511.0" onMouseClicked="#send6" onMouseEntered="#enterCard" onMouseExited="#exitCard" pickOnBounds="true" preserveRatio="true">
+              <image>
+                  <Image url="@assets/Assistente (6).png" />
+              </image>
+         <effect>
+            <DropShadow />
+         </effect>
+          </ImageView>
+          <ImageView fx:id="seven" fitHeight="235.0" fitWidth="200.0" layoutX="731.0" layoutY="511.0" onMouseClicked="#send7" onMouseEntered="#enterCard" onMouseExited="#exitCard" pickOnBounds="true" preserveRatio="true">
+              <image>
+                  <Image url="@assets/Assistente (7).png" />
+              </image>
+         <effect>
+            <DropShadow />
+         </effect>
+          </ImageView>
+          <ImageView fx:id="eight" fitHeight="235.0" fitWidth="200.0" layoutX="838.0" layoutY="511.0" onMouseClicked="#send8" onMouseEntered="#enterCard" onMouseExited="#exitCard" pickOnBounds="true" preserveRatio="true">
+              <image>
+                  <Image url="@assets/Assistente (8).png" />
+              </image>
+         <effect>
+            <DropShadow />
+         </effect>
+          </ImageView>
+          <ImageView fx:id="nine" fitHeight="235.0" fitWidth="200.0" layoutX="946.0" layoutY="511.0" onMouseClicked="#send9" onMouseEntered="#enterCard" onMouseExited="#exitCard" pickOnBounds="true" preserveRatio="true">
+              <image>
+                  <Image url="@assets/Assistente (9).png" />
+              </image>
+         <effect>
+            <DropShadow />
+         </effect>
+          </ImageView>
+          <ImageView fx:id="ten" fitHeight="235.0" fitWidth="200.0" layoutX="1050.0" layoutY="511.0" onMouseClicked="#send10" onMouseEntered="#enterCard" onMouseExited="#exitCard" pickOnBounds="true" preserveRatio="true">
+              <image>
+                  <Image url="@assets/Assistente (10).png" />
+              </image>
+         <effect>
+            <DropShadow />
+         </effect>
+          </ImageView>
+      <Text layoutX="6.0" layoutY="472.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Assistants (pick one during the planning phase):" wrappingWidth="666.9367179870605">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <Text layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Your Active/Last played Assistant:" wrappingWidth="334.93671798706055">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="619.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Other players played:" wrappingWidth="334.93671798706055">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <ImageView fx:id="one1" fitHeight="235.0" fitWidth="180.0" layoutX="70.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (1).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="two1" fitHeight="235.0" fitWidth="180.0" layoutX="69.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (2).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="three1" fitHeight="235.0" fitWidth="180.0" layoutX="70.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (3).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="four1" fitHeight="235.0" fitWidth="180.0" layoutX="69.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (4).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="five1" fitHeight="235.0" fitWidth="180.0" layoutX="70.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (5).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="six1" fitHeight="235.0" fitWidth="180.0" layoutX="69.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (6).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="seven1" fitHeight="235.0" fitWidth="200.0" layoutX="69.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (7).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="eight1" fitHeight="235.0" fitWidth="200.0" layoutX="70.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (8).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="nine1" fitHeight="235.0" fitWidth="200.0" layoutX="70.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (9).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="ten1" fitHeight="235.0" fitWidth="200.0" layoutX="69.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (10).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="one11" fitHeight="235.0" fitWidth="180.0" layoutX="651.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (1).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="two11" fitHeight="235.0" fitWidth="180.0" layoutX="650.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (2).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="three11" fitHeight="235.0" fitWidth="180.0" layoutX="651.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (3).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="four11" fitHeight="235.0" fitWidth="180.0" layoutX="650.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (4).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="five11" fitHeight="235.0" fitWidth="180.0" layoutX="651.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (5).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="six11" fitHeight="235.0" fitWidth="180.0" layoutX="650.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (6).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="seven11" fitHeight="235.0" fitWidth="200.0" layoutX="650.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (7).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="eight11" fitHeight="235.0" fitWidth="200.0" layoutX="651.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (8).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="nine11" fitHeight="235.0" fitWidth="200.0" layoutX="651.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (9).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="ten11" fitHeight="235.0" fitWidth="200.0" layoutX="650.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (10).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="one111" fitHeight="235.0" fitWidth="180.0" layoutX="1026.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (1).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="two111" fitHeight="235.0" fitWidth="180.0" layoutX="1025.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (2).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="three111" fitHeight="235.0" fitWidth="180.0" layoutX="1026.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (3).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="four111" fitHeight="235.0" fitWidth="180.0" layoutX="1025.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (4).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="five111" fitHeight="235.0" fitWidth="180.0" layoutX="1026.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (5).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="six111" fitHeight="235.0" fitWidth="180.0" layoutX="1025.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (6).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="seven111" fitHeight="235.0" fitWidth="200.0" layoutX="1025.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (7).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="eight111" fitHeight="235.0" fitWidth="200.0" layoutX="1026.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (8).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="nine111" fitHeight="235.0" fitWidth="200.0" layoutX="1026.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (9).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="ten111" fitHeight="235.0" fitWidth="200.0" layoutX="1025.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@assets/Assistente (10).png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <Text fx:id="p1name" layoutX="650.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="P1 name:" wrappingWidth="233.33674240112305">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+      </Text>
+      <Text fx:id="p2name" layoutX="1025.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="P2 name:" visible="false" wrappingWidth="233.33674240112305">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+      </Text>
+      <Text layoutX="63.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You:" wrappingWidth="233.33674240112305">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

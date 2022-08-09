@@ -223,11 +223,14 @@ public class GameController {
             Assistant choice;
             //here we just skip that player if he is disconnected
             try {
+                new SwitcherMessage(game.isAdvanced(),
+                game.getTableOrder().stream().filter(pl->pl!=p.getPlayer()).toList()).sendAndCheck(p.getPlayerView());
                 choice = p.playAssistant(playedAssistants);
             }catch (DisconnectedException disconnected ) {continue;}
             playedAssistants.add(choice);
             Priorities.put(choice.getPriority(),p.getPlayer());
         }
+
         //The second part uses the Map to make a new currentOrder
         List<Player> newOrder = new ArrayList<>();
         int numRep = Priorities.values().size();

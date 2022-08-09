@@ -50,6 +50,13 @@ public class ServerApp {
         info.send(server.views);
         while (!game.isOver()) {
             gc.doPlanningPhase();
+            for (Player player : game.getTableOrder()){
+                PlayerController pc = gc.getControllers().get(game.getTableOrder().indexOf(player));
+                //  to update other players' school
+                List<Player> otherPlayers = new ArrayList<>(game.getTableOrder());
+                otherPlayers.remove(player);
+                new SwitcherMessage(game.isAdvanced(),otherPlayers).send(pc.getPlayerView());
+            }
             //main game loop. We will skip one player if they are disconnected
             for (Player player : game.getCurrentOrder()) {
                 try {
@@ -98,6 +105,7 @@ public class ServerApp {
                     break;
                 }
             }
+            game.getTableOrder().forEach(p->p.setCurrentAssistant(null));
             game.newRoundOrEnd();
         }
         List<Player> winners = game.getWinner();

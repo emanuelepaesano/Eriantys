@@ -15,8 +15,6 @@ public class SwitcherMessage extends Repliable{
     public SwitcherMessage(Boolean advanced, List<Player> players) {
         this.advanced = advanced;
         this.players = players;
-        text = "Which player's school do you want to see " +
-                "(Players: " + players + ") ?\n" + "To return to action selection, type '0' or 'back'";
     }
 
     @Override
@@ -24,7 +22,6 @@ public class SwitcherMessage extends Repliable{
         UIManager uim = UIManager.getUIManager();
         View switcherView = uim.getSwitcher();
         switcherView.fillInfo(this);
-        uim.getSwitcher().toSchool();
     }
 
     @Override

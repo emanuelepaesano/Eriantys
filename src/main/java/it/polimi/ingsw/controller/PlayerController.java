@@ -141,7 +141,7 @@ public class PlayerController {
         player.getAssistants().forEach((a,b)->{if(b){remass.add(a);}});
 
         while (true) {
-            new PlanningPhaseMessage(remass,playedAssistants,"play one of your remaining assistants: " ).send(playerView);
+            new PlanningPhaseMessage(remass,playedAssistants,"play one of your remaining assistants: " ).sendAndCheck(playerView);
             String input = playerView.getReply();
             try {
                 Assistant choice = Assistant.valueOf(input.toUpperCase());
@@ -149,6 +149,7 @@ public class PlayerController {
                     if (remass.contains(choice)) {
                         player.setCurrentAssistant(choice);
                         System.out.println("Current assistant for " + player.getPlayerName() + ": " + choice);
+                        new PlanningPhaseMessage(choice).sendAndCheck(playerView);
                         player.getAssistants().replace(choice, true, false);
                         return choice;
                     }

@@ -4,12 +4,14 @@ import it.polimi.ingsw.CLIENT.UIManager;
 import it.polimi.ingsw.CLIENT.View;
 import it.polimi.ingsw.messages.Message;
 import it.polimi.ingsw.messages.SwitcherMessage;
+import it.polimi.ingsw.model.Assistant;
 import it.polimi.ingsw.model.Player;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -74,6 +76,9 @@ public class Switcher implements View {
             player2.setVisible(false);
             OtherPlayerView p1View = (OtherPlayerView) uim.getP1SchoolView();
             p1View.fillInfoWithPlayer(this.players.get(0));
+            PlanningPhaseView assistantView = (PlanningPhaseView) uim.getPlanningPhaseView();
+            assistantView.p1name.setText(this.players.get(0).getPlayerName()+":");
+            bindP1(assistantView);
         } else {
             player1.setText(this.players.get(0).getPlayerName());
             player2.setText(this.players.get(1).getPlayerName());
@@ -81,8 +86,32 @@ public class Switcher implements View {
             player2.setVisible(true);
             OtherPlayerView p1View = (OtherPlayerView) uim.getP1SchoolView();
             OtherPlayerView p2View = (OtherPlayerView) uim.getP2SchoolView();
+            PlanningPhaseView assistantView = (PlanningPhaseView) uim.getPlanningPhaseView();
+            assistantView.p1name.setText(this.players.get(0).getPlayerName()+":");
+            assistantView.p2name.setVisible(true);
+            assistantView.p2name.setText(this.players.get(1).getPlayerName()+":");
             p1View.fillInfoWithPlayer(this.players.get(0));
+            bindP1(assistantView);
             p2View.fillInfoWithPlayer(this.players.get(1));
+            bindP2(assistantView);
+        }
+    }
+
+    public void bindP1(PlanningPhaseView assistantView) {
+        assistantView.p1Cards.forEach(img->img.setVisible(false));
+        Player p1 = this.players.get(0);
+        if (p1.getCurrentAssistant() != null){
+            ImageView toEnable = assistantView.p1Cards.get(assistantView.allAssistants.indexOf(p1.getCurrentAssistant()));
+            toEnable.setVisible(true);
+        }
+    }
+
+    public void bindP2(PlanningPhaseView assistantView) {
+        assistantView.p2Cards.forEach(img->img.setVisible(false));
+        Player p2 = this.players.get(0);
+        if (p2.getCurrentAssistant() != null){
+            ImageView toEnable = assistantView.p1Cards.get(assistantView.allAssistants.indexOf(p2.getCurrentAssistant()));
+            toEnable.setVisible(true);
         }
     }
 

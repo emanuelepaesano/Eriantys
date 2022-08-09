@@ -87,7 +87,7 @@ public class VirtualView {
      * reply field, and update the main thread.
      */
     private void startConnection() {
-        timeOut = new Timer(7000, onTimeout);
+        timeOut = new Timer(10000, onTimeout);
         timeOut.setRepeats(false);
         while (true){
             Message message;
