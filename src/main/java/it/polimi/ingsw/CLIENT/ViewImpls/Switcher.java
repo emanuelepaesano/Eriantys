@@ -108,9 +108,9 @@ public class Switcher implements View {
 
     public void bindP2(PlanningPhaseView assistantView) {
         assistantView.p2Cards.forEach(img->img.setVisible(false));
-        Player p2 = this.players.get(0);
+        Player p2 = this.players.get(1);
         if (p2.getCurrentAssistant() != null){
-            ImageView toEnable = assistantView.p1Cards.get(assistantView.allAssistants.indexOf(p2.getCurrentAssistant()));
+            ImageView toEnable = assistantView.p2Cards.get(assistantView.allAssistants.indexOf(p2.getCurrentAssistant()));
             toEnable.setVisible(true);
         }
     }
